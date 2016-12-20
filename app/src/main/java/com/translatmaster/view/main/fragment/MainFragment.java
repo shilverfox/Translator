@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.translatmaster.R;
+import com.translatmaster.app.BaseEvent;
 import com.translatmaster.app.BaseFragment;
 import com.translatmaster.utils.LogTools;
 import com.translatmaster.utils.ShowTools;
@@ -19,6 +20,9 @@ import com.translatmaster.utils.image.ImageLoader;
 import com.translatmaster.view.main.contact.MainContact;
 import com.translatmaster.view.main.modal.TranslatData;
 import com.translatmaster.view.main.presenter.MainPresenter;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,7 +44,6 @@ public class MainFragment extends BaseFragment implements MainContact.View {
     @BindView(R.id.imageView)
     ImageView mImageView;
 
-    private TranslatData mData;
     private View mRootView;
 
     /**  */
@@ -127,7 +130,7 @@ public class MainFragment extends BaseFragment implements MainContact.View {
      * Subscribe Event bus
      */
 //    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void onMessageEvent(MessageEvent event) {/* Do something */};
+//    public void onMessageEvent(BaseEvent event) {/* Do something */};
 
     /**
      * Post events: No need to register and unregister in every child (Activity, Fragment)
