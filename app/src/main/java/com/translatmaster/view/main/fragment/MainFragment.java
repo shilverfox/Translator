@@ -130,7 +130,7 @@ public class MainFragment extends BaseFragment implements MainContact.View {
 //    public void onMessageEvent(MessageEvent event) {/* Do something */};
 
     /**
-     * Post events:
+     * Post events: No need to register and unregister in every child (Activity, Fragment)
      */
 //    EventBus.getDefault().post(new MessageEvent());
 }
