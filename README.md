@@ -5,3 +5,4 @@ okhttp3
 gson
 butterknife
 glide
+event-bus

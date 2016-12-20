@@ -121,4 +121,16 @@ public class MainFragment extends BaseFragment implements MainContact.View {
             ShowTools.toast(mContext.getResources().getString(R.string.main_alert_content_is_null));
         }
     }
+
+
+    /**
+     * Subscribe Event bus
+     */
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onMessageEvent(MessageEvent event) {/* Do something */};
+
+    /**
+     * Post events:
+     */
+//    EventBus.getDefault().post(new MessageEvent());
 }
