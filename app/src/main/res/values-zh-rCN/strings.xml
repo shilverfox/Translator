@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TranslatMaster</string>
+
+    <string name="main_btn_translate">翻译</string>
+    <string name="main_edt_hint_source">输入要翻译的内容</string>
+    <string name="main_alert_content_is_null">输入要翻译的内容</string>
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TranslatMaster</string>
+
+    <string name="main_btn_translate">Translate</string>
+    <string name="main_edt_hint_source">Input what you want to translate!</string>
+    <string name="main_alert_content_is_null">Content can not be null</string>
+</resources>
