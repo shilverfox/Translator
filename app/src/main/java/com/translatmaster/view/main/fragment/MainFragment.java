@@ -119,6 +119,7 @@ public class MainFragment extends BaseFragment implements MainContact.View {
             }
         } else {
             ShowTools.toast(mContext.getResources().getString(R.string.main_alert_content_is_null));
+            ShowTools.toast(mContext.getResources().getString(R.string.main_alert_content_is_null));
         }
     }
 
@@ -132,5 +133,5 @@ public class MainFragment extends BaseFragment implements MainContact.View {
     /**
      * Post events: No need to register and unregister in every child (Activity, Fragment)
      */
-//    EventBus.getDefault().post(new MessageEvent()); 
+//    EventBus.getDefault().post(new MessageEvent());
 }
