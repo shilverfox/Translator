@@ -119,7 +119,6 @@ public class MainFragment extends BaseFragment implements MainContact.View {
             }
         } else {
             ShowTools.toast(mContext.getResources().getString(R.string.main_alert_content_is_null));
-            ShowTools.toast(mContext.getResources().getString(R.string.main_alert_content_is_null));
         }
     }
 
