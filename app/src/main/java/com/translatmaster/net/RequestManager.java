@@ -2,6 +2,8 @@ package com.translatmaster.net;
 
 import android.text.TextUtils;
 
+import com.translatmaster.data.ConstData;
+
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -45,5 +47,41 @@ public class RequestManager {
                 }
             });
         }
+    }
+
+    /**
+     * Using for RxJava
+     *
+     * @param appRequest
+     * @return
+     */
+    public static BaseResponse setRequestForRx(BaseRequestEntity appRequest) {
+        BaseResponse baseResponse = new BaseResponse();
+
+        if (appRequest != null && !TextUtils.isEmpty(appRequest.getUrl())) {
+            Response response = null;
+            OkHttpClient okHttpClient = new OkHttpClient();
+            Request request = new Request.Builder().url(appRequest.getUrl()).get().build();
+
+            try {
+                response = okHttpClient.newCall(request).execute();
+
+                if (response != null && response.isSuccessful()) {
+                    baseResponse.setSuccessful(true);
+                    baseResponse.setContent(response.body().string());
+                } else {
+                    baseResponse.setSuccessful(true);
+                    baseResponse.setContent(response.body().string());
+                }
+            } catch (IOException e) {
+                baseResponse.setSuccessful(false);
+                baseResponse.setContent(ConstData.DEFAULT_NET_ERROR);
+            }
+        } else {
+            baseResponse.setSuccessful(false);
+            baseResponse.setContent(ConstData.DEFAULT_NET_ERROR);
+        }
+
+        return baseResponse;
     }
 }

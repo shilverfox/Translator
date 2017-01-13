@@ -10,4 +10,6 @@ public class ConstData {
 
     /** Base url */
     public final static String GOOGLE_TRANS_URL = "https://www.googleapis.com/language/translate/v2?";
+
+    public final static String DEFAULT_NET_ERROR = "NET ERROR";
 }

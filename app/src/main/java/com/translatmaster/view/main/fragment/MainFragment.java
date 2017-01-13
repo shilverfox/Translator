@@ -102,14 +102,15 @@ public class MainFragment extends BaseFragment implements MainContact.View {
         }
 
         // Update UI
-        if (data != null) {
-            MainFragment.this.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mTextView.setText(mTransResult + "");
-                }
-            });
-        }
+        mTextView.setText(mTransResult + "");
+//        if (data != null) {
+//            MainFragment.this.getActivity().runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    mTextView.setText(mTransResult + "");
+//                }
+//            });
+//        }
     }
 
     @OnClick(R.id.button)
