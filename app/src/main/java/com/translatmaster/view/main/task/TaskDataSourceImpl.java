@@ -3,10 +3,11 @@ package com.translatmaster.view.main.task;
 import com.translatmaster.data.ConstData;
 import com.translatmaster.data.HttpRequestPool;
 import com.translatmaster.net.BaseResponse;
-import com.translatmaster.net.IBaseRequestCallback;
 import com.translatmaster.net.RequestManager;
 
 /**
+ * Http request
+ *
  * Created by lijian15 on 2017/1/13.
  */
 

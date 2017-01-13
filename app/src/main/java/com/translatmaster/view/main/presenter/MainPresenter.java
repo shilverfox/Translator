@@ -55,10 +55,10 @@ public class MainPresenter implements MainContact.Presenter {
         Action1 viewAction = new Action1<BaseResponse>() {
 
             @Override
-            public void call(BaseResponse s) {
+            public void call(BaseResponse response) {
                 // You can handle both cases for succeed and failure
-                if (mView != null && s != null) {
-                    mView.drawTranslatResult(s.getContent());
+                if (mView != null && response != null) {
+                    mView.drawTranslatResult(response.getContent());
                 }
             }
         };

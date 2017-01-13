@@ -3,6 +3,8 @@ package com.translatmaster.view.main.task;
 import com.translatmaster.net.BaseResponse;
 
 /**
+ * Http request for testing
+ *
  * Created by lijian15 on 2017/1/13.
  */
 
