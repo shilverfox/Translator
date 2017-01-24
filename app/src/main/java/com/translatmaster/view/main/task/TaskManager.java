@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.translatmaster.net.BaseResponse;
 
 /**
- * Manage that how to get data form local or net.
+ * Manage that how to get data from local or net.
  *
  * Created by lijian15 on 2017/1/13.
  */
