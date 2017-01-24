@@ -16,6 +16,6 @@ public class MainContact {
         void start();
 
         /** Send request to Google API */
-        void requestTranslate(String content);
+        void requestTranslate(String content, String src, String dest);
     }
 }

@@ -13,8 +13,8 @@ import com.translatmaster.net.RequestManager;
 
 public class TaskDataSourceImpl implements TaskDataSource {
     @Override
-    public BaseResponse requestTranslate(String content) {
-        String url = ConstData.GOOGLE_TRANS_URL + paramToUrl(content);
+    public BaseResponse requestTranslate(String content, String src, String dest) {
+        String url = ConstData.GOOGLE_TRANS_URL + paramToUrl(content, src, dest);
 
         return RequestManager.setRequestForRx(HttpRequestPool.getTranslateResult(url));
     }
@@ -26,10 +26,10 @@ public class TaskDataSourceImpl implements TaskDataSource {
      * @param content string that need to be translated
      * @return
      */
-    private String paramToUrl(String content) {
+    private String paramToUrl(String content, String src, String dest) {
         StringBuilder mParams = new StringBuilder();
         mParams.append("q=").append(content).append("&");
-        mParams.append("target=").append("zh").append("&");
+        mParams.append("target=").append(dest).append("&");
         mParams.append("format=").append("text").append("&");
         mParams.append("source=").append("en").append("&");
         mParams.append("key=").append(ConstData.GOOTLE_APP_KEY);

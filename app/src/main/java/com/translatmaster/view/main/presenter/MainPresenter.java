@@ -39,11 +39,11 @@ public class MainPresenter implements MainContact.Presenter {
      * @param content string that need to be translated
      */
     @Override
-    public void requestTranslate(final String content) {
+    public void requestTranslate(final String content, final String src, final String dest) {
         Func1 dataAction = new Func1() {
             @Override
             public Object call(Object o) {
-                return mTaskManager.requestTranslate(content);
+                return mTaskManager.requestTranslate(content, src, dest);
             }
         };
 

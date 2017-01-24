@@ -17,9 +17,9 @@ public class TaskManager {
         mTaskDataSource = dataSource;
     }
 
-    public BaseResponse requestTranslate(String content) {
+    public BaseResponse requestTranslate(String content, String src, String dest) {
         if (mTaskDataSource != null && !TextUtils.isEmpty(content)) {
-            return mTaskDataSource.requestTranslate(content);
+            return mTaskDataSource.requestTranslate(content, src, dest);
         }
 
         return null;

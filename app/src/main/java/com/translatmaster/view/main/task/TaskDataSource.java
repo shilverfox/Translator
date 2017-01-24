@@ -7,5 +7,5 @@ import com.translatmaster.net.BaseResponse;
  */
 
 public interface TaskDataSource {
-    BaseResponse requestTranslate(String content);
+    BaseResponse requestTranslate(String content, String src, String dest);
 }

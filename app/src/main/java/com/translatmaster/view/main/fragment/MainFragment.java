@@ -5,14 +5,16 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.translatmaster.R;
-import com.translatmaster.app.BaseEvent;
 import com.translatmaster.app.BaseFragment;
 import com.translatmaster.utils.LogTools;
 import com.translatmaster.utils.ShowTools;
@@ -20,9 +22,6 @@ import com.translatmaster.utils.image.ImageLoader;
 import com.translatmaster.view.main.contact.MainContact;
 import com.translatmaster.view.main.modal.TranslatData;
 import com.translatmaster.view.main.presenter.MainPresenter;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,8 +42,13 @@ public class MainFragment extends BaseFragment implements MainContact.View {
     Button mButton;
     @BindView(R.id.imageView)
     ImageView mImageView;
+    @BindView(R.id.spn_main_des_language)
+    Spinner mSpnMainDesLanguage;
 
     private View mRootView;
+
+    /** Which language needs to be translated */
+    private String mDestLanguage;
 
     /**  */
     private String mTransResult;
@@ -78,7 +82,22 @@ public class MainFragment extends BaseFragment implements MainContact.View {
      * Draw views in here
      */
     private void initViews() {
-        ImageLoader.displayImage("http://t12.baidu.com/it/u=2700338006,3993069872&fm=76",  mImageView);
+        ImageLoader.displayImage("http://t12.baidu.com/it/u=2700338006,3993069872&fm=76", mImageView);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mContext,
+                R.array.dest_trans_language, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpnMainDesLanguage.setAdapter(adapter);
+        mSpnMainDesLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mDestLanguage = mSpnMainDesLanguage.getAdapter().getItem(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     /**
@@ -103,14 +122,6 @@ public class MainFragment extends BaseFragment implements MainContact.View {
 
         // Update UI
         mTextView.setText(mTransResult + "");
-//        if (data != null) {
-//            MainFragment.this.getActivity().runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mTextView.setText(mTransResult + "");
-//                }
-//            });
-//        }
     }
 
     @OnClick(R.id.button)
@@ -119,7 +130,7 @@ public class MainFragment extends BaseFragment implements MainContact.View {
 
         if (!TextUtils.isEmpty(content)) {
             if (mPresenter != null) {
-                mPresenter.requestTranslate(content);
+                mPresenter.requestTranslate(content, "", mDestLanguage);
             }
         } else {
             ShowTools.toast(mContext.getResources().getString(R.string.main_alert_content_is_null));

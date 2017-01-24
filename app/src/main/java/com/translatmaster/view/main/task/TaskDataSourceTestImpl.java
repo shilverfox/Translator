@@ -10,7 +10,7 @@ import com.translatmaster.net.BaseResponse;
 
 public class TaskDataSourceTestImpl implements TaskDataSource {
     @Override
-    public BaseResponse requestTranslate(String content) {
+    public BaseResponse requestTranslate(String content, String src, String dest) {
         return null;
     }
 }
