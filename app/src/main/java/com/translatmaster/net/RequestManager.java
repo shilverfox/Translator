@@ -5,11 +5,16 @@ import android.text.TextUtils;
 import com.translatmaster.data.ConstData;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -61,7 +66,38 @@ public class RequestManager {
         if (appRequest != null && !TextUtils.isEmpty(appRequest.getUrl())) {
             Response response = null;
             OkHttpClient okHttpClient = new OkHttpClient();
-            Request request = new Request.Builder().url(appRequest.getUrl()).get().build();
+
+
+            BaseBody baseBody = appRequest.getBaseBody();
+            Request.Builder builder =  new Request.Builder();
+            if (appRequest.getMethod() == RequestConst.REQUEST_POST) {
+                // Http post
+                FormBody.Builder bodyBuilder = new FormBody.Builder();
+
+                if (baseBody != null) {
+                    HashMap<String, String> bodys = baseBody.getMapBody();
+                    if (bodys != null) {
+                        Iterator<Map.Entry<String, String>> it = bodys.entrySet().iterator();
+                        while (it.hasNext()) {
+                            Map.Entry<String, String> entry = it.next();
+                            bodyBuilder.add(entry.getKey(), entry.getValue());
+                        }
+                    }
+
+                    RequestBody formBody = bodyBuilder.build();
+
+                    builder.url(appRequest.getUrl());
+                    builder.post(formBody);
+                }
+            } else {
+                // Http get
+                if (baseBody != null) {
+                    builder.url(appRequest.getUrl() + baseBody.getStringBody());
+                }
+                builder.get();
+            }
+
+            Request request = builder.build();
 
             try {
                 response = okHttpClient.newCall(request).execute();
