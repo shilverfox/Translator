@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,7 +40,7 @@ public class MainFragment extends BaseFragment implements MainContact.View {
     @BindView(R.id.editText)
     EditText mEditText;
     @BindView(R.id.button)
-    Button mButton;
+    ImageButton mButton;
     @BindView(R.id.imageView)
     ImageView mImageView;
     @BindView(R.id.spn_main_des_language)
@@ -70,7 +71,7 @@ public class MainFragment extends BaseFragment implements MainContact.View {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
-        mRootView = inflater.inflate(R.layout.fragment_main, null, false);
+        mRootView = inflater.inflate(R.layout.new_frag_main, null, false);
         ButterKnife.bind(this, mRootView);
         createPresenter();
         initViews();
@@ -82,7 +83,7 @@ public class MainFragment extends BaseFragment implements MainContact.View {
      * Draw views in here
      */
     private void initViews() {
-        ImageLoader.displayImage("http://t12.baidu.com/it/u=2700338006,3993069872&fm=76", mImageView);
+        ImageLoader.displayImage("https://i.stack.imgur.com/P6kbv.png", mImageView);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mContext,
                 R.array.dest_trans_language, android.R.layout.simple_spinner_item);
