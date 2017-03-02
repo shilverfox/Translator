@@ -1,6 +1,5 @@
 package com.translatmaster.utils.image;
 
-import android.content.Context;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
@@ -8,7 +7,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.translatmaster.app.MainApplication;
+import com.translatmaster.app.MainApplicationLike;
 
 /**
  * Handle showing and loading of images.
@@ -28,7 +27,7 @@ public class ImageLoader {
             return;
         }
 
-        Glide.with(MainApplication.getAppContext())
+        Glide.with(MainApplicationLike.getAppContext())
                 .load(url)
                 .into(imgView);
     }
@@ -44,7 +43,7 @@ public class ImageLoader {
             return;
         }
 
-        Glide.with(MainApplication.getAppContext())
+        Glide.with(MainApplicationLike.getAppContext())
                 .load(url)
                 .into(new SimpleTarget<GlideDrawable>() {
                     @Override

@@ -33,6 +33,26 @@
         android:layout_marginTop="28dp"
         android:id="@+id/button"/>
 
+    <Button
+        android:text="@string/main_btn_hot_fix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="28dp"
+        android:id="@+id/button2"/>
+
+    <Button
+        android:text="verify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="28dp"
+        android:id="@+id/button3"/>
+
     <Spinner
         android:id="@+id/spn_main_des_language"
         android:layout_width="wrap_content"

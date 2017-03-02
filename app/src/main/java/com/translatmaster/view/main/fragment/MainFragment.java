@@ -1,6 +1,7 @@
 package com.translatmaster.view.main.fragment;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,14 +15,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.tencent.tinker.lib.tinker.TinkerInstaller;
 import com.translatmaster.R;
 import com.translatmaster.app.BaseFragment;
+import com.translatmaster.app.MainApplication;
+import com.translatmaster.app.MainApplicationLike;
 import com.translatmaster.utils.LogTools;
 import com.translatmaster.utils.ShowTools;
 import com.translatmaster.utils.image.ImageLoader;
 import com.translatmaster.view.main.contact.MainContact;
 import com.translatmaster.view.main.modal.TranslatData;
 import com.translatmaster.view.main.presenter.MainPresenter;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +46,10 @@ public class MainFragment extends BaseFragment implements MainContact.View {
     EditText mEditText;
     @BindView(R.id.button)
     Button mButton;
+    @BindView(R.id.button2)
+    Button mButton2;
+    @BindView(R.id.button3)
+    Button mButton3;
     @BindView(R.id.imageView)
     ImageView mImageView;
     @BindView(R.id.spn_main_des_language)
@@ -135,6 +145,23 @@ public class MainFragment extends BaseFragment implements MainContact.View {
         } else {
             ShowTools.toast(mContext.getResources().getString(R.string.main_alert_content_is_null));
         }
+    }
+
+    @OnClick(R.id.button2)
+    public void onBtnHotFixClick() {
+        String patchPath  = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tinkersample/patch_signed_7zip.apk";
+        File file = new File(patchPath);
+        if (file.exists()) {
+            ShowTools.toast("Found patch file!");
+            TinkerInstaller.onReceiveUpgradePatch(MainApplicationLike.getAppContext(), patchPath);
+        } else {
+            ShowTools.toast("No patch file!!!");
+        }
+    }
+
+    @OnClick(R.id.button3)
+    public void onBtnVerifyClick() {
+        ShowTools.toast("I am here!!!!");
     }
 
 
