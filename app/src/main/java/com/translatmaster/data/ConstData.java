@@ -11,5 +11,9 @@ public class ConstData {
     /** Base url */
     public final static String GOOGLE_TRANS_URL = "https://www.googleapis.com/language/translate/v2?";
 
+    /** Url for patch of hot-fix */
+    public final static String HOT_PATCH_URL = "http://storage.jd.com/wxapp/patch_signed_7zip.apk";
+    public final static String PATCH_NAME_IN_SD = "patch_signed_7zip.apk";
+
     public final static String DEFAULT_NET_ERROR = "NET ERROR";
 }

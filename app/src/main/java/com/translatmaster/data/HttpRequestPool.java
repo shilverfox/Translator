@@ -36,6 +36,19 @@ public class HttpRequestPool {
     }
 
     /**
+     * Download the patch
+     *
+     * @return
+     */
+    public static BaseRequestEntity getHotFixPatch() {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOT_PATCH_URL);
+        baseRequest.setmNeedByteData(true);
+
+        return baseRequest;
+    }
+
+    /**
      * Just for testing
      *
      * @param url

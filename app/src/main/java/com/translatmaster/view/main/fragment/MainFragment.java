@@ -20,6 +20,10 @@ import com.translatmaster.R;
 import com.translatmaster.app.BaseFragment;
 import com.translatmaster.app.MainApplication;
 import com.translatmaster.app.MainApplicationLike;
+import com.translatmaster.data.HttpRequestPool;
+import com.translatmaster.hotfix.HotFixHelper;
+import com.translatmaster.net.BaseResponse;
+import com.translatmaster.net.RequestManager;
 import com.translatmaster.utils.LogTools;
 import com.translatmaster.utils.ShowTools;
 import com.translatmaster.utils.image.ImageLoader;
@@ -85,6 +89,8 @@ public class MainFragment extends BaseFragment implements MainContact.View {
         createPresenter();
         initViews();
 
+        HotFixHelper.checkHotFix();
+
         return mRootView;
     }
 
@@ -149,7 +155,7 @@ public class MainFragment extends BaseFragment implements MainContact.View {
 
     @OnClick(R.id.button2)
     public void onBtnHotFixClick() {
-        String patchPath  = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tinkersample/patch_signed_7zip.apk";
+        String patchPath  = Environment.getExternalStorageDirectory().getAbsolutePath() + "/patch_signed_7zip.apk";
         File file = new File(patchPath);
         if (file.exists()) {
             ShowTools.toast("Found patch file!");

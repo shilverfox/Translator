@@ -13,7 +13,7 @@ set PATH=%ANDROID_HOME%\platform-tools;%PATH%
 .\gradlew tinkerPatchRelease
 
 
-adb push F:\workshop\Translator\app\build\outputs\tinkerPatch\debug\patch_signed_7zip.apk /storage/emulated/0/tinkersample/patch_signed_7zip.apk
+adb push F:\workshop\Translator\app\build\outputs\tinkerPatch\debug\patch_signed_7zip.apk /storage/emulated/0/patch_signed_7zip.apk
 
 
 adb push F:\srouce\tinker-master\tinker-sample-android\app\build\outputs\tinkerPatch\debug\patch_signed_7zip.apk /storage/emulated/0/patch_signed_7zip.apk

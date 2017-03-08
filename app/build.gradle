@@ -68,13 +68,13 @@ android {
         }
     }
 
-    // 
+    //
     defaultConfig {
         applicationId "com.translatmaster"
         minSdkVersion 10
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         // =============== For Tinker ==========================
@@ -142,11 +142,11 @@ ext {
 
     //for normal build
     //old apk file to build patch apk
-    tinkerOldApkPath = "${bakPath}/app-debug-0302-15-40-29.apk"
+    tinkerOldApkPath = "${bakPath}/app-debug-0308-16-32-49.apk"
     //proguard mapping file to build patch apk
     tinkerApplyMappingPath = "${bakPath}/app-debug-1018-17-32-47-mapping.txt"
     //resource R.txt to build patch apk, must input if there is resource changed
-    tinkerApplyResourcePath = "${bakPath}/app-debug-0302-15-40-29-R.txt"
+    tinkerApplyResourcePath = "${bakPath}/app-debug-0308-16-32-49-R.txt"
 
     //only use for build all flavor, if not, just ignore this field
     tinkerBuildFlavorDirectory = "${bakPath}/app-1018-17-32-47"

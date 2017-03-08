@@ -93,7 +93,10 @@ public class RequestManager {
                 // Http get
                 if (baseBody != null) {
                     builder.url(appRequest.getUrl() + baseBody.getStringBody());
+                } else {
+                    builder.url(appRequest.getUrl());
                 }
+
                 builder.get();
             }
 
@@ -104,10 +107,17 @@ public class RequestManager {
 
                 if (response != null && response.isSuccessful()) {
                     baseResponse.setSuccessful(true);
-                    baseResponse.setContent(response.body().string());
+
+                    // Save content as String or byte[]
+                    if (appRequest.ismNeedByteData()) {
+                        baseResponse.setByteData(response.body().bytes());
+//                        baseResponse.setByteStream(response.body().byteStream());
+                    } else {
+                        baseResponse.setContent(response.body().string());
+                    }
                 } else {
-                    baseResponse.setSuccessful(true);
-                    baseResponse.setContent(response.body().string());
+                    baseResponse.setSuccessful(false);
+                    baseResponse.setContent(ConstData.DEFAULT_NET_ERROR);
                 }
             } catch (IOException e) {
                 baseResponse.setSuccessful(false);

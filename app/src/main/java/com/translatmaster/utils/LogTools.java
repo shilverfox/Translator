@@ -13,4 +13,10 @@ public class LogTools {
             Log.e(tag, message);
         }
     }
+
+    public static void e(String message) {
+        if ( !TextUtils.isEmpty(message)) {
+            Log.e("LogTools", message);
+        }
+    }
 }

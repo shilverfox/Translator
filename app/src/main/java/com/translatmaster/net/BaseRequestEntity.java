@@ -11,6 +11,17 @@ public class BaseRequestEntity {
     private int mMethod;
     private BaseBody mBaseBody;
 
+    /** The data that could be downloaded, such as some files. */
+    private boolean mNeedByteData;
+
+    public boolean ismNeedByteData() {
+        return mNeedByteData;
+    }
+
+    public void setmNeedByteData(boolean mNeedByteData) {
+        this.mNeedByteData = mNeedByteData;
+    }
+
     public BaseBody getBaseBody() {
         return mBaseBody;
     }
