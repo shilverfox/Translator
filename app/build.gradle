@@ -118,15 +118,18 @@ android {
 
 // ================================= For Tinker ===============================
 def gitSha() {
-    try {
-        String gitRev = 'git rev-parse --short HEAD'.execute(null, project.rootDir).text.trim()
-        if (gitRev == null) {
-            throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
-        }
-        return gitRev
-    } catch (Exception e) {
-        throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
-    }
+//    try {
+//        String gitRev = 'git rev-parse --short HEAD'.execute(null, project.rootDir).text.trim()
+//        if (gitRev == null) {
+//            throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
+//        }
+//        return gitRev
+//    } catch (Exception e) {
+//        throw new GradleException("can't get git rev, you should add git to system path or just input test value, such as 'testTinkerId'")
+//    }
+
+    // Make the versionCode to be the identify id of patch. Add by Li Jian
+    return project.android.defaultConfig.versionCode
 }
 
 def bakPath = file("${buildDir}/bakApk/")
@@ -142,11 +145,11 @@ ext {
 
     //for normal build
     //old apk file to build patch apk
-    tinkerOldApkPath = "${bakPath}/app-debug-0308-16-32-49.apk"
+    tinkerOldApkPath = "${bakPath}/app-debug-0309-16-41-24.apk"
     //proguard mapping file to build patch apk
     tinkerApplyMappingPath = "${bakPath}/app-debug-1018-17-32-47-mapping.txt"
     //resource R.txt to build patch apk, must input if there is resource changed
-    tinkerApplyResourcePath = "${bakPath}/app-debug-0308-16-32-49-R.txt"
+    tinkerApplyResourcePath = "${bakPath}/app-debug-0309-16-41-24-R.txt"
 
     //only use for build all flavor, if not, just ignore this field
     tinkerBuildFlavorDirectory = "${bakPath}/app-1018-17-32-47"
@@ -169,7 +172,9 @@ def getTinkerIdValue() {
 //    return hasProperty("TINKER_ID") ? TINKER_ID : gitSha()
 
     // Since there is not a tinkerId for using, just assign a value for testing. Add by Li Jian
-    return "testTinkerId"
+//    return "testTinkerId"
+
+    return gitSha()
 }
 
 def buildWithTinker() {
