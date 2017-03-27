@@ -38,7 +38,7 @@ def javaVersion = JavaVersion.VERSION_1_7
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion '25.0.0'
 
     compileOptions {
         sourceCompatibility javaVersion
