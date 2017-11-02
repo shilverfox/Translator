@@ -14,7 +14,7 @@ public class BaseRequestEntity {
     /** The data that could be downloaded, such as some files. */
     private boolean mNeedByteData;
 
-    public boolean ismNeedByteData() {
+    public boolean needByteData() {
         return mNeedByteData;
     }
 

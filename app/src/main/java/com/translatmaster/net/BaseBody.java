@@ -34,7 +34,7 @@ public class BaseBody {
             Iterator<Map.Entry<String, String>> it = mData.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry<String, String> entry = it.next();
-                mParams.append(entry.getKey()).append(entry.getValue()).append("&");
+                mParams.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
             }
 
             return mParams.toString();

@@ -123,7 +123,8 @@ public class MainFragment extends BaseFragment implements MainContact.View {
         try {
             data = gson.fromJson(content, TranslatData.class);
         } catch (Exception e) {
-            LogTools.e(TAG, e + "");
+            mTransResult = e + "";
+            LogTools.e(TAG, mTransResult);
         }
 
         if (data != null && data.getData() != null && data.getData().getTranslations() != null

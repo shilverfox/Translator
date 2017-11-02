@@ -24,11 +24,30 @@ public class HttpRequestPool {
         baseRequest.setUrl(ConstData.GOOGLE_TRANS_URL);
 
         BaseBody body = new BaseBody();
-        body.add("q=", content);
-        body.add("target=", dest);
-        body.add("format=", "text");
-        body.add("source=", "en");
-        body.add("key=", ConstData.GOOTLE_APP_KEY);
+        body.add("q", content);
+        body.add("target", dest);
+        body.add("format", "text");
+        body.add("source", "en");
+        body.add("key", ConstData.GOOTLE_APP_KEY);
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
+    public static BaseRequestEntity getTestEntity() {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl("http://testgw.o2o.jd.com/client?");
+
+        BaseBody body = new BaseBody();
+        body.add("city_id", "1930");
+        body.add("deviceId", "5d56134c146fc3b6923c2e66dd774175");
+        body.add("networkType", "WIFI");
+        body.add("screen", "2392*1440");
+        body.add("functionId", "addresspdj/getAddressList");
+        body.add("appName", "Paidaojia");
+        body.add("signKey", "e30d48a05849463873b87f709a534134");
+
 
         baseRequest.setBaseBody(body);
 

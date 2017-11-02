@@ -54,6 +54,96 @@ public class RequestManager {
         }
     }
 
+    private static Request.Builder getPostRequestBuilder(String baseUrl, BaseBody baseBody) {
+        Request.Builder builder =  new Request.Builder();
+
+        if (baseBody != null && !TextUtils.isEmpty(baseUrl)) {
+            FormBody.Builder bodyBuilder = new FormBody.Builder();
+
+            if (baseBody != null) {
+                HashMap<String, String> bodys = baseBody.getMapBody();
+                if (bodys != null) {
+                    Iterator<Map.Entry<String, String>> it = bodys.entrySet().iterator();
+                    while (it.hasNext()) {
+                        Map.Entry<String, String> entry = it.next();
+                        bodyBuilder.add(entry.getKey(), entry.getValue());
+                    }
+                }
+
+                RequestBody formBody = bodyBuilder.build();
+
+                builder.url(baseUrl);
+                builder.post(formBody);
+            }
+        }
+
+        return builder;
+    }
+
+    private static Request.Builder getGetRequestBuilder(String baseUrl, BaseBody baseBody) {
+        Request.Builder builder =  new Request.Builder();
+
+        if (!TextUtils.isEmpty(baseUrl)) {
+            if (baseBody != null) {
+                builder.url(baseUrl + baseBody.getStringBody());
+            } else {
+                builder.url(baseUrl);
+            }
+
+            builder.get();
+        }
+
+        return builder;
+    }
+
+    private static void handleHttpRequest(Request request, BaseResponse baseResponse, boolean needByteData) {
+        Response response = null;
+        OkHttpClient okHttpClient = new OkHttpClient();
+
+        try {
+            response = okHttpClient.newCall(request).execute();
+
+            if (response != null && response.isSuccessful()) {
+                handleSuccessful(response, baseResponse, needByteData);
+            } else {
+                handleDataError(baseResponse);
+            }
+        } catch (IOException e) {
+            handleNetError(baseResponse);
+        }
+    }
+
+    private static void handleSuccessful(Response response, BaseResponse baseResponse, boolean needByteData) {
+        if (response != null && baseResponse != null) {
+            baseResponse.setSuccessful(true);
+
+            // Save content as String or byte[]
+            try {
+                if (needByteData) {
+                    baseResponse.setByteData(response.body().bytes());
+                } else {
+                    baseResponse.setContent(response.body().string());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void handleNetError(BaseResponse baseResponse) {
+        if (baseResponse != null) {
+            baseResponse.setSuccessful(false);
+            baseResponse.setContent(ConstData.DEFAULT_NET_ERROR);
+        }
+    }
+
+    private static void handleDataError(BaseResponse baseResponse) {
+        if (baseResponse != null) {
+            baseResponse.setSuccessful(false);
+            baseResponse.setContent(ConstData.DEFAULT_NET_ERROR);
+        }
+    }
+
     /**
      * Using for RxJava
      *
@@ -64,68 +154,17 @@ public class RequestManager {
         BaseResponse baseResponse = new BaseResponse();
 
         if (appRequest != null && !TextUtils.isEmpty(appRequest.getUrl())) {
-            Response response = null;
-            OkHttpClient okHttpClient = new OkHttpClient();
+            Request.Builder builder = null;
 
-
-            BaseBody baseBody = appRequest.getBaseBody();
-            Request.Builder builder =  new Request.Builder();
             if (appRequest.getMethod() == RequestConst.REQUEST_POST) {
                 // Http post
-                FormBody.Builder bodyBuilder = new FormBody.Builder();
-
-                if (baseBody != null) {
-                    HashMap<String, String> bodys = baseBody.getMapBody();
-                    if (bodys != null) {
-                        Iterator<Map.Entry<String, String>> it = bodys.entrySet().iterator();
-                        while (it.hasNext()) {
-                            Map.Entry<String, String> entry = it.next();
-                            bodyBuilder.add(entry.getKey(), entry.getValue());
-                        }
-                    }
-
-                    RequestBody formBody = bodyBuilder.build();
-
-                    builder.url(appRequest.getUrl());
-                    builder.post(formBody);
-                }
+                builder = getPostRequestBuilder(appRequest.getUrl(), appRequest.getBaseBody());
             } else {
                 // Http get
-                if (baseBody != null) {
-                    builder.url(appRequest.getUrl() + baseBody.getStringBody());
-                } else {
-                    builder.url(appRequest.getUrl());
-                }
-
-                builder.get();
+                builder = getGetRequestBuilder(appRequest.getUrl(), appRequest.getBaseBody());
             }
 
-            Request request = builder.build();
-
-            try {
-                response = okHttpClient.newCall(request).execute();
-
-                if (response != null && response.isSuccessful()) {
-                    baseResponse.setSuccessful(true);
-
-                    // Save content as String or byte[]
-                    if (appRequest.ismNeedByteData()) {
-                        baseResponse.setByteData(response.body().bytes());
-//                        baseResponse.setByteStream(response.body().byteStream());
-                    } else {
-                        baseResponse.setContent(response.body().string());
-                    }
-                } else {
-                    baseResponse.setSuccessful(false);
-                    baseResponse.setContent(ConstData.DEFAULT_NET_ERROR);
-                }
-            } catch (IOException e) {
-                baseResponse.setSuccessful(false);
-                baseResponse.setContent(ConstData.DEFAULT_NET_ERROR);
-            }
-        } else {
-            baseResponse.setSuccessful(false);
-            baseResponse.setContent(ConstData.DEFAULT_NET_ERROR);
+            handleHttpRequest(builder.build(), baseResponse, appRequest.needByteData());
         }
 
         return baseResponse;
