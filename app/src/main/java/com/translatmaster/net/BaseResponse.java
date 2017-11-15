@@ -61,25 +61,20 @@ public class BaseResponse {
                 baos.write(buf, 0, len);
             }
             baos.flush();
-
             baos.write(mByteData);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                if (baos != null) {
-                    baos.close();
-                }
+                baos.close();
             } catch (IOException e) {
-
+                e.printStackTrace();
             }
 
             try {
-                if (is != null) {
-                    is.close();
-                }
+                is.close();
             } catch (IOException e) {
-
+                e.printStackTrace();
             }
         }
     }

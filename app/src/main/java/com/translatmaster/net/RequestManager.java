@@ -60,21 +60,19 @@ public class RequestManager {
         if (baseBody != null && !TextUtils.isEmpty(baseUrl)) {
             FormBody.Builder bodyBuilder = new FormBody.Builder();
 
-            if (baseBody != null) {
-                HashMap<String, String> bodys = baseBody.getMapBody();
-                if (bodys != null) {
-                    Iterator<Map.Entry<String, String>> it = bodys.entrySet().iterator();
-                    while (it.hasNext()) {
-                        Map.Entry<String, String> entry = it.next();
-                        bodyBuilder.add(entry.getKey(), entry.getValue());
-                    }
+            HashMap<String, String> bodys = baseBody.getMapBody();
+            if (bodys != null) {
+                Iterator<Map.Entry<String, String>> it = bodys.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry<String, String> entry = it.next();
+                    bodyBuilder.add(entry.getKey(), entry.getValue());
                 }
-
-                RequestBody formBody = bodyBuilder.build();
-
-                builder.url(baseUrl);
-                builder.post(formBody);
             }
+
+            RequestBody formBody = bodyBuilder.build();
+
+            builder.url(baseUrl);
+            builder.post(formBody);
         }
 
         return builder;
