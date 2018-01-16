@@ -1,9 +1,8 @@
 package com.translatmaster.view.main.presenter;
 
-import com.translatmaster.net.BaseResponse;
+import com.app.domain.net.repository.BaseDominData;
+import com.app.domain.net.repository.TaskManager;
 import com.translatmaster.view.main.contact.MainContact;
-import com.translatmaster.view.main.task.TaskDataSourceImpl;
-import com.translatmaster.view.main.task.TaskManager;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -21,11 +20,9 @@ public class MainPresenter implements MainContact.Presenter {
     private final static String TAG = "MainPresenter";
 
     private MainContact.View mView;
-    private TaskManager mTaskManager;
 
     public MainPresenter(MainContact.View view) {
         mView = view;
-        mTaskManager = new TaskManager(new TaskDataSourceImpl());
     }
 
     @Override
@@ -43,17 +40,17 @@ public class MainPresenter implements MainContact.Presenter {
         Func1 dataAction = new Func1() {
             @Override
             public Object call(Object o) {
-                return mTaskManager.requestTranslate(content, src, dest);
+                return TaskManager.getTaskManager().requestTranslate(content, src, dest);
             }
         };
 
-        Action1 viewAction = new Action1<BaseResponse>() {
+        Action1 viewAction = new Action1<BaseDominData>() {
 
             @Override
-            public void call(BaseResponse response) {
+            public void call(BaseDominData response) {
                 // You can handle both cases for succeed and failure
                 if (mView != null && response != null) {
-                    mView.drawTranslatResult(response.getContent());
+                    mView.drawTranslatResult(response.getBaseResponse().getContent());
                 }
             }
         };

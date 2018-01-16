@@ -2,12 +2,10 @@ package com.translatmaster.hotfix;
 
 import android.os.Environment;
 
+import com.app.domain.net.repository.BaseDominData;
+import com.app.domain.net.repository.TaskManager;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
 import com.translatmaster.app.MainApplicationLike;
-import com.translatmaster.data.ConstData;
-import com.translatmaster.data.HttpRequestPool;
-import com.translatmaster.net.BaseResponse;
-import com.translatmaster.net.RequestManager;
 import com.translatmaster.utils.LogTools;
 import com.translatmaster.utils.ShowTools;
 import com.translatmaster.utils.SystemUtil;
@@ -31,6 +29,8 @@ import rx.schedulers.Schedulers;
 public class HotFixHelper {
     private final static String TAG = "HotFixHelper";
 
+    public final static String PATCH_NAME_IN_SD = "patch_signed_7zip.apk";
+
     /**
      * Download patch file from server
      *
@@ -43,7 +43,7 @@ public class HotFixHelper {
 
         if (byteData != null && byteData.length > 0) {
             try {
-                File file = new File(SDPath, ConstData.PATCH_NAME_IN_SD);
+                File file = new File(SDPath, PATCH_NAME_IN_SD);
                 fos = new FileOutputStream(file);
 
                 fos.write(byteData, 0, byteData.length);
@@ -70,7 +70,7 @@ public class HotFixHelper {
      */
     private static void executePatch() {
         String patchPath  = Environment.getExternalStorageDirectory().getAbsolutePath() + "/"
-                + ConstData.PATCH_NAME_IN_SD;
+                + PATCH_NAME_IN_SD;
         File patchFile = new File(patchPath);
 
         if (patchFile.exists()) {
@@ -85,17 +85,17 @@ public class HotFixHelper {
         Func1 dataAction = new Func1() {
             @Override
             public Object call(Object o) {
-                return RequestManager.setRequestForRx(HttpRequestPool.getHotFixPatch());
+                return TaskManager.getTaskManager().getHotFixPatch();
             }
         };
 
-        Action1 viewAction = new Action1<BaseResponse>() {
+        Action1 viewAction = new Action1<BaseDominData>() {
 
             @Override
-            public void call(BaseResponse response) {
+            public void call(BaseDominData response) {
                 if (response != null) {
                     // Download the patch and save to sd card
-                    downloadPatch(response.getByteData());
+                    downloadPatch(response.getBaseResponse().getByteData());
                     executePatch();
                 }
             }

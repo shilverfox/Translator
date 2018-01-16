@@ -1,8 +1,6 @@
-package com.translatmaster.net;
+package com.app.data.net;
 
 import android.text.TextUtils;
-
-import com.translatmaster.data.ConstData;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,6 +22,8 @@ import okhttp3.Response;
  */
 
 public class RequestManager {
+    public final static String DEFAULT_NET_ERROR = "NET ERROR";
+
     public static void setRequest(BaseRequestEntity appRequest,
                                   final IBaseRequestCallback appBaseCallback) {
 
@@ -131,14 +131,14 @@ public class RequestManager {
     private static void handleNetError(BaseResponse baseResponse) {
         if (baseResponse != null) {
             baseResponse.setSuccessful(false);
-            baseResponse.setContent(ConstData.DEFAULT_NET_ERROR);
+            baseResponse.setContent(DEFAULT_NET_ERROR);
         }
     }
 
     private static void handleDataError(BaseResponse baseResponse) {
         if (baseResponse != null) {
             baseResponse.setSuccessful(false);
-            baseResponse.setContent(ConstData.DEFAULT_NET_ERROR);
+            baseResponse.setContent(DEFAULT_NET_ERROR);
         }
     }
 

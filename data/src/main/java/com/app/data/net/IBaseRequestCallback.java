@@ -1,4 +1,4 @@
-package com.translatmaster.net;
+package com.app.data.net;
 
 /**
  * Callback for http request

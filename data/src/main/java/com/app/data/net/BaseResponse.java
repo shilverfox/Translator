@@ -1,6 +1,4 @@
-package com.translatmaster.net;
-
-import com.translatmaster.utils.LogTools;
+package com.app.data.net;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

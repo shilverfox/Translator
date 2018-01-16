@@ -1,4 +1,4 @@
-package com.translatmaster.net;
+package com.app.data.net;
 
 /**
  * Created by lijian15 on 2017/2/7.

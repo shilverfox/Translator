@@ -2,43 +2,35 @@ apply plugin: 'com.android.application'
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:3.0.1', {
+
+    compile project.DEPENDENCY_SUPPORT_V7
+    compile project.DEPENDENCY_GOOGLE_GSON
+    compile project.DEPENDENCY_BUTTERKNIFE
+    compile project.DEPENDENCY_BUTTERKNIFE_COMPILER
+    compile project.DEPENDENCY_SUPPORT_GLIDE
+    compile project.DEPENDENCY_EVENT_BUS
+    compile project.DEPENDENCY_RX_JAVA
+    compile project.DEPENDENCY_SUPPORT_MULTIDEX
+    compile project.DEPENDENCY_RX_ANDROID
+    provided project.DEPENDENCY_HOT_FIX_TINKER
+    compile project.DEPENDENCY_HOT_FIX_TINKER
+    compile project.DEPENDENCY_HOT_FIX_TINKER_LIB
+    compile project(path: ':domain')
+
+    debugCompile project.DEPENDENCY_LEAKCANARY
+    releaseCompile project.DEPENDENCY_LEAKCANARY
+    testCompile project.DEPENDENCY_LEAKCANARY_OP
+    testCompile project.DEPENDENCY_JUNIT
+    androidTestCompile(project.DEPENDENCY_ESPRESSO, {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    testCompile 'junit:junit:4.12'
-    // For http handling.
-    compile 'com.squareup.okhttp3:okhttp:3.5.0'
-    // For json handling.
-    compile 'com.google.code.gson:gson:2.8.0'
-    // Two items below for ButterKnife.
-    compile 'com.jakewharton:butterknife:8.4.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-    // For memory leakage checking
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    // Glide for handling images
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    // Event bus
-    compile 'org.greenrobot:eventbus:3.0.0'
-    // RxJava
-    compile 'io.reactivex:rxjava:1.2.5'
-    compile 'io.reactivex:rxandroid:1.2.1'
-
-    // Tinker
-    //optional, help to generate the final application
-    provided 'com.tencent.tinker:tinker-android-anno:1.7.7'
-    //tinker's main Android lib
-    compile 'com.tencent.tinker:tinker-android-lib:1.7.7'
-    compile 'com.android.support:multidex:1.0.1'
 }
 
 def javaVersion = JavaVersion.VERSION_1_7
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    compileSdkVersion Integer.parseInt(project.ANDROID_COMPILE_SDK_VERSION)
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
     compileOptions {
         sourceCompatibility javaVersion
@@ -71,10 +63,10 @@ android {
     //
     defaultConfig {
         applicationId "com.translatmaster"
-        minSdkVersion 10
-        targetSdkVersion 22
-        versionCode 1
-        versionName "1.0.0"
+        minSdkVersion Integer.parseInt(project.ANDROID_MIN_SDK)
+        targetSdkVersion Integer.parseInt(project.ANDROID_TARGET_SDK_VERSION)
+        versionCode Integer.parseInt(project.VERSIONCODE)
+        versionName project.VERSIONNAME
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         // =============== For Tinker ==========================

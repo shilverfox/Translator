@@ -1,8 +1,8 @@
-package com.translatmaster.data;
+package com.app.domain.net.repository;
 
-import com.translatmaster.net.BaseBody;
-import com.translatmaster.net.BaseRequestEntity;
-import com.translatmaster.net.RequestConst;
+import com.app.data.net.BaseBody;
+import com.app.data.net.BaseRequestEntity;
+import com.app.data.net.RequestConst;
 
 /**
  * List all the http request.
@@ -28,7 +28,7 @@ public class HttpRequestPool {
         body.add("target", dest);
         body.add("format", "text");
         body.add("source", "en");
-        body.add("key", ConstData.GOOTLE_APP_KEY);
+        body.add("key", ConstData.GOOGLE_APP_KEY);
 
         baseRequest.setBaseBody(body);
 
