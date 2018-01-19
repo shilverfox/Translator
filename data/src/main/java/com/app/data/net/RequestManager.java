@@ -2,6 +2,12 @@ package com.app.data.net;
 
 import android.text.TextUtils;
 
+import com.app.domain.net.IBaseRequestCallback;
+import com.app.data.net.model.BaseBody;
+import com.app.data.net.model.BaseRequestEntity;
+import com.app.data.net.model.BaseResponse;
+import com.app.data.net.model.RequestConst;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -124,6 +130,7 @@ public class RequestManager {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                handleDataError(baseResponse);
             }
         }
     }

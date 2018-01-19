@@ -1,4 +1,4 @@
-package com.translatmaster.view.main.modal;
+package com.app.domain.entity;
 
 import java.util.ArrayList;
 

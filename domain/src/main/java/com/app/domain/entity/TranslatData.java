@@ -1,4 +1,4 @@
-package com.translatmaster.view.main.modal;
+package com.app.domain.entity;
 
 /**
  * Created by lijian15 on 2016/12/13.

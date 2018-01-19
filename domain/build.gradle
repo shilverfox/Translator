@@ -28,7 +28,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project.DEPENDENCY_SUPPORT_V7
     testCompile project.DEPENDENCY_JUNIT
-    androidTestCompile project.DEPENDENCY_ESPRESSO
-
-    compile project(path: ':data')
+    compile project.DEPENDENCY_RX_JAVA
+    compile project.DEPENDENCY_GOOGLE_GSON
 }

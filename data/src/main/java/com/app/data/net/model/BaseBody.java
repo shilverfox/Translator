@@ -1,4 +1,4 @@
-package com.app.data.net;
+package com.app.data.net.model;
 
 import android.text.TextUtils;
 

@@ -1,4 +1,4 @@
-package com.app.domain.net.repository;
+package com.app.data.net.data;
 
 /**
  * Created by lijian15 on 2016/12/14.

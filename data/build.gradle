@@ -33,4 +33,5 @@ dependencies {
     // For http handling.
     compile project.DEPENDENCY_OK_HTTP
 
+    compile project(path: ':domain')
 }

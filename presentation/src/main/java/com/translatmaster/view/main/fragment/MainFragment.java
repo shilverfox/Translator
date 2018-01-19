@@ -14,17 +14,14 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
 import com.translatmaster.R;
 import com.translatmaster.app.BaseFragment;
 import com.translatmaster.app.MainApplicationLike;
 import com.translatmaster.hotfix.HotFixHelper;
-import com.translatmaster.utils.LogTools;
 import com.translatmaster.utils.ShowTools;
 import com.translatmaster.utils.image.ImageLoader;
 import com.translatmaster.view.main.contact.MainContact;
-import com.translatmaster.view.main.modal.TranslatData;
 import com.translatmaster.view.main.presenter.MainPresenter;
 
 import java.io.File;
@@ -117,24 +114,33 @@ public class MainFragment extends BaseFragment implements MainContact.View {
      */
     @Override
     public void drawTranslatResult(final String content) {
-        Gson gson = new Gson();
-        TranslatData data = null;
-
-        try {
-            data = gson.fromJson(content, TranslatData.class);
-        } catch (Exception e) {
-            mTransResult = e + "";
-            LogTools.e(TAG, mTransResult);
-        }
-
-        if (data != null && data.getData() != null && data.getData().getTranslations() != null
-                && !data.getData().getTranslations().isEmpty()
-                && data.getData().getTranslations().get(0) != null) {
-            mTransResult = data.getData().getTranslations().get(0).getTranslatedText() + "";
-        }
+//        Gson gson = new Gson();
+//        TranslatData data = null;
+//
+//        try {
+//            data = gson.fromJson(content, TranslatData.class);
+//        } catch (Exception e) {
+//            mTransResult = e + "";
+//            LogTools.e(TAG, mTransResult);
+//        }
+//
+//        if (data != null && data.getData() != null && data.getData().getTranslations() != null
+//                && !data.getData().getTranslations().isEmpty()
+//                && data.getData().getTranslations().get(0) != null) {
+//            mTransResult = data.getData().getTranslations().get(0).getTranslatedText() + "";
+//        }
 
         // Update UI
-        mTextView.setText(mTransResult + "");
+//        mTextView.setText(content + "");
+
+//        getActivity().runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                ShowTools.toast(content + "");
+//            }
+//        });
+        ShowTools.toast(content + "");
     }
 
     @OnClick(R.id.button)

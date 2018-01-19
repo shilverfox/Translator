@@ -1,4 +1,4 @@
-package com.app.data.net;
+package com.app.data.net.model;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

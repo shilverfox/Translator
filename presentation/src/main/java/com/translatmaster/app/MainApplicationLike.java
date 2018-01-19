@@ -12,8 +12,7 @@ import com.tencent.tinker.anno.DefaultLifeCycle;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
 import com.tencent.tinker.loader.app.DefaultApplicationLike;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
-import com.app.data.net.BaseResponse;
-import com.app.data.net.RequestManager;
+import com.translatmaster.UIThread;
 
 /**
  * Created by lijian15 on 2016/12/13.
@@ -26,6 +25,7 @@ import com.app.data.net.RequestManager;
 
 public class MainApplicationLike extends DefaultApplicationLike {
     private static Context mContext;
+    private static UIThread mUiThread;
 
 //    @Override
 //    public void onCreate() {
@@ -59,6 +59,7 @@ public class MainApplicationLike extends DefaultApplicationLike {
     public void onBaseContextAttached(Context base) {
         super.onBaseContextAttached(base);
         mContext = base;
+        mUiThread = new UIThread();
 
         // For tinker
         MultiDex.install(base);
@@ -75,5 +76,9 @@ public class MainApplicationLike extends DefaultApplicationLike {
 
     public static Context getAppContext() {
         return mContext;
+    }
+
+    public static UIThread getUiThread() {
+        return mUiThread;
     }
 }

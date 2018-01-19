@@ -2,8 +2,6 @@ package com.translatmaster.hotfix;
 
 import android.os.Environment;
 
-import com.app.domain.net.repository.BaseDominData;
-import com.app.domain.net.repository.TaskManager;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
 import com.translatmaster.app.MainApplicationLike;
 import com.translatmaster.utils.LogTools;
@@ -13,12 +11,6 @@ import com.translatmaster.utils.SystemUtil;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * Hot fix
@@ -82,28 +74,28 @@ public class HotFixHelper {
     }
 
     public static void checkHotFix() {
-        Func1 dataAction = new Func1() {
-            @Override
-            public Object call(Object o) {
-                return TaskManager.getTaskManager().getHotFixPatch();
-            }
-        };
-
-        Action1 viewAction = new Action1<BaseDominData>() {
-
-            @Override
-            public void call(BaseDominData response) {
-                if (response != null) {
-                    // Download the patch and save to sd card
-                    downloadPatch(response.getBaseResponse().getByteData());
-                    executePatch();
-                }
-            }
-        };
-
-        Observable.just("").observeOn(Schedulers.io())
-                .map(dataAction)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(viewAction);
+//        Func1 dataAction = new Func1() {
+//            @Override
+//            public Object call(Object o) {
+//                return TaskManager.getTaskManager().getHotFixPatch();
+//            }
+//        };
+//
+//        Action1 viewAction = new Action1<BaseDominData>() {
+//
+//            @Override
+//            public void call(BaseDominData response) {
+//                if (response != null) {
+//                    // Download the patch and save to sd card
+//                    downloadPatch(response.getBaseResponse().getByteData());
+//                    executePatch();
+//                }
+//            }
+//        };
+//
+//        Observable.just("").observeOn(Schedulers.io())
+//                .map(dataAction)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(viewAction);
     }
 }
