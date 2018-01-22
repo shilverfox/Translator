@@ -1,7 +1,6 @@
 package com.app.domain.net.interactor;
 
 import com.app.domain.net.BaseRequestCallback;
-import com.app.domain.net.data.HttpRequestPool;
 import com.app.domain.net.executor.PostExecutionThread;
 import com.app.domain.net.model.BaseDomainData;
 import com.app.domain.net.model.BaseRequestEntity;

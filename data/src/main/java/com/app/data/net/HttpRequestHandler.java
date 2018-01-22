@@ -2,7 +2,6 @@ package com.app.data.net;
 
 import android.text.TextUtils;
 
-import com.app.domain.net.BaseRequestCallback;
 import com.app.domain.net.model.BaseBody;
 import com.app.domain.net.model.BaseRequestEntity;
 import com.app.domain.net.model.BaseResponse;
@@ -13,8 +12,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

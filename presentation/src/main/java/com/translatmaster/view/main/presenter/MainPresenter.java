@@ -1,7 +1,6 @@
 package com.translatmaster.view.main.presenter;
 
 import com.app.data.net.repository.TaskManager;
-import com.app.domain.entity.TestData;
 import com.app.domain.net.BaseRequestCallback;
 import com.app.domain.net.interactor.TestUserCase;
 import com.app.domain.net.model.BaseDomainData;

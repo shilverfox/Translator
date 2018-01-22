@@ -8,7 +8,5 @@ import com.app.domain.net.model.BaseResponse;
  */
 
 public interface ITaskDataSource {
-//    String requestTranslate(String content, String src, String dest);
-//    String getHotFixPatch();
     BaseResponse handleRequest(BaseRequestEntity entity);
 }

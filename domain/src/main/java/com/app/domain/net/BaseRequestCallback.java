@@ -1,10 +1,6 @@
 package com.app.domain.net;
 
 import com.app.domain.net.model.BaseDomainData;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
 /**
  * Callback for http request
