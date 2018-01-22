@@ -1,4 +1,4 @@
-package com.app.data.net.model;
+package com.app.domain.net.model;
 
 /**
  * Created by lijian15 on 2017/2/7.

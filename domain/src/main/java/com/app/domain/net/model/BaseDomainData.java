@@ -8,15 +8,6 @@ public class BaseDomainData {
     private String code;
     private String msg;
     private boolean success;
-    private String resultContent;
-
-    public String getResultContent() {
-        return resultContent;
-    }
-
-    public void setResultContent(String resultContent) {
-        this.resultContent = resultContent;
-    }
 
     public String getCode() {
         return code;

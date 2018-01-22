@@ -1,8 +1,8 @@
-package com.app.data.net.data;
+package com.app.domain.net.data;
 
-import com.app.data.net.model.BaseBody;
-import com.app.data.net.model.BaseRequestEntity;
-import com.app.data.net.model.RequestConst;
+import com.app.domain.net.model.BaseBody;
+import com.app.domain.net.model.BaseRequestEntity;
+import com.app.domain.net.model.RequestConst;
 
 /**
  * List all the http request.

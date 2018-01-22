@@ -2,11 +2,11 @@ package com.app.data.net;
 
 import android.text.TextUtils;
 
-import com.app.domain.net.IBaseRequestCallback;
-import com.app.data.net.model.BaseBody;
-import com.app.data.net.model.BaseRequestEntity;
-import com.app.data.net.model.BaseResponse;
-import com.app.data.net.model.RequestConst;
+import com.app.domain.net.BaseRequestCallback;
+import com.app.domain.net.model.BaseBody;
+import com.app.domain.net.model.BaseRequestEntity;
+import com.app.domain.net.model.BaseResponse;
+import com.app.domain.net.model.RequestConst;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -27,38 +27,38 @@ import okhttp3.Response;
  * Created by lijian15 on 2016/12/14.
  */
 
-public class RequestManager {
+public class HttpRequestHandler {
     public final static String DEFAULT_NET_ERROR = "NET ERROR";
 
-    public static void setRequest(BaseRequestEntity appRequest,
-                                  final IBaseRequestCallback appBaseCallback) {
-
-        if (appRequest != null && !TextUtils.isEmpty(appRequest.getUrl())) {
-            OkHttpClient okHttpClient = new OkHttpClient();
-            Request request = new Request.Builder().url(appRequest.getUrl()).get().build();
-
-            okHttpClient.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    if (appBaseCallback != null) {
-                        appBaseCallback.onRequestFailed("");
-                    }
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    if (appBaseCallback != null) {
-                        if (response != null && response.isSuccessful()) {
-                            appBaseCallback.onRequestSuccessful(response.body().string());
-                        } else {
-                            // If json is null, handled by onFailure
-                            appBaseCallback.onRequestFailed("");
-                        }
-                    }
-                }
-            });
-        }
-    }
+//    public static void setRequest(BaseRequestEntity appRequest,
+//                                  final BaseRequestCallback appBaseCallback) {
+//
+//        if (appRequest != null && !TextUtils.isEmpty(appRequest.getUrl())) {
+//            OkHttpClient okHttpClient = new OkHttpClient();
+//            Request request = new Request.Builder().url(appRequest.getUrl()).get().build();
+//
+//            okHttpClient.newCall(request).enqueue(new Callback() {
+//                @Override
+//                public void onFailure(Call call, IOException e) {
+//                    if (appBaseCallback != null) {
+//                        appBaseCallback.onRequestFailed("");
+//                    }
+//                }
+//
+//                @Override
+//                public void onResponse(Call call, Response response) throws IOException {
+//                    if (appBaseCallback != null) {
+//                        if (response != null && response.isSuccessful()) {
+//                            appBaseCallback.onRequestSuccessful(response.body().string());
+//                        } else {
+//                            // If json is null, handled by onFailure
+//                            appBaseCallback.onRequestFailed("");
+//                        }
+//                    }
+//                }
+//            });
+//        }
+//    }
 
     private static Request.Builder getPostRequestBuilder(String baseUrl, BaseBody baseBody) {
         Request.Builder builder =  new Request.Builder();

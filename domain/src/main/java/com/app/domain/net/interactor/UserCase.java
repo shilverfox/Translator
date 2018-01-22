@@ -1,8 +1,11 @@
 package com.app.domain.net.interactor;
 
-import com.app.domain.net.IBaseRequestCallback;
+import com.app.domain.net.BaseRequestCallback;
+import com.app.domain.net.data.HttpRequestPool;
 import com.app.domain.net.executor.PostExecutionThread;
 import com.app.domain.net.model.BaseDomainData;
+import com.app.domain.net.model.BaseRequestEntity;
+import com.app.domain.net.model.BaseResponse;
 import com.app.domain.net.repository.ITaskDataSource;
 import com.app.domain.util.ParseUtil;
 
@@ -15,61 +18,80 @@ import rx.schedulers.Schedulers;
  * Created by lijian15 on 2018/1/18.
  */
 
-public class UserCase<T> {
-    private ITaskDataSource mTaskDataSource;
-    private IBaseRequestCallback<T> mRequestCallback;
-    private PostExecutionThread mThreadExecutor;
+public class UserCase {
+    public ITaskDataSource mTaskDataSource;
+    public BaseRequestCallback mRequestCallback;
+    public PostExecutionThread mThreadExecutor;
 
     public UserCase(ITaskDataSource dataSource, PostExecutionThread threadExecutor,
-                    IBaseRequestCallback<T> callback) {
+                    BaseRequestCallback callback) {
         mTaskDataSource = dataSource;
         mRequestCallback = callback;
         mThreadExecutor = threadExecutor;
     }
 
-    public void requestTranslate(final String content, final String src, final String dest) {
+    public void handleSendRequest(final BaseRequestEntity entity) {
         Func1 dataAction = new Func1() {
             @Override
             public Object call(Object o) {
-                return mTaskDataSource.requestTranslate(content, src, dest);
+                return mTaskDataSource.handleRequest(entity);
             }
         };
 
-        Action1 viewAction = new Action1<String>() {
+        Action1 viewAction = new Action1<BaseResponse>() {
             @Override
-            public void call(String response) {
+            public void call(BaseResponse response) {
                 handleResponse(response, mRequestCallback);
             }
         };
 
-        Observable.just("").observeOn(Schedulers.io())
+        Observable.just("").subscribeOn(Schedulers.io())
                 .map(dataAction)
-                .subscribeOn(mThreadExecutor.getScheduler())
+                .observeOn(mThreadExecutor.getScheduler())
                 .subscribe(viewAction);
     }
 
-    private void handleResponse(String response, IBaseRequestCallback<T> callback) {
-        BaseDomainData data = ParseUtil.parseData(response, BaseDomainData.class);
+    private void handleResponse(BaseResponse response, BaseRequestCallback callback) {
+        BaseDomainData data = ParseUtil.parseData(response.getContent(), BaseDomainData.class);
         if (isResponseSuccessful(data)) {
-            handleResponseSuccessful(response, callback);
+            handleResponseSuccessful(response.getContent(), callback);
         } else {
-            handleResponseFailed(response, callback);
+            handleResponseFailed(data, response.getContent(), callback);
         }
     }
 
-    private boolean isResponseSuccessful(BaseDomainData data) {
-        return data != null && "0".equals(data.getCode());
+    private boolean isResponseSuccessful(BaseDomainData baseDomainData) {
+        return baseDomainData != null && baseDomainData.isSuccess() && "0".equals(baseDomainData.getCode());
     }
 
-    private void handleResponseSuccessful(String response, IBaseRequestCallback callback) {
+    private void handleResponseSuccessful(String responseContent, BaseRequestCallback callback) {
         if (callback != null) {
-            callback.onRequestSuccessful(response);
+            callback.onRequestSuccessful(responseContent);
         }
     }
 
-    private void handleResponseFailed(String response, IBaseRequestCallback callback) {
+    private void handleResponseFailed(BaseDomainData baseDomainData, String errorMessage,
+                                      BaseRequestCallback callback) {
         if (callback != null) {
-            callback.onRequestFailed(response);
+            // If there is json or just a error message.
+            if (baseDomainData == null) {
+                // just a error message
+                baseDomainData = createErrorDomainData(errorMessage);
+            }
+
+            callback.onRequestFailed(baseDomainData);
         }
+    }
+
+    /**
+     * Data层联网失败会返回默认字符串，非json格式，因此需要单独处理
+     *
+     * @param errorMessage
+     * @return
+     */
+    private BaseDomainData createErrorDomainData(String errorMessage) {
+        BaseDomainData data = new BaseDomainData();
+        data.setMsg(errorMessage);
+        return data;
     }
 }

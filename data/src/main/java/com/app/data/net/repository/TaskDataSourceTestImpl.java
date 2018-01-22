@@ -1,5 +1,7 @@
 package com.app.data.net.repository;
 
+import com.app.domain.net.model.BaseRequestEntity;
+import com.app.domain.net.model.BaseResponse;
 import com.app.domain.net.repository.ITaskDataSource;
 
 /**
@@ -10,12 +12,7 @@ import com.app.domain.net.repository.ITaskDataSource;
 
 public class TaskDataSourceTestImpl implements ITaskDataSource {
     @Override
-    public String requestTranslate(String content, String src, String dest) {
-        return null;
-    }
-
-    @Override
-    public String getHotFixPatch() {
+    public BaseResponse handleRequest(BaseRequestEntity entity) {
         return null;
     }
 }

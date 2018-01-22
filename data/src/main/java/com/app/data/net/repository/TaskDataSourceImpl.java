@@ -1,9 +1,8 @@
 package com.app.data.net.repository;
 
-import com.app.data.net.data.HttpRequestPool;
-import com.app.data.net.model.BaseRequestEntity;
-import com.app.data.net.model.BaseResponse;
-import com.app.data.net.RequestManager;
+import com.app.domain.net.model.BaseRequestEntity;
+import com.app.data.net.HttpRequestHandler;
+import com.app.domain.net.model.BaseResponse;
 import com.app.domain.net.repository.ITaskDataSource;
 
 /**
@@ -14,20 +13,7 @@ import com.app.domain.net.repository.ITaskDataSource;
 
 public class TaskDataSourceImpl implements ITaskDataSource {
     @Override
-    public String requestTranslate(String content, String src, String dest) {
-//        BaseRequestEntity entity = HttpRequestPool.getTranslateResult(content, src, dest);
-        BaseRequestEntity entity = HttpRequestPool.getTestEntity();
-        return RequestManager.setRequestForRx(entity).getContent();
-    }
-
-    @Override
-    public String getHotFixPatch() {
-        return RequestManager.setRequestForRx(HttpRequestPool.getHotFixPatch()).getContent();
-    }
-
-    private void handleBaseResponse(BaseResponse baseResponse) {
-        if (baseResponse != null) {
-            String content = baseResponse.getContent();
-        }
+    public BaseResponse handleRequest(BaseRequestEntity entity) {
+        return HttpRequestHandler.setRequestForRx(entity);
     }
 }

@@ -1,4 +1,4 @@
-package com.app.data.net.data;
+package com.app.domain.net.data;
 
 /**
  * Created by lijian15 on 2016/12/14.
