@@ -44,10 +44,9 @@ public class HttpRequestPool {
         body.add("deviceId", "5d56134c146fc3b6923c2e66dd774175");
         body.add("networkType", "WIFI");
         body.add("screen", "2392*1440");
-        body.add("functionId", "addresspdj/getAddressList");
         body.add("appName", "Paidaojia");
         body.add("signKey", "e30d48a05849463873b87f709a534134");
-
+        body.add(ConstData.KEY_FUNCTION_ID, ConstData.FUNCTION_ID_TEST);
 
         baseRequest.setBaseBody(body);
 

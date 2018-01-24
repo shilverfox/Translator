@@ -1,4 +1,4 @@
-package com.app.data.net;
+package com.app.data.net.repository.http;
 
 import android.text.TextUtils;
 
@@ -116,8 +116,6 @@ public class HttpRequestHandler {
 
     private static void handleSuccessful(Response response, BaseResponse baseResponse, boolean needByteData) {
         if (response != null && baseResponse != null) {
-            baseResponse.setSuccessful(true);
-
             // Save content as String or byte[]
             try {
                 if (needByteData) {
@@ -134,14 +132,12 @@ public class HttpRequestHandler {
 
     private static void handleNetError(BaseResponse baseResponse) {
         if (baseResponse != null) {
-            baseResponse.setSuccessful(false);
             baseResponse.setContent(DEFAULT_NET_ERROR);
         }
     }
 
     private static void handleDataError(BaseResponse baseResponse) {
         if (baseResponse != null) {
-            baseResponse.setSuccessful(false);
             baseResponse.setContent(DEFAULT_NET_ERROR);
         }
     }

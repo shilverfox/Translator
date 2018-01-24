@@ -11,19 +11,10 @@ import java.io.InputStream;
  */
 
 public class BaseResponse {
-    private boolean mIsSuccessful;
     private String mContent;
 
     /** Can be used for download some stuff */
     private byte[] mByteData;
-
-    public boolean isSuccessful() {
-        return mIsSuccessful;
-    }
-
-    public void setSuccessful(boolean successful) {
-        mIsSuccessful = successful;
-    }
 
     public String getContent() {
         return mContent;

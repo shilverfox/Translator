@@ -13,4 +13,8 @@ public class ConstData {
 
     /** Url for patch of hot-fix */
     public final static String HOT_PATCH_URL = "http://storage.jd.com/wxapp/patch_signed_7zip.apk";
+
+    public final static String KEY_FUNCTION_ID = "functionId";
+
+    public final static String FUNCTION_ID_TEST = "addresspdj/getAddressList";
 }

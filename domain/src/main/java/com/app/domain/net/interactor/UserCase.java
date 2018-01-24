@@ -17,7 +17,7 @@ import rx.schedulers.Schedulers;
  * Created by lijian15 on 2018/1/18.
  */
 
-public class UserCase {
+public abstract class UserCase {
     public ITaskDataSource mTaskDataSource;
     public BaseRequestCallback mRequestCallback;
     public PostExecutionThread mThreadExecutor;
