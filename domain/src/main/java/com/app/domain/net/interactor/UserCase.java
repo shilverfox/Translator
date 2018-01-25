@@ -19,17 +19,20 @@ import rx.schedulers.Schedulers;
 
 public abstract class UserCase {
     public ITaskDataSource mTaskDataSource;
-    public BaseRequestCallback mRequestCallback;
+//    public BaseRequestCallback mRequestCallback;
     public PostExecutionThread mThreadExecutor;
 
-    public UserCase(ITaskDataSource dataSource, PostExecutionThread threadExecutor,
-                    BaseRequestCallback callback) {
+    public UserCase(ITaskDataSource dataSource, PostExecutionThread threadExecutor) {
         mTaskDataSource = dataSource;
-        mRequestCallback = callback;
         mThreadExecutor = threadExecutor;
     }
 
-    public void handleSendRequest(final BaseRequestEntity entity) {
+//    public void setRequestCallback(BaseRequestCallback callback) {
+//        mRequestCallback = callback;
+//    }
+
+    public void handleSendRequest(final BaseRequestEntity entity,
+                                  final BaseRequestCallback callback) {
         Func1 dataAction = new Func1() {
             @Override
             public Object call(Object o) {
@@ -40,7 +43,7 @@ public abstract class UserCase {
         Action1 viewAction = new Action1<BaseResponse>() {
             @Override
             public void call(BaseResponse response) {
-                handleResponse(response, mRequestCallback);
+                handleResponse(response, callback);
             }
         };
 

@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.app.data.net.repository.TaskManager;
+import com.app.domain.net.interactor.MainViewUserCase;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
 import com.translatmaster.R;
 import com.translatmaster.app.BaseFragment;
@@ -72,7 +74,9 @@ public class MainFragment extends BaseFragment implements MainContact.View {
 
     @Override
     public void createPresenter() {
-        mPresenter = new MainPresenter(this);
+        MainViewUserCase userCase = new MainViewUserCase(TaskManager.getTaskManager(),
+                MainApplicationLike.getUiThread());
+        mPresenter = new MainPresenter(this, userCase);
     }
 
     @Override

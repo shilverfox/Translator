@@ -2,7 +2,7 @@ package com.translatmaster.view.main.presenter;
 
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
-import com.app.domain.net.interactor.TestUserCase;
+import com.app.domain.net.interactor.MainViewUserCase;
 import com.app.domain.net.model.BaseDomainData;
 import com.translatmaster.app.MainApplicationLike;
 import com.translatmaster.view.main.contact.MainContact;
@@ -17,15 +17,29 @@ public class MainPresenter implements MainContact.Presenter {
     private final static String TAG = "MainPresenter";
 
     private MainContact.View mView;
+    private MainViewUserCase mMainViewUserCase;
 
-    public MainPresenter(MainContact.View view) {
+    public MainPresenter(MainContact.View view, MainViewUserCase userCase) {
         mView = view;
+        mMainViewUserCase = userCase;
     }
 
     @Override
     public void start() {
 
     }
+
+    private BaseRequestCallback mBaseRequestCallback = new BaseRequestCallback() {
+        @Override
+        public void onRequestSuccessful(String json) {
+            handleResponseSuccessful(json);
+        }
+
+        @Override
+        public void onRequestFailed(BaseDomainData baseDomainData) {
+            handleResponseFailed(baseDomainData);
+        }
+    };
 
     /**
      * All the request should be handled by TaskManager.
@@ -34,18 +48,10 @@ public class MainPresenter implements MainContact.Presenter {
      */
     @Override
     public void requestTranslate(final String content, final String src, final String dest) {
-        new TestUserCase(TaskManager.getTaskManager(), MainApplicationLike.getUiThread(),
-                new BaseRequestCallback() {
-                    @Override
-                    public void onRequestSuccessful(String json) {
-                        handleResponseSuccessful(json);
-                    }
-
-                    @Override
-                    public void onRequestFailed(BaseDomainData baseDomainData) {
-                        handleResponseFailed(baseDomainData);
-                    }
-                }).requestTranslate(content, src, dest);
+        if (mMainViewUserCase != null) {
+//            mMainViewUserCase.setRequestCallback(mBaseRequestCallback);
+            mMainViewUserCase.requestTranslate(content, src, dest, mBaseRequestCallback);
+        }
     }
 
     private void handleResponseSuccessful(String resultContent) {

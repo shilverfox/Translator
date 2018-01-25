@@ -10,10 +10,9 @@ import com.app.domain.net.repository.ITaskDataSource;
  * Created by lijian15 on 2018/1/18.
  */
 
-public class TestUserCase extends UserCase {
-    public TestUserCase(ITaskDataSource dataSource, PostExecutionThread threadExecutor,
-                        BaseRequestCallback callback) {
-        super(dataSource, threadExecutor, callback);
+public class MainViewUserCase extends UserCase {
+    public MainViewUserCase(ITaskDataSource dataSource, PostExecutionThread threadExecutor) {
+        super(dataSource, threadExecutor);
     }
 
     /**
@@ -23,8 +22,9 @@ public class TestUserCase extends UserCase {
      * @param src
      * @param dest
      */
-    public void requestTranslate(final String content, final String src, final String dest) {
+    public void requestTranslate(final String content, final String src, final String dest,
+                                 BaseRequestCallback callback) {
         BaseRequestEntity entity = HttpRequestPool.getTestEntity();// getTranslateResult(content, src, dest);
-        handleSendRequest(entity);
+        handleSendRequest(entity, callback);
     }
 }

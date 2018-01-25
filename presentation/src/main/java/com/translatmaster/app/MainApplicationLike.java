@@ -26,22 +26,6 @@ public class MainApplicationLike extends DefaultApplicationLike {
     private static Context mContext;
     private static UIThread mUiThread;
 
-//    @Override
-//    public void onCreate() {
-//        super.onCreate();
-//        mContext = this.getApplicationContext();
-//
-//        // For memory leakage checking.
-//        if (LeakCanary.isInAnalyzerProcess(this)) {
-//            // This process is dedicated to LeakCanary for heap analysis.
-//            // You should not init your app in this process.
-//            return;
-//        }
-//        LeakCanary.install(this);
-//    }
-
-
-
     public MainApplicationLike(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag,
                                long applicationStartElapsedTime, long applicationStartMillisTime,
                                Intent tinkerResultIntent) {
@@ -60,17 +44,30 @@ public class MainApplicationLike extends DefaultApplicationLike {
         mContext = base;
         mUiThread = new UIThread();
 
-        // For tinker
+        initHotFix(base);
+//        initLeakChecker(base);
+    }
+
+    /**
+     * For tinker
+      */
+    private void initHotFix(Context base) {
         MultiDex.install(base);
         TinkerInstaller.install(this);
+    }
 
-        // For memory leakage checking.
+    /**
+     * For memory leakage checking.
+     *
+     * @param base
+     */
+    private void initLeakChecker(Context base) {
         if (LeakCanary.isInAnalyzerProcess(base)) {
             // This process is dedicated to LeakCanary for heap analysis.
             // You should not init your app in this process.
             return;
         }
-//        LeakCanary.install(getApplication());
+        LeakCanary.install(getApplication());
     }
 
     public static Context getAppContext() {
