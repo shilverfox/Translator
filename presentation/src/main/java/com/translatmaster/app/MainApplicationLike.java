@@ -12,7 +12,6 @@ import com.tencent.tinker.anno.DefaultLifeCycle;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
 import com.tencent.tinker.loader.app.DefaultApplicationLike;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
-import com.translatmaster.UIThread;
 
 /**
  * Created by lijian15 on 2016/12/13.

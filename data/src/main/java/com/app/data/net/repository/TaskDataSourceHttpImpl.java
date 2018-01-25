@@ -11,7 +11,7 @@ import com.app.domain.net.repository.ITaskDataSource;
  * Created by lijian15 on 2017/1/13.
  */
 
-public class TaskDataSourceImpl implements ITaskDataSource {
+public class TaskDataSourceHttpImpl implements ITaskDataSource {
     @Override
     public BaseResponse handleRequest(BaseRequestEntity entity) {
         return HttpRequestHandler.setRequestForRx(entity);
