@@ -1,10 +1,8 @@
 package com.translatmaster.view.main.presenter;
 
-import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
 import com.app.domain.net.interactor.MainViewUserCase;
 import com.app.domain.net.model.BaseDomainData;
-import com.translatmaster.app.MainApplicationLike;
 import com.translatmaster.view.main.contact.MainContact;
 
 /**
@@ -29,7 +27,7 @@ public class MainPresenter implements MainContact.Presenter {
 
     }
 
-    private BaseRequestCallback mBaseRequestCallback = new BaseRequestCallback() {
+    private BaseRequestCallback mTranslateCallback = new BaseRequestCallback() {
         @Override
         public void onRequestSuccessful(String json) {
             handleResponseSuccessful(json);
@@ -49,8 +47,8 @@ public class MainPresenter implements MainContact.Presenter {
     @Override
     public void requestTranslate(final String content, final String src, final String dest) {
         if (mMainViewUserCase != null) {
-//            mMainViewUserCase.setRequestCallback(mBaseRequestCallback);
-            mMainViewUserCase.requestTranslate(content, src, dest, mBaseRequestCallback);
+//            mMainViewUserCase.setRequestCallback(mTranslateCallback);
+            mMainViewUserCase.requestTranslate(content, src, dest, mTranslateCallback);
         }
     }
 

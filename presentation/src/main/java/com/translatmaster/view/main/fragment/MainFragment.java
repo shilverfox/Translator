@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.interactor.MainViewUserCase;
+import com.app.domain.util.ParseUtil;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
 import com.translatmaster.R;
 import com.translatmaster.app.BaseFragment;
@@ -24,6 +25,7 @@ import com.translatmaster.hotfix.HotFixHelper;
 import com.translatmaster.utils.ShowTools;
 import com.translatmaster.utils.image.ImageLoader;
 import com.translatmaster.view.main.contact.MainContact;
+import com.translatmaster.view.main.entity.TranslateData;
 import com.translatmaster.view.main.presenter.MainPresenter;
 
 import java.io.File;
@@ -144,7 +146,8 @@ public class MainFragment extends BaseFragment implements MainContact.View {
 //                ShowTools.toast(content + "");
 //            }
 //        });
-        ShowTools.toast(content + "");
+        TranslateData data = ParseUtil.parseData(content, TranslateData.class);
+        ShowTools.toast(data + "");
     }
 
     @OnClick(R.id.button)
