@@ -17,4 +17,6 @@ public class ConstData {
     public final static String KEY_FUNCTION_ID = "functionId";
 
     public final static String FUNCTION_ID_TEST = "addresspdj/getAddressList";
+
+    public final static String HOST = "http://jbsx.china1904.com";
 }

@@ -9,10 +9,19 @@ package com.app.domain.net.model;
 public class BaseRequestEntity {
     private String mUrl;
     private int mMethod;
+    private String functionId;
     private BaseBody mBaseBody;
 
     /** The data that could be downloaded, such as some files. */
     private boolean mNeedByteData;
+
+    public String getFunctionId() {
+        return functionId;
+    }
+
+    public void setFunctionId(String functionId) {
+        this.functionId = functionId;
+    }
 
     public boolean needByteData() {
         return mNeedByteData;

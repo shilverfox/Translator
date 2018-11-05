@@ -15,6 +15,8 @@ dependencies {
     provided project.DEPENDENCY_HOT_FIX_TINKER
     compile project.DEPENDENCY_HOT_FIX_TINKER
     compile project.DEPENDENCY_HOT_FIX_TINKER_LIB
+    compile project.DEPENDENCY_SUPPORT_CONSTRAINT_LAYOUT
+    compile project.DEPENDENCY_WECHAT_SDK
     compile project(path: ':domain')
 
     debugCompile project.DEPENDENCY_LEAKCANARY

@@ -15,25 +15,27 @@ import org.greenrobot.eventbus.ThreadMode;
 public class BaseFragment extends Fragment {
 
     public Context mContext;
+    protected EventBus eventBus;
 
     public BaseFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        eventBus = EventBus.getDefault();
         mContext = this.getActivity();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
+        eventBus.register(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EventBus.getDefault().unregister(this);
+        eventBus.unregister(this);
     }
 
     /**

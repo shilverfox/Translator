@@ -9,7 +9,7 @@ import com.app.domain.net.repository.ITaskDataSource;
  */
 
 public class TaskManager {
-    private static ITaskDataSource mTaskDataSource = new TaskDataSourceLocalImpl();//new TaskDataSourceHttpImpl();
+    private static ITaskDataSource mTaskDataSource = new TaskDataSourceHttpImpl();
 
     public static ITaskDataSource getTaskManager() {
         return mTaskDataSource;

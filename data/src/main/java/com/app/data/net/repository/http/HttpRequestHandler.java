@@ -150,16 +150,21 @@ public class HttpRequestHandler {
      */
     public static BaseResponse setRequestForRx(BaseRequestEntity appRequest) {
         BaseResponse baseResponse = new BaseResponse();
+        String baseUrl = null;
+        String functionId = "";
 
         if (appRequest != null && !TextUtils.isEmpty(appRequest.getUrl())) {
             Request.Builder builder = null;
+            baseUrl = appRequest.getUrl();
+            functionId = appRequest.getFunctionId();
+            baseUrl += TextUtils.isEmpty(functionId) ? "" : functionId;
 
             if (appRequest.getMethod() == RequestConst.REQUEST_POST) {
                 // Http post
-                builder = getPostRequestBuilder(appRequest.getUrl(), appRequest.getBaseBody());
+                builder = getPostRequestBuilder(baseUrl, appRequest.getBaseBody());
             } else {
                 // Http get
-                builder = getGetRequestBuilder(appRequest.getUrl(), appRequest.getBaseBody());
+                builder = getGetRequestBuilder(baseUrl, appRequest.getBaseBody());
             }
 
             handleHttpRequest(builder.build(), baseResponse, appRequest.needByteData());

@@ -37,16 +37,17 @@ public class HttpRequestPool {
 
     public static BaseRequestEntity getTestEntity() {
         BaseRequestEntity baseRequest = new BaseRequestEntity();
-        baseRequest.setUrl("http://testgw.o2o.jd.com/client?");
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getHotSingleList");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
 
         BaseBody body = new BaseBody();
-        body.add("city_id", "1930");
-        body.add("deviceId", "5d56134c146fc3b6923c2e66dd774175");
-        body.add("networkType", "WIFI");
-        body.add("screen", "2392*1440");
-        body.add("appName", "Paidaojia");
-        body.add("signKey", "e30d48a05849463873b87f709a534134");
-        body.add(ConstData.KEY_FUNCTION_ID, ConstData.FUNCTION_ID_TEST);
+        body.add("specialCode", "JBSX");
+//        body.add("deviceId", "5d56134c146fc3b6923c2e66dd774175");
+//        body.add("networkType", "WIFI");
+//        body.add("screen", "2392*1440");
+//        body.add("appName", "Paidaojia");
+//        body.add("signKey", "e30d48a05849463873b87f709a534134");
 
         baseRequest.setBaseBody(body);
 

@@ -1,8 +1,6 @@
 package com.translatmaster.utils.image;
 
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.view.View;
 
 /**
  * Created by lijian15 on 2016/12/19.
