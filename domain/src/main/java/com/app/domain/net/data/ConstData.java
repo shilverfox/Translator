@@ -18,5 +18,19 @@ public class ConstData {
 
     public final static String FUNCTION_ID_TEST = "addresspdj/getAddressList";
 
-    public final static String HOST = "http://jbsx.china1904.com";
+    public final static String HOST = "http://api.china1896.com";
+
+    /** 登录模块获取短信验证码接口，注册 */
+    public final static int REQUEST_SMS_TYPE_REGISTER = 1;
+
+    /** 登录模块获取短信验证码接口，修改密码 */
+    public final static int REQUEST_SMS_TYPE_MODIFY_PASS = 2;
+
+    /** 登录模块获取短信验证码token */
+    public final static String LOGIN_SMS_TOKEN = "XQBYdcHKSO+RS16jQhf+cRYJqaerqCole";
+
+    /** 注册用户类型 */
+    public final static String REGISTER_USER_TYPE = "5";
+
+
 }

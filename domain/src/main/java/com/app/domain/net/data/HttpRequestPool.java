@@ -93,4 +93,169 @@ public class HttpRequestPool {
 
         return baseRequest;
     }
+
+
+    public static BaseRequestEntity getModifyPasswordEntity(String userId, String oldPass, String newPass) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getHotSingleList");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
+    public static BaseRequestEntity getUpdateUserInfoEntity() {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getHotSingleList");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
+    public static BaseRequestEntity getVerifySmsCodeEntity(String phone, String smsCode) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getHotSingleList");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
+    public static BaseRequestEntity getUserInfoEntity(String userId) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getHotSingleList");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
+    public static BaseRequestEntity getRegisterEntity(String phone, String password, String smsCode) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/User/User/registerAccount");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("cellPhone", phone);
+        body.add("pwd", password);
+        body.add("verifyCode", smsCode);
+        body.add("type", ConstData.REGISTER_USER_TYPE);
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
+    public static BaseRequestEntity getLogOutEntity() {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getHotSingleList");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
+    public static BaseRequestEntity getLoginByUserEntity(String id, String password) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/User/User/login");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("account", id);
+        body.add("pwd", password);
+        body.add("innerIp", "127.0.0.1");
+        body.add("outIp", "127.0.0.1");
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
+    public static BaseRequestEntity getBindUserEntity(String userId, String phone, String wxId, int type) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getHotSingleList");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
+    public static BaseRequestEntity getUnBindEntity(String userId, String phone, String wxId, int type) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getHotSingleList");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
+    public static BaseRequestEntity getRequestSmsCodeEntity(int type, String cellPhone) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/User/User/requestSmsCodeByApp");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("type", type + "");
+        body.add("cellphone", cellPhone);
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
+    public static BaseRequestEntity getResetPasswordEntity(String phone, String password, String smsCode) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/User/User/resetPassword");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        // TODO: 2018/11/8   cellphone 字段名字和注册不一样，大P和小p
+        BaseBody body = new BaseBody();
+        body.add("cellphone", phone);
+        body.add("pwd", password);
+        body.add("verifyCode", smsCode);
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
 }

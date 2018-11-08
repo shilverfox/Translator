@@ -53,6 +53,7 @@ public class MainApplicationLike extends DefaultApplicationLike {
     @Override
     public void onBaseContextAttached(Context base) {
         super.onBaseContextAttached(base);
+        sInstance = this;
         mHanlder = new Handler();
         mContext = base;
         mUiThread = new UIThread();

@@ -17,9 +17,15 @@
         android:theme="@style/AppTheme"
         android:name=".app.MainApplication">
         <activity android:name=".view.main.activity.MainActivity">
+        </activity>
+
+        <activity android:name=".view.web.WebActivity" />
+        <activity android:name=".view.login.RegisterActivity" />
+        <activity android:name=".view.login.ResetPasswordActivity" />
+
+        <activity android:name=".view.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>

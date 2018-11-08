@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <com.translatmaster.customview.TabGroupView
+        android:id="@+id/tabGroupView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white" >
+
+        <!-- tab布局 -->
+        <LinearLayout
+            android:id="@+id/item_tab_linearLayout_2"
+            style="@style/item_tab_linearLayout"
+            android:background="@drawable/login_tab_item_bg"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:visibility="gone"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <TextView
+                    style="@style/csdj_goods_list_item_tab_text"
+                    android:text="手机号快捷登录" >
+                </TextView>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:visibility="gone"
+                    android:background="@drawable/csdj_goods_list_bg_tab_underline" >
+                </ImageView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/item_tab_linearLayout_0"
+            style="@style/item_tab_linearLayout"
+            android:background="@drawable/login_tab_item_bg"
+            android:visibility="gone"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="1px"
+                android:layout_height="fill_parent"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/csdj_goods_tab_bg_vertical_line" >
+            </ImageView>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <TextView
+                    style="@style/csdj_goods_list_item_tab_text"
+                    android:text="账号密码登录" >
+                </TextView>
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:visibility="gone"
+                    android:background="@drawable/csdj_goods_list_bg_tab_underline" >
+                </ImageView>
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.translatmaster.customview.TabGroupView>
+
+</merge>
