@@ -1,0 +1,150 @@
+package com.translatmaster.view.main.fragment;
+
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.translatmaster.R;
+import com.translatmaster.app.BaseEvent;
+import com.translatmaster.app.BaseFragment;
+import com.translatmaster.utils.RecyclerViewHelper;
+import com.translatmaster.utils.Router;
+import com.translatmaster.utils.ShowTools;
+import com.translatmaster.view.login.data.LoginData;
+import com.translatmaster.view.login.util.LoginHelper;
+import com.translatmaster.view.main.adapter.MyInfoAdapter;
+import com.translatmaster.view.main.data.MainConst;
+import com.translatmaster.view.main.entity.MyInfoItem;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MyInfoFragment extends BaseFragment {
+    private View mRootView;
+    private RecyclerView mRecyclerView;
+    private Button mBtnLogOut;
+    private TextView mTxtUserName;
+    private TextView mTxtBusinessName;
+    private TextView mTxtValidDate;
+    private TextView mTxtLogin;
+
+    private MyInfoAdapter mAdapter;
+
+    public MyInfoFragment() {
+        // Required empty public constructor
+    }
+
+    public static MyInfoFragment newInstance() {
+        return new MyInfoFragment();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
+        mRootView = inflater.inflate(R.layout.my_info_fragment, null, false);
+        findViews();
+        initEvents();
+        initAdapter();
+        initViews();
+
+        return mRootView;
+    }
+
+    private void initViews() {
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mRecyclerView.addItemDecoration(RecyclerViewHelper.getDivider(mContext));
+
+        refreshUI();
+    }
+
+    private void handleLogBtnUI() {
+        boolean isLogin = LoginHelper.getInstance().isLogin();
+        mBtnLogOut.setVisibility(isLogin ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    private void findViews() {
+        mRecyclerView = mRootView.findViewById(R.id.rv_my_info_list);
+        mBtnLogOut = mRootView.findViewById(R.id.btn_log_out);
+        mTxtUserName = mRootView.findViewById(R.id.tv_my_info_user_name);
+        mTxtBusinessName = mRootView.findViewById(R.id.tv_my_info_business_name);
+        mTxtValidDate = mRootView.findViewById(R.id.tv_my_info_valid_date);
+        mTxtLogin = mRootView.findViewById(R.id.tv_my_info_login);
+    }
+
+    private void initEvents() {
+        mBtnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 退出登录
+                LoginHelper.getInstance().logOut();
+                refreshUI();
+            }
+        });
+
+        // 未登录时可以点击登录
+        mTxtLogin.setOnClickListener(!LoginHelper.getInstance().isLogin() ? new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginHelper.getInstance().startLogin(getActivity());
+            }
+        } : null);
+    }
+
+    private void initAdapter() {
+        mAdapter = new MyInfoAdapter(mContext, R.layout.myinfo_fragment_item);
+
+        // 制造数据
+        List<MyInfoItem> items = new ArrayList<MyInfoItem>();
+        for (int i = 0; i < MainConst.MY_TYPE_IDS.length; i++) {
+            MyInfoItem infoItem = new MyInfoItem(MainConst.MY_TYPE_IDS[i], MainConst.MY_TYPE_NAMES[i]);
+            infoItem.setTo(MainConst.MY_TYPE_NAVIGATIONS[i]);
+            items.add(infoItem);
+        }
+
+        mAdapter.setList(items);
+    }
+
+    /**
+     * 处理用户信息显示
+     */
+    private void handleUserData() {
+        LoginData userData = LoginHelper.getInstance().getLoginUser();
+        if (userData != null) {
+            LoginData.Result result = userData.getPayload();
+
+            if (result != null) {
+                mTxtUserName.setText(result.getCellPhone());
+                mTxtUserName.setVisibility(View.VISIBLE);
+                mTxtBusinessName.setText(result.getId());
+                mTxtBusinessName.setVisibility(View.VISIBLE);
+                mTxtValidDate.setText("dd");
+                mTxtValidDate.setVisibility(View.VISIBLE);
+                mTxtLogin.setVisibility(View.GONE);
+            }
+        } else {
+            // 未登录
+            mTxtUserName.setVisibility(View.GONE);
+            mTxtBusinessName.setVisibility(View.GONE);
+            mTxtValidDate.setVisibility(View.GONE);
+            mTxtLogin.setVisibility(View.VISIBLE);
+        }
+    }
+
+    // @Subscribe
+    public void onMessageEvent(BaseEvent messageEvent) {
+        if (messageEvent != null && messageEvent.action == BaseEvent.LoginAction.SUCCESS) {
+            refreshUI();
+        }
+    }
+
+    private void refreshUI() {
+        handleLogBtnUI();
+        handleUserData();
+    }
+}

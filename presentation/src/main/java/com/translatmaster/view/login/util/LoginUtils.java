@@ -2,10 +2,8 @@ package com.translatmaster.view.login.util;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,10 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.translatmaster.R;
+import com.translatmaster.app.BaseEvent;
 import com.translatmaster.utils.MessageTools;
 import com.translatmaster.utils.ShowTools;
-import com.translatmaster.view.login.data.AccountVerifyEvent;
-import com.translatmaster.view.login.data.LoginConstData;
 import com.translatmaster.view.login.data.LoginData;
 import com.translatmaster.view.login.loginsdk.model.AppFailResult;
 import com.translatmaster.view.login.loginsdk.model.AppPicDataInfo;
@@ -63,17 +60,19 @@ public class LoginUtils {
     /**
      * 绑定成功后跳转判断
      *
-     * @param eventBus
      * @param context
      * @param loginUser
      */
-    public static void whereToGo(EventBus eventBus, Context context, LoginData loginUser) {
-        if (context == null || eventBus == null || loginUser == null) {
+    public static void whereToGo(Context context, LoginData loginUser) {
+        if (context == null || loginUser == null) {
             return;
         }
 
         LoginHelper.getInstance().setLoginUser(loginUser);
         LoginHelper.getInstance().saveData();
+
+        // 通知登录成功
+        EventBus.getDefault().post(new BaseEvent(BaseEvent.LoginAction.SUCCESS));
     }
 
     /**

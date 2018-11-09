@@ -12,4 +12,6 @@
     <dimen name="cell_top_title_bar_padding_top">0dp</dimen>
     <dimen name="top_bar_home_margin">10dp</dimen>
     <dimen name="top_bar_home_pading">5dp</dimen>
+
+    <dimen name="my_info_bottom_height">100dp</dimen>
 </resources>

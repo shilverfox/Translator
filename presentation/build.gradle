@@ -17,6 +17,14 @@ dependencies {
     compile project.DEPENDENCY_HOT_FIX_TINKER_LIB
     compile project.DEPENDENCY_SUPPORT_CONSTRAINT_LAYOUT
     compile project.DEPENDENCY_WECHAT_SDK
+    compile project.DEPENDENCY_SUPPORT_RECYCLE
+
+    // 首页tabLayout
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+
+    // 首页Banner
+    compile 'com.youth.banner:banner:1.4.10'
+
     compile project(path: ':domain')
 
     debugCompile project.DEPENDENCY_LEAKCANARY

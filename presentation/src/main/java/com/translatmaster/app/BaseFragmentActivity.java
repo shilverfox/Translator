@@ -19,18 +19,23 @@ public class BaseFragmentActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         eventBus = EventBus.getDefault();
+        eventBus.register(this);
         mContext = this;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        eventBus.register(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         eventBus.unregister(this);
     }
 

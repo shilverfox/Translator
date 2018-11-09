@@ -1,5 +1,6 @@
 package com.translatmaster.view.login.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -8,6 +9,8 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.translatmaster.app.MainApplicationLike;
 import com.translatmaster.utils.EncodeTool;
+import com.translatmaster.utils.Router;
+import com.translatmaster.view.login.LoginActivity;
 import com.translatmaster.view.login.data.LoginData;
 
 public class LoginHelper {
@@ -81,13 +84,33 @@ public class LoginHelper {
     }
 
     public void clearInternalMemory() {
+        mLoginData = null;
     }
 
     public void clearData() {
         SharedPreferences sharedPreferences = MainApplicationLike.getAppContext()
-                .getSharedPreferences("login", Context.MODE_MULTI_PROCESS); // 私有数据
-        Editor editor = sharedPreferences.edit();// 获取编辑器
-//		editor.putString(NEW_AES_KEY_NAME, "");
-        editor.commit();// 提交修改
+                .getSharedPreferences(LOGIN_FILE_NAME, Context.MODE_MULTI_PROCESS);
+        Editor editor = sharedPreferences.edit();
+		editor.putString(LOGIN_USER_INFO_KEY, "");
+        editor.commit();
+    }
+
+    public boolean isLogin() {
+        return mLoginData != null;
+    }
+
+    public void logOut() {
+        clearLoginInfo();
+    }
+
+    /**
+     * 唤起登录页
+     *
+     * @param activity
+     */
+    public void startLogin(Activity activity) {
+        if (activity != null) {
+            Router.getInstance().open(LoginActivity.class, activity);
+        }
     }
 }

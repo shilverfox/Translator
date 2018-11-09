@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <View
+        android:id="@+id/myinfo_item_diliver"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/root_bg_color"
+        android:visibility="gone"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_myinfo_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="43dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <ImageView
+            android:id="@+id/iv_myinfo_item_icon"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tv_myinfo_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/iv_myinfo_item_icon"
+            android:drawablePadding="5dp"
+            android:text="测试测试"
+            android:textColor="#333333"
+            android:textSize="15sp"/>
+
+        <ImageView
+            android:id="@+id/iv_myinfo_item_notice"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="1dp"
+            android:layout_toLeftOf="@+id/iv_myinfo_item_forward"
+            android:background="@null"
+            android:src="@drawable/icon_status_red"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/tv_myinfo_item_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:layout_toLeftOf="@+id/iv_myinfo_item_forward"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textSize="15sp"
+            android:text="测试测试"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/iv_myinfo_item_forward"
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/myinfo_arrow_right"/>
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/myinfo_item_bottom_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="15dp"
+        android:background="@color/divider_line"/>
+
+</LinearLayout>

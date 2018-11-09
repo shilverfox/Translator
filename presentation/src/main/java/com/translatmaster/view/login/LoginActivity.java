@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.translatmaster.R;
+import com.translatmaster.app.BaseEvent;
 import com.translatmaster.app.BaseFragmentActivity;
 import com.translatmaster.app.MainApplicationLike;
 import com.translatmaster.customview.TitleBar;
@@ -17,12 +18,8 @@ import com.translatmaster.customview.TabGroupView;
 import com.translatmaster.data.ITransKey;
 import com.translatmaster.utils.Router;
 import com.translatmaster.utils.ShowTools;
-import com.translatmaster.view.login.data.LoginEvent;
-import com.translatmaster.view.login.data.LoginUpdate;
-import com.translatmaster.view.login.util.LoginHelper;
 import com.translatmaster.view.login.util.LoginUtils;
 import com.translatmaster.view.login.view.fragment.LoginByUserFragment;
-import com.translatmaster.view.login.view.fragment.LoginSimpleInputSmsFragment;
 import com.translatmaster.view.main.activity.MainActivity;
 import java.util.Vector;
 
@@ -284,13 +281,13 @@ public class LoginActivity extends BaseFragmentActivity {
 //    }
 
     // @Subscribe
-    public void onEvent(LoginEvent event) {
+    public void onMessageEvent(BaseEvent event) {
         switch (event.action) {
             case FAIL:
                 // this.finish();
                 break;
 
-            case CLOSE:
+            case SUCCESS:
                 LoginUtils.hideSoftInputMethod(mContext, mLayoutRoot);
                 finish();
                 break;
@@ -300,7 +297,7 @@ public class LoginActivity extends BaseFragmentActivity {
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         LoginUtils.hideSoftInputMethod(mContext, mLayoutRoot);
     }

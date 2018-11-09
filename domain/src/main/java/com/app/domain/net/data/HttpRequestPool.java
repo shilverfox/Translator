@@ -258,4 +258,19 @@ public class HttpRequestPool {
 
         return baseRequest;
     }
+
+
+    public static BaseRequestEntity getMainPageBannerInfoEntity() {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/bananer");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
 }

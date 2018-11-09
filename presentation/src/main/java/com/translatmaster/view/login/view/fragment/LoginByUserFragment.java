@@ -30,15 +30,11 @@ import com.translatmaster.utils.ShowTools;
 import com.translatmaster.view.login.RegisterActivity;
 import com.translatmaster.view.login.ResetPasswordActivity;
 import com.translatmaster.view.login.customview.LoginUserAgreementView;
-import com.translatmaster.view.login.data.LoginConstData;
 import com.translatmaster.view.login.data.LoginData;
-import com.translatmaster.view.login.data.LoginEvent;
 import com.translatmaster.view.login.loginsdk.model.AppFailResult;
 import com.translatmaster.view.login.loginsdk.model.AppReplyCode;
-import com.translatmaster.view.login.util.LoginHelper;
 import com.translatmaster.view.login.util.LoginUtils;
 import com.translatmaster.view.login.view.contact.LoginByUserContract;
-import com.translatmaster.view.login.view.fragment.html.LoginHtmlHelper;
 import com.translatmaster.view.login.view.presenter.LoginByUserPresenter;
 
 public class LoginByUserFragment extends BaseFragment
@@ -126,12 +122,6 @@ public class LoginByUserFragment extends BaseFragment
         return mRootView;
     }
 
-    public void onEvent(LoginEvent.AccountSafeInfo safeInfo) {
-        if (safeInfo != null) {
-            login();
-        }
-    }
-
     @Override
     public void createPresenter() {
         LoginViewUserCase userCase = new LoginViewUserCase(TaskManager.getTaskManager(),
@@ -215,7 +205,7 @@ public class LoginByUserFragment extends BaseFragment
     @Override
     public void whereToGo(LoginData loginData) {
         ShowTools.toast("登录成功");
-        LoginUtils.whereToGo(eventBus, mContext, loginData);
+        LoginUtils.whereToGo(mContext, loginData);
     }
 
     @Override
