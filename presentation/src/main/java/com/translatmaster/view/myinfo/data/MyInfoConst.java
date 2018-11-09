@@ -1,8 +1,8 @@
-package com.translatmaster.view.main.data;
+package com.translatmaster.view.myinfo.data;
 
 import com.translatmaster.view.login.LoginActivity;
 
-public class MainConst {
+public class MyInfoConst {
     /** 我的页面item id：历史 */
     public final static int MY_TYPE_HISTORY = 1;
 

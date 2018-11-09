@@ -1,4 +1,4 @@
-package com.translatmaster.view.main.fragment;
+package com.translatmaster.view.myinfo.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,13 +13,11 @@ import com.translatmaster.R;
 import com.translatmaster.app.BaseEvent;
 import com.translatmaster.app.BaseFragment;
 import com.translatmaster.utils.RecyclerViewHelper;
-import com.translatmaster.utils.Router;
-import com.translatmaster.utils.ShowTools;
 import com.translatmaster.view.login.data.LoginData;
 import com.translatmaster.view.login.util.LoginHelper;
-import com.translatmaster.view.main.adapter.MyInfoAdapter;
-import com.translatmaster.view.main.data.MainConst;
-import com.translatmaster.view.main.entity.MyInfoItem;
+import com.translatmaster.view.myinfo.adapter.MyInfoAdapter;
+import com.translatmaster.view.myinfo.data.MyInfoConst;
+import com.translatmaster.view.myinfo.entity.MyInfoItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,9 +99,9 @@ public class MyInfoFragment extends BaseFragment {
 
         // 制造数据
         List<MyInfoItem> items = new ArrayList<MyInfoItem>();
-        for (int i = 0; i < MainConst.MY_TYPE_IDS.length; i++) {
-            MyInfoItem infoItem = new MyInfoItem(MainConst.MY_TYPE_IDS[i], MainConst.MY_TYPE_NAMES[i]);
-            infoItem.setTo(MainConst.MY_TYPE_NAVIGATIONS[i]);
+        for (int i = 0; i < MyInfoConst.MY_TYPE_IDS.length; i++) {
+            MyInfoItem infoItem = new MyInfoItem(MyInfoConst.MY_TYPE_IDS[i], MyInfoConst.MY_TYPE_NAMES[i]);
+            infoItem.setTo(MyInfoConst.MY_TYPE_NAVIGATIONS[i]);
             items.add(infoItem);
         }
 

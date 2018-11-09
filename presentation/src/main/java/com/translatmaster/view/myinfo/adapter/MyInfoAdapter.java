@@ -1,4 +1,4 @@
-package com.translatmaster.view.main.adapter;
+package com.translatmaster.view.myinfo.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,7 +13,7 @@ import com.translatmaster.R;
 import com.translatmaster.adapter.UniversalAdapter2;
 import com.translatmaster.adapter.UniversalViewHolder2;
 import com.translatmaster.utils.Router;
-import com.translatmaster.view.main.entity.MyInfoItem;
+import com.translatmaster.view.myinfo.entity.MyInfoItem;
 
 /**
  * 我的适配器

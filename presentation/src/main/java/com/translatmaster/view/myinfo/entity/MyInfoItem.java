@@ -1,4 +1,4 @@
-package com.translatmaster.view.main.entity;
+package com.translatmaster.view.myinfo.entity;
 
 public class MyInfoItem {
     private int id;

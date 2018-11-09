@@ -15,8 +15,7 @@ import com.translatmaster.customview.TitleBar;
 import com.translatmaster.utils.ShowTools;
 import com.translatmaster.view.main.entity.TabEntity;
 import com.translatmaster.view.main.fragment.MainPageFragment;
-import com.translatmaster.view.main.fragment.MyInfoFragment;
-import com.translatmaster.view.main.fragment.SimpleCardFragment;
+import com.translatmaster.view.myinfo.fragment.MyInfoFragment;
 
 import java.util.ArrayList;
 
