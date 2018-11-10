@@ -62,6 +62,11 @@ public class LoginByUserPresenter implements LoginByUserContract.Presenter {
             public void onRequestSuccessful(String data) {
                 handleLoginSuccess(data);
             }
+
+            @Override
+            public void onNetError() {
+
+            }
         });
     }
 

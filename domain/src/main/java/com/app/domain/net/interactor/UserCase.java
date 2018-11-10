@@ -79,11 +79,13 @@ public abstract class UserCase {
         if (callback != null) {
             // If there is json or just a error message.
             if (baseDomainData == null) {
-                // just a error message
-                baseDomainData = createErrorDomainData(errorMessage);
+                // just a error message 联网失败
+//                baseDomainData = createErrorDomainData(errorMessage);
+                callback.onNetError();
+            } else {
+                callback.onRequestFailed(baseDomainData);
             }
 
-            callback.onRequestFailed(baseDomainData);
         }
     }
 

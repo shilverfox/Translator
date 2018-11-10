@@ -5,6 +5,7 @@ import com.app.domain.net.interactor.MainPageUserCase;
 import com.app.domain.net.interactor.MainViewUserCase;
 import com.app.domain.net.model.BaseDomainData;
 import com.app.domain.util.ParseUtil;
+import com.translatmaster.utils.MessageTools;
 import com.translatmaster.view.main.contact.MainContact;
 import com.translatmaster.view.main.contact.MainPageContact;
 import com.translatmaster.view.main.entity.BannerData;
@@ -45,6 +46,13 @@ public class MainPagePresenter implements MainPageContact.Presenter {
                 public void onRequestSuccessful(String data) {
                     handleLoadBannerSuccessful(data);
                 }
+
+                @Override
+                public void onNetError() {
+                    if (mView != null) {
+                        mView.drawEmptyBanner();
+                    }
+                }
             });
         }
     }
@@ -57,7 +65,7 @@ public class MainPagePresenter implements MainPageContact.Presenter {
     }
 
     private void handleLoadBannerFailed(BaseDomainData data) {
-
+        MessageTools.showErrorMessage(data);
     }
 
     @Override
@@ -72,6 +80,11 @@ public class MainPagePresenter implements MainPageContact.Presenter {
                 @Override
                 public void onRequestSuccessful(String data) {
                     handleLoadHostSuccessful(data);
+                }
+
+                @Override
+                public void onNetError() {
+
                 }
             });
         }
@@ -100,6 +113,11 @@ public class MainPagePresenter implements MainPageContact.Presenter {
                 @Override
                 public void onRequestSuccessful(String data) {
                     handleLoadAlbumSuccessful(data);
+                }
+
+                @Override
+                public void onNetError() {
+
                 }
             });
         }

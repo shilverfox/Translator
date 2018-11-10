@@ -34,6 +34,11 @@ public class LoginSimpleInputSmsPresenter implements LoginSimpleInputSmsContract
                 public void onRequestSuccessful(String data) {
                     mView.onGetSmsSuccessful();
                 }
+
+                @Override
+                public void onNetError() {
+
+                }
             });
         }
     }
@@ -53,6 +58,11 @@ public class LoginSimpleInputSmsPresenter implements LoginSimpleInputSmsContract
                     if (mView != null) {
                         mView.onRegisterByPhoneSuccessful();
                     }
+                }
+
+                @Override
+                public void onNetError() {
+
                 }
             });
         }

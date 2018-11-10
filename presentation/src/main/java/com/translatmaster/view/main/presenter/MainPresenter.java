@@ -37,6 +37,11 @@ public class MainPresenter implements MainContact.Presenter {
         public void onRequestFailed(BaseDomainData baseDomainData) {
             handleResponseFailed(baseDomainData);
         }
+
+        @Override
+        public void onNetError() {
+
+        }
     };
 
     /**

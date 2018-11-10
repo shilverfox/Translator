@@ -15,6 +15,9 @@ public class MainPageContact {
         void drawBannerInfo(BannerData bannerData);
         void drawHostInfo(HostData hostData);
         void drawSpecialAlbumInfo(SpecialAlbumData albumsData);
+
+        /** 获取banner数据为空 */
+        void drawEmptyBanner();
     }
 
     public interface Presenter {

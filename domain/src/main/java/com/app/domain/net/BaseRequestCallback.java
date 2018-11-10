@@ -23,6 +23,11 @@ public abstract class BaseRequestCallback {
      */
     public abstract void onRequestSuccessful(String data);
 
+    /**
+     * 联网失败
+     */
+    public abstract void onNetError();
+
 //    /**
 //     * 获取Json的类型，因为数据可能集合也可能是Object *
 //     *

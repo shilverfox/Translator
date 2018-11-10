@@ -135,6 +135,11 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     }
 
     @Override
+    public void drawEmptyBanner() {
+        ShowTools.toast("我擦联网失败");
+    }
+
+    @Override
     public void drawHostInfo(HostData hostData) {
 
     }

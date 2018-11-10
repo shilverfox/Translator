@@ -33,6 +33,11 @@ public class LoginResetPasswordPresenter extends LoginSimpleInputSmsPresenter
                 public void onRequestSuccessful(String data) {
                     mView.onGetSmsSuccessful();
                 }
+
+                @Override
+                public void onNetError() {
+
+                }
             });
         }
     }
@@ -52,6 +57,11 @@ public class LoginResetPasswordPresenter extends LoginSimpleInputSmsPresenter
                     if (mView != null) {
                         mView.onRegisterByPhoneSuccessful();
                     }
+                }
+
+                @Override
+                public void onNetError() {
+
                 }
             });
         }
