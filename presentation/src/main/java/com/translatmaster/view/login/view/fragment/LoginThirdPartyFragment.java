@@ -19,7 +19,7 @@
 //import com.translatmaster.view.login.data.LoginData;
 //import com.translatmaster.weixin.WechatEvent;
 //import com.translatmaster.view.login.thirdapi.IWechatLoginListener;
-//import com.translatmaster.view.login.thirdapi.LoginResultEvent;
+//import com.translatmaster.view.login.thirdapi.LoginThirdResultEvent;
 //import com.translatmaster.view.login.thirdapi.ThridPartyLoginHelper;
 //import com.translatmaster.view.login.util.LoginUtils;
 //import com.translatmaster.view.login.view.contact.LoginThirdPartyContract;
@@ -147,7 +147,7 @@
 //     */
 //    // @Subscribe
 //    @Override
-//    public void onEventMainThread(LoginResultEvent event) {
+//    public void onEventMainThread(LoginThirdResultEvent event) {
 //        if (event != null) {
 //            mWxinResponseCode = event.getCode();
 //

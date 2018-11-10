@@ -18,15 +18,21 @@ import com.translatmaster.customview.TabGroupView;
 import com.translatmaster.data.ITransKey;
 import com.translatmaster.utils.Router;
 import com.translatmaster.utils.ShowTools;
+import com.translatmaster.view.login.callback.ILoginResultListener;
+import com.translatmaster.view.login.data.LoginResultEvent;
 import com.translatmaster.view.login.util.LoginUtils;
 import com.translatmaster.view.login.view.fragment.LoginByUserFragment;
 import com.translatmaster.view.main.activity.MainActivity;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.Vector;
 
 /**
  * 登录主界面
  */
-public class LoginActivity extends BaseFragmentActivity {
+public class LoginActivity extends BaseFragmentActivity implements ILoginResultListener {
     private LinearLayout mLayoutRoot;
     private TitleBar mTopBarLayout;
     private TabGroupView mTabGroupView;
@@ -280,8 +286,9 @@ public class LoginActivity extends BaseFragmentActivity {
 //        }
 //    }
 
-    // @Subscribe
-    public void onMessageEvent(BaseEvent event) {
+    @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LoginResultEvent event) {
         switch (event.action) {
             case FAIL:
                 // this.finish();
@@ -294,7 +301,7 @@ public class LoginActivity extends BaseFragmentActivity {
             default:
                 break;
         }
-    }
+    };
 
     @Override
     public void onDestroy() {

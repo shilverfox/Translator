@@ -14,7 +14,7 @@ import com.translatmaster.app.BaseActivity;
 import com.translatmaster.app.MainApplicationLike;
 import com.translatmaster.utils.LogTools;
 import com.translatmaster.utils.ShowTools;
-import com.translatmaster.view.login.thirdapi.LoginResultEvent;
+import com.translatmaster.view.login.thirdapi.LoginThirdResultEvent;
 
 /**
  * 微信返回请求结果，分享、登录公用
@@ -109,7 +109,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
         }
 
         if (eventBus != null) {
-            eventBus.post(new LoginResultEvent(rpsCode));
+            eventBus.post(new LoginThirdResultEvent(rpsCode));
         }
         ShowTools.toast(result);
     }

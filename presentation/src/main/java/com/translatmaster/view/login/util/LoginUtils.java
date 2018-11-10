@@ -17,6 +17,7 @@ import com.translatmaster.app.BaseEvent;
 import com.translatmaster.utils.MessageTools;
 import com.translatmaster.utils.ShowTools;
 import com.translatmaster.view.login.data.LoginData;
+import com.translatmaster.view.login.data.LoginResultEvent;
 import com.translatmaster.view.login.loginsdk.model.AppFailResult;
 import com.translatmaster.view.login.loginsdk.model.AppPicDataInfo;
 import com.translatmaster.view.login.view.fragment.html.LoginHtmlHelper;
@@ -72,7 +73,7 @@ public class LoginUtils {
         LoginHelper.getInstance().saveData();
 
         // 通知登录成功
-        EventBus.getDefault().post(new BaseEvent(BaseEvent.LoginAction.SUCCESS));
+        EventBus.getDefault().post(new LoginResultEvent(LoginResultEvent.LoginAction.SUCCESS));
     }
 
     /**

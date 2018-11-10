@@ -13,16 +13,21 @@ import com.translatmaster.R;
 import com.translatmaster.app.BaseEvent;
 import com.translatmaster.app.BaseFragment;
 import com.translatmaster.utils.RecyclerViewHelper;
+import com.translatmaster.view.login.callback.ILoginResultListener;
 import com.translatmaster.view.login.data.LoginData;
+import com.translatmaster.view.login.data.LoginResultEvent;
 import com.translatmaster.view.login.util.LoginHelper;
 import com.translatmaster.view.myinfo.adapter.MyInfoAdapter;
 import com.translatmaster.view.myinfo.data.MyInfoConst;
 import com.translatmaster.view.myinfo.entity.MyInfoItem;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyInfoFragment extends BaseFragment {
+public class MyInfoFragment extends BaseFragment implements ILoginResultListener {
     private View mRootView;
     private RecyclerView mRecyclerView;
     private Button mBtnLogOut;
@@ -134,9 +139,10 @@ public class MyInfoFragment extends BaseFragment {
         }
     }
 
-    // @Subscribe
-    public void onMessageEvent(BaseEvent messageEvent) {
-        if (messageEvent != null && messageEvent.action == BaseEvent.LoginAction.SUCCESS) {
+    @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LoginResultEvent event) {
+        if (event != null && event.action == LoginResultEvent.LoginAction.SUCCESS) {
             refreshUI();
         }
     }

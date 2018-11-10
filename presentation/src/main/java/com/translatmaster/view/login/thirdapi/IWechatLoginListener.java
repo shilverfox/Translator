@@ -13,7 +13,7 @@ public interface IWechatLoginListener {
      * 获得微信sdk返回的用户授权结果
      * @param event
      */
-    void onEventMainThread(LoginResultEvent event);
+    void onEventMainThread(LoginThirdResultEvent event);
 
     /**
      * 微信账号被风控后执行风控h5后的返回结果

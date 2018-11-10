@@ -7,15 +7,4 @@ package com.translatmaster.app;
  */
 
 public class BaseEvent {
-    public BaseEvent.LoginAction action;
-
-    public enum LoginAction {
-        CLOSE,
-        FAIL,
-        SUCCESS
-    }
-
-    public BaseEvent(BaseEvent.LoginAction action) {
-        this.action = action;
-    }
 }

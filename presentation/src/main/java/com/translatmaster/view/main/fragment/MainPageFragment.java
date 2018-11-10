@@ -141,7 +141,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
 
     @Override
     public void drawSpecialAlbumInfo(SpecialAlbumData albumsData) {
-        
+
     }
 
     @Override
