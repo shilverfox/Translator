@@ -273,4 +273,22 @@ public class HttpRequestPool {
 
         return baseRequest;
     }
+
+    /**
+     * 首页主讲嘉宾
+     * @return
+     */
+    public static BaseRequestEntity getMainPageHostListEntity() {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getIndexCelebrity");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
 }

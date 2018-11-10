@@ -18,4 +18,13 @@ public class MainPageUserCase extends UserCase {
         BaseRequestEntity entity = HttpRequestPool.getMainPageBannerInfoEntity();
         handleSendRequest(entity, callback);
     }
+
+    /**
+     * 主讲嘉宾
+     * @param callback
+     */
+    public void requestHostList(BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getMainPageHostListEntity();
+        handleSendRequest(entity, callback);
+    }
 }

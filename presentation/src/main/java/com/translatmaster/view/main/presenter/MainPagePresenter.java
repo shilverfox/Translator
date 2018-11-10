@@ -8,6 +8,7 @@ import com.app.domain.util.ParseUtil;
 import com.translatmaster.view.main.contact.MainContact;
 import com.translatmaster.view.main.contact.MainPageContact;
 import com.translatmaster.view.main.entity.BannerData;
+import com.translatmaster.view.main.entity.HostData;
 import com.youth.banner.Banner;
 
 /**
@@ -55,6 +56,34 @@ public class MainPagePresenter implements MainPageContact.Presenter {
     }
 
     private void handleLoadBannerFailed(BaseDomainData data) {
+
+    }
+
+    @Override
+    public void requestHostList() {
+        if (mMainPageUserCase != null) {
+            mMainPageUserCase.requestHostList(new BaseRequestCallback() {
+                @Override
+                public void onRequestFailed(BaseDomainData data) {
+                    handleLoadHostFailed(data);
+                }
+
+                @Override
+                public void onRequestSuccessful(String data) {
+                    handleLoadHostSuccessful(data);
+                }
+            });
+        }
+    }
+
+    private void handleLoadHostSuccessful(String data) {
+        HostData parseData = ParseUtil.parseData(data, HostData.class);
+        if (mView != null) {
+            mView.drawHostInfo(parseData);
+        }
+    }
+
+    private void handleLoadHostFailed(BaseDomainData data) {
 
     }
 }

@@ -3,6 +3,7 @@ package com.translatmaster.view.main.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.translatmaster.app.MainApplicationLike;
 import com.translatmaster.utils.ShowTools;
 import com.translatmaster.view.main.contact.MainPageContact;
 import com.translatmaster.view.main.entity.BannerData;
+import com.translatmaster.view.main.entity.HostData;
 import com.translatmaster.view.main.presenter.MainPagePresenter;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -34,8 +36,9 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     private final static String TAG = "MainPageFragment";
 
     private View mRootView;
-
     private Banner mViewBanner;
+    private RecyclerView mRvHostList;
+    private RecyclerView mRvRecommendList;
 
     private MainPageContact.Presenter mPresenter;
 
@@ -94,6 +97,8 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
 
     private void initViews() {
         mViewBanner = mRootView.findViewById(R.id.banner);
+        mRvHostList = mRootView.findViewById(R.id.rv_floor_host);
+        mRvRecommendList = mRootView.findViewById(R.id.rv_floor_recommend);
     }
 
     private void initBanner(List images) {
@@ -126,6 +131,11 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
             mBannerData = bannerData;
             initBanner(bannerData.getPayload().getSpecialAlbums());
         }
+    }
+
+    @Override
+    public void drawHostInfo(HostData hostData) {
+
     }
 
     @Override
