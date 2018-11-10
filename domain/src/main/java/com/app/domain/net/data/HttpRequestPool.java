@@ -1,5 +1,7 @@
 package com.app.domain.net.data;
 
+import android.text.TextUtils;
+
 import com.app.domain.net.model.BaseBody;
 import com.app.domain.net.model.BaseRequestEntity;
 import com.app.domain.net.model.RequestConst;
@@ -286,6 +288,35 @@ public class HttpRequestPool {
 
         BaseBody body = new BaseBody();
         body.add("specialCode", "JBSX");
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
+    /**
+     * 专题列表
+     *
+     * @param albumId 专题id 可为空
+     * @param videoStoreId 片库id 可为空
+     */
+    public static BaseRequestEntity getMainPageSpecialAlbumEntity(String albumId, String videoStoreId) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getAlbumTheSingles");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+
+        if (!TextUtils.isEmpty(albumId)) {
+            body.add("albumId", albumId);
+        }
+
+
+        if (!TextUtils.isEmpty(videoStoreId)) {
+            body.add("singleId", videoStoreId);
+        }
 
         baseRequest.setBaseBody(body);
 

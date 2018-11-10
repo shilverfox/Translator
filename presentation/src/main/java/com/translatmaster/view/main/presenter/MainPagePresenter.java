@@ -9,6 +9,7 @@ import com.translatmaster.view.main.contact.MainContact;
 import com.translatmaster.view.main.contact.MainPageContact;
 import com.translatmaster.view.main.entity.BannerData;
 import com.translatmaster.view.main.entity.HostData;
+import com.translatmaster.view.main.entity.SpecialAlbumData;
 import com.youth.banner.Banner;
 
 /**
@@ -84,6 +85,34 @@ public class MainPagePresenter implements MainPageContact.Presenter {
     }
 
     private void handleLoadHostFailed(BaseDomainData data) {
+
+    }
+
+    @Override
+    public void requestSpecialAlbumList(String albumId, String videoStoreId) {
+        if (mMainPageUserCase != null) {
+            mMainPageUserCase.requestSpecialAlbusList(albumId, videoStoreId, new BaseRequestCallback() {
+                @Override
+                public void onRequestFailed(BaseDomainData data) {
+                    handleLoadAlbumFailed(data);
+                }
+
+                @Override
+                public void onRequestSuccessful(String data) {
+                    handleLoadAlbumSuccessful(data);
+                }
+            });
+        }
+    }
+
+    private void handleLoadAlbumSuccessful(String data) {
+        SpecialAlbumData parseData = ParseUtil.parseData(data, SpecialAlbumData.class);
+        if (mView != null) {
+            mView.drawSpecialAlbumInfo(parseData);
+        }
+    }
+
+    private void handleLoadAlbumFailed(BaseDomainData data) {
 
     }
 }

@@ -19,6 +19,7 @@ import com.translatmaster.utils.ShowTools;
 import com.translatmaster.view.main.contact.MainPageContact;
 import com.translatmaster.view.main.entity.BannerData;
 import com.translatmaster.view.main.entity.HostData;
+import com.translatmaster.view.main.entity.SpecialAlbumData;
 import com.translatmaster.view.main.presenter.MainPagePresenter;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -136,6 +137,11 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     @Override
     public void drawHostInfo(HostData hostData) {
 
+    }
+
+    @Override
+    public void drawSpecialAlbumInfo(SpecialAlbumData albumsData) {
+        
     }
 
     @Override
