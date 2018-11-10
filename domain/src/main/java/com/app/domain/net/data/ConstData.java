@@ -32,5 +32,8 @@ public class ConstData {
     /** 注册用户类型 */
     public final static String REGISTER_USER_TYPE = "5";
 
+    /** 分页，每页条数 */
+    public final static int DEFAULT_PAGE_SIZE = 10;
+
 
 }

@@ -1,24 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.youth.banner.Banner
         android:id="@+id/banner"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        android:layout_height="200dp" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_floor_host"
+    <LinearLayout
+        android:id="@+id/layout_host"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_floor_recommend"
+        <TextView
+            android:id="@+id/tv_host_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="主讲嘉宾" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_floor_host"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_album"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_album_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="专题系列" />
+
+        <com.zhouyou.recyclerview.XRecyclerView
+            android:id="@+id/rv_floor_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </LinearLayout>

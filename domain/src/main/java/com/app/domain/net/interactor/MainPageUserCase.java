@@ -30,12 +30,9 @@ public class MainPageUserCase extends UserCase {
 
     /**
      * 专题列表
-     *
-     * @param albumId 专题id 可为空
-     * @param videoStoreId 片库id 可为空
      */
-    public void requestSpecialAlbusList(String albumId, String videoStoreId, BaseRequestCallback callback) {
-        BaseRequestEntity entity = HttpRequestPool.getMainPageSpecialAlbumEntity(albumId, videoStoreId);
+    public void requestSpecialAlbusList(int page, BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getMainPageSpecialAlbumEntity(page);
         handleSendRequest(entity, callback);
     }
 }

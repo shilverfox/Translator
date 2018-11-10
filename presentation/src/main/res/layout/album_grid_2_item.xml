@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 视频列表项，一行2个 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_video_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="4dp">
+
+
+    <ImageView
+        android:id="@+id/iv_video_item_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/iv_video_item_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iv_video_item_image"
+        android:layout_alignRight="@id/iv_video_item_image"
+        android:text="30"
+        android:textColor="#ff0000"
+        android:textSize="50sp" />
+
+
+    <TextView
+        android:id="@+id/iv_video_item_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_video_item_image"
+        android:text="miaoshu"
+        android:textColor="#ff0000"
+        android:maxLines="1" />
+
+</RelativeLayout>

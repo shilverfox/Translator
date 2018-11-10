@@ -102,9 +102,9 @@ public class MainPagePresenter implements MainPageContact.Presenter {
     }
 
     @Override
-    public void requestSpecialAlbumList(String albumId, String videoStoreId) {
+    public void requestSpecialAlbumList(int page) {
         if (mMainPageUserCase != null) {
-            mMainPageUserCase.requestSpecialAlbusList(albumId, videoStoreId, new BaseRequestCallback() {
+            mMainPageUserCase.requestSpecialAlbusList(page, new BaseRequestCallback() {
                 @Override
                 public void onRequestFailed(BaseDomainData data) {
                     handleLoadAlbumFailed(data);

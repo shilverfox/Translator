@@ -31,10 +31,7 @@ public class MainPageContact {
 
         /**
          * 专题列表
-         *
-         * @param albumId 专题id 可为空
-         * @param videoStoreId 片库id 可为空
          */
-        void requestSpecialAlbumList(String albumId, String videoStoreId);
+        void requestSpecialAlbumList(int page);
     }
 }

@@ -12,46 +12,96 @@ import java.util.List;
 
 public class SpecialAlbumData {
     private boolean status;
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public Payload getPayload() {
+        return payload;
+    }
+
+    public void setPayload(Payload payload) {
+        this.payload = payload;
+    }
+
     private int code;
     private String msg;
     private Payload payload;
 
-    public class Payload {
 
-        private List<String> singles;
+
+    public class Payload {
+        private List<SpecialAlbums> specialAlbums;
+        private int totalPages;
+        private int totalElements;
         private BaseDomainData.ResultStatus resultStatus;
         private List<Param> param;
 
-        public void setSingles(List<String> singles) {
-            this.singles = singles;
+        public List<SpecialAlbums> getSpecialAlbums() {
+            return specialAlbums;
         }
-        public List<String> getSingles() {
-            return singles;
+
+        public void setSpecialAlbums(List<SpecialAlbums> specialAlbums) {
+            this.specialAlbums = specialAlbums;
+        }
+
+        public int getTotalPages() {
+            return totalPages;
+        }
+
+        public void setTotalPages(int totalPages) {
+            this.totalPages = totalPages;
+        }
+
+        public int getTotalElements() {
+            return totalElements;
+        }
+
+        public void setTotalElements(int totalElements) {
+            this.totalElements = totalElements;
+        }
+
+        public BaseDomainData.ResultStatus getResultStatus() {
+            return resultStatus;
         }
 
         public void setResultStatus(BaseDomainData.ResultStatus resultStatus) {
             this.resultStatus = resultStatus;
         }
-        public BaseDomainData.ResultStatus getResultStatus() {
-            return resultStatus;
+
+        public List<Param> getParam() {
+            return param;
         }
 
         public void setParam(List<Param> param) {
             this.param = param;
         }
-        public List<Param> getParam() {
-            return param;
-        }
-
     }
 
     public class Param {
-
         private String specialCode;
-        private String albumId;
-        private String singleId;
-        private String userId;
-        private int type;
+        private BaseDomainData.BasePage basePage;
         private BaseDomainData.Parameter parameter;
 
         public String getSpecialCode() {
@@ -62,36 +112,12 @@ public class SpecialAlbumData {
             this.specialCode = specialCode;
         }
 
-        public String getAlbumId() {
-            return albumId;
+        public BaseDomainData.BasePage getBasePage() {
+            return basePage;
         }
 
-        public void setAlbumId(String albumId) {
-            this.albumId = albumId;
-        }
-
-        public String getSingleId() {
-            return singleId;
-        }
-
-        public void setSingleId(String singleId) {
-            this.singleId = singleId;
-        }
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
-
-        public int getType() {
-            return type;
-        }
-
-        public void setType(int type) {
-            this.type = type;
+        public void setBasePage(BaseDomainData.BasePage basePage) {
+            this.basePage = basePage;
         }
 
         public BaseDomainData.Parameter getParameter() {

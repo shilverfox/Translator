@@ -92,25 +92,4 @@ public class BannerData {
             this.parameter = parameter;
         }
     }
-
-    public class SpecialAlbums {
-        private Album album;
-        private List<Celebrities> celebrities;
-
-        public Album getAlbum() {
-            return album;
-        }
-
-        public void setAlbum(Album album) {
-            this.album = album;
-        }
-
-        public List<Celebrities> getCelebrities() {
-            return celebrities;
-        }
-
-        public void setCelebrities(List<Celebrities> celebrities) {
-            this.celebrities = celebrities;
-        }
-    }
 }

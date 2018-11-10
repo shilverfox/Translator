@@ -75,6 +75,26 @@ public class BaseDomainData {
         }
     }
 
+    public class BasePage {
+
+        private int size;
+        private int no;
+        public void setSize(int size) {
+            this.size = size;
+        }
+        public int getSize() {
+            return size;
+        }
+
+        public void setNo(int no) {
+            this.no = no;
+        }
+        public int getNo() {
+            return no;
+        }
+
+    }
+
     public class Parameter {
         private String token;
         private String remoteAddress;

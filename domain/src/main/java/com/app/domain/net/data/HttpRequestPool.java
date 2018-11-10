@@ -296,27 +296,18 @@ public class HttpRequestPool {
 
     /**
      * 专题列表
-     *
-     * @param albumId 专题id 可为空
-     * @param videoStoreId 片库id 可为空
      */
-    public static BaseRequestEntity getMainPageSpecialAlbumEntity(String albumId, String videoStoreId) {
+    public static BaseRequestEntity getMainPageSpecialAlbumEntity(int page) {
         BaseRequestEntity baseRequest = new BaseRequestEntity();
         baseRequest.setUrl(ConstData.HOST);
-        baseRequest.setFunctionId("/Special/Special/getAlbumTheSingles");
+        baseRequest.setFunctionId("/Special/Special/getAllAlbumList");
         baseRequest.setMethod(RequestConst.REQUEST_POST);
 
         BaseBody body = new BaseBody();
         body.add("specialCode", "JBSX");
+        body.add("no", page + "");
+        body.add("size", ConstData.DEFAULT_PAGE_SIZE + "");
 
-        if (!TextUtils.isEmpty(albumId)) {
-            body.add("albumId", albumId);
-        }
-
-
-        if (!TextUtils.isEmpty(videoStoreId)) {
-            body.add("singleId", videoStoreId);
-        }
 
         baseRequest.setBaseBody(body);
 
