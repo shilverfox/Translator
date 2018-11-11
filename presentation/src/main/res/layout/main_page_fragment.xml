@@ -1,49 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nsv_main_page_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.youth.banner.Banner
-        android:id="@+id/banner"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
-
-    <LinearLayout
-        android:id="@+id/layout_host"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_host_label"
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <LinearLayout
+            android:id="@+id/layout_host"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="主讲嘉宾" />
+            android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_floor_host"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_host_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="主讲嘉宾" />
 
-    <LinearLayout
-        android:id="@+id/layout_album"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_floor_host"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_album_label"
+        <LinearLayout
+            android:id="@+id/layout_album"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="专题系列" />
+            android:orientation="vertical">
 
-        <com.zhouyou.recyclerview.XRecyclerView
-            android:id="@+id/rv_floor_recommend"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_album_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="专题系列" />
+
+            <com.zhouyou.recyclerview.XRecyclerView
+                android:id="@+id/rv_floor_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
     </LinearLayout>
-
-</LinearLayout>
+</android.support.v4.widget.NestedScrollView>

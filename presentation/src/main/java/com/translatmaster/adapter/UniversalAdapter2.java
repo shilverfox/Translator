@@ -70,7 +70,9 @@ public abstract class UniversalAdapter2<T> extends RecyclerView.Adapter {
      */
     public void addList(List<T> ts) {
         mDatas.addAll(ts);
-        notifyDataSetChanged();
+
+        int oldPosition = mDatas.size() - 1;
+        notifyItemInserted(oldPosition);
     }
 
     /**

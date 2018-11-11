@@ -3,6 +3,7 @@ package com.translatmaster.view.main.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,10 +14,10 @@ import android.widget.ImageView;
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.data.ConstData;
 import com.app.domain.net.interactor.MainPageUserCase;
-import com.app.domain.net.interactor.MainViewUserCase;
 import com.translatmaster.R;
 import com.translatmaster.app.BaseFragment;
 import com.translatmaster.app.MainApplicationLike;
+import com.translatmaster.utils.LogTools;
 import com.translatmaster.utils.ShowTools;
 import com.translatmaster.view.main.adapter.VideoItemAdapter;
 import com.translatmaster.view.main.contact.MainPageContact;
@@ -29,6 +30,7 @@ import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 import com.zhouyou.recyclerview.XRecyclerView;
+import com.zhouyou.recyclerview.refresh.LoadingMoreFooter;
 import com.zhouyou.recyclerview.refresh.ProgressStyle;
 
 import java.util.ArrayList;
@@ -52,14 +54,15 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     private XRecyclerView mRvRecommendList;
     private VideoItemAdapter mAdapterAlbum;
     private List<SpecialAlbums> mListAlbum = new ArrayList<>();
-    private View mFooterView;
+    private LoadingMoreFooter mFooterLoadingMore;
+    private NestedScrollView mNsvRoot;
 
     private MainPageContact.Presenter mPresenter;
 
     private BannerData mBannerData;
 
     /** 当前页码 */
-    private int mCurrentPage;
+    private int mCurrentPage = 1;
     private boolean mHasNextPage = true;
 
     public MainPageFragment() {
@@ -125,6 +128,29 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
                 }
             }
         });
+
+        mNsvRoot.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY > oldScrollY) {
+                    LogTools.e(TAG, "Scroll DOWN");
+                }
+                if (scrollY < oldScrollY) {
+                    LogTools.e(TAG, "Scroll UP");
+                }
+
+                if (scrollY == 0) {
+                    LogTools.e(TAG, "TOP SCROLL");
+                }
+
+                if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
+                    LogTools.e(TAG, "BOTTOM SCROLL");
+                    if (mHasNextPage) {
+                        loadSpecialAlbum(++mCurrentPage);
+                    }
+                }
+            }
+        });
     }
 
     private void initViews() {
@@ -133,6 +159,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         mRvRecommendList = mRootView.findViewById(R.id.rv_floor_recommend);
         mLayoutHost = mRootView.findViewById(R.id.layout_host);
         mLayoutRecomment = mRootView.findViewById(R.id.layout_album);
+        mNsvRoot = mRootView.findViewById(R.id.nsv_main_page_root);
 
         initSpecialAlbumView();
     }
@@ -140,15 +167,20 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     private void initSpecialAlbumView() {
         GridLayoutManager layoutManager = new GridLayoutManager(mContext, 2);
         mRvRecommendList.setLayoutManager(layoutManager);
+        mRvRecommendList.setNestedScrollingEnabled(false);
 
         mRvRecommendList.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         mRvRecommendList.setLoadingMoreProgressStyle(ProgressStyle.CubeTransition);
         mRvRecommendList.setArrowImageView(R.drawable.iconfont_downgrey);
 
-        mFooterView = LayoutInflater.from(mContext).inflate(R.layout.adapter_footer,
-                (ViewGroup) mRootView.findViewById(android.R.id.content), false);
-        mRvRecommendList.addFooterView(mFooterView);
-        showAlbusFooter(false);
+        mFooterLoadingMore = new LoadingMoreFooter(mContext);
+        mFooterLoadingMore.setProgressStyle(ProgressStyle.CubeTransition);
+        mFooterLoadingMore.setLoadingHint("加载中");
+
+        mRvRecommendList.addFooterView(mFooterLoadingMore);
+
+        // 初始时都不显示footer
+        showLoadingMoreFooter(false);
 
         mAdapterAlbum = new VideoItemAdapter(mContext, R.layout.album_grid_2_item);
         mAdapterAlbum.setDatas(mListAlbum);
@@ -157,8 +189,13 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
 
     }
 
-    private void showAlbusFooter(boolean show) {
-        mFooterView.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+    private void showLoadingMoreFooter(boolean show) {
+        if (show) {
+            mFooterLoadingMore.setState(LoadingMoreFooter.STATE_LOADING);
+        } else {
+            mFooterLoadingMore.setState(LoadingMoreFooter.STATE_NOMORE);
+            mFooterLoadingMore.setNoMoreHint("已经到底了");
+        }
     }
 
     private void initBanner(List images) {
@@ -227,7 +264,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     private void handleAlbumLoadMoreComplete() {
         mRvRecommendList.loadMoreComplete();
         mRvRecommendList.setLoadingMoreEnabled(mHasNextPage);
-        showAlbusFooter(!mRvRecommendList.isLoadingMoreEnabled());
+        showLoadingMoreFooter(mHasNextPage);
     }
 
     /**
@@ -255,7 +292,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     public void onResume() {
         super.onResume();
         loadBannerInfo();
-        loadSpecialAlbum(1);
+        loadSpecialAlbum(mCurrentPage);
     }
 
     @Override
