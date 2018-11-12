@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +18,15 @@ import com.app.domain.net.interactor.MainPageUserCase;
 import com.translatmaster.R;
 import com.translatmaster.app.BaseFragment;
 import com.translatmaster.app.MainApplicationLike;
+import com.translatmaster.customview.recyclerview.CenterLayoutManager;
 import com.translatmaster.utils.LogTools;
 import com.translatmaster.utils.ShowTools;
+import com.translatmaster.view.main.adapter.CelebrityIconItemAdapter;
 import com.translatmaster.view.main.adapter.VideoItemAdapter;
 import com.translatmaster.view.main.contact.MainPageContact;
 import com.translatmaster.view.main.entity.BannerData;
+import com.translatmaster.view.main.entity.Celebrities;
+import com.translatmaster.view.main.entity.CelebrityData;
 import com.translatmaster.view.main.entity.HostData;
 import com.translatmaster.view.main.entity.SpecialAlbumData;
 import com.translatmaster.view.main.entity.SpecialAlbums;
@@ -56,6 +61,10 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     private List<SpecialAlbums> mListAlbum = new ArrayList<>();
     private LoadingMoreFooter mFooterLoadingMore;
     private NestedScrollView mNsvRoot;
+
+    /** 名家列表 */
+    private CelebrityIconItemAdapter mAdapterCelebrity;
+    private List<Celebrities> mListCelebrity = new ArrayList<>();
 
     private MainPageContact.Presenter mPresenter;
 
@@ -162,8 +171,43 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         mNsvRoot = mRootView.findViewById(R.id.nsv_main_page_root);
 
         initSpecialAlbumView();
+        initCelebrityView();
     }
 
+    /**
+     * 主讲嘉宾
+     */
+    private void initCelebrityView() {
+        CenterLayoutManager layoutManager = new CenterLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
+        mRvHostList.setLayoutManager(layoutManager);
+
+        mAdapterCelebrity = new CelebrityIconItemAdapter(mContext, R.layout.celebrity_icon_item);
+        mAdapterCelebrity.setDatas(mListCelebrity);
+        mAdapterCelebrity.setOnMyItemClickListener(new CelebrityIconItemAdapter.OnMyItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                // 点击item的自动居中
+                mRvHostList.smoothScrollToPosition(position);
+                handleCelebritySelect(position);
+            }
+        });
+
+        mRvHostList.setAdapter(mAdapterCelebrity);
+    }
+
+    private void handleCelebritySelect(int position) {
+        if (mListCelebrity != null && mListCelebrity.size() > 0
+                && position >= 0 && position < mListCelebrity.size()) {
+            Celebrities celebrity = mListCelebrity.get(position);
+
+            if (celebrity != null) {
+            }
+        }
+    }
+
+    /**
+     * 专题列表
+     */
     private void initSpecialAlbumView() {
         GridLayoutManager layoutManager = new GridLayoutManager(mContext, 2);
         mRvRecommendList.setLayoutManager(layoutManager);
@@ -224,6 +268,10 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
 
     private void loadSpecialAlbum(int page) {
         mPresenter.requestSpecialAlbumList(page);
+    }
+
+    private void loadCelebrities() {
+        mPresenter.requestCelebrities();
     }
 
     @Override
@@ -288,10 +336,27 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         return !(data == null || data.size() < ConstData.DEFAULT_PAGE_SIZE);
     }
 
+    /**
+     * 渲染名家列表
+     *
+     * @param celebrityData
+     */
+    @Override
+    public void drawCelebritiesInfo(CelebrityData celebrityData) {
+        if (celebrityData != null && celebrityData.getPayload() != null) {
+            List<Celebrities> data = celebrityData.getPayload().getCelebrities();
+            if (data != null && !data.isEmpty()) {
+                mAdapterCelebrity.addList(data);
+                mListCelebrity = mAdapterCelebrity.getDatas();
+            }
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         loadBannerInfo();
+        loadCelebrities();
         loadSpecialAlbum(mCurrentPage);
     }
 

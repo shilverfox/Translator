@@ -1,6 +1,7 @@
 package com.translatmaster.view.main.contact;
 
 import com.translatmaster.view.main.entity.BannerData;
+import com.translatmaster.view.main.entity.CelebrityData;
 import com.translatmaster.view.main.entity.HostData;
 import com.translatmaster.view.main.entity.SpecialAlbumData;
 import com.youth.banner.Banner;
@@ -15,6 +16,7 @@ public class MainPageContact {
         void drawBannerInfo(BannerData bannerData);
         void drawHostInfo(HostData hostData);
         void drawSpecialAlbumInfo(SpecialAlbumData albumsData);
+        void drawCelebritiesInfo(CelebrityData celebrityData);
 
         /** 获取banner数据为空 */
         void drawEmptyBanner();
@@ -33,5 +35,8 @@ public class MainPageContact {
          * 专题列表
          */
         void requestSpecialAlbumList(int page);
+
+        /** 名家列表 */
+        void requestCelebrities();
     }
 }

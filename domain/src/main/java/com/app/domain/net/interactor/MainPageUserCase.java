@@ -35,4 +35,14 @@ public class MainPageUserCase extends UserCase {
         BaseRequestEntity entity = HttpRequestPool.getMainPageSpecialAlbumEntity(page);
         handleSendRequest(entity, callback);
     }
+
+    /**
+     * 获取名家列表
+     *
+     * @param callback
+     */
+    public void requestCelebrities(BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getMainPageCelebritiesEntity();
+        handleSendRequest(entity, callback);
+    }
 }

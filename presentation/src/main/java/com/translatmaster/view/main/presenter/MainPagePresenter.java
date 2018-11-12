@@ -9,6 +9,8 @@ import com.translatmaster.utils.MessageTools;
 import com.translatmaster.view.main.contact.MainContact;
 import com.translatmaster.view.main.contact.MainPageContact;
 import com.translatmaster.view.main.entity.BannerData;
+import com.translatmaster.view.main.entity.Celebrities;
+import com.translatmaster.view.main.entity.CelebrityData;
 import com.translatmaster.view.main.entity.HostData;
 import com.translatmaster.view.main.entity.SpecialAlbumData;
 import com.youth.banner.Banner;
@@ -131,6 +133,39 @@ public class MainPagePresenter implements MainPageContact.Presenter {
     }
 
     private void handleLoadAlbumFailed(BaseDomainData data) {
+
+    }
+
+    @Override
+    public void requestCelebrities() {
+        if (mMainPageUserCase != null) {
+            mMainPageUserCase.requestCelebrities(new BaseRequestCallback() {
+                @Override
+                public void onRequestFailed(BaseDomainData data) {
+                    handleLoadCelebritiesFailed(data);
+                }
+
+                @Override
+                public void onRequestSuccessful(String data) {
+                    handleLoadCelebritiesSuccessful(data);
+                }
+
+                @Override
+                public void onNetError() {
+
+                }
+            });
+        }
+    }
+
+    private void handleLoadCelebritiesSuccessful(String data) {
+        CelebrityData parseData = ParseUtil.parseData(data, CelebrityData.class);
+        if (mView != null) {
+            mView.drawCelebritiesInfo(parseData);
+        }
+    }
+
+    private void handleLoadCelebritiesFailed(BaseDomainData data) {
 
     }
 }

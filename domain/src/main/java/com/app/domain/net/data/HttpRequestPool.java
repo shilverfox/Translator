@@ -317,6 +317,25 @@ public class HttpRequestPool {
     }
 
     /**
+     * 获取首页的名家列表
+     *
+     * @return
+     */
+    public static BaseRequestEntity getMainPageCelebritiesEntity() {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getIndexCelebrity");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
+    /**
      * 片库tab，获取名家列表
      * @return
      */

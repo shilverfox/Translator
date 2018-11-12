@@ -8,23 +8,19 @@ import android.widget.TextView;
 import com.translatmaster.R;
 import com.translatmaster.adapter.UniversalAdapter2;
 import com.translatmaster.adapter.UniversalViewHolder2;
-import com.translatmaster.utils.ShowTools;
 import com.translatmaster.utils.image.ImageLoader;
-import com.translatmaster.view.main.entity.Album;
 import com.translatmaster.view.main.entity.Celebrities;
-import com.translatmaster.view.main.entity.CelebrityData;
-import com.translatmaster.view.main.entity.SpecialAlbums;
 
 /**
- * 名家列表项
- * 用于片库中显示名家姓名
+ * 名家头像列表项
+ * 用于首页名家列表楼层
  */
-public class CelebrityItemAdapter extends UniversalAdapter2<Celebrities> {
+public class CelebrityIconItemAdapter extends UniversalAdapter2<Celebrities> {
     private OnMyItemClickListener onMyItemClickListener;
     private int mFocusedPosition;
     private int mCurrentPosition;
 
-    public CelebrityItemAdapter(Context context, int layoutId) {
+    public CelebrityIconItemAdapter(Context context, int layoutId) {
         super(context, layoutId);
     }
 
@@ -40,12 +36,15 @@ public class CelebrityItemAdapter extends UniversalAdapter2<Celebrities> {
 
         mCurrentPosition = position;
 
-        TextView name = (TextView) holder.getViewById(R.id.tv_celebrity_item_name);
-        name.setText(celebrityData.getName());
-        name.setTextColor(getTextColor());
-        name.setBackgroundResource(getBackgroundColor());
+        ImageView icon = (ImageView) holder.getViewById(R.id.tv_celebrity_icon_item_head);
+        ImageLoader.displayImage(celebrityData.getImageUrl(), icon);
 
-        holder.getViewById(R.id.tv_celebrity_item_name).setOnClickListener(new View.OnClickListener() {
+        TextView name = (TextView) holder.getViewById(R.id.tv_celebrity_icon_item_name);
+        name.setText(celebrityData.getName());
+//        name.setTextColor(getTextColor());
+//        name.setBackgroundResource(getBackgroundColor());
+
+        holder.getViewById(R.id.layout_celebrity_icon_item).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (onMyItemClickListener != null) {
