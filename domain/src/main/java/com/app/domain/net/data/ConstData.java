@@ -35,5 +35,6 @@ public class ConstData {
     /** 分页，每页条数 */
     public final static int DEFAULT_PAGE_SIZE = 10;
 
-
+    /** 无效的名家id */
+    public final static int INVALID_CELEBRITY_ID = -1;
 }

@@ -20,8 +20,8 @@ public abstract class CommonListFragmentViewHolder<T> extends RecyclerView.ViewH
         registerEvent();
     }
 
-    public void setData(T data) {
-        drawViews(data);
+    public void setData(T data, int position) {
+        drawViews(data, position);
     }
 
     /**
@@ -41,7 +41,7 @@ public abstract class CommonListFragmentViewHolder<T> extends RecyclerView.ViewH
     public abstract void registerEvent();
 
     /** UI渲染 */
-    public abstract void drawViews(T data);
+    public abstract void drawViews(T data, int position);
 
     /** 是否为最后一行 */
     public abstract void isTheLastLine(boolean theLastLine);

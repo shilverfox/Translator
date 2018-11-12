@@ -58,7 +58,7 @@ public abstract class CommonListFragmentAdapter<T>
     public void onBindViewHolder(CommonListFragmentViewHolder holder, int position) {
         if (mAllData != null) {
             holder.isTheLastLine(position == mAllData.size() - 1);
-            holder.setData(mAllData.get(position));
+            holder.setData(mAllData.get(position), position);
         }
     }
 

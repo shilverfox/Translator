@@ -6,11 +6,10 @@
     android:orientation="horizontal"
     android:gravity="center">
 
-    <jd.ui.view.JDProgressBar
+    <com.translatmaster.customview.JDProgressBar
         android:id="@+id/loading_progress"
         android:layout_width="18dp"
-        android:layout_height="18dp"
-        />
+        android:layout_height="18dp" />
 
     <TextView
         android:id="@+id/loading_text"

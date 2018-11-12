@@ -23,6 +23,7 @@ import com.translatmaster.customview.recyclerview.LoadingFooter;
 import com.translatmaster.customview.recyclerview.RecyclerViewStateUtils;
 import com.translatmaster.utils.ErroBarHelper;
 import com.translatmaster.utils.ProgressBarHelper;
+import com.translatmaster.utils.RecyclerViewHelper;
 
 import java.util.List;
 
@@ -49,6 +50,9 @@ public abstract class CommonListFragment<T> extends BaseFragment {
 
     /** 最大页数，-1为无限制 */
     private int mMaxPage = -1;
+
+    /** 当前请求是否需要清空数据 */
+    private boolean mNeedClearData;
 
     /** 每页数量 */
     private int mPageSize;
@@ -103,6 +107,7 @@ public abstract class CommonListFragment<T> extends BaseFragment {
     private void setListAdapter() {
         mAdapter = getAdapter(mContext);
         mListView.setLayoutManager(new LinearLayoutManager(mContext));
+        mListView.addItemDecoration(RecyclerViewHelper.getDivider(mContext));
 
         if (needLoadByPage()) {
             // 翻页，第三方框架实现RecycleView，增加页脚信息
@@ -120,6 +125,8 @@ public abstract class CommonListFragment<T> extends BaseFragment {
      * @param clearData 是否需要清空原数据
      */
     protected void loadAllData(boolean clearData) {
+        mNeedClearData = clearData;
+
         if (clearData) {
             // 清空
             mPageIndex = DEFAULT_START_PAGE;
@@ -234,7 +241,8 @@ public abstract class CommonListFragment<T> extends BaseFragment {
             mAdapter.addItems(allList);
         } else {
             // 无数据返回，根据当前list是否有数据来判断是否显示错误页
-            if (mAdapter == null || mAdapter.getItemCount() == 0) {
+            if (mNeedClearData || mAdapter == null || mAdapter.getItemCount() == 0) {
+                mAdapter.clearData();
                 handleDataEmpty();
             }
         }
@@ -321,7 +329,4 @@ public abstract class CommonListFragment<T> extends BaseFragment {
 
     /** 是否需要翻页显示数据 */
     public abstract boolean needLoadByPage();
-
-    /** 接口返回数据是否有效，各个子类定义规则 */
-    public abstract boolean isValidResponse();
 }

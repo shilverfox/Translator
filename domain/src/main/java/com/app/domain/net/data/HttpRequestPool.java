@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.app.domain.net.model.BaseBody;
 import com.app.domain.net.model.BaseRequestEntity;
 import com.app.domain.net.model.RequestConst;
+import com.google.gson.Gson;
 
 /**
  * List all the http request.
@@ -300,6 +301,7 @@ public class HttpRequestPool {
     public static BaseRequestEntity getMainPageSpecialAlbumEntity(int page) {
         BaseRequestEntity baseRequest = new BaseRequestEntity();
         baseRequest.setUrl(ConstData.HOST);
+        // TODO: 2018/11/12 /Special/Special/getIndexAlbumList 
         baseRequest.setFunctionId("/Special/Special/getAllAlbumList");
         baseRequest.setMethod(RequestConst.REQUEST_POST);
 
@@ -308,6 +310,55 @@ public class HttpRequestPool {
         body.add("no", page + "");
         body.add("size", ConstData.DEFAULT_PAGE_SIZE + "");
 
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
+    /**
+     * 片库tab，获取名家列表
+     * @return
+     */
+    public static BaseRequestEntity getRepertoryCelebrtiesEntity() {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getCelebrityByFirstLetter");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
+    /**
+     * 片库tab，获取名家对应的视频列表
+     *
+     * @param celebrityId 名家id
+     * @return
+     */
+    public static BaseRequestEntity getRepertoryListEntity(int celebrityId, int page) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/search");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+        body.add("no", page + "");
+        body.add("size", ConstData.DEFAULT_PAGE_SIZE + "");
+
+        if (celebrityId > 0) {
+            body.add("celebrityIds[]", celebrityId + "");
+        }
+
+
+//        String test = "[19, 20]";
+//        Gson testGson = new Gson();
+//        int result[] = testGson.fromJson(test, int[].class);
 
         baseRequest.setBaseBody(body);
 

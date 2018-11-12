@@ -15,6 +15,7 @@ import com.translatmaster.customview.TitleBar;
 import com.translatmaster.utils.ShowTools;
 import com.translatmaster.view.main.entity.TabEntity;
 import com.translatmaster.view.main.fragment.MainPageFragment;
+import com.translatmaster.view.main.fragment.RepertoryFragment;
 import com.translatmaster.view.myinfo.fragment.MyInfoFragment;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class MainActivity extends BaseFragmentActivity {
 
     private void initMainTab() {
         mFragmentList.add(MainPageFragment.newInstance());
-        mFragmentList.add(MainPageFragment.newInstance());
+        mFragmentList.add(RepertoryFragment.newInstance());
         mFragmentList.add(MyInfoFragment.newInstance());
 
         for (int i = 0; i < mTitles.length; i++) {
