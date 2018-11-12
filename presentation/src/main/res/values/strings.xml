@@ -6,6 +6,10 @@
     <string name="main_edt_hint_source">Input what you want to translate!</string>
     <string name="main_alert_content_is_null">Content can not be null</string>
 
+    <string name="list_footer_loading">努力加载中…</string>
+    <string name="list_footer_network_error">加载失败，请点击重新加载</string>
+    <string name="list_footer_end">没有更多啦</string>
+
     <string-array name="dest_trans_language">
         <item>zh</item>
         <item>en</item>
