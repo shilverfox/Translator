@@ -1,13 +1,17 @@
 package com.translatmaster.app;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
+import com.github.dfqin.grantor.PermissionListener;
+import com.github.dfqin.grantor.PermissionsUtil;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -15,7 +19,9 @@ import com.tencent.tinker.anno.DefaultLifeCycle;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
 import com.tencent.tinker.loader.app.DefaultApplicationLike;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
+import com.translatmaster.utils.ShowTools;
 import com.translatmaster.utils.UiTools;
+import com.translatmaster.view.login.util.LoginHelper;
 
 /**
  * Created by lijian15 on 2016/12/13.
@@ -58,10 +64,28 @@ public class MainApplicationLike extends DefaultApplicationLike {
         mContext = base;
         mUiThread = new UIThread();
 
+        handlePermissions();
+        LoginHelper.getInstance().readData();
         getWXApi();
         initHotFix(base);
         getStatusHeight();
 //        initLeakChecker(base);
+    }
+
+    /**
+     * 动态权限申请
+     */
+    private void handlePermissions() {
+        PermissionsUtil.requestPermission(getApplication(), new PermissionListener() {
+            @Override
+            public void permissionGranted(@NonNull String[] permissions) {
+            }
+
+            @Override
+            public void permissionDenied(@NonNull String[] permissions) {
+                ShowTools.toast("拒绝READ_PHONE_STATE");
+            }
+        }, Manifest.permission.READ_PHONE_STATE);
     }
 
     public static MainApplicationLike getInstance() {

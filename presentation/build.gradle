@@ -28,6 +28,9 @@ dependencies {
     // 多功能recyclerview
     compile 'com.zhouyou:easyrecyclerview:1.0.5'
 
+    // 动态权限
+    compile 'com.github.dfqin:grantor:2.5'
+
     compile project(path: ':domain')
 
     debugCompile project.DEPENDENCY_LEAKCANARY
