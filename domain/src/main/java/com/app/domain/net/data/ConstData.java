@@ -2,6 +2,7 @@ package com.app.domain.net.data;
 
 /**
  * Created by lijian15 on 2016/12/14.
+ * token:N5/XQBYdcHJAmNVNEPuAujHyZq97QRGPxDigZJEs4S/oHRuFjU4Fa0bRS5HnWUYnb8OeJHniXV+e??HQGZOyC+dH9YaV7gz/QT
  */
 
 public class ConstData {

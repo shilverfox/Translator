@@ -3,6 +3,7 @@ package com.app.data.net.repository.http;
 import android.text.TextUtils;
 
 import com.app.domain.net.model.BaseBody;
+import com.app.domain.net.model.BaseHeader;
 import com.app.domain.net.model.BaseRequestEntity;
 import com.app.domain.net.model.BaseResponse;
 import com.app.domain.net.model.RequestConst;
@@ -165,6 +166,18 @@ public class HttpRequestHandler {
             } else {
                 // Http get
                 builder = getGetRequestBuilder(baseUrl, appRequest.getBaseBody());
+            }
+
+            // header
+            BaseHeader header = appRequest.getBaseHeader();
+            if (header != null) {
+                HashMap<String, String>  headerMap = header.getMapHeader();
+
+                Iterator<Map.Entry<String, String>> it = headerMap.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry<String, String> entry = it.next();
+                    builder.addHeader(entry.getKey(), entry.getValue());
+                }
             }
 
             handleHttpRequest(builder.build(), baseResponse, appRequest.needByteData());

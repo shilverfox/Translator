@@ -3,6 +3,7 @@ package com.app.domain.net.data;
 import android.text.TextUtils;
 
 import com.app.domain.net.model.BaseBody;
+import com.app.domain.net.model.BaseHeader;
 import com.app.domain.net.model.BaseRequestEntity;
 import com.app.domain.net.model.RequestConst;
 import com.google.gson.Gson;
@@ -380,6 +381,30 @@ public class HttpRequestPool {
 //        int result[] = testGson.fromJson(test, int[].class);
 
         baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
+    /**
+     * 查看观看历史
+     *
+     * @param token
+     * @param page
+     * @return
+     */
+    public static BaseRequestEntity getMyVideoHistoryEntity(String token, int page) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getUserHistory");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+        body.add("no", page + "");
+        body.add("size", ConstData.DEFAULT_PAGE_SIZE + "");
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, token);
 
         return baseRequest;
     }

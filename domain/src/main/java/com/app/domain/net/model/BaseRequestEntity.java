@@ -11,9 +11,18 @@ public class BaseRequestEntity {
     private int mMethod;
     private String functionId;
     private BaseBody mBaseBody;
+    private BaseHeader mBaseHeader;
 
     /** The data that could be downloaded, such as some files. */
     private boolean mNeedByteData;
+
+    public BaseHeader getBaseHeader() {
+        return mBaseHeader;
+    }
+
+    public void setBaseHeader(BaseHeader baseHeader) {
+        mBaseHeader = baseHeader;
+    }
 
     public String getFunctionId() {
         return functionId;
