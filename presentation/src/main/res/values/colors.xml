@@ -22,4 +22,6 @@
     <color name="regist_button_grey">#cecece</color>
     <color name="login_button_text_color">#77cca0</color>
     <color name="top_bar_green_background">#39ac69</color>
+
+    <color name="dialog_button_grey">#fafafa</color>
 </resources>

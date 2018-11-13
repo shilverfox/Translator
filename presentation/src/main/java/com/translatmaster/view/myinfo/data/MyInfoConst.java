@@ -1,6 +1,7 @@
 package com.translatmaster.view.myinfo.data;
 
 import com.translatmaster.view.login.LoginActivity;
+import com.translatmaster.view.setting.SettingsActivity;
 
 public class MyInfoConst {
     /** 我的页面item id：历史 */
@@ -27,6 +28,6 @@ public class MyInfoConst {
     };
 
     public final static Class[] MY_TYPE_NAVIGATIONS = {
-            LoginActivity.class, LoginActivity.class, LoginActivity.class, LoginActivity.class, LoginActivity.class,
+            LoginActivity.class, LoginActivity.class, LoginActivity.class, LoginActivity.class, SettingsActivity.class,
     };
 }

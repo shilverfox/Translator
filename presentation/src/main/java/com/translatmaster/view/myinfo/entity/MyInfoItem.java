@@ -19,6 +19,16 @@ public class MyInfoItem {
         this.title = title;
     }
 
+    /**
+     * 设置界面用到
+     */
+    public MyInfoItem(int id, String title, CharSequence hint) {
+        this.id = id;
+        this.title = title;
+        this.hint = hint;
+        this.hintColor = "#88333333";
+    }
+
     public Class getTo() {
         return to;
     }

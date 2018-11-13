@@ -103,7 +103,11 @@ public class MyInfoAdapter extends UniversalAdapter2<MyInfoItem> {
                 if (onMyItemClickListener != null) {
                     onMyItemClickListener.onClick(position);
                 }
-                Router.getInstance().open(myInfoItem.getTo(), (Activity) mContext);
+
+                Class toView = myInfoItem.getTo();
+                if (toView != null) {
+                    Router.getInstance().open(myInfoItem.getTo(), (Activity) mContext);
+                }
             }
         });
     }
