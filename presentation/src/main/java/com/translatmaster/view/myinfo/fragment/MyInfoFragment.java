@@ -91,12 +91,12 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
         });
 
         // 未登录时可以点击登录
-        mTxtLogin.setOnClickListener(!LoginHelper.getInstance().isLogin() ? new View.OnClickListener() {
+        mTxtLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LoginHelper.getInstance().startLogin(getActivity());
             }
-        } : null);
+        });
     }
 
     private void initAdapter() {
