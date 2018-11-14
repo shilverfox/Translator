@@ -79,7 +79,7 @@ android {
 
     //
     defaultConfig {
-        applicationId "com.translatmaster"
+        applicationId "com.jbsx"
         minSdkVersion Integer.parseInt(project.ANDROID_MIN_SDK)
         targetSdkVersion Integer.parseInt(project.ANDROID_TARGET_SDK_VERSION)
         versionCode Integer.parseInt(project.VERSIONCODE)

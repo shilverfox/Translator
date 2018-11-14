@@ -1,7 +1,7 @@
-package com.translatmaster.view.myinfo.presenter;
+package com.jbsx.view.myinfo.presenter;
 
 import com.app.domain.net.interactor.MyInfoUserCase;
-import com.translatmaster.view.myinfo.contact.MyViewHistoryContact;
+import com.jbsx.view.myinfo.contact.MyViewHistoryContact;
 
 public class MyViewHistoryPresenter implements MyViewHistoryContact.Presenter {
     private MyViewHistoryContact.View mView;

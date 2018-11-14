@@ -1,11 +1,11 @@
-package com.translatmaster.view.myinfo;
+package com.jbsx.view.myinfo;
 
 import android.os.Bundle;
 import android.view.View;
 
-import com.translatmaster.R;
-import com.translatmaster.app.BaseFragmentActivity;
-import com.translatmaster.customview.TitleBar;
+import com.jbsx.R;
+import com.jbsx.app.BaseFragmentActivity;
+import com.jbsx.customview.TitleBar;
 
 public class MyInfoActivity extends BaseFragmentActivity {
     private TitleBar mTopBarLayout;

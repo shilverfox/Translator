@@ -10,7 +10,7 @@
         android:orientation="vertical">
 
         <!-- status bar -->
-        <com.translatmaster.customview.TitleStatusHeightLayout
+        <com.jbsx.customview.TitleStatusHeightLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -21,9 +21,9 @@
                 android:alpha="1"
                 android:background="@color/white"
                 android:visibility="visible" />
-        </com.translatmaster.customview.TitleStatusHeightLayout>
+        </com.jbsx.customview.TitleStatusHeightLayout>
 
-        <com.translatmaster.customview.TitleBar
+        <com.jbsx.customview.TitleBar
             android:id="@+id/layout_title_bar_container"
             android:layout_width="match_parent"
             android:layout_height="@dimen/cell_top_title_bar_height"
@@ -115,7 +115,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <!-- 居左输入框 -->
-                <com.translatmaster.customview.ClearableEditText
+                <com.jbsx.customview.ClearableEditText
                     android:id="@+id/et_title_bar_left_input"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -167,7 +167,7 @@
 
                 </FrameLayout>
             </android.support.constraint.ConstraintLayout>
-        </com.translatmaster.customview.TitleBar>
+        </com.jbsx.customview.TitleBar>
     </LinearLayout>
 
 </merge>

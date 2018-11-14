@@ -140,7 +140,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.translatmaster.customview.MaterialRippleLayout
+    <com.jbsx.customview.MaterialRippleLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
@@ -162,10 +162,10 @@
             android:text="获取手机验证码"
             android:textColor="@color/login_button_text_color"
             android:textSize="17sp"/>
-    </com.translatmaster.customview.MaterialRippleLayout>
+    </com.jbsx.customview.MaterialRippleLayout>
 
     <!-- 用户协议 -->
-    <com.translatmaster.view.login.customview.LoginUserAgreementView
+    <com.jbsx.view.login.customview.LoginUserAgreementView
         android:id="@+id/viewUserAgreement"
         style="@style/UserAgreementStyle"
         android:layout_width="match_parent"

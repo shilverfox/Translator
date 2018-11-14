@@ -1,4 +1,4 @@
-package com.translatmaster.view.myinfo.contact;
+package com.jbsx.view.myinfo.contact;
 
 /**
  * 观看历史

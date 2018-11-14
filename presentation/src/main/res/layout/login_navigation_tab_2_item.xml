@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <com.translatmaster.customview.TabGroupView
+    <com.jbsx.customview.TabGroupView
         android:id="@+id/tabGroupView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -72,6 +72,6 @@
             </LinearLayout>
 
         </LinearLayout>
-    </com.translatmaster.customview.TabGroupView>
+    </com.jbsx.customview.TabGroupView>
 
 </merge>

@@ -101,7 +101,7 @@
 
         </LinearLayout>
 
-        <com.translatmaster.customview.MaterialRippleLayout
+        <com.jbsx.customview.MaterialRippleLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dip"
@@ -121,10 +121,10 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"/>
 
-        </com.translatmaster.customview.MaterialRippleLayout>
+        </com.jbsx.customview.MaterialRippleLayout>
 
         <!-- 用户协议 -->
-        <com.translatmaster.view.login.customview.LoginUserAgreementView
+        <com.jbsx.view.login.customview.LoginUserAgreementView
             android:id="@+id/viewUserAgreement"
             style="@style/UserAgreementStyle"
             android:layout_width="match_parent"
