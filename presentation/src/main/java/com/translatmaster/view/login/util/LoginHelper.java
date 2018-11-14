@@ -34,6 +34,15 @@ public class LoginHelper {
         return mLoginData;
     }
 
+    public String getUserToken() {
+        String token = "";
+        if (isLogin()) {
+            token = mLoginData.getPayload().getToken();
+        }
+
+        return token;
+    }
+
     public  void setLoginUser(LoginData loginUser) {
         mLoginData = loginUser;
     }
@@ -96,7 +105,7 @@ public class LoginHelper {
     }
 
     public boolean isLogin() {
-        return mLoginData != null;
+        return mLoginData != null && mLoginData.getPayload() != null;
     }
 
     public void logOut() {

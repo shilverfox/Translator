@@ -418,7 +418,7 @@ public class TitleBar extends RelativeLayout {
     public void setRightButton(String label, final View.OnClickListener clickListener) {
         if (!TextUtils.isEmpty(label)) {
             showRightButton(true);
-            mTvRightButton.setText(label);
+            setRightButtonText(label);
             mTvRightButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -427,6 +427,12 @@ public class TitleBar extends RelativeLayout {
                     }
                 }
             });
+        }
+    }
+
+    public void setRightButtonText(String label) {
+        if (label != null) {
+            mTvRightButton.setText(label);
         }
     }
 

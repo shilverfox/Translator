@@ -1,0 +1,128 @@
+package com.translatmaster.view.myinfo.view;
+
+import android.content.Context;
+import android.os.Bundle;
+
+import com.app.domain.net.data.ConstData;
+import com.app.domain.net.data.HttpRequestPool;
+import com.app.domain.net.model.BaseRequestEntity;
+import com.google.gson.Gson;
+import com.translatmaster.customview.listFragment.CommonListFragment;
+import com.translatmaster.customview.listFragment.CommonListFragmentAdapter;
+import com.translatmaster.view.login.util.LoginHelper;
+import com.translatmaster.view.main.entity.RepertoryData;
+import com.translatmaster.view.main.entity.Single;
+import com.translatmaster.view.main.entity.ViewHistoryData;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 视频列表
+ */
+public class MyInfoVideoListView extends CommonListFragment {
+    public static final String ARGUMENT = "argument";
+
+    private String mArgument;
+    private MyInfoVideoAdapter mAdapter;
+    private ViewHistoryData mHistoryData;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            mArgument = bundle.getString(ARGUMENT);
+        }
+    }
+
+    public static MyInfoVideoListView newInstance(String argument) {
+        Bundle bundle = new Bundle();
+        bundle.putString(ARGUMENT, argument);
+
+        MyInfoVideoListView contentFragment = new MyInfoVideoListView();
+        contentFragment.setArguments(bundle);
+
+        return contentFragment;
+    }
+
+    /**
+     * 清空并重新加载数据
+     */
+    public void clearAndFresh() {
+        loadAllData(true);
+    }
+
+    @Override
+    public CommonListFragmentAdapter getAdapter(Context context) {
+        mAdapter = new MyInfoVideoAdapter(mContext);
+        return mAdapter;
+    }
+
+    @Override
+    public BaseRequestEntity getRequestEntity(int pageIndex) {
+        return HttpRequestPool.getMyVideoHistoryEntity(LoginHelper.getInstance().getUserToken(), pageIndex);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public List parseList(String result) {
+        Gson gson = new Gson();
+        mHistoryData = gson.fromJson(result, ViewHistoryData.class);
+
+        if (mHistoryData != null || mHistoryData.getPayload() != null) {
+            return mHistoryData.getPayload().getUserSingles();
+        }
+
+        return new ArrayList<ViewHistoryData.UserSingle>();
+    }
+
+    @Override
+    public int getPageSize() {
+        return ConstData.DEFAULT_PAGE_SIZE;
+    }
+
+    @Override
+    public boolean needLoadByPage() {
+        return true;
+    }
+
+    public void freshAdapter() {
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private List<ViewHistoryData.UserSingle> getAllSings() {
+        return mHistoryData.getPayload().getUserSingles();
+    }
+
+    private void handleSelectAll(boolean select) {
+        List<ViewHistoryData.UserSingle> allSingle = getAllSings();
+        if (allSingle != null) {
+            for (ViewHistoryData.UserSingle  userSingle: allSingle) {
+                Single single = userSingle.getSingle();
+                single.setCheck(select);
+            }
+        }
+    }
+
+    public void selectAll() {
+        handleSelectAll(true);
+        freshAdapter();
+    }
+
+    public void unSelectAll() {
+        handleSelectAll(false);
+        freshAdapter();
+    }
+
+    public void delete() {
+
+    }
+}

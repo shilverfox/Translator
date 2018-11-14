@@ -12,6 +12,15 @@ public class Single {
     private String isCollect;
     private String longTime;
     private int second;
+    private boolean isCheck;
+
+    public boolean isCheck() {
+        return isCheck;
+    }
+
+    public void setCheck(boolean check) {
+        isCheck = check;
+    }
 
     public String getId() {
         return id;

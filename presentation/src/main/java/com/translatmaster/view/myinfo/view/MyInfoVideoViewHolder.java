@@ -1,4 +1,4 @@
-package com.translatmaster.view.main.view;
+package com.translatmaster.view.myinfo.view;
 
 import android.content.Context;
 import android.view.View;
@@ -6,17 +6,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.translatmaster.R;
+import com.translatmaster.customview.listFragment.CommonListFragmentAdapter;
 import com.translatmaster.customview.listFragment.CommonListFragmentViewHolder;
 import com.translatmaster.utils.image.ImageLoader;
 import com.translatmaster.utils.DataUtil;
-import com.translatmaster.view.main.entity.RepertoryData;
 import com.translatmaster.view.main.entity.Single;
+import com.translatmaster.view.main.entity.ViewHistoryData;
+import com.translatmaster.view.myinfo.fragment.MyViewHistoryFragment;
 
 /**
  * Created by lijian15 on 2017/9/4.
  */
 
-public class VideoViewHolder extends CommonListFragmentViewHolder<RepertoryData.SpecialSingles> {
+public class MyInfoVideoViewHolder extends CommonListFragmentViewHolder<ViewHistoryData.UserSingle> {
     private Context mContext;
 
     private View mRootView;
@@ -24,13 +26,17 @@ public class VideoViewHolder extends CommonListFragmentViewHolder<RepertoryData.
     private TextView mTvTitle;
     private TextView mTvCelebrity;
     private ImageView mIvImageUrl;
+    private ImageView mIvCheck;
 
-    private RepertoryData.SpecialSingles mData;
+    private ViewHistoryData.UserSingle mData;
     private int mCurrentPosition;
 
-    private OnMyItemClickListener onMyItemClickListener;
+    private CommonListFragmentAdapter mAdapter;
 
-    public VideoViewHolder(Context context, View view) {
+    private OnMyItemClickListener onMyItemClickListener;
+    private OnSelectIconClickListener mOnSelectIconClickListener;
+
+    public MyInfoVideoViewHolder(Context context, View view) {
         super(view);
         mContext = context;
     }
@@ -44,6 +50,7 @@ public class VideoViewHolder extends CommonListFragmentViewHolder<RepertoryData.
             mTvTitle = mRootView.findViewById(R.id.iv_video_item_description);
             mTvCelebrity = mRootView.findViewById(R.id.iv_video_item_host);
             mIvImageUrl = mRootView.findViewById(R.id.iv_video_item_image);
+            mIvCheck = mRootView.findViewById(R.id.iv_my_info_video_check);
         }
     }
 
@@ -58,12 +65,12 @@ public class VideoViewHolder extends CommonListFragmentViewHolder<RepertoryData.
     }
 
     @Override
-    public void drawViews(RepertoryData.SpecialSingles data, int position) {
+    public void drawViews(ViewHistoryData.UserSingle data, final int position) {
         mData = data;
         mCurrentPosition = position;
 
         if (data != null && data.getSingle() != null) {
-            Single single = data.getSingle();
+            final Single single = data.getSingle();
 
             // 单一一级不显示数量
             mTvAmount.setVisibility(View.INVISIBLE);
@@ -71,10 +78,30 @@ public class VideoViewHolder extends CommonListFragmentViewHolder<RepertoryData.
             // 描述、标题
             mTvTitle.setText(single.getTitle());
 
-            // 主讲
+            // 时长
             if (mTvCelebrity != null) {
-                mTvCelebrity.setText(getCelebrity());
+                mTvCelebrity.setText(getViewTime());
             }
+
+            // 选中
+            mIvCheck.setVisibility(MyViewHistoryFragment.mCanSelectItem ? View.VISIBLE : View.GONE);
+            boolean isCheck = single.isCheck();
+            mIvCheck.setImageResource(isCheck ? R.drawable.icon_check_green : R.drawable.icon_uncheck_green);
+
+            mIvCheck.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOnSelectIconClickListener != null) {
+                        mOnSelectIconClickListener.onClick(position);
+                    }
+
+                    if (mAdapter != null) {
+                        mAdapter.notifyItemChanged(position);
+                    }
+
+                    single.setCheck(!single.isCheck());
+                }
+            });
 
             // 图片
             String imgUrl = single.getAppImageUrl();
@@ -82,18 +109,22 @@ public class VideoViewHolder extends CommonListFragmentViewHolder<RepertoryData.
         }
     }
 
+    public void setAdapter(CommonListFragmentAdapter adapter) {
+        mAdapter = adapter;
+    }
+
     /**
-     * 主讲人
+     * 观看时常
      *
      * @return
      */
-    private String getCelebrity() {
-        String name = "";
+    private String getViewTime() {
+        String time = "";
 
         if (mData != null) {
-            name = DataUtil.getCelebrity(mData.getCelebrities());
+            time = mData.getCreatedAt();
         }
-        return "主讲：" + name;
+        return "观看至：" + time;
     }
 
     @Override
@@ -110,7 +141,15 @@ public class VideoViewHolder extends CommonListFragmentViewHolder<RepertoryData.
         void onClick(int position);
     }
 
+    public interface OnSelectIconClickListener {
+        void onClick(int position);
+    }
+
     public void setOnMyItemClickListener(OnMyItemClickListener onMyItemClickListener) {
         this.onMyItemClickListener = onMyItemClickListener;
+    }
+
+    public void setOnSelectIconClickListener(OnSelectIconClickListener onMyItemClickListener) {
+        mOnSelectIconClickListener = onMyItemClickListener;
     }
 }

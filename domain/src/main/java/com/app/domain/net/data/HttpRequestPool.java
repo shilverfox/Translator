@@ -408,4 +408,19 @@ public class HttpRequestPool {
 
         return baseRequest;
     }
+
+    public static BaseRequestEntity getDeleteHistoryEntity(String token) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getUserHistory");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, token);
+
+        return baseRequest;
+    }
 }

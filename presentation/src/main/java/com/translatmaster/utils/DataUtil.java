@@ -1,4 +1,4 @@
-package com.translatmaster.view.login.util;
+package com.translatmaster.utils;
 
 import com.translatmaster.data.AppConstData;
 import com.translatmaster.view.main.entity.Celebrities;

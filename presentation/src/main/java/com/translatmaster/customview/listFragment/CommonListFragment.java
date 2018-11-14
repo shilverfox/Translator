@@ -22,6 +22,7 @@ import com.translatmaster.customview.recyclerview.HeaderAndFooterRecyclerViewAda
 import com.translatmaster.customview.recyclerview.LoadingFooter;
 import com.translatmaster.customview.recyclerview.RecyclerViewStateUtils;
 import com.translatmaster.utils.ErroBarHelper;
+import com.translatmaster.utils.MessageTools;
 import com.translatmaster.utils.ProgressBarHelper;
 import com.translatmaster.utils.RecyclerViewHelper;
 
@@ -144,23 +145,26 @@ public abstract class CommonListFragment<T> extends BaseFragment {
      */
     private void handleLoadData() {
         BaseRequestEntity entity = getRequestEntity(mPageIndex);
-        mUserCase.handleSendRequest(entity, new BaseRequestCallback() {
-            @Override
-            public void onRequestFailed(BaseDomainData data) {
-                handleServerError();
-            }
+        if (entity != null) {
+            mUserCase.handleSendRequest(entity, new BaseRequestCallback() {
+                @Override
+                public void onRequestFailed(BaseDomainData data) {
+                    setInvalidResponseMessage(MessageTools.getMessage(data));
+                    handleServerError();
+                }
 
-            @Override
-            public void onRequestSuccessful(String data) {
-                List<T> allList = parseList(data);
-                handleSuccess(allList);
-            }
+                @Override
+                public void onRequestSuccessful(String data) {
+                    List<T> allList = parseList(data);
+                    handleSuccess(allList);
+                }
 
-            @Override
-            public void onNetError() {
-                handleNetError();
-            }
-        });
+                @Override
+                public void onNetError() {
+                    handleNetError();
+                }
+            });
+        }
     }
 
     private void handleSuccess(List<T> allList) {
