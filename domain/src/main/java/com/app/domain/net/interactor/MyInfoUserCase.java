@@ -11,8 +11,15 @@ public class MyInfoUserCase extends UserCase {
         super(dataSource, threadExecutor);
     }
 
-    public void requestDeleteHistory(BaseRequestCallback callback) {
-        BaseRequestEntity entity = HttpRequestPool.getMainPageBannerInfoEntity();
+    /**
+     * 删除收藏、观看历史
+     *
+     * @param token
+     * @param isHistory
+     * @param callback
+     */
+    public void requestDeleteVideo(String token, boolean isHistory, BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getDeleteVideoEntity(token, isHistory);
         handleSendRequest(entity, callback);
     }
 }

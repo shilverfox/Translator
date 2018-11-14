@@ -37,4 +37,10 @@ public class ConstData {
 
     /** 无效的名家id */
     public final static int INVALID_CELEBRITY_ID = -1;
+
+    /** 观看历史 */
+    public final static String FUNCTION_ID_MY_HISTORY = "/Special/Special/getUserHistory";
+
+    /** 我的收藏 */
+    public final static String FUNCTION_ID_MY_FAVORITE = "/Special/Special/getUserCollect";
 }

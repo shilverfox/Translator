@@ -27,7 +27,7 @@
                 android:id="@+id/tv_host_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="主讲嘉宾" />
+                android:text="学术、艺术顾问" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_floor_host"

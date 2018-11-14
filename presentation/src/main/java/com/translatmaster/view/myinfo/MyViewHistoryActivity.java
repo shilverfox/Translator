@@ -6,9 +6,13 @@ import android.support.v4.app.FragmentManager;
 
 import com.translatmaster.R;
 import com.translatmaster.app.BaseFragmentActivity;
+import com.translatmaster.view.myinfo.fragment.MyFavoriteFragment;
 import com.translatmaster.view.myinfo.fragment.MyViewHistoryFragment;
 
-public class MyInfoActivity extends BaseFragmentActivity {
+/**
+ * 观看历史
+ */
+public class MyViewHistoryActivity extends BaseFragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +22,11 @@ public class MyInfoActivity extends BaseFragmentActivity {
         findViews();
         initTitleBar();
         registerEvents();
-        replaceFragment(MyViewHistoryFragment.newInstance());
+        replaceFragment(getFragment());
+    }
+
+    public Fragment getFragment() {
+        return MyViewHistoryFragment.newInstance();
     }
 
     private void findViews() {
@@ -37,7 +45,7 @@ public class MyInfoActivity extends BaseFragmentActivity {
         finish();
     }
 
-    public void replaceFragment(Fragment fragment) {
+    private void replaceFragment(Fragment fragment) {
         if (fragment != null && this != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.layout_no_title_fragment_container, fragment).commitAllowingStateLoss();

@@ -29,7 +29,8 @@
         <activity android:name=".view.login.ResetPasswordActivity" />
         <activity android:name=".view.setting.SettingsActivity" />
         <activity android:name=".view.setting.AboutActivity" />
-        <activity android:name=".view.myinfo.MyInfoActivity" />
+        <activity android:name=".view.myinfo.MyViewHistoryActivity" />
+        <activity android:name=".view.myinfo.MyFavoriteActivity" />
         <activity android:name=".view.search.SearchActivity" />
 
         <activity android:name=".view.login.LoginActivity">

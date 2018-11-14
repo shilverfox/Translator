@@ -18,7 +18,7 @@ import com.translatmaster.utils.ShowTools;
 import com.translatmaster.view.main.entity.TabEntity;
 import com.translatmaster.view.main.fragment.MainPageFragment;
 import com.translatmaster.view.main.fragment.RepertoryFragment;
-import com.translatmaster.view.myinfo.MyInfoActivity;
+import com.translatmaster.view.myinfo.MyViewHistoryActivity;
 import com.translatmaster.view.myinfo.fragment.MyInfoFragment;
 import com.translatmaster.view.search.SearchActivity;
 
@@ -119,7 +119,7 @@ public class MainActivity extends BaseFragmentActivity {
         mTopBarLayout.setRightButton("观看历史", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Router.getInstance().open(MyInfoActivity.class, MainActivity.this);
+                Router.getInstance().open(MyViewHistoryActivity.class, MainActivity.this);
             }
         });
         mTopBarLayout.setRightButtonDrawables(R.drawable.tag_img, -1, -1, -1);

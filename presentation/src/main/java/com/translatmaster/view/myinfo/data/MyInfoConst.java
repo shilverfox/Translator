@@ -1,7 +1,8 @@
 package com.translatmaster.view.myinfo.data;
 
 import com.translatmaster.view.login.LoginActivity;
-import com.translatmaster.view.myinfo.MyInfoActivity;
+import com.translatmaster.view.myinfo.MyFavoriteActivity;
+import com.translatmaster.view.myinfo.MyViewHistoryActivity;
 import com.translatmaster.view.setting.SettingsActivity;
 
 public class MyInfoConst {
@@ -29,6 +30,6 @@ public class MyInfoConst {
     };
 
     public final static Class[] MY_TYPE_NAVIGATIONS = {
-            MyInfoActivity.class, MyInfoActivity.class, LoginActivity.class, LoginActivity.class, SettingsActivity.class,
+            MyViewHistoryActivity.class, MyFavoriteActivity.class, LoginActivity.class, LoginActivity.class, SettingsActivity.class,
     };
 }

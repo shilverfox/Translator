@@ -6,6 +6,9 @@ package com.translatmaster.view.myinfo.contact;
 public class MyViewHistoryContact {
     public interface View {
         void createPresenter();
+
+        /** 当前页面是否为观看历史 */
+        boolean isHistory();
     }
 
     public interface Presenter {

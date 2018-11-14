@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.data.net.repository.TaskManager;
+import com.app.domain.net.data.ConstData;
 import com.app.domain.net.interactor.MyInfoUserCase;
 import com.translatmaster.R;
 import com.translatmaster.app.BaseFragment;
@@ -31,7 +31,7 @@ public class MyViewHistoryFragment extends BaseFragment implements MyViewHistory
     private TextView mTvCheckAllLabel;
     private TextView mTvDelete;
 
-    private MyViewHistoryContact.Presenter mPresenter;
+    public MyViewHistoryContact.Presenter mPresenter;
 
     /** 视频 */
     private MyInfoVideoListView mRepertoryList;
@@ -78,7 +78,11 @@ public class MyViewHistoryFragment extends BaseFragment implements MyViewHistory
         mTvDelete = mRootView.findViewById(R.id.tv_delete_label);
         mIvCheckAll = mRootView.findViewById(R.id.iv_select_all_check);
         mTopBarLayout.showBackButton(true);
-        mTopBarLayout.setCenterTitle("观看历史");
+        mTopBarLayout.setCenterTitle(getTitle());
+    }
+
+    public String getTitle() {
+        return "观看历史";
     }
 
     private void initEvents() {
@@ -108,7 +112,7 @@ public class MyViewHistoryFragment extends BaseFragment implements MyViewHistory
     }
 
     private void handleDeleteClick() {
-        ShowTools.toast("delete");
+        mPresenter.requestDelete();
     }
 
     /**
@@ -171,7 +175,22 @@ public class MyViewHistoryFragment extends BaseFragment implements MyViewHistory
         FragmentManager fm = getFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         mRepertoryList = MyInfoVideoListView.newInstance("");
+        mRepertoryList.setFunctionId(getSearchFunctionId());
         transaction.add(R.id.layout_my_history_container, mRepertoryList);
         transaction.commitAllowingStateLoss();
+    }
+
+    /**
+     * 列表的function Id
+     *
+     * @return
+     */
+    public String getSearchFunctionId() {
+        return ConstData.FUNCTION_ID_MY_HISTORY;
+    }
+
+    @Override
+    public boolean isHistory() {
+        return true;
     }
 }

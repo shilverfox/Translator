@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * 视频列表
+ * 我的收藏及观看历史
  */
 public class MyInfoVideoListView extends CommonListFragment {
     public static final String ARGUMENT = "argument";
@@ -26,6 +27,9 @@ public class MyInfoVideoListView extends CommonListFragment {
     private String mArgument;
     private MyInfoVideoAdapter mAdapter;
     private ViewHistoryData mHistoryData;
+
+    /** 只有functionId不同 */
+    private String mFunctionId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,7 +66,10 @@ public class MyInfoVideoListView extends CommonListFragment {
 
     @Override
     public BaseRequestEntity getRequestEntity(int pageIndex) {
-        return HttpRequestPool.getMyVideoHistoryEntity(LoginHelper.getInstance().getUserToken(), pageIndex);
+        BaseRequestEntity entity = HttpRequestPool.getMyVideoHistoryEntity(LoginHelper.getInstance().getUserToken(), pageIndex);
+        entity.setFunctionId(mFunctionId);
+
+        return entity;
     }
 
     @Override
@@ -90,6 +97,10 @@ public class MyInfoVideoListView extends CommonListFragment {
     @Override
     public boolean needLoadByPage() {
         return true;
+    }
+
+    public void setFunctionId(String functionId) {
+        mFunctionId = functionId;
     }
 
     public void freshAdapter() {

@@ -386,7 +386,7 @@ public class HttpRequestPool {
     }
 
     /**
-     * 查看观看历史
+     * 查看观看历史，我的收藏
      *
      * @param token
      * @param page
@@ -409,10 +409,17 @@ public class HttpRequestPool {
         return baseRequest;
     }
 
-    public static BaseRequestEntity getDeleteHistoryEntity(String token) {
+    /**
+     * 删除我的收藏、观看历史数据
+     *
+     * @param token
+     * @param isHistory true,删除历史， false:删除收藏
+     * @return
+     */
+    public static BaseRequestEntity getDeleteVideoEntity(String token, boolean isHistory) {
         BaseRequestEntity baseRequest = new BaseRequestEntity();
         baseRequest.setUrl(ConstData.HOST);
-        baseRequest.setFunctionId("/Special/Special/getUserHistory");
+        baseRequest.setFunctionId(isHistory ? "/Special/Special/getUserHistory" : "dd");
         baseRequest.setMethod(RequestConst.REQUEST_POST);
 
         BaseBody body = new BaseBody();
