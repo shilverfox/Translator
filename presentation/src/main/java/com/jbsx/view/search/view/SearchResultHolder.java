@@ -1,4 +1,4 @@
-package com.jbsx.view.main.view;
+package com.jbsx.view.search.view;
 
 import android.content.Context;
 import android.view.View;
@@ -16,7 +16,7 @@ import com.jbsx.view.main.entity.Single;
  * Created by lijian15 on 2017/9/4.
  */
 
-public class VideoViewHolder extends CommonListFragmentViewHolder<RepertoryData.SpecialSingles> {
+public class SearchResultHolder extends CommonListFragmentViewHolder<RepertoryData.SpecialSingles> {
     private Context mContext;
 
     private View mRootView;
@@ -30,7 +30,7 @@ public class VideoViewHolder extends CommonListFragmentViewHolder<RepertoryData.
 
     private OnMyItemClickListener onMyItemClickListener;
 
-    public VideoViewHolder(Context context, View view) {
+    public SearchResultHolder(Context context, View view) {
         super(view);
         mContext = context;
     }

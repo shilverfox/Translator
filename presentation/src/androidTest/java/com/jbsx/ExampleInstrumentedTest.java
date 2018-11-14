@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.translatmaster", appContext.getPackageName());
+        assertEquals("com.jbsx", appContext.getPackageName());
     }
 }

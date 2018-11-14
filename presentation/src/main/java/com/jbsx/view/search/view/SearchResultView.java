@@ -1,4 +1,4 @@
-package com.jbsx.view.main.view;
+package com.jbsx.view.search.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,14 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 搜索结果列表
+ *
  * 显示视频列表，公共view
  * 首页片库中的视频列表，搜索结果页都可以用
  */
-public class VideoListView extends CommonListFragment {
+public class SearchResultView extends CommonListFragment {
     public static final String ARGUMENT = "argument";
 
     private String mArgument;
-    private VideoAdapter mAdapter;
+    private SearchResultAdapter mAdapter;
     private RepertoryData mRepertoryData;
     private int mCelebrityId;
 
@@ -36,11 +38,11 @@ public class VideoListView extends CommonListFragment {
         }
     }
 
-    public static VideoListView newInstance(String argument) {
+    public static SearchResultView newInstance(String argument) {
         Bundle bundle = new Bundle();
         bundle.putString(ARGUMENT, argument);
 
-        VideoListView contentFragment = new VideoListView();
+        SearchResultView contentFragment = new SearchResultView();
         contentFragment.setArguments(bundle);
 
         return contentFragment;
@@ -64,7 +66,7 @@ public class VideoListView extends CommonListFragment {
 
     @Override
     public CommonListFragmentAdapter getAdapter(Context context) {
-        mAdapter = new VideoAdapter(mContext);
+        mAdapter = new SearchResultAdapter(mContext);
         return mAdapter;
     }
 

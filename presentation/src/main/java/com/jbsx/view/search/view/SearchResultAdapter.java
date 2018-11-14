@@ -1,4 +1,4 @@
-package com.jbsx.view.main.view;
+package com.jbsx.view.search.view;
 
 import android.content.Context;
 import android.view.View;
@@ -11,9 +11,9 @@ import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
  * Created by lijian15 on 2017/9/4.
  */
 
-public class VideoAdapter extends CommonListFragmentAdapter {
+public class SearchResultAdapter extends CommonListFragmentAdapter {
 
-    public VideoAdapter(Context context) {
+    public SearchResultAdapter(Context context) {
         super(context);
     }
 
@@ -24,6 +24,6 @@ public class VideoAdapter extends CommonListFragmentAdapter {
 
     @Override
     public CommonListFragmentViewHolder getViewHolder(View rootView) {
-        return new VideoViewHolder(getContext(), rootView);
+        return new SearchResultHolder(getContext(), rootView);
     }
 }

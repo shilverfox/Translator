@@ -21,7 +21,7 @@ import com.jbsx.view.main.contact.RepertoryContact;
 import com.jbsx.view.main.entity.Celebrities;
 import com.jbsx.view.main.entity.CelebrityData;
 import com.jbsx.view.main.presenter.RepertoryPresenter;
-import com.jbsx.view.main.view.VideoListView;
+import com.jbsx.view.search.view.SearchResultView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class RepertoryFragment extends BaseFragment implements RepertoryContact.
     private List<Celebrities> mListCelebrity = new ArrayList<>();
 
     /** 片库列表 */
-    private VideoListView mRepertoryList;
+    private SearchResultView mRepertoryList;
 
     public RepertoryFragment() {
         // Required empty public constructor
@@ -77,7 +77,7 @@ public class RepertoryFragment extends BaseFragment implements RepertoryContact.
     private void initVideoListView() {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        mRepertoryList = VideoListView.newInstance("");
+        mRepertoryList = SearchResultView.newInstance("");
         transaction.add(R.id.rv_repertory_video_list, mRepertoryList);
         transaction.commitAllowingStateLoss();
     }

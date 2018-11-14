@@ -9,7 +9,7 @@ import android.net.Uri;
 public final class UtilConstant {
 
     public static final class PreferencesCP {
-        public static final String AUTHORITY = "com.jd.android.provider.preference";
+        public static final String AUTHORITY = "com.jbsx.android.provider.preference";
         public static final Uri BASE_URI = Uri.parse("content://" + AUTHORITY + "/");
         public static final String TYPE_BOOLEAN = "boolean";
         public static final int CODE_BOOLEAN = 1;
@@ -33,10 +33,6 @@ public final class UtilConstant {
 
     public static final class ShareConstant {
         public static final String SEARCH_HISTORY = "searcher_history";
-        public static final String HOME_MD5_CONTENT = "home_md5_content";
-        public static final String Order_MD5_CONTENT="order_md5_content";
-        public static final String PULL_ADV_TIME="pull_adv_time";
         public static final String HOME_SIGN="home_sign";
-        public static final String PLUNGIN_DATAVERSION="plungin_dataversion";
     }
 }
