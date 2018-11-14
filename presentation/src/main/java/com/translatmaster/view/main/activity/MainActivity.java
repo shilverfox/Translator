@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
@@ -12,11 +13,14 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.translatmaster.R;
 import com.translatmaster.app.BaseFragmentActivity;
 import com.translatmaster.customview.TitleBar;
+import com.translatmaster.utils.Router;
 import com.translatmaster.utils.ShowTools;
 import com.translatmaster.view.main.entity.TabEntity;
 import com.translatmaster.view.main.fragment.MainPageFragment;
 import com.translatmaster.view.main.fragment.RepertoryFragment;
+import com.translatmaster.view.myinfo.MyInfoActivity;
 import com.translatmaster.view.myinfo.fragment.MyInfoFragment;
+import com.translatmaster.view.search.SearchActivity;
 
 import java.util.ArrayList;
 
@@ -102,6 +106,23 @@ public class MainActivity extends BaseFragmentActivity {
 
     private void initTitleBar() {
         mTopBarLayout.setCenterTitle("首页");
+
+        mTopBarLayout.setLeftImage(R.drawable.main_title_icon);
+        mTopBarLayout.getLeftInput().setFocusable(false);
+        mTopBarLayout.setLeftInput("搜索", R.drawable.title_search_white, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Router.getInstance().open(SearchActivity.class, MainActivity.this);
+            }
+        });
+
+        mTopBarLayout.setRightButton("观看历史", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Router.getInstance().open(MyInfoActivity.class, MainActivity.this);
+            }
+        });
+        mTopBarLayout.setRightButtonDrawables(R.drawable.tag_img, -1, -1, -1);
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {

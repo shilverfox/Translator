@@ -44,6 +44,7 @@ public class TitleBar extends RelativeLayout {
     private ImageView mIvBack;
     private View mViewSeparator;
     private ImageView mIvClose;
+    private ImageView mIvLeftImage;
 
     /** 居中标题 */
     private TextView mTvCenterTitle;
@@ -87,6 +88,7 @@ public class TitleBar extends RelativeLayout {
         setViewGone(mIvBack, true);
         setViewGone(mViewSeparator, true);
         setViewGone(mIvClose, true);
+        setViewGone(mIvLeftImage, true);
         setViewGone(mTvLeftTitle, true);
         setViewGone(mTvCenterTitle, true);
         setViewGone(mEtLeftInput, true);
@@ -100,6 +102,7 @@ public class TitleBar extends RelativeLayout {
         mIvBack = (ImageView)findViewById(R.id.iv_title_bar_back);
         mViewSeparator = findViewById(R.id.view_title_bar_separator);
         mIvClose = (ImageView)findViewById(R.id.iv_title_bar_close);
+        mIvLeftImage = findViewById(R.id.tv_title_bar_left_image);
 
         // 中间
         mTvCenterTitle = (TextView)findViewById(R.id.tv_title_bar_middle_title);
@@ -171,6 +174,20 @@ public class TitleBar extends RelativeLayout {
                 }
             }
         });
+    }
+
+    /**
+     * 左侧除了三个icon按键之外还可以有图片呢
+     *
+     * @param resId
+     */
+    public void setLeftImage(int resId) {
+        showLeftImage(true);
+        mIvLeftImage.setImageResource(resId);
+    }
+
+    public void showLeftImage(boolean show) {
+        mIvLeftImage.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     /**
@@ -428,6 +445,12 @@ public class TitleBar extends RelativeLayout {
                 }
             });
         }
+    }
+
+    public void setRightButtonDrawables(int left, int top, int right, int bottom) {
+        mTvRightButton.setCompoundDrawablePadding(8);
+        mTvRightButton.setCompoundDrawables(getDrawable(left), getDrawable(top),
+                getDrawable(right), getDrawable(bottom));
     }
 
     public void setRightButtonText(String label) {

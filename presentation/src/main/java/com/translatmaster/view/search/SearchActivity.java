@@ -1,15 +1,16 @@
-package com.translatmaster.view.myinfo;
+package com.translatmaster.view.search;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.View;
 
 import com.translatmaster.R;
 import com.translatmaster.app.BaseFragmentActivity;
+import com.translatmaster.customview.TitleBar;
 import com.translatmaster.view.myinfo.fragment.MyViewHistoryFragment;
 
-public class MyInfoActivity extends BaseFragmentActivity {
-
+public class SearchActivity extends BaseFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

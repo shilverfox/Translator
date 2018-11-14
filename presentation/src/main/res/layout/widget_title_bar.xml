@@ -67,6 +67,14 @@
                         android:padding="15dp"
                         android:src="@drawable/close" />
 
+                    <ImageView
+                        android:id="@+id/tv_title_bar_left_image"
+                        android:layout_width="80dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="left|center_vertical"
+                        android:gravity="left|center_vertical"
+                        android:visibility="gone"/>
+
                 </LinearLayout>
 
                 <!-- 居中标题 -->
