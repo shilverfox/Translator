@@ -12,6 +12,8 @@ import android.support.multidex.MultiDex;
 
 import com.github.dfqin.grantor.PermissionListener;
 import com.github.dfqin.grantor.PermissionsUtil;
+import com.jbsx.utils.SharedPreferencesProvider;
+import com.jbsx.utils.UtilConstant;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -64,6 +66,7 @@ public class MainApplicationLike extends DefaultApplicationLike {
         mContext = base;
         mUiThread = new UIThread();
 
+        SharedPreferencesProvider.init(UtilConstant.PreferencesCP.SHARED_NAME, UtilConstant.PreferencesCP.AUTHORITY);
         handlePermissions();
         LoginHelper.getInstance().readData();
         getWXApi();

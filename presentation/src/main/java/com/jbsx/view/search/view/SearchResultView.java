@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.jbsx.customview.listFragment.CommonListFragment;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.view.main.entity.RepertoryData;
+import com.jbsx.view.search.entity.SearchEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +24,9 @@ import java.util.List;
 public class SearchResultView extends CommonListFragment {
     public static final String ARGUMENT = "argument";
 
-    private String mArgument;
+    private SearchEvent mSearchData;
     private SearchResultAdapter mAdapter;
     private RepertoryData mRepertoryData;
-    private int mCelebrityId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,13 +34,13 @@ public class SearchResultView extends CommonListFragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            mArgument = bundle.getString(ARGUMENT);
+            mSearchData = bundle.getParcelable(ARGUMENT);
         }
     }
 
-    public static SearchResultView newInstance(String argument) {
+    public static SearchResultView newInstance(SearchEvent argument) {
         Bundle bundle = new Bundle();
-        bundle.putString(ARGUMENT, argument);
+        bundle.putParcelable(ARGUMENT, argument);
 
         SearchResultView contentFragment = new SearchResultView();
         contentFragment.setArguments(bundle);
@@ -49,12 +49,10 @@ public class SearchResultView extends CommonListFragment {
     }
 
     /**
-     * 设置要查询的名家id列表
-     *
-     * @param celebrityId
+     * 设置要查询的数据
      */
-    public void setCelebrityId(int celebrityId) {
-        mCelebrityId = celebrityId;
+    public void setSearchData(SearchEvent searchData) {
+        mSearchData = searchData;
     }
 
     /**
@@ -72,7 +70,13 @@ public class SearchResultView extends CommonListFragment {
 
     @Override
     public BaseRequestEntity getRequestEntity(int pageIndex) {
-        return HttpRequestPool.getRepertoryListEntity(mCelebrityId, pageIndex);
+        if (mSearchData != null) {
+            return HttpRequestPool.getSearchEntity(mSearchData.getCelebrityId(),
+                    mSearchData.getSearchKey(), mSearchData.getSearchType(),
+                    mSearchData.getSort(), pageIndex);
+        } else {
+            return null;
+        }
     }
 
     @Override

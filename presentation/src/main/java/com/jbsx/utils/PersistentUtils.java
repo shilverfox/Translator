@@ -20,6 +20,10 @@ public class PersistentUtils {
         return SharePersistentUtils.getString(context, SHARED_NAME, UtilConstant.ShareConstant.SEARCH_HISTORY);
     }
 
+    public static void clearSearchHistory(Context context) {
+        SharePersistentUtils.removePerference(context, UtilConstant.ShareConstant.SEARCH_HISTORY);
+    }
+
     public static void saveSearcherHistory(Context context, String searcherHistory) {
         SharePersistentUtils.saveString(context, SHARED_NAME, UtilConstant.ShareConstant.SEARCH_HISTORY,
                 searcherHistory);

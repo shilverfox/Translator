@@ -1,8 +1,15 @@
-package com.jbsx.utils;
+package com.jbsx.view.search.util;
 
 import android.content.Context;
-import android.os.Handler;
 import android.text.TextUtils;
+
+import com.app.domain.net.data.ConstData;
+import com.jbsx.app.MainApplication;
+import com.jbsx.app.MainApplicationLike;
+import com.jbsx.utils.PersistentUtils;
+import com.jbsx.view.search.entity.SearchEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,12 +21,10 @@ import java.util.List;
  * 搜索辅助类
  */
 public class SearchHelper {
-    private Context mContext;
-    private Handler mHanlder;
+    /** 上限 */
+    private final static int MAX_HISTORY_COUNT = 10;
 
-    public SearchHelper(Context context, Handler handler) {
-        mContext = context;
-        mHanlder = handler;
+    public SearchHelper() {
     }
 
     public List<String> getSearchHistory() {
@@ -33,13 +38,18 @@ public class SearchHelper {
         for (String item : historyArray) {
             historyList.add(item);
         }
+
         Collections.reverse(historyList);
         return historyList;
     }
 
     private String getSharePrefSearchList() {
-        String searchHistory = PersistentUtils.getSearcherHistory(mContext);
+        String searchHistory = PersistentUtils.getSearcherHistory(MainApplicationLike.getAppContext());
         return searchHistory;
+    }
+
+    public void removeSearchHistory() {
+        PersistentUtils.clearSearchHistory(MainApplicationLike.getAppContext());
     }
 
     public void saveSearchHistory(String searchKey) {
@@ -61,17 +71,18 @@ public class SearchHelper {
             historyList.add(searchKey);
         }
 
-        if (historyList.size() > 10) {
+        if (historyList.size() > MAX_HISTORY_COUNT) {
             // 不超过10条记录
             historyList.remove(0);
         }
+
         StringBuilder sbf = new StringBuilder();
         for (String his : historyList) {
             sbf.append(his);
             sbf.append(",");
         }
 
-        PersistentUtils.saveSearcherHistory(mContext, sbf.toString());
+        PersistentUtils.saveSearcherHistory(MainApplicationLike.getAppContext(), sbf.toString());
     }
 
     public void removeKey(String searchKey) {
@@ -101,6 +112,18 @@ public class SearchHelper {
             sbf.append(str).append(",");
         }
 
-        PersistentUtils.saveSearcherHistory(mContext, sbf.toString());
+        PersistentUtils.saveSearcherHistory(MainApplicationLike.getAppContext(), sbf.toString());
+    }
+
+    public void doSearch(final String searchKey) {
+        saveSearchHistory(searchKey);
+
+        // Event bus 需要等到Activity初始化完毕后才能响应
+        MainApplicationLike.getInstance().getHanlder().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                EventBus.getDefault().post(SearchEventGenerator.getKeyWordSearch(searchKey));
+            }
+        }, 1000);
     }
 }

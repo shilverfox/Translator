@@ -31,7 +31,9 @@
         <activity android:name=".view.setting.AboutActivity" />
         <activity android:name=".view.myinfo.MyViewHistoryActivity" />
         <activity android:name=".view.myinfo.MyFavoriteActivity" />
-        <activity android:name=".view.search.SearchActivity" />
+        <activity android:name=".view.search.SearchActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".view.search.SearchResultActivity" />
 
         <activity android:name=".view.login.LoginActivity">
             <!--<intent-filter>-->
@@ -46,6 +48,12 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.Translucent" />
+
+        <provider
+            android:name=".utils.SharedPreferencesProvider"
+            android:authorities="com.jbsx.android.provider.preference"
+            android:exported="false" />
+
     </application>
 
 </manifest>

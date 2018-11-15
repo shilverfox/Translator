@@ -21,6 +21,7 @@ import com.jbsx.view.main.contact.RepertoryContact;
 import com.jbsx.view.main.entity.Celebrities;
 import com.jbsx.view.main.entity.CelebrityData;
 import com.jbsx.view.main.presenter.RepertoryPresenter;
+import com.jbsx.view.search.util.SearchEventGenerator;
 import com.jbsx.view.search.view.SearchResultView;
 
 import java.util.ArrayList;
@@ -77,7 +78,8 @@ public class RepertoryFragment extends BaseFragment implements RepertoryContact.
     private void initVideoListView() {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        mRepertoryList = SearchResultView.newInstance("");
+        mRepertoryList = SearchResultView.newInstance(
+                SearchEventGenerator.getCelebrityIdSearch(ConstData.INVALID_CELEBRITY_ID));
         transaction.add(R.id.rv_repertory_video_list, mRepertoryList);
         transaction.commitAllowingStateLoss();
     }
@@ -118,7 +120,7 @@ public class RepertoryFragment extends BaseFragment implements RepertoryContact.
             Celebrities celebrity = mListCelebrity.get(position);
 
             if (celebrity != null) {
-                mRepertoryList.setCelebrityId(celebrity.getId());
+                mRepertoryList.setSearchData(SearchEventGenerator.getCelebrityIdSearch(celebrity.getId()));
                 mRepertoryList.clearAndFresh();
             }
         }

@@ -355,12 +355,17 @@ public class HttpRequestPool {
     }
 
     /**
-     * 片库tab，获取名家对应的视频列表
+     * 搜索
      *
-     * @param celebrityId 名家id
+     * @param celebrityId
+     * @param keyWord 搜索关键字
+     * @param type 0 标题+主讲 1主讲 2标题 (默认值：0)
+     * @param sort 排序热门1热门2非热门
+     * @param page
      * @return
      */
-    public static BaseRequestEntity getRepertoryListEntity(int celebrityId, int page) {
+    public static BaseRequestEntity getSearchEntity(int celebrityId, String keyWord, int type,
+                                                    int sort, int page) {
         BaseRequestEntity baseRequest = new BaseRequestEntity();
         baseRequest.setUrl(ConstData.HOST);
         baseRequest.setFunctionId("/Special/Special/search");
@@ -374,6 +379,16 @@ public class HttpRequestPool {
         if (celebrityId > 0) {
             body.add("celebrityIds[]", celebrityId + "");
         }
+
+        if (!TextUtils.isEmpty(keyWord)) {
+            body.add("where", keyWord);
+        }
+
+        if (type >= 0 && type <= 2) {
+            body.add("type", type + "");
+        }
+
+        body.add("sort", sort + "");
 
 
 //        String test = "[19, 20]";

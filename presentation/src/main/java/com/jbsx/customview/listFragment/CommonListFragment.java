@@ -131,6 +131,7 @@ public abstract class CommonListFragment<T> extends BaseFragment {
         if (clearData) {
             // 清空
             mPageIndex = DEFAULT_START_PAGE;
+            mListView.scrollToPosition(0);
             ProgressBarHelper.addProgressBar(mListView, false, false);
         } else {
             // 下一页
