@@ -1,11 +1,6 @@
 package com.jbsx.view.main.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.text.SpannableString;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,13 +8,10 @@ import android.widget.TextView;
 import com.jbsx.R;
 import com.jbsx.adapter.UniversalAdapter2;
 import com.jbsx.adapter.UniversalViewHolder2;
-import com.jbsx.utils.Router;
 import com.jbsx.utils.ShowTools;
-import com.jbsx.utils.image.IImageLoadListener;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.main.entity.Album;
 import com.jbsx.view.main.entity.SpecialAlbums;
-import com.jbsx.view.myinfo.entity.MyInfoItem;
 
 /**
  * 视频项，首页推荐，查询结果之类的

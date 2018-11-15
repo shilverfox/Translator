@@ -1,6 +1,7 @@
 package com.jbsx.view.myinfo.data;
 
 import com.jbsx.view.login.LoginActivity;
+import com.jbsx.view.myinfo.activity.MyCommentActivity;
 import com.jbsx.view.myinfo.activity.MyFavoriteActivity;
 import com.jbsx.view.myinfo.activity.MyMessageActivity;
 import com.jbsx.view.myinfo.activity.MyViewHistoryActivity;
@@ -31,6 +32,6 @@ public class MyInfoConst {
     };
 
     public final static Class[] MY_TYPE_NAVIGATIONS = {
-            MyViewHistoryActivity.class, MyFavoriteActivity.class, LoginActivity.class, MyMessageActivity.class, SettingsActivity.class,
+            MyViewHistoryActivity.class, MyFavoriteActivity.class, MyCommentActivity.class, MyMessageActivity.class, SettingsActivity.class,
     };
 }

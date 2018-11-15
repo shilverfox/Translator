@@ -471,4 +471,30 @@ public class HttpRequestPool {
 
         return baseRequest;
     }
+
+    /**
+     * 获取当前用户所有评论
+     *
+     * @param token
+     * @param type 1:我对视频的所有评论, 2:我的所有赞,3:我对用户的所有评论
+     * @param page
+     * @return
+     */
+    public static BaseRequestEntity getMyCommentEntity(String token, String type, int page) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getUserAllComment");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+        body.add("type", type);
+        body.add("no", page + "");
+        body.add("size", ConstData.DEFAULT_PAGE_SIZE + "");
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, token);
+
+        return baseRequest;
+    }
 }

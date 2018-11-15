@@ -49,4 +49,13 @@ public class ConstData {
 
     /** 消息类型：点赞 */
     public final static String MESSAGE_TYPE_NB = "3";
+
+    /** 评论类型：我对视频的评论 */
+    public final static String COMMENT_TYPE_TO_VIDEO = "1";
+
+    /** 评论类型：我对用户的评论 */
+    public final static String COMMENT_TYPE_TO_OTHER_USER = "3";
+
+    /** 评论类型：我的所有赞 */
+    public final static String COMMENT_TYPE_TO_ALL_NB_STUFF = "2";
 }
