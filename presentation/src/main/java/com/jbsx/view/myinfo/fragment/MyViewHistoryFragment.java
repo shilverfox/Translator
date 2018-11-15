@@ -17,10 +17,9 @@ import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.TitleBar;
-import com.jbsx.utils.ShowTools;
 import com.jbsx.view.myinfo.contact.MyViewHistoryContact;
 import com.jbsx.view.myinfo.presenter.MyViewHistoryPresenter;
-import com.jbsx.view.myinfo.view.MyInfoVideoListView;
+import com.jbsx.view.myinfo.view.video.MyInfoVideoListView;
 
 public class MyViewHistoryFragment extends BaseFragment implements MyViewHistoryContact.View {
     private View mRootView;

@@ -1,4 +1,4 @@
-package com.jbsx.view.myinfo.view;
+package com.jbsx.view.myinfo.view.video;
 
 import android.content.Context;
 import android.view.View;

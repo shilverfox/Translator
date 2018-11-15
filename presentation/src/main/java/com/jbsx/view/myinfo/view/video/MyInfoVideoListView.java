@@ -1,4 +1,4 @@
-package com.jbsx.view.myinfo.view;
+package com.jbsx.view.myinfo.view.video;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import com.google.gson.Gson;
 import com.jbsx.customview.listFragment.CommonListFragment;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.view.login.util.LoginHelper;
-import com.jbsx.view.main.entity.RepertoryData;
 import com.jbsx.view.main.entity.Single;
 import com.jbsx.view.main.entity.ViewHistoryData;
 

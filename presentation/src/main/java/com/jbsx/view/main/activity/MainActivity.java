@@ -18,7 +18,7 @@ import com.jbsx.utils.ShowTools;
 import com.jbsx.view.main.entity.TabEntity;
 import com.jbsx.view.main.fragment.MainPageFragment;
 import com.jbsx.view.main.fragment.RepertoryFragment;
-import com.jbsx.view.myinfo.MyViewHistoryActivity;
+import com.jbsx.view.myinfo.activity.MyViewHistoryActivity;
 import com.jbsx.view.myinfo.fragment.MyInfoFragment;
 import com.jbsx.view.search.SearchActivity;
 

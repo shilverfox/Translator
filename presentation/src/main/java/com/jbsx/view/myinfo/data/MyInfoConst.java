@@ -1,8 +1,8 @@
 package com.jbsx.view.myinfo.data;
 
 import com.jbsx.view.login.LoginActivity;
-import com.jbsx.view.myinfo.MyFavoriteActivity;
-import com.jbsx.view.myinfo.MyViewHistoryActivity;
+import com.jbsx.view.myinfo.activity.MyFavoriteActivity;
+import com.jbsx.view.myinfo.activity.MyViewHistoryActivity;
 import com.jbsx.view.setting.SettingsActivity;
 
 public class MyInfoConst {

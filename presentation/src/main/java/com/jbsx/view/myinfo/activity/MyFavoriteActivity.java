@@ -1,4 +1,4 @@
-package com.jbsx.view.myinfo;
+package com.jbsx.view.myinfo.activity;
 
 import android.support.v4.app.Fragment;
 
