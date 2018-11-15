@@ -445,4 +445,30 @@ public class HttpRequestPool {
 
         return baseRequest;
     }
+
+    /**
+     * 获取我的评论列表
+     *
+     * @param token
+     * @param type 2评论消息3点赞消息
+     * @param page
+     * @return
+     */
+    public static BaseRequestEntity getMyMessageEntity(String token, String type, int page) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getMessageList");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+        body.add("type", type);
+        body.add("no", page + "");
+        body.add("size", ConstData.DEFAULT_PAGE_SIZE + "");
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, token);
+
+        return baseRequest;
+    }
 }

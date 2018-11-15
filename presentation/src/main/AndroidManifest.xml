@@ -31,6 +31,7 @@
         <activity android:name=".view.setting.AboutActivity" />
         <activity android:name=".view.myinfo.activity.MyViewHistoryActivity" />
         <activity android:name=".view.myinfo.activity.MyFavoriteActivity" />
+        <activity android:name=".view.myinfo.activity.MyMessageActivity" />
         <activity android:name=".view.search.SearchActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".view.search.SearchResultActivity" />

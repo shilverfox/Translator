@@ -43,4 +43,10 @@ public class ConstData {
 
     /** 我的收藏 */
     public final static String FUNCTION_ID_MY_FAVORITE = "/Special/Special/getUserCollect";
+
+    /** 消息类型：评论 */
+    public final static String MESSAGE_TYPE_COMMENT = "2";
+
+    /** 消息类型：点赞 */
+    public final static String MESSAGE_TYPE_NB = "3";
 }

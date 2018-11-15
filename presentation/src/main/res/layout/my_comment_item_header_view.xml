@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 我的评价Item -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/img_sd_civ_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_welcome_photo_16"/>
+
+    <TextView
+        android:id="@+id/img_sd_civ_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/img_sd_civ_icon"
+        android:textSize="15sp"
+        android:text="评论用户名"/>
+
+    <TextView
+        android:id="@+id/img_sd_civ_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_sd_civ_name"
+        android:layout_alignLeft="@id/img_sd_civ_name"
+        android:layout_alignBottom="@id/img_sd_civ_icon"
+        android:gravity="bottom"
+        android:textSize="12sp"
+        android:text="14天前"/>
+
+    <TextView
+        android:id="@+id/img_sd_civ_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_sd_civ_icon"
+        android:layout_marginTop="2dp"
+        android:text="评论内容"/>
+
+    <TextView
+        android:id="@+id/tv_message_response"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_sd_civ_content"
+        android:layout_marginTop="2dp"
+        android:text="回复内容"/>
+
+</RelativeLayout>
