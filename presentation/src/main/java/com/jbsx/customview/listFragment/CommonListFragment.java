@@ -248,6 +248,7 @@ public abstract class CommonListFragment<T> extends BaseFragment {
             // 无数据返回，根据当前list是否有数据来判断是否显示错误页
             if (mNeedClearData || mAdapter == null || mAdapter.getItemCount() == 0) {
                 mAdapter.clearData();
+                mAdapter.notifyDataSetChanged();
                 handleDataEmpty();
             }
         }

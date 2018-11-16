@@ -22,4 +22,15 @@ public class MyInfoUserCase extends UserCase {
         BaseRequestEntity entity = HttpRequestPool.getDeleteVideoEntity(token, isHistory);
         handleSendRequest(entity, callback);
     }
+
+    /**
+     * 删除评论
+     *
+     * @param commentId
+     * @param callback
+     */
+    public void deleteComment(String token, String commentId, String userId, BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getDeleteCommentEntity(token, commentId, userId);
+        handleSendRequest(entity, callback);
+    }
 }

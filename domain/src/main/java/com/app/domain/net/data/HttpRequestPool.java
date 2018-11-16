@@ -497,4 +497,28 @@ public class HttpRequestPool {
 
         return baseRequest;
     }
+
+    /**
+     * 删除一条评论
+     *
+     * @param token
+     * @param commentId
+     * @return
+     */
+    public static BaseRequestEntity getDeleteCommentEntity(String token, String commentId, String userId) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/delComment");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+        body.add("commentId", commentId);
+        body.add("userId", userId);
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, token);
+
+        return baseRequest;
+    }
 }

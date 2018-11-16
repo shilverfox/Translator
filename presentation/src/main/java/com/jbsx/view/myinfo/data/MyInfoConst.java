@@ -23,6 +23,9 @@ public class MyInfoConst {
     /** 我的页面item id：设置 */
     public final static int MY_TYPE_SETTING = 5;
 
+    /** event bus事件，删除评论 */
+    public final static int EVENT_BUS_DELETE_COMMENT = 1;
+
     public final static int[] MY_TYPE_IDS = {
             MY_TYPE_HISTORY, MY_TYPE_FAVORITY, MY_TYPE_COMMENT, MY_TYPE_MESSAGE, MY_TYPE_SETTING
     };

@@ -10,8 +10,12 @@ import com.jbsx.R;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
 import com.jbsx.utils.image.ImageLoader;
+import com.jbsx.view.myinfo.data.CommentEvent;
 import com.jbsx.view.myinfo.data.MyCommentData;
+import com.jbsx.view.myinfo.data.MyInfoConst;
 import com.jbsx.view.myinfo.data.MyMessageData;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 我的评论列表
@@ -69,6 +73,33 @@ public class MyCommentViewHolder extends CommonListFragmentViewHolder<MyCommentD
                 handleRootViewClick(mCurrentPosition);
             }
         });
+
+        mTvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleDeleteClick(mCurrentPosition);
+            }
+        });
+
+        mTvCommentContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleAddCommentClick(mCurrentPosition);
+            }
+        });
+    }
+
+    /**
+     * 删除评论
+     *
+     * @param position
+     */
+    private void handleDeleteClick(int position) {
+        EventBus.getDefault().post(new CommentEvent(MyInfoConst.EVENT_BUS_DELETE_COMMENT, mData));
+    }
+
+    private void handleAddCommentClick(int position) {
+
     }
 
     @Override
