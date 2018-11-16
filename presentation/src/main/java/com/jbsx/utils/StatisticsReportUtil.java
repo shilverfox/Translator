@@ -60,6 +60,16 @@ public class StatisticsReportUtil {
         deviceModel = "";
     }
 
+    public static int getSDKVersionNumber() {
+        int sdkVersion;
+        try {
+            sdkVersion = Build.VERSION.SDK_INT;
+        } catch (NumberFormatException e) {
+            sdkVersion = 0;
+        }
+        return sdkVersion;
+    }
+
     public static String getdeviceModel() {
         if (TextUtils.isEmpty(deviceModel)) {
             deviceModel = spilitSubString((Build.MODEL), 12);

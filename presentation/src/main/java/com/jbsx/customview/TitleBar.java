@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.jbsx.R;
 import com.jbsx.utils.ColorTools;
+import com.jbsx.utils.UiTools;
 
 /**
  * 通用导航栏控件
@@ -268,7 +269,7 @@ public class TitleBar extends RelativeLayout {
      * @param title
      */
     public void setCenterTitle(String title) {
-        setCenterTitle(title, 0xff333333);
+        setCenterTitle(title, 0xffffff);
     }
 
     public TextView getCenterTitle() {
@@ -448,7 +449,7 @@ public class TitleBar extends RelativeLayout {
     }
 
     public void setRightButtonDrawables(int left, int top, int right, int bottom) {
-        mTvRightButton.setCompoundDrawablePadding(8);
+        mTvRightButton.setCompoundDrawablePadding(UiTools.dip2px(4));
         mTvRightButton.setCompoundDrawables(getDrawable(left), getDrawable(top),
                 getDrawable(right), getDrawable(bottom));
     }
@@ -507,7 +508,7 @@ public class TitleBar extends RelativeLayout {
         Drawable drawable = null;
         try {
             drawable = getResources().getDrawable(resId);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            drawable.setBounds(0, 0, UiTools.dip2px(14), UiTools.dip2px(14));
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
         }

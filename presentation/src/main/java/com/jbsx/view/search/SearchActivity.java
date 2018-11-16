@@ -36,7 +36,7 @@ public class SearchActivity extends BaseFragmentActivity {
 
     private void initTitleBar() {
         mTopBarLayout.showBackButton(true);
-        mTopBarLayout.setLeftInput("搜索", R.drawable.title_search_white, new View.OnClickListener() {
+        mTopBarLayout.setLeftInput("搜索", R.drawable.search_icon, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

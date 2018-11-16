@@ -15,4 +15,7 @@
 
     <dimen name="my_info_bottom_height">100dp</dimen>
     <dimen name="dialog_width">250dp</dimen>
+
+    <dimen name="common_padding_vertical">8dp</dimen>
+    <dimen name="common_padding_horizontal">8dp</dimen>
 </resources>

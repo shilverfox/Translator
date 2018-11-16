@@ -11,14 +11,22 @@
         android:id="@+id/tab_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
+        android:background="@color/title_bar_start"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
-        tl:tl_indicator_color="#2C97DE"
-        tl:tl_textSelectColor="#2C97DE"
-        tl:tl_textUnselectColor="#66000000"
-        tl:tl_underline_color="#DDDDDD"
-        tl:tl_underline_height="1dp"/>
+        tl:tl_indicator_color="@color/white"
+        tl:tl_indicator_width="40dp"
+        tl:tl_textSelectColor="@color/white"
+        tl:tl_textUnselectColor="@color/white"
+        tl:tl_underline_color="@color/title_bar_start"
+        tl:tl_underline_height="4dp"
+        tl:tl_indicator_corner_radius="4dp"
+        tl:tl_textsize="18sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/title_bar_start"/>
 
     <FrameLayout
         android:id="@+id/fl_container"

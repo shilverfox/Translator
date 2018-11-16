@@ -109,7 +109,7 @@ public class MainActivity extends BaseFragmentActivity {
 
         mTopBarLayout.setLeftImage(R.drawable.main_title_icon);
         mTopBarLayout.getLeftInput().setFocusable(false);
-        mTopBarLayout.setLeftInput("搜索", R.drawable.title_search_white, new View.OnClickListener() {
+        mTopBarLayout.setLeftInput("搜索", R.drawable.search_icon, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Router.getInstance().open(SearchActivity.class, MainActivity.this);
@@ -122,7 +122,7 @@ public class MainActivity extends BaseFragmentActivity {
                 Router.getInstance().open(MyViewHistoryActivity.class, MainActivity.this);
             }
         });
-        mTopBarLayout.setRightButtonDrawables(R.drawable.tag_img, -1, -1, -1);
+        mTopBarLayout.setRightButtonDrawables(R.drawable.view_history, -1, -1, -1);
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {

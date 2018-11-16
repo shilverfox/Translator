@@ -12,14 +12,15 @@
         <!-- status bar -->
         <com.jbsx.customview.TitleStatusHeightLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
             <View
                 android:id="@+id/statusheight"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/top_bar_title_height"
                 android:alpha="1"
-                android:background="@color/white"
+                android:background="@drawable/title_bar_background"
                 android:visibility="visible" />
         </com.jbsx.customview.TitleStatusHeightLayout>
 
@@ -27,7 +28,7 @@
             android:id="@+id/layout_title_bar_container"
             android:layout_width="match_parent"
             android:layout_height="@dimen/cell_top_title_bar_height"
-            android:background="@color/white"
+            android:background="@drawable/title_bar_background"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingTop="@dimen/cell_top_title_bar_padding_top">
@@ -69,10 +70,12 @@
 
                     <ImageView
                         android:id="@+id/tv_title_bar_left_image"
-                        android:layout_width="80dp"
-                        android:layout_height="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="26dp"
                         android:layout_gravity="left|center_vertical"
                         android:gravity="left|center_vertical"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
                         android:visibility="gone"/>
 
                 </LinearLayout>
@@ -89,7 +92,7 @@
                     android:maxWidth="250dp"
                     android:singleLine="true"
                     android:text=""
-                    android:textColor="@color/black_333"
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent" />
@@ -105,7 +108,7 @@
                     android:gravity="left|center_vertical"
                     android:singleLine="true"
                     android:text=""
-                    android:textColor="@color/black_333"
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -121,7 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left|center_vertical"
                     android:background="@drawable/search_bar"
-                    android:drawablePadding="5dp"
+                    android:drawablePadding="4dp"
                     android:ellipsize="end"
                     android:gravity="left|center_vertical"
                     android:maxLength="200"
@@ -132,6 +135,8 @@
                     android:paddingBottom="5dp"
                     android:textSize="14sp"
                     android:visibility="gone"
+                    android:textColorHint="@color/divider_line"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintLeft_toRightOf="@+id/layout_title_bar_left_container"
@@ -154,6 +159,8 @@
                         android:gravity="center"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
                         android:text="" />
 
                     <!-- 右侧单独图片按键 -->

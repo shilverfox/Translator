@@ -21,6 +21,7 @@ import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.recyclerview.CenterLayoutManager;
 import com.jbsx.customview.recyclerview.LoadingFooter;
 import com.jbsx.utils.LogTools;
+import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.view.main.adapter.CelebrityIconItemAdapter;
 import com.jbsx.view.main.adapter.VideoItemAdapter;
@@ -36,7 +37,6 @@ import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 import com.zhouyou.recyclerview.XRecyclerView;
-import com.zhouyou.recyclerview.refresh.LoadingMoreFooter;
 import com.zhouyou.recyclerview.refresh.ProgressStyle;
 
 import java.util.ArrayList;
@@ -259,15 +259,56 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         }
     }
 
+    /**
+     * Banner 楼层进度条
+     * @param add
+     */
+    private void toggleBannerProgress(boolean add) {
+        if (add) {
+            ProgressBarHelper.addProgressBar(mViewBanner);
+        } else {
+            ProgressBarHelper.removeProgressBar(mViewBanner);
+        }
+    }
+
+    /**
+     * 学术艺术顾问楼层
+     *
+     * @param add
+     */
+    private void toggleCelebrityProgress(boolean add) {
+        if (add) {
+            ProgressBarHelper.addProgressBar(mRvHostList);
+        } else {
+            ProgressBarHelper.removeProgressBar(mRvHostList);
+        }
+    }
+
+    /**
+     * 专题系列楼层
+     *
+     * @param add
+     */
+    private void toggleSpecialAlbumProgress(boolean add) {
+        if (add) {
+            ProgressBarHelper.addProgressBar(mRvRecommendList);
+        } else {
+            ProgressBarHelper.removeProgressBar(mRvRecommendList);
+        }
+    }
+
     private void loadBannerInfo() {
+        toggleBannerProgress(true);
         mPresenter.requestBannerInfo();
     }
 
     private void loadSpecialAlbum(int page) {
+        toggleSpecialAlbumProgress(true);
         mPresenter.requestSpecialAlbumList(page);
     }
 
     private void loadCelebrities() {
+        toggleCelebrityProgress(true);
         mPresenter.requestCelebrities();
     }
 
@@ -277,6 +318,10 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
             mBannerData = bannerData;
             initBanner(bannerData.getPayload().getSpecialAlbums());
         }
+
+        // 模块是否可见
+        handleFloorVisible(mLayoutHost, bannerData.getPayload().getSpecialAlbums());
+        toggleBannerProgress(false);
     }
 
     @Override
@@ -304,6 +349,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         // 模块是否可见
         handleFloorVisible(mLayoutRecomment, mAdapterAlbum.getDatas());
         handleAlbumLoadMoreComplete();
+        toggleSpecialAlbumProgress(false);
     }
 
     private void handleAlbumLoadMoreComplete() {
@@ -347,6 +393,10 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
                 mListCelebrity = mAdapterCelebrity.getDatas();
             }
         }
+
+        // 模块是否可见
+        handleFloorVisible(mLayoutHost, mAdapterCelebrity.getDatas());
+        toggleCelebrityProgress(false);
     }
 
     @Override

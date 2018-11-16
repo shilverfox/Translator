@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -15,18 +14,27 @@
         <com.youth.banner.Banner
             android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="200dp"
+            app:indicator_height="8dp"
+            app:indicator_margin="4dp"
+            app:indicator_width="8dp"/>
 
         <LinearLayout
             android:id="@+id/layout_host"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_host_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/red_bar"
+                android:gravity="center_vertical"
+                android:drawablePadding="8dp"
+                android:paddingTop="@dimen/common_padding_vertical"
+                android:paddingBottom="@dimen/common_padding_vertical"
                 android:text="学术、艺术顾问" />
 
             <android.support.v7.widget.RecyclerView
@@ -39,12 +47,18 @@
             android:id="@+id/layout_album"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_album_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/red_bar"
+                android:gravity="center_vertical"
+                android:paddingTop="@dimen/common_padding_vertical"
+                android:paddingBottom="@dimen/common_padding_vertical"
+                android:drawablePadding="8dp"
                 android:text="专题系列" />
 
             <com.zhouyou.recyclerview.XRecyclerView
