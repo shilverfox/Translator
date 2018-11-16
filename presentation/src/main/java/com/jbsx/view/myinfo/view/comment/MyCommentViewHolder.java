@@ -9,11 +9,13 @@ import com.app.domain.net.data.ConstData;
 import com.jbsx.R;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
+import com.jbsx.utils.Router;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.myinfo.data.CommentEvent;
 import com.jbsx.view.myinfo.data.MyCommentData;
 import com.jbsx.view.myinfo.data.MyInfoConst;
 import com.jbsx.view.myinfo.data.MyMessageData;
+import com.jbsx.view.myinfo.data.UserComments;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -21,7 +23,7 @@ import org.greenrobot.eventbus.EventBus;
  * 我的评论列表
  */
 
-public class MyCommentViewHolder extends CommonListFragmentViewHolder<MyCommentData.UserComments> {
+public class MyCommentViewHolder extends CommonListFragmentViewHolder<UserComments> {
     private Context mContext;
 
     private View mRootView;
@@ -35,7 +37,7 @@ public class MyCommentViewHolder extends CommonListFragmentViewHolder<MyCommentD
     private TextView mTvVideoCount;
     private TextView mTvVideoCelebrity;
 
-    private MyCommentData.UserComments mData;
+    private UserComments mData;
     private int mCurrentPosition;
 
     private CommonListFragmentAdapter mAdapter;
@@ -98,12 +100,17 @@ public class MyCommentViewHolder extends CommonListFragmentViewHolder<MyCommentD
         EventBus.getDefault().post(new CommentEvent(MyInfoConst.EVENT_BUS_DELETE_COMMENT, mData));
     }
 
+    /**
+     * 添加评论
+     *
+     * @param position
+     */
     private void handleAddCommentClick(int position) {
         EventBus.getDefault().post(new CommentEvent(position, MyInfoConst.EVENT_BUS_ADD_COMMENT, mData));
     }
 
     @Override
-    public void drawViews(MyCommentData.UserComments data, final int position) {
+    public void drawViews(UserComments data, final int position) {
         mData = data;
         mCurrentPosition = position;
 
@@ -130,6 +137,9 @@ public class MyCommentViewHolder extends CommonListFragmentViewHolder<MyCommentD
         if (onMyItemClickListener != null) {
             onMyItemClickListener.onClick(position);
         }
+
+        // 查看详情
+        EventBus.getDefault().post(new CommentEvent(MyInfoConst.EVENT_BUS_VIEW_DETAIL, mData));
     }
 
     public interface OnMyItemClickListener {

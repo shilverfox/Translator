@@ -1,4 +1,4 @@
-package com.jbsx.view.myinfo.view.comment;
+package com.jbsx.view.myinfo.view.detail;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,22 +11,20 @@ import com.jbsx.customview.listFragment.CommonListFragment;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.myinfo.data.MyCommentData;
-import com.jbsx.view.myinfo.data.MyMessageData;
 import com.jbsx.view.myinfo.data.UserComments;
-import com.jbsx.view.myinfo.view.message.MyInfoMessageAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 我的评论列表
+ * 评论详情中的评论列表
  */
-public class MyCommentListView extends CommonListFragment {
+public class CommentDetailListView extends CommonListFragment {
     public static final String ARGUMENT = "argument";
 
-    private String mMessageType;
-    private MyCommentAdapter mAdapter;
-    private MyCommentData mMessageData;
+    private CommentDetailListAdapter mAdapter;
+    private MyCommentData mResultData;
+    private UserComments mRequestData;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,18 +32,22 @@ public class MyCommentListView extends CommonListFragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            mMessageType = bundle.getString(ARGUMENT);
+            mRequestData = bundle.getParcelable(ARGUMENT);
         }
     }
 
-    public static MyCommentListView newInstance(String argument) {
+    public static CommentDetailListView newInstance(UserComments argument) {
         Bundle bundle = new Bundle();
-        bundle.putString(ARGUMENT, argument);
+        bundle.putParcelable(ARGUMENT, argument);
 
-        MyCommentListView contentFragment = new MyCommentListView();
+        CommentDetailListView contentFragment = new CommentDetailListView();
         contentFragment.setArguments(bundle);
 
         return contentFragment;
+    }
+
+    public void setMainCommentData(UserComments commentData) {
+        mRequestData = commentData;
     }
 
     /**
@@ -57,14 +59,16 @@ public class MyCommentListView extends CommonListFragment {
 
     @Override
     public CommonListFragmentAdapter getAdapter(Context context) {
-        mAdapter = new MyCommentAdapter(mContext);
+        mAdapter = new CommentDetailListAdapter(mContext);
         return mAdapter;
     }
 
     @Override
     public BaseRequestEntity getRequestEntity(int pageIndex) {
-        BaseRequestEntity entity = HttpRequestPool.getMyCommentEntity(
-                LoginHelper.getInstance().getUserToken(), mMessageType, pageIndex);
+        BaseRequestEntity entity = HttpRequestPool.getCommentDetailListEntity(
+                LoginHelper.getInstance().getUserToken(), mRequestData.getId(),
+                mRequestData.getSpecialAlbumId(), mRequestData.getSpecialSingleId(),
+                mRequestData.getUserId(), pageIndex);
         return entity;
     }
 
@@ -76,10 +80,10 @@ public class MyCommentListView extends CommonListFragment {
     @Override
     public List parseList(String result) {
         Gson gson = new Gson();
-        mMessageData = gson.fromJson(result, MyCommentData.class);
+        mResultData = gson.fromJson(result, MyCommentData.class);
 
-        if (mMessageData != null || mMessageData.getPayload() != null) {
-            List<UserComments> list = mMessageData.getPayload().getUserComments();
+        if (mResultData != null || mResultData.getPayload() != null) {
+            List<UserComments> list = mResultData.getPayload().getUserComments();
             return list;
         }
 

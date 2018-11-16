@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 public class Router {
+    public static final String COMMENT_DETAIL_KEY = "commentDetail";
+
     private static final Router router = new Router();
 
     public static Router getInstance() {

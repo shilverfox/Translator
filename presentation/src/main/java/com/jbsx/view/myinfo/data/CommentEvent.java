@@ -6,14 +6,14 @@ package com.jbsx.view.myinfo.data;
 public class CommentEvent {
     private int type;
     int position;
-    private MyCommentData.UserComments mUserComments;
+    private UserComments mUserComments;
 
-    public CommentEvent(int type, MyCommentData.UserComments comments) {
+    public CommentEvent(int type, UserComments comments) {
         setType(type);
         setUserComments(comments);
     }
 
-    public CommentEvent(int position, int type, MyCommentData.UserComments comments) {
+    public CommentEvent(int position, int type, UserComments comments) {
         this(type, comments);
         setPosition(position);
     }
@@ -34,11 +34,11 @@ public class CommentEvent {
         this.type = type;
     }
 
-    public MyCommentData.UserComments getUserComments() {
+    public UserComments getUserComments() {
         return mUserComments;
     }
 
-    public void setUserComments(MyCommentData.UserComments userComments) {
+    public void setUserComments(UserComments userComments) {
         mUserComments = userComments;
     }
 }

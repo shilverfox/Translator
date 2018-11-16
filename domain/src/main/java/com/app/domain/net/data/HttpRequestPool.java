@@ -521,4 +521,38 @@ public class HttpRequestPool {
 
         return baseRequest;
     }
+
+    /**
+     * 获得当前评论对应的评论列表
+     *
+     * @param token
+     * @param commentId
+     * @param albumId
+     * @param singleId
+     * @param userId
+     * @param page
+     * @return
+     */
+    public static BaseRequestEntity getCommentDetailListEntity(String token, String commentId,
+                                                               String albumId, String singleId,
+                                                               String userId, int page) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getReplyInComment");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+        body.add("commentId", commentId);
+        body.add("albumId", albumId);
+        body.add("singleId", singleId);
+        body.add("userId", userId);
+        body.add("no", page + "");
+        body.add("size", ConstData.DEFAULT_PAGE_SIZE + "");
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, token);
+
+        return baseRequest;
+    }
 }

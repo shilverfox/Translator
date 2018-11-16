@@ -29,6 +29,9 @@ public class MyInfoConst {
     /** event bus事件，增加评论 */
     public final static int EVENT_BUS_ADD_COMMENT = 2;
 
+    /** event bus事件，查看详情 */
+    public final static int EVENT_BUS_VIEW_DETAIL = 3;
+
     public final static int[] MY_TYPE_IDS = {
             MY_TYPE_HISTORY, MY_TYPE_FAVORITY, MY_TYPE_COMMENT, MY_TYPE_MESSAGE, MY_TYPE_SETTING
     };

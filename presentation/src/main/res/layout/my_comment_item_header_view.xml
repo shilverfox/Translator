@@ -4,7 +4,7 @@
     android:orientation="horizontal"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/img_sd_civ_icon"
@@ -19,6 +19,31 @@
         android:layout_toRightOf="@id/img_sd_civ_icon"
         android:textSize="15sp"
         android:text="评论用户名"/>
+
+    <TextView
+        android:id="@+id/tv_nb_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/img_sd_civ_icon"
+        android:layout_alignTop="@id/img_sd_civ_icon"
+        android:drawableLeft="@drawable/icon_thumb"
+        android:gravity="center"
+        android:text="赞20"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tv_comment_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/tv_nb_count"
+        android:drawableLeft="@drawable/icon_add_comment"
+        android:layout_alignBottom="@id/img_sd_civ_icon"
+        android:layout_alignTop="@id/img_sd_civ_icon"
+        android:gravity="center"
+        android:text="评论20"
+        android:textSize="14sp"/>
 
     <TextView
         android:id="@+id/img_sd_civ_time"

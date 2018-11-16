@@ -24,12 +24,15 @@ import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.CommentInputDialog;
 import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
+import com.jbsx.utils.Router;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.main.entity.TabEntity;
+import com.jbsx.view.myinfo.activity.CommentDetailActivity;
 import com.jbsx.view.myinfo.data.CommentEvent;
 import com.jbsx.view.myinfo.data.MyCommentData;
 import com.jbsx.view.myinfo.data.MyInfoConst;
+import com.jbsx.view.myinfo.data.UserComments;
 import com.jbsx.view.myinfo.view.comment.MyCommentListView;
 import com.jbsx.view.myinfo.view.message.MyInfoMessageListView;
 import com.jbsx.view.search.entity.SearchEvent;
@@ -91,8 +94,22 @@ public class MyCommentFragment extends BaseFragment {
                 case MyInfoConst.EVENT_BUS_ADD_COMMENT:
                     handleAddComment(event);
                     break;
+                case MyInfoConst.EVENT_BUS_VIEW_DETAIL:
+                    goToCommentDetailActivity(event.getUserComments());
+                    break;
             }
         }
+    }
+
+    /**
+     * 看评论详情
+     *
+     * @param userComments
+     */
+    private void goToCommentDetailActivity(UserComments userComments) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Router.COMMENT_DETAIL_KEY, userComments);
+        Router.getInstance().open(CommentDetailActivity.class, getActivity(), bundle);
     }
 
     /**
@@ -122,7 +139,7 @@ public class MyCommentFragment extends BaseFragment {
     /**
      * 删除一条评论
      */
-    private void handleDeleteComment(MyCommentData.UserComments userComments) {
+    private void handleDeleteComment(UserComments userComments) {
         mMyInfoUserCase.deleteComment(LoginHelper.getInstance().getUserToken(), userComments.getId(),
                 userComments.getUserId(), new BaseRequestCallback() {
                     @Override
