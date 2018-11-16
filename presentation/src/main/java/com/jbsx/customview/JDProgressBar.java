@@ -31,7 +31,7 @@ public class JDProgressBar extends ProgressBar {
 		final LayoutParams layoutParams = new LayoutParams(UiTools.dip2px(34), UiTools.dip2px(34));
 		layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
 		this.setLayoutParams(layoutParams);
-		this.setBackgroundResource(R.drawable.progress_load_logo);
+//		this.setBackgroundResource(R.drawable.progress_load_logo);
 		this.setIndeterminateDrawable(this.getResources().getDrawable(R.drawable.progress_small));
 		this.setIndeterminate(true);
 		

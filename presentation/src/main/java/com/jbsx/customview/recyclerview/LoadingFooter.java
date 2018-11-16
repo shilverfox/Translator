@@ -64,11 +64,10 @@ public class LoadingFooter extends RelativeLayout {
      * @param showView 是否展示当前View
      */
     public void setState(State status, boolean showView) {
-//        DLog.d("hxt","setState--0--status--"+status);
         if (mState == status) {
             return;
         }
-//        DLog.d("hxt","setState--1--status--"+status);
+
         mState = status;
         changeViewState(status, showView);
 

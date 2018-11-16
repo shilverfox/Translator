@@ -19,6 +19,7 @@ import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.recyclerview.CenterLayoutManager;
+import com.jbsx.customview.recyclerview.LoadingFooter;
 import com.jbsx.utils.LogTools;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.view.main.adapter.CelebrityIconItemAdapter;
@@ -59,7 +60,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     private XRecyclerView mRvRecommendList;
     private VideoItemAdapter mAdapterAlbum;
     private List<SpecialAlbums> mListAlbum = new ArrayList<>();
-    private LoadingMoreFooter mFooterLoadingMore;
+    private LoadingFooter mFooterLoadingMore;
     private NestedScrollView mNsvRoot;
 
     /** 名家列表 */
@@ -217,14 +218,11 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         mRvRecommendList.setLoadingMoreProgressStyle(ProgressStyle.CubeTransition);
         mRvRecommendList.setArrowImageView(R.drawable.iconfont_downgrey);
 
-        mFooterLoadingMore = new LoadingMoreFooter(mContext);
-        mFooterLoadingMore.setProgressStyle(ProgressStyle.CubeTransition);
-        mFooterLoadingMore.setLoadingHint("加载中");
-
+        mFooterLoadingMore = new LoadingFooter(mContext);
         mRvRecommendList.addFooterView(mFooterLoadingMore);
 
         // 初始时都不显示footer
-        showLoadingMoreFooter(false);
+        mFooterLoadingMore.setState(LoadingFooter.State.Normal, false);
 
         mAdapterAlbum = new VideoItemAdapter(mContext, R.layout.album_grid_2_item);
         mAdapterAlbum.setDatas(mListAlbum);
@@ -235,10 +233,9 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
 
     private void showLoadingMoreFooter(boolean show) {
         if (show) {
-            mFooterLoadingMore.setState(LoadingMoreFooter.STATE_LOADING);
+            mFooterLoadingMore.setState(LoadingFooter.State.Loading);
         } else {
-            mFooterLoadingMore.setState(LoadingMoreFooter.STATE_NOMORE);
-            mFooterLoadingMore.setNoMoreHint("已经到底了");
+            mFooterLoadingMore.setState(LoadingFooter.State.TheEnd);
         }
     }
 
