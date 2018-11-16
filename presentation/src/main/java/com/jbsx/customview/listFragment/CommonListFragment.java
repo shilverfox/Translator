@@ -287,6 +287,15 @@ public abstract class CommonListFragment<T> extends BaseFragment {
     }
 
     /**
+     * 滑动
+     *
+     * @param position
+     */
+    public void smoothScrollToPosition(int position) {
+        mListView.smoothScrollToPosition(position);
+    }
+
+    /**
      * 设置最大翻页限制
      * 比如，共有10页数据，但是只想看前5页的
      *

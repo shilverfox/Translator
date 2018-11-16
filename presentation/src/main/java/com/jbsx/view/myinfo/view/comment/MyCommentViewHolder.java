@@ -81,7 +81,7 @@ public class MyCommentViewHolder extends CommonListFragmentViewHolder<MyCommentD
             }
         });
 
-        mTvCommentContent.setOnClickListener(new View.OnClickListener() {
+        mTvCommentCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handleAddCommentClick(mCurrentPosition);
@@ -99,7 +99,7 @@ public class MyCommentViewHolder extends CommonListFragmentViewHolder<MyCommentD
     }
 
     private void handleAddCommentClick(int position) {
-
+        EventBus.getDefault().post(new CommentEvent(position, MyInfoConst.EVENT_BUS_ADD_COMMENT, mData));
     }
 
     @Override

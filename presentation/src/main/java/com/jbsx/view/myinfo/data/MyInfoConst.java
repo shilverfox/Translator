@@ -26,6 +26,9 @@ public class MyInfoConst {
     /** event bus事件，删除评论 */
     public final static int EVENT_BUS_DELETE_COMMENT = 1;
 
+    /** event bus事件，增加评论 */
+    public final static int EVENT_BUS_ADD_COMMENT = 2;
+
     public final static int[] MY_TYPE_IDS = {
             MY_TYPE_HISTORY, MY_TYPE_FAVORITY, MY_TYPE_COMMENT, MY_TYPE_MESSAGE, MY_TYPE_SETTING
     };

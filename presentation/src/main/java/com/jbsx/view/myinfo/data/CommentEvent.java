@@ -5,11 +5,25 @@ package com.jbsx.view.myinfo.data;
  */
 public class CommentEvent {
     private int type;
+    int position;
     private MyCommentData.UserComments mUserComments;
 
     public CommentEvent(int type, MyCommentData.UserComments comments) {
         setType(type);
         setUserComments(comments);
+    }
+
+    public CommentEvent(int position, int type, MyCommentData.UserComments comments) {
+        this(type, comments);
+        setPosition(position);
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     public int getType() {

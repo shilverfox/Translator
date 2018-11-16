@@ -1,11 +1,14 @@
 package com.jbsx.view.myinfo.fragment;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
@@ -18,6 +21,7 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
+import com.jbsx.customview.CommentInputDialog;
 import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ShowTools;
@@ -84,8 +88,35 @@ public class MyCommentFragment extends BaseFragment {
                 case MyInfoConst.EVENT_BUS_DELETE_COMMENT:
                     handleDeleteComment(event.getUserComments());
                     break;
+                case MyInfoConst.EVENT_BUS_ADD_COMMENT:
+                    handleAddComment(event);
+                    break;
             }
         }
+    }
+
+    /**
+     * 增加评论
+     *
+     * @param event
+     */
+    private void handleAddComment(final CommentEvent event) {
+        CommentInputDialog.showInputComment(getActivity(), "", new CommentInputDialog.CommentDialogListener() {
+            @Override
+            public void onClickPublish(Dialog dialog, EditText input, TextView btn) {
+
+            }
+
+            @Override
+            public void onShow(int[] inputViewCoordinatesOnScreen) {
+                mMyCommentListView.smoothScrollToPosition(event.getPosition());
+            }
+
+            @Override
+            public void onDismiss() {
+
+            }
+        });
     }
 
     /**
