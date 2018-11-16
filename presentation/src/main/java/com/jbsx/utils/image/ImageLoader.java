@@ -1,13 +1,17 @@
 package com.jbsx.utils.image;
 
+import android.graphics.drawable.GradientDrawable;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.jbsx.app.MainApplicationLike;
+import com.jbsx.utils.ColorTools;
+import com.jbsx.utils.UiTools;
 
 /**
  * Handle showing and loading of images.
@@ -29,6 +33,52 @@ public class ImageLoader {
 
         Glide.with(MainApplicationLike.getAppContext())
                 .load(url)
+                .into(imgView);
+    }
+
+    /**
+     * 圆角图
+     *
+     * @param url
+     * @param imgView
+     * @param roundRadius
+     */
+    public static void displayImage(String url, ImageView imgView, int roundRadius) {
+        if (TextUtils.isEmpty(url) || imgView == null) {
+            return;
+        }
+
+        CornerTransform transformation1 = new CornerTransform(MainApplicationLike.getAppContext(),
+                (float) UiTools.dip2px(roundRadius));
+        transformation1.setExceptCorner(false, false, false, false);
+        GradientDrawable drawable1 = new GradientDrawable();
+        drawable1.setCornerRadius(UiTools.dip2px(6));
+        drawable1.setColor(ColorTools.parseColor("#f4f4f4"));
+
+        Glide.with(MainApplicationLike.getAppContext())
+                .load(url)
+                .asBitmap()
+                .transform(new Transformation[]{transformation1})
+                .into(imgView);
+    }
+
+    /**
+     * 圆形图
+     *
+     * @param url
+     * @param imgView
+     * @param circle
+     */
+    public static void displayImage(String url, ImageView imgView, boolean circle) {
+        if (TextUtils.isEmpty(url) || imgView == null) {
+            return;
+        }
+
+        GlideCircleTransform transformation1 = new GlideCircleTransform(MainApplicationLike.getAppContext());
+        Glide.with(MainApplicationLike.getAppContext())
+                .load(url)
+                .asBitmap()
+                .transform(new Transformation[]{transformation1})
                 .into(imgView);
     }
 

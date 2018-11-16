@@ -69,7 +69,7 @@ public class MyInfoMessageViewHolder extends CommonListFragmentViewHolder<MyMess
         mCurrentPosition = position;
 
         if (data != null) {
-            ImageLoader.displayImage(data.getReUserImageUrl(), mIvUserHead);
+            ImageLoader.displayImage("http://pic1.win4000.com/wallpaper/2018-01-09/5a54724e365b9.jpg", mIvUserHead, true);
             mTvUserName.setText(data.getReUserName() + getTip(data));
             mTvMessageContent.setText(data.getMessage());
             mTvResponseContent.setText(data.getReMessage());
