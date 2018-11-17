@@ -18,9 +18,12 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/iv_video_item_image"
         android:layout_alignRight="@id/iv_video_item_image"
-        android:text="30"
-        android:textColor="#ff0000"
-        android:textSize="50sp" />
+        android:text=""
+        android:textColor="@color/white"
+        android:paddingRight="8dp"
+        android:paddingLeft="8dp"
+        android:layout_marginBottom="4dp"
+        android:textSize="18sp"/>
 
 
     <TextView
@@ -28,8 +31,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_video_item_image"
-        android:text="miaoshu"
-        android:textColor="#ff0000"
-        android:maxLines="1" />
+        android:text=""
+        android:textColor="@color/gray_999"
+        android:paddingTop="4dp"
+        android:maxLines="1"
+        android:textSize="15sp"/>
 
 </RelativeLayout>

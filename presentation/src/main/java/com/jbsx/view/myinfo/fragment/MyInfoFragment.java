@@ -7,12 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jbsx.R;
-import com.jbsx.app.BaseEvent;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.utils.RecyclerViewHelper;
+import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.login.callback.ILoginResultListener;
 import com.jbsx.view.login.data.LoginData;
 import com.jbsx.view.login.data.LoginResultEvent;
@@ -35,6 +36,7 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
     private TextView mTxtBusinessName;
     private TextView mTxtValidDate;
     private TextView mTxtLogin;
+    private ImageView mIvUserHead;
 
     private MyInfoAdapter mAdapter;
 
@@ -78,6 +80,7 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
         mTxtBusinessName = mRootView.findViewById(R.id.tv_my_info_business_name);
         mTxtValidDate = mRootView.findViewById(R.id.tv_my_info_valid_date);
         mTxtLogin = mRootView.findViewById(R.id.tv_my_info_login);
+        mIvUserHead = mRootView.findViewById(R.id.iv_my_info_user_head);
     }
 
     private void initEvents() {
@@ -118,17 +121,20 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
      */
     private void handleUserData() {
         LoginData userData = LoginHelper.getInstance().getLoginUser();
-        if (userData != null) {
-            LoginData.Result result = userData.getPayload();
+        if (userData != null && userData.getPayload() != null) {
+            LoginData.UserInfo userInfo = userData.getPayload().getUserInfo();
 
-            if (result != null) {
-                mTxtUserName.setText(result.getCellPhone());
+            if (userInfo != null) {
+                mTxtUserName.setText(userData.getPayload().getCellPhone());
                 mTxtUserName.setVisibility(View.VISIBLE);
-                mTxtBusinessName.setText(result.getId());
+                mTxtBusinessName.setText(userInfo.getDepartment());
                 mTxtBusinessName.setVisibility(View.VISIBLE);
-                mTxtValidDate.setText("dd");
+                mTxtValidDate.setText(userInfo.getMemberEnd());
                 mTxtValidDate.setVisibility(View.VISIBLE);
                 mTxtLogin.setVisibility(View.GONE);
+
+                // 头像
+                ImageLoader.displayImage(userInfo.getImageUrl(), mIvUserHead, true);
             }
         } else {
             // 未登录
@@ -136,6 +142,7 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
             mTxtBusinessName.setVisibility(View.GONE);
             mTxtValidDate.setVisibility(View.GONE);
             mTxtLogin.setVisibility(View.VISIBLE);
+            mIvUserHead.setImageResource(R.drawable.my_icon_default);
         }
     }
 

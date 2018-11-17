@@ -9,11 +9,19 @@
     <RelativeLayout
         android:id="@+id/view_my_info_user"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:background="@color/divider_line">
         <TextView
             android:id="@+id/tv_my_info_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"
             android:text="用户名"/>
 
         <TextView
@@ -37,9 +45,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:textStyle="bold"
             android:text="立即登录"/>
 
         <ImageView
+            android:id="@+id/iv_my_info_user_head"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentRight="true"
@@ -57,8 +68,8 @@
     <com.jbsx.customview.MaterialRippleLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="@dimen/login_button_margin_horizontal"
+        android:layout_marginRight="@dimen/login_button_margin_horizontal"
         android:layout_marginTop="30dp"
         app:mrl_rippleAlpha="0.2"
         app:mrl_rippleColor="#585858"

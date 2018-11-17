@@ -4,12 +4,12 @@
     android:id="@+id/layout_video_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="4dp">
+    android:padding="@dimen/common_padding_horizontal">
 
     <ImageView
         android:id="@+id/iv_video_item_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="160dp"
+        android:layout_height="80dp"
         android:scaleType="fitXY"
         android:src="@drawable/timg" />
 
@@ -29,8 +29,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/iv_video_item_image"
-        android:text="miaoshu"
-        android:textColor="#ff0000" />
+        android:text=""
+        android:textSize="15sp"
+        android:layout_marginLeft="@dimen/common_padding_horizontal"
+        android:textColor="@color/gray_999" />
 
     <TextView
         android:id="@+id/iv_video_item_host"
@@ -40,7 +42,7 @@
         android:layout_alignLeft="@id/iv_video_item_description"
         android:layout_below="@id/iv_video_item_description"
         android:gravity="bottom"
-        android:text="zhujiang"
-        android:textColor="#ff0000" />
+        android:text=""
+        android:textColor="@color/app_word_red" />
 
 </RelativeLayout>

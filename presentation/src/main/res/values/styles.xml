@@ -72,4 +72,19 @@
         <item name="android:textSize">15sp</item>
     </style>
 
+    <!-- 通用tab样式，查询结果，我的消息 -->
+    <style name="common_tab_style">
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingTop">12sp</item>
+        <item name="android:background">@color/root_bg_color</item>
+        <item name="tl_divider_color">@color/divider_line</item>
+        <item name="tl_divider_padding">12dp</item>
+        <item name="tl_divider_width">1sp</item>
+        <item name="tl_textSelectColor">@color/app_word_red</item>
+        <item name="tl_textUnselectColor">#66000000</item>
+        <item name="tl_textsize">16sp</item>
+        <item name="tl_indicator_color">@color/root_bg_color</item>
+        <item name="tl_indicator_style">BLOCK</item>
+    </style>
+
 </resources>

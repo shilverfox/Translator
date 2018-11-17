@@ -8,9 +8,9 @@ import android.view.View;
  */
 public class DialogBtnParams {
     public final static int firstBtnDefaultColor = Color.parseColor("#999999");
-    public final static int secondBtnDefaultColor = Color.parseColor("#47B34F");
+    public final static int secondBtnDefaultColor = Color.parseColor("#b83438");
 
-    public int colorForText = Color.parseColor("#47B34F");
+    public int colorForText = Color.parseColor("#b83438");
     public int bgColor = Color.parseColor("#ffffff");
     public View.OnClickListener listener;
     public String btnTitle;

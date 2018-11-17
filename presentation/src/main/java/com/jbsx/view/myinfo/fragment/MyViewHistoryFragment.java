@@ -153,7 +153,7 @@ public class MyViewHistoryFragment extends BaseFragment implements MyViewHistory
      * 全选， 删除UI
      */
     private void handleSelectAllStuff() {
-        mIvCheckAll.setImageResource(mIsSelectAll ? R.drawable.icon_check_green : R.drawable.icon_uncheck_green);
+        mIvCheckAll.setImageResource(mIsSelectAll ? R.drawable.red_rect_check : R.drawable.rect_uncheck);
         mTvCheckAllLabel.setText(mIsSelectAll ? "取消全选" : "全选");
     }
 

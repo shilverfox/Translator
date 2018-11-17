@@ -269,7 +269,7 @@ public class TitleBar extends RelativeLayout {
      * @param title
      */
     public void setCenterTitle(String title) {
-        setCenterTitle(title, 0xffffff);
+        setCenterTitle(title, 0xffffffff);
     }
 
     public TextView getCenterTitle() {

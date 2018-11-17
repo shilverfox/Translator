@@ -105,8 +105,6 @@ public class MainActivity extends BaseFragmentActivity {
     }
 
     private void initTitleBar() {
-        mTopBarLayout.setCenterTitle("首页");
-
         mTopBarLayout.setLeftImage(R.drawable.main_title_icon);
         mTopBarLayout.getLeftInput().setFocusable(false);
         mTopBarLayout.setLeftInput("搜索", R.drawable.search_icon, new View.OnClickListener() {

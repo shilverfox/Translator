@@ -14,7 +14,7 @@ import com.jbsx.view.main.entity.Album;
 import com.jbsx.view.main.entity.SpecialAlbums;
 
 /**
- * 视频项，首页推荐，查询结果之类的
+ * 视频项，首页推荐
  */
 public class VideoItemAdapter extends UniversalAdapter2<SpecialAlbums> {
     private OnMyItemClickListener onMyItemClickListener;
@@ -36,7 +36,7 @@ public class VideoItemAdapter extends UniversalAdapter2<SpecialAlbums> {
         }
 
         // 数量
-        holder.setText(R.id.iv_video_item_amount, album.getSongs() + "");
+        holder.setText(R.id.iv_video_item_amount, "全" + album.getSongs() + "集");
 
         // 描述、标题
         holder.setText(R.id.iv_video_item_description, album.getTitle());

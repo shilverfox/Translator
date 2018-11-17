@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/common_padding_horizontal"
     android:orientation="vertical">
 
     <TextView
@@ -13,7 +14,9 @@
 
     <RelativeLayout
         android:id="@+id/layout_comment_video"
+        android:background="@color/divider_line"
         android:layout_width="match_parent"
+        android:layout_marginTop="14dp"
         android:layout_height="100dp">
 
         <include layout="@layout/album_grid_1_item"/>
@@ -21,13 +24,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
 
         <TextView
             android:id="@+id/tv_comment_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/icon_add_comment"
+            android:drawableLeft="@drawable/comment_icon_small"
+            android:drawablePadding="6dp"
             android:text="20"
             android:textSize="14sp"/>
 
@@ -36,7 +41,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/tv_comment_count"
-            android:drawableLeft="@drawable/icon_thumb"
+            android:drawableLeft="@drawable/thumb_small"
+            android:drawablePadding="6dp"
             android:layout_marginLeft="16dp"
             android:text="20"
             android:textSize="14sp"/>

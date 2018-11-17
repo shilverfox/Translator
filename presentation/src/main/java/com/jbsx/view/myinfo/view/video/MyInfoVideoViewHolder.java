@@ -86,7 +86,7 @@ public class MyInfoVideoViewHolder extends CommonListFragmentViewHolder<ViewHist
             // 选中
             mIvCheck.setVisibility(MyViewHistoryFragment.mCanSelectItem ? View.VISIBLE : View.GONE);
             boolean isCheck = single.isCheck();
-            mIvCheck.setImageResource(isCheck ? R.drawable.icon_check_green : R.drawable.icon_uncheck_green);
+            mIvCheck.setImageResource(isCheck ? R.drawable.red_rect_check : R.drawable.rect_uncheck);
 
             mIvCheck.setOnClickListener(new View.OnClickListener() {
                 @Override

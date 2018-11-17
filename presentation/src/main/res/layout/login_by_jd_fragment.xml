@@ -12,6 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/login_page_top_margin"
         android:orientation="vertical">
 
         <LinearLayout
@@ -22,15 +23,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/login_input_view_top_bg">
+                android:padding="@dimen/login_input_margin"
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/login_jd_num"
                     style="@style/login_input_text_style"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:background="@color/white"
                     android:ems="10"
                     android:hint="请输入账号（用户名/邮箱/手机号）"
                     android:inputType="none"
@@ -39,6 +39,7 @@
                     android:singleLine="true"
                     android:drawablePadding="6dp"
                     android:drawableLeft="@drawable/login_user_icon"
+                    android:background="@drawable/login_input_view_bg"
                     android:textColorHint="@color/gray_999"
                     android:textColor="@color/gray_666"
                     android:textSize="12sp"
@@ -47,18 +48,12 @@
                 </EditText>
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#d9d9d9"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"/>
-
             <LinearLayout
                 android:id="@+id/login_jd_password_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/login_input_view_bottom_bg"
+                android:layout_margin="@dimen/login_input_margin"
+                android:background="@drawable/login_input_view_bg"
                 android:orientation="horizontal">
 
                 <EditText
@@ -66,7 +61,6 @@
                     style="@style/login_input_text_style"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
                     android:ems="10"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
@@ -78,6 +72,7 @@
                     android:padding="15dp"
                     android:textSize="12sp"
                     android:singleLine="true"
+                    android:background="@null"
                     android:textColorHint="@color/gray_999"
                     android:textColor="@color/gray_666"
                     android:layout_weight="4"/>
@@ -209,7 +204,7 @@
                 android:layout_alignParentLeft="true"
                 android:paddingLeft="15dp"
                 android:text="忘记密码?"
-                android:textColor="@color/gray_666"
+                android:textColor="@color/app_word_red"
                 android:textSize="12sp"/>
 
             <TextView
@@ -219,7 +214,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="15dp"
                 android:text="注册账号"
-                android:textColor="@color/gray_666"
+                android:textColor="@color/app_word_red"
                 android:textSize="12sp"/>
         </RelativeLayout>
 
@@ -244,6 +239,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/login_button_height"
                 android:background="@drawable/longin_button_bg"
+                android:layout_marginLeft="@dimen/login_button_margin_horizontal"
+                android:layout_marginRight="@dimen/login_button_margin_horizontal"
                 android:padding="10dp"
                 android:text="登录"
                 android:textColor="@color/login_button_text_color"

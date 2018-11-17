@@ -7,6 +7,7 @@
     <color name="black_333">#333333</color>
     <color name="light_black">#555555</color>
 
+    <color name="app_word_red">#b83438</color>
     <color name="title_bar_start">#b83438</color>
     <color name="title_bar_end">#db5559</color>
 

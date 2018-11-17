@@ -27,6 +27,9 @@ public class MyInfoMessageViewHolder extends CommonListFragmentViewHolder<MyMess
     private TextView mTvResponseTime;
     private TextView mTvMessageContent;
     private TextView mTvResponseContent;
+    private TextView mTvCommentCount;
+    private TextView mTvNbCount;
+
     private MyMessageData.MessageList mData;
     private int mCurrentPosition;
 
@@ -50,6 +53,8 @@ public class MyInfoMessageViewHolder extends CommonListFragmentViewHolder<MyMess
             mTvMessageContent = mRootView.findViewById(R.id.img_sd_civ_content);
             mIvUserHead = mRootView.findViewById(R.id.img_sd_civ_icon);
             mTvResponseContent = mRootView.findViewById(R.id.tv_message_response);
+            mTvCommentCount = mRootView.findViewById(R.id.tv_comment_count);
+            mTvNbCount = mRootView.findViewById(R.id.tv_nb_count);
         }
     }
 
@@ -74,6 +79,10 @@ public class MyInfoMessageViewHolder extends CommonListFragmentViewHolder<MyMess
             mTvMessageContent.setText(data.getMessage());
             mTvResponseContent.setText(data.getReMessage());
             mTvResponseTime.setText(data.getReDate());
+
+            // 消息列表不显示评论和赞信息
+            mTvNbCount.setVisibility(View.GONE);
+            mTvCommentCount.setVisibility(View.GONE);
         }
     }
 

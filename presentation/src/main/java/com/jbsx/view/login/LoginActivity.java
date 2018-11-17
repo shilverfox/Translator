@@ -77,6 +77,7 @@ public class LoginActivity extends BaseFragmentActivity implements ILoginResultL
     }
 
     private void initTitleBar() {
+        mTopBarLayout.getCenterTitle().setTextColor(0xffffffff);
         mTopBarLayout.setCenterTitle("登录");
         mTopBarLayout.setBackButton(R.drawable.back, new View.OnClickListener() {
             @Override

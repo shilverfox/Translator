@@ -23,6 +23,8 @@
             android:id="@+id/layout_host"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/common_padding_horizontal"
+            android:paddingRight="@dimen/common_padding_horizontal"
             android:visibility="invisible"
             android:orientation="vertical">
 
@@ -40,13 +42,17 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_floor_host"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-4dp"
+                android:layout_marginRight="-4dp"/>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_album"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/common_padding_horizontal"
+            android:paddingRight="@dimen/common_padding_horizontal"
             android:visibility="invisible"
             android:orientation="vertical">
 
@@ -64,7 +70,9 @@
             <com.zhouyou.recyclerview.XRecyclerView
                 android:id="@+id/rv_floor_recommend"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-4dp"
+                android:layout_marginRight="-4dp"/>
         </LinearLayout>
 
     </LinearLayout>
