@@ -10,6 +10,11 @@
     <string name="list_footer_network_error">加载失败，请点击重新加载</string>
     <string name="list_footer_end">没有更多啦</string>
 
+    <string name="dkplayer_replay">重新播放</string>
+    <string name="dkplayer_lock_tip">请先解锁屏幕！</string>
+    <string name="dkplayer_unlocked">已解锁</string>
+    <string name="dkplayer_locked">已锁定</string>
+
     <string-array name="dest_trans_language">
         <item>zh</item>
         <item>en</item>

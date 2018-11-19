@@ -34,16 +34,16 @@
         <activity android:name=".view.myinfo.activity.MyMessageActivity" />
         <activity android:name=".view.myinfo.activity.MyCommentActivity" />
         <activity android:name=".view.myinfo.activity.CommentDetailActivity" />
+        <activity android:name=".view.login.LoginActivity" />
+
         <activity android:name=".view.search.SearchActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".view.search.SearchResultActivity" />
 
-        <activity android:name=".view.login.LoginActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        </activity>
+        <activity android:name=".player.PlayerActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"/>
+
 
         <!-- 微信分享返回结果的activity -->
         <activity
