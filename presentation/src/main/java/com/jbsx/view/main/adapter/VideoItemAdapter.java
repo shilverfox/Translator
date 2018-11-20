@@ -57,7 +57,6 @@ public class VideoItemAdapter extends UniversalAdapter2<SpecialAlbums> {
                 if (onMyItemClickListener != null) {
                     onMyItemClickListener.onClick(position);
                 }
-                ShowTools.toast("Video item clicked");
             }
         });
     }

@@ -11,12 +11,13 @@ import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.utils.DataUtil;
 import com.jbsx.view.main.entity.RepertoryData;
 import com.jbsx.view.main.entity.Single;
+import com.jbsx.view.main.entity.SpecialSingles;
 
 /**
  * Created by lijian15 on 2017/9/4.
  */
 
-public class SearchResultHolder extends CommonListFragmentViewHolder<RepertoryData.SpecialSingles> {
+public class SearchResultHolder extends CommonListFragmentViewHolder<SpecialSingles> {
     private Context mContext;
 
     private View mRootView;
@@ -25,7 +26,7 @@ public class SearchResultHolder extends CommonListFragmentViewHolder<RepertoryDa
     private TextView mTvCelebrity;
     private ImageView mIvImageUrl;
 
-    private RepertoryData.SpecialSingles mData;
+    private SpecialSingles mData;
     private int mCurrentPosition;
 
     private OnMyItemClickListener onMyItemClickListener;
@@ -58,7 +59,7 @@ public class SearchResultHolder extends CommonListFragmentViewHolder<RepertoryDa
     }
 
     @Override
-    public void drawViews(RepertoryData.SpecialSingles data, int position) {
+    public void drawViews(SpecialSingles data, int position) {
         mData = data;
         mCurrentPosition = position;
 

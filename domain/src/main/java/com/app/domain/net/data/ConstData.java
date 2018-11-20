@@ -58,4 +58,10 @@ public class ConstData {
 
     /** 评论类型：我的所有赞 */
     public final static String COMMENT_TYPE_TO_ALL_NB_STUFF = "2";
+
+    /** 视频清晰度： 标清 */
+    public final static String VIDEO_DEFINITION_TYPE_STAND = "2";
+
+    /** 视频清晰度： 高清 */
+    public final static String VIDEO_DEFINITION_TYPE_HIGH = "1";
 }

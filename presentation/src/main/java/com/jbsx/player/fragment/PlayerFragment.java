@@ -1,0 +1,356 @@
+package com.jbsx.player.fragment;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.app.data.net.repository.TaskManager;
+import com.app.domain.net.data.ConstData;
+import com.app.domain.net.interactor.PlayerUserCase;
+import com.dueeeke.videoplayer.player.IjkPlayer;
+import com.dueeeke.videoplayer.player.PlayerConfig;
+import com.jbsx.R;
+import com.jbsx.app.BaseFragment;
+import com.jbsx.app.MainApplicationLike;
+import com.jbsx.customview.PushFromBottomDialog;
+import com.jbsx.player.DefinitionController;
+import com.jbsx.player.DefinitionIjkVideoView;
+import com.jbsx.player.contact.PlayerContact;
+import com.jbsx.player.data.AlbumData;
+import com.jbsx.player.data.PlayerData;
+import com.jbsx.player.data.SingleVideoData;
+import com.jbsx.player.data.SpecialSingleData;
+import com.jbsx.player.presenter.PlayerPresenter;
+import com.jbsx.player.util.AlbumDetailUtil;
+import com.jbsx.player.util.SingleVideoUtil;
+import com.jbsx.utils.ProgressBarHelper;
+import com.jbsx.view.main.contact.RepertoryContact;
+import com.jbsx.view.main.entity.Single;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
+
+/**
+ * Created by lijian on 2018/11/19.
+ *
+ * 如果有专辑信息则先获取视频列表
+ * 获取列表成功后，如果是专辑信息，则获取第一集播放信息。如果是单一视频，则获取该视频播放信息。
+ * 获取当前视频的文字描述内容
+ * 视频列表中默认选中当前播放的选集
+ * 加载当前选集的评论信息
+ * 收藏
+ * 举报
+ * 评论
+ */
+
+public class PlayerFragment extends BaseFragment implements PlayerContact.View {
+    /** 视频数据加载状态 */
+    /** 即将获取专辑中的视频列表 */
+    private final static int WAITING_FOR_VIDEO_OF_ALBUM = 1;
+
+    /** 即将获取某个视频信息 */
+    private final static int WAITING_FOR_VIDEO_INFO = 2;
+
+    /** 获取视频信息成功 */
+    private final static int LOAD_VIDEO_INFO_SUCCESS = 3;
+
+    public static final String ARGUMENT = "argument";
+
+    private View mRootView;
+    private DefinitionIjkVideoView mPlayerView;
+
+    /** 上游请求的信息 */
+    private PlayerData mRequestData;
+
+    /** 专辑视频列表 */
+    private AlbumData mAlbumData;
+
+    /** 视频清晰度信息 */
+    private LinkedHashMap<String, String> mDefinitionList;
+
+    /** 片库详情信息 */
+    private SpecialSingleData mSpecialSingleData;
+
+    private PlayerContact.Presenter mPresenter;
+
+    public PlayerFragment() {
+        // Required empty public constructor
+        mDefinitionList = new LinkedHashMap<>();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            mRequestData = bundle.getParcelable(ARGUMENT);
+        }
+    }
+
+    public static PlayerFragment newInstance(PlayerData argument) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(ARGUMENT, argument);
+
+        PlayerFragment contentFragment = new PlayerFragment();
+        contentFragment.setArguments(bundle);
+
+        return contentFragment;
+    }
+
+    @Override
+    public void createPresenter() {
+        PlayerUserCase userCase = new PlayerUserCase(TaskManager.getTaskManager(),
+                MainApplicationLike.getUiThread());
+        mPresenter = new PlayerPresenter(this, userCase);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
+        mRootView = inflater.inflate(R.layout.player_fragment, null, false);
+        createPresenter();
+        initViews();
+        initEvents();
+
+        // 初始状态为加载专辑视频列表
+        setStatus(WAITING_FOR_VIDEO_OF_ALBUM);
+
+        return mRootView;
+    }
+
+    private void setStatus(int status) {
+        Message message = Message.obtain(mStatusHandler);
+        message.what = status;
+        message.sendToTarget();
+    }
+
+    private Handler mStatusHandler = new Handler() {
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case WAITING_FOR_VIDEO_OF_ALBUM:
+                    handleRequestVideoOfAlbum();
+                    break;
+                case WAITING_FOR_VIDEO_INFO:
+                    handleRequestSingleVideo();
+                    break;
+                case LOAD_VIDEO_INFO_SUCCESS:
+                    handleReadyToPlay();
+                    break;
+            }
+        };
+    };
+
+    /**
+     * 视频信息加载完毕，准备播放
+     */
+    private void handleReadyToPlay() {
+        removeProgressBar();
+        initPlayer();
+    }
+
+    private void removeProgressBar() {
+        ProgressBarHelper.removeProgressBar(mRootView);
+    }
+
+    /**
+     * 获取专辑的视频列表
+     */
+    private void handleRequestVideoOfAlbum() {
+        if (hasAlbumInfo()) {
+            ProgressBarHelper.addProgressBar(mRootView);
+            mPresenter.loadVideoOfAlbum(mRequestData.getAlbumId());
+        }
+    }
+
+    /**
+     * 获取某个视频
+     */
+    private void handleRequestSingleVideo() {
+        String singleId = null;
+
+        if (isSingle()) {
+            // 进来的是单一视频，则请求数据来自于这个视频的信息
+            singleId = mRequestData.getSingleId();
+        } else if (isAlbum()) {
+            // 进来的是专辑，则请求数据来自于专辑列表中的第一个视频
+            Single single = getSingleFromAlbum(0);
+            if (single != null) {
+                singleId = single.getId();
+            }
+        }
+
+        if (!TextUtils.isEmpty(singleId)) {
+            // 加载单一视频信息，不同清晰度需要切换接口返回，只能同时调用多次
+            mPresenter.loadSingleVideo(singleId, ConstData.VIDEO_DEFINITION_TYPE_STAND);
+            mPresenter.loadSingleVideo(singleId, ConstData.VIDEO_DEFINITION_TYPE_HIGH);
+        }
+
+        // 加载片库信息
+        mPresenter.loadAlbumDetail(mRequestData.getAlbumId(), singleId);
+    }
+
+    /**
+     * 获得专辑列表中的某个视频信息
+     *
+     * @param position
+     * @return
+     */
+    private Single getSingleFromAlbum(int position) {
+        Single single = null;
+        if (mAlbumData != null && mAlbumData.getPayload() != null && mAlbumData.getPayload().getSingles() != null) {
+            List<Single> singleList = mAlbumData.getPayload().getSingles();
+
+            if (singleList != null && !singleList.isEmpty() && position >= 0 && position < singleList.size()) {
+                return singleList.get(position);
+            }
+        }
+
+        return single;
+    }
+
+    /**
+     * 绘制视频列表信息
+     *
+     * @param albumData
+     */
+    @Override
+    public void drawVideoOfAlbum(AlbumData albumData) {
+        // 绘制视频列表信息，同时加载视频信息
+        mAlbumData = albumData;
+        setStatus(WAITING_FOR_VIDEO_INFO);
+    }
+
+    /**
+     * 绘制单一视频信息
+     *
+     * @param videoData
+     */
+    @Override
+    public void drawSingleVideo(SingleVideoData videoData) {
+        if (SingleVideoUtil.isStandDefinition(videoData)) {
+            mDefinitionList.put("标清", SingleVideoUtil.getVideoUrl(videoData));
+        } else if (SingleVideoUtil.isHighDefinition(videoData)) {
+            mDefinitionList.put("高清", SingleVideoUtil.getVideoUrl(videoData));
+        }
+
+        // 目前2个清晰度
+        if (mDefinitionList.size() == 2) {
+            setStatus(LOAD_VIDEO_INFO_SUCCESS);
+        }
+    }
+
+    /**
+     * 片库详情
+     *
+     * @param specialSingleData
+     */
+    @Override
+    public void drawAlbumDetail(SpecialSingleData specialSingleData) {
+        mSpecialSingleData = specialSingleData;
+
+        TextView title = mRootView.findViewById(R.id.player_album_detail_title);
+        TextView crew = mRootView.findViewById(R.id.player_album_detail_crew);
+        TextView count = mRootView.findViewById(R.id.player_album_detail_count);
+        TextView summary = mRootView.findViewById(R.id.player_album_detail_summary);
+        ImageView favorite = mRootView.findViewById(R.id.player_album_detail_favorite);
+
+        title.setText(AlbumDetailUtil.getTitle(specialSingleData));
+        crew.setText(AlbumDetailUtil.getScrew(specialSingleData));
+        count.setText(AlbumDetailUtil.getCount(specialSingleData));
+        summary.setText("简介 >");
+        favorite.setVisibility(View.VISIBLE);
+
+        summary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 显示简介框
+            }
+        });
+    }
+
+    private void initViews() {
+        mPlayerView = mRootView.findViewById(R.id.player);
+    }
+
+    private void initEvents() {
+
+    }
+
+    private void initPlayer() {
+        DefinitionController controller = new DefinitionController(mContext);
+        mPlayerView.setPlayerConfig(new PlayerConfig.Builder()
+                .setCustomMediaPlayer(new IjkPlayer(mContext) {
+                    @Override
+                    public void setOptions() {
+                        //精准seek
+                        mMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "enable-accurate-seek", 1);
+                    }
+                })
+                .autoRotate()//自动旋转屏幕
+                .build());
+
+        mPlayerView.setDefinitionVideos(mDefinitionList);
+        mPlayerView.setVideoController(controller);
+        mPlayerView.setTitle("韩雪：积极的悲观主义者");
+        mPlayerView.start();
+
+//        // 高级设置（可选，须在start()之前调用方可生效）
+//        PlayerConfig playerConfig = new PlayerConfig.Builder()
+//                .enableCache() //启用边播边缓存功能
+//                .autoRotate() //启用重力感应自动进入/退出全屏功能
+//                .enableMediaCodec()//启动硬解码，启用后可能导致视频黑屏，音画不同步
+//                .usingSurfaceView() //启用SurfaceView显示视频，不调用默认使用TextureView
+//                .savingProgress() //保存播放进度
+//                .disableAudioFocus() //关闭AudioFocusChange监听
+//                .setLooping() //循环播放当前正在播放的视频
+//                .build();
+//        mPlayerView.setPlayerConfig(playerConfig);
+//        mPlayerView.start();
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        if (fragment != null && this != null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.layout_comment_detail_list, fragment).commitAllowingStateLoss();
+        }
+    }
+
+    /**
+     * 判断是否为单独一集
+     *
+     * @return
+     */
+    private boolean isSingle() {
+        return hasAlbumInfo() && !TextUtils.isEmpty(mRequestData.getSingleId());
+    }
+
+    /**
+     * 是否为专辑
+     * singId为空
+     *
+     * @return
+     */
+    private boolean isAlbum() {
+        return hasAlbumInfo() && TextUtils.isEmpty(mRequestData.getSingleId());
+    }
+
+    /**
+     * 数据中是否包含专辑信息
+     *
+     * @return
+     */
+    private boolean hasAlbumInfo() {
+        return mRequestData != null && !TextUtils.isEmpty(mRequestData.getAlbumId());
+    }
+}

@@ -141,7 +141,7 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/dkplayer_controller_time_text_size"
             android:visibility="gone"
-            tools:text="选集"
+            android:text="选集"
             tools:visibility="visible" />
 
         <ImageView

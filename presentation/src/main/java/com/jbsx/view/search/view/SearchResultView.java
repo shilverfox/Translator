@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.jbsx.customview.listFragment.CommonListFragment;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.view.main.entity.RepertoryData;
+import com.jbsx.view.main.entity.SpecialSingles;
 import com.jbsx.view.search.entity.SearchEvent;
 
 import java.util.ArrayList;
@@ -93,7 +94,7 @@ public class SearchResultView extends CommonListFragment {
             return mRepertoryData.getPayload().getSpecialSingles();
         }
 
-        return new ArrayList<RepertoryData.SpecialSingles>();
+        return new ArrayList<SpecialSingles>();
     }
 
     @Override

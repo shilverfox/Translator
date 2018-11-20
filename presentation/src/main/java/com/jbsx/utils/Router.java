@@ -11,6 +11,8 @@ import android.os.Bundle;
 public class Router {
     public static final String COMMENT_DETAIL_KEY = "commentDetail";
 
+    public final static String PLAYER_REQUEST_KEY = "toPlayer";
+
     private static final Router router = new Router();
 
     public static Router getInstance() {

@@ -42,6 +42,6 @@ public class MyInfoConst {
     };
 
     public final static Class[] MY_TYPE_NAVIGATIONS = {
-            PlayerActivity.class, MyFavoriteActivity.class, MyCommentActivity.class, MyMessageActivity.class, SettingsActivity.class,
+            MyViewHistoryActivity.class, MyFavoriteActivity.class, MyCommentActivity.class, MyMessageActivity.class, SettingsActivity.class,
     };
 }

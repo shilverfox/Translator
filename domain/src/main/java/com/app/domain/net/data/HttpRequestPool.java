@@ -555,4 +555,74 @@ public class HttpRequestPool {
 
         return baseRequest;
     }
+
+    /**
+     * 查看专辑的视频列表
+     *
+     * @param albumId
+     * @param userId
+     * @return
+     */
+    public static BaseRequestEntity getVideoListOfAlbumEntity(String albumId, String userId) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getAlbumTheSingles");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+        body.add("albumId", albumId);
+        body.add("userId", userId);
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
+    /**
+     * 获得某一个视频的播放信息
+     *
+     * @param token
+     * @param singleId
+     * @return
+     */
+    public static BaseRequestEntity getVideoPlayInfoEntity(String token, String singleId, String type) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getSinglePlayUrl");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+        body.add("singleId", singleId);
+        body.add("type", type);
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, token);
+
+        return baseRequest;
+    }
+
+    /**
+     * 查看片库详情
+     *
+     * @param albumId
+     * @param singleId
+     * @return
+     */
+    public static BaseRequestEntity getAlbumDetailEntity(String albumId, String singleId) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/toSingleView");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+        body.add("albumId", albumId);
+        body.add("singleId", singleId);
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
 }

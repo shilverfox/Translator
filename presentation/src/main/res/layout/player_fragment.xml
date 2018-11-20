@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -7,5 +8,51 @@
         android:id="@+id/player"
         android:layout_width="match_parent"
         android:layout_height="300dp" />
+
+    <!-- 片库详情 -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+        <TextView
+            android:id="@+id/player_album_detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""/>
+
+        <TextView
+            android:id="@+id/player_album_detail_crew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/player_album_detail_title"
+            android:text=""/>
+
+        <TextView
+            android:id="@+id/player_album_detail_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/player_album_detail_crew"
+            android:text=""/>
+
+        <TextView
+            android:id="@+id/player_album_detail_summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/player_album_detail_count"
+            android:layout_alignTop="@+id/player_album_detail_count"
+            android:layout_marginLeft="18dp"
+            android:text=""/>
+
+        <ImageView
+            android:id="@+id/player_album_detail_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/player_album_detail_count"
+            android:src="@drawable/dkplayer_seekbar_thumb_normal"
+            android:visibility="invisible"
+            tools:visibility="visible"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

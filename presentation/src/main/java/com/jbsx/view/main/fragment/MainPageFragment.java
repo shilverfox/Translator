@@ -20,12 +20,14 @@ import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.recyclerview.CenterLayoutManager;
 import com.jbsx.customview.recyclerview.LoadingFooter;
+import com.jbsx.player.util.PlayerHelper;
 import com.jbsx.utils.LogTools;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.view.main.adapter.CelebrityIconItemAdapter;
 import com.jbsx.view.main.adapter.VideoItemAdapter;
 import com.jbsx.view.main.contact.MainPageContact;
+import com.jbsx.view.main.entity.Album;
 import com.jbsx.view.main.entity.BannerData;
 import com.jbsx.view.main.entity.Celebrities;
 import com.jbsx.view.main.entity.CelebrityData;
@@ -105,7 +107,10 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         mViewBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-//                ShowTools.toast(position + "");
+                if (mBannerData != null && mBannerData.getPayload() != null
+                        && mBannerData.getPayload().getSpecialAlbums() != null) {
+                    handleGoToPlayer(mBannerData.getPayload().getSpecialAlbums().get(position));
+                }
             }
         });
 
@@ -226,9 +231,33 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
 
         mAdapterAlbum = new VideoItemAdapter(mContext, R.layout.album_grid_2_item);
         mAdapterAlbum.setDatas(mListAlbum);
+        mAdapterAlbum.setOnMyItemClickListener(new VideoItemAdapter.OnMyItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                if (mAdapterAlbum != null && mAdapterAlbum.getDatas() != null
+                        && mAdapterAlbum.getDatas().size() > 0) {
+                    handleGoToPlayer(mAdapterAlbum.getDatas().get(position));
+                }
+            }
+        });
 
         mRvRecommendList.setAdapter(mAdapterAlbum);
+    }
 
+    /**
+     * 跳转到播放页面
+     *
+     * @param specialAlbums
+     */
+    private void handleGoToPlayer(SpecialAlbums specialAlbums) {
+        if (specialAlbums != null) {
+            Album album = specialAlbums.getAlbum();
+
+            if (album != null) {
+                PlayerHelper.gotoPlayer(getActivity(), PlayerHelper.makePlayerData(album.getId(),
+                        "", ConstData.VIDEO_DEFINITION_TYPE_STAND));
+            }
+        }
     }
 
     private void showLoadingMoreFooter(boolean show) {

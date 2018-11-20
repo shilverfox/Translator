@@ -43,6 +43,15 @@ public class LoginHelper {
         return token;
     }
 
+    public String getUserId() {
+        String id = "";
+        if (isLogin()) {
+            id = mLoginData.getPayload().getId();
+        }
+
+        return id;
+    }
+
     public  void setLoginUser(LoginData loginUser) {
         mLoginData = loginUser;
     }

@@ -1,14 +1,13 @@
-package com.jbsx.view.main.entity;
+package com.jbsx.player.data;
 
 import com.app.domain.net.model.BaseDomainData;
 
 import java.util.List;
 
 /**
- * 片库列表项
- * 首页片库
+ * 可以被播放的视频信息
  */
-public class RepertoryData {
+public class SingleVideoData {
     private boolean status;
     private int code;
     private String msg;
@@ -46,36 +45,36 @@ public class RepertoryData {
         this.payload = payload;
     }
 
-
     public class Payload {
-        private List<SpecialSingles> specialSingles;
-        private int totalPages;
-        private int totalElements;
+
+        private String isCollect;
+        private String playUrl;
+        private int second;
         private BaseDomainData.ResultStatus resultStatus;
         private List<Param> param;
 
-        public List<SpecialSingles> getSpecialSingles() {
-            return specialSingles;
+        public String getIsCollect() {
+            return isCollect;
         }
 
-        public void setSpecialSingles(List<SpecialSingles> specialSingles) {
-            this.specialSingles = specialSingles;
+        public void setIsCollect(String isCollect) {
+            this.isCollect = isCollect;
         }
 
-        public int getTotalPages() {
-            return totalPages;
+        public String getPlayUrl() {
+            return playUrl;
         }
 
-        public void setTotalPages(int totalPages) {
-            this.totalPages = totalPages;
+        public void setPlayUrl(String playUrl) {
+            this.playUrl = playUrl;
         }
 
-        public int getTotalElements() {
-            return totalElements;
+        public int getSecond() {
+            return second;
         }
 
-        public void setTotalElements(int totalElements) {
-            this.totalElements = totalElements;
+        public void setSecond(int second) {
+            this.second = second;
         }
 
         public BaseDomainData.ResultStatus getResultStatus() {
@@ -96,30 +95,12 @@ public class RepertoryData {
     }
 
     public class Param {
-        private List<String> celebrityIds;
-        private String where;
         private String specialCode;
+        private String albumId;
+        private String singleId;
+        private String userId;
         private int type;
-        private String initial;
-        private int sort;
-        private BaseDomainData.BasePage basePage;
         private BaseDomainData.Parameter parameter;
-
-        public List<String> getCelebrityIds() {
-            return celebrityIds;
-        }
-
-        public void setCelebrityIds(List<String> celebrityIds) {
-            this.celebrityIds = celebrityIds;
-        }
-
-        public String getWhere() {
-            return where;
-        }
-
-        public void setWhere(String where) {
-            this.where = where;
-        }
 
         public String getSpecialCode() {
             return specialCode;
@@ -129,36 +110,36 @@ public class RepertoryData {
             this.specialCode = specialCode;
         }
 
+        public String getAlbumId() {
+            return albumId;
+        }
+
+        public void setAlbumId(String albumId) {
+            this.albumId = albumId;
+        }
+
+        public String getSingleId() {
+            return singleId;
+        }
+
+        public void setSingleId(String singleId) {
+            this.singleId = singleId;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+
         public int getType() {
             return type;
         }
 
         public void setType(int type) {
             this.type = type;
-        }
-
-        public String getInitial() {
-            return initial;
-        }
-
-        public void setInitial(String initial) {
-            this.initial = initial;
-        }
-
-        public int getSort() {
-            return sort;
-        }
-
-        public void setSort(int sort) {
-            this.sort = sort;
-        }
-
-        public BaseDomainData.BasePage getBasePage() {
-            return basePage;
-        }
-
-        public void setBasePage(BaseDomainData.BasePage basePage) {
-            this.basePage = basePage;
         }
 
         public BaseDomainData.Parameter getParameter() {

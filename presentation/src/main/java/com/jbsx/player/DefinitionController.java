@@ -22,6 +22,7 @@ import com.dueeeke.videoplayer.util.L;
 import com.dueeeke.videoplayer.util.WindowUtil;
 import com.jbsx.R;
 import com.jbsx.player.interf.DefinitionMediaPlayerControl;
+import com.jbsx.utils.ShowTools;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -30,7 +31,8 @@ import java.util.ListIterator;
 import java.util.Map;
 
 /**
- * 清晰度切换控制器
+ * 清晰度和选集
+ *
  * Created by Devlin_n on 2018/4/16.
  */
 
@@ -43,6 +45,7 @@ public class DefinitionController extends StandardVideoController {
     private LinearLayout mPopLayout;
 
     private TextView mTvEpisode;
+    private List<String> mEpisodeList;
 
 
     public DefinitionController(@NonNull Context context) {
@@ -84,6 +87,16 @@ public class DefinitionController extends StandardVideoController {
     private void initEpisode() {
         mTvEpisode = controllerView.findViewById(R.id.tv_select_episode);
         mTvEpisode.setVisibility(View.VISIBLE);
+        mTvEpisode.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectEpisode();
+            }
+        });
+    }
+
+    private void selectEpisode() {
+        ShowTools.toast("selectEpisode");
     }
 
     /**
