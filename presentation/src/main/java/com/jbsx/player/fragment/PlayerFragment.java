@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +24,10 @@ import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.PushFromBottomDialog;
+import com.jbsx.customview.recyclerview.CenterLayoutManager;
 import com.jbsx.player.DefinitionController;
 import com.jbsx.player.DefinitionIjkVideoView;
+import com.jbsx.player.adapter.EpisodePortraitItemAdapter;
 import com.jbsx.player.contact.PlayerContact;
 import com.jbsx.player.data.AlbumData;
 import com.jbsx.player.data.PlayerData;
@@ -34,6 +38,7 @@ import com.jbsx.player.util.AlbumDetailUtil;
 import com.jbsx.player.util.SingleVideoUtil;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.UiTools;
+import com.jbsx.view.main.adapter.CelebrityItemAdapter;
 import com.jbsx.view.main.entity.Single;
 
 import java.util.LinkedHashMap;
@@ -69,6 +74,12 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
 
     private View mRootView;
     private DefinitionIjkVideoView mPlayerView;
+
+    /** 竖屏状态下的选集列表 */
+    private RecyclerView mRvPorEpisodes;
+    private EpisodePortraitItemAdapter mProEpiAdapter;
+    private List<Single> mListEpisodes;
+
 
     /** 上游请求的信息 */
     private PlayerData mRequestData;
@@ -126,6 +137,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
         mRootView = inflater.inflate(R.layout.player_fragment, null, false);
         createPresenter();
         initViews();
+        initPortraitEpisodesListView();
         initEvents();
 
         // 初始状态为加载专辑视频列表
@@ -163,6 +175,9 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
     private void handleReadyToPlay() {
         removeProgressBar();
         initPlayer();
+
+        // 渲染选集列表
+        drawPortraitEpisodeListView();
     }
 
     private void removeProgressBar() {
@@ -315,6 +330,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
 
     private void initViews() {
         mPlayerView = mRootView.findViewById(R.id.player);
+        mRvPorEpisodes = mRootView.findViewById(R.id.rv_player_portrait_episodes);
     }
 
     private void initEvents() {
@@ -386,5 +402,47 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
      */
     private boolean hasAlbumInfo() {
         return mRequestData != null && !TextUtils.isEmpty(mRequestData.getAlbumId());
+    }
+
+    /**
+     * 选集列表，竖屏
+     */
+    private void initPortraitEpisodesListView() {
+        CenterLayoutManager layoutManager = new CenterLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
+        mRvPorEpisodes.setLayoutManager(layoutManager);
+
+        mProEpiAdapter = new EpisodePortraitItemAdapter(mContext, R.layout.celebrity_item);
+        mProEpiAdapter.setDatas(mListEpisodes);
+        mProEpiAdapter.setOnMyItemClickListener(new EpisodePortraitItemAdapter.OnMyItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                // 点击item的自动居中
+                mRvPorEpisodes.smoothScrollToPosition(position);
+                handleSelectEpisode(position);
+            }
+        });
+
+        mRvPorEpisodes.setAdapter(mProEpiAdapter);
+    }
+
+    /**
+     * 选中某个选集
+     *
+     * @param position
+     */
+    private void handleSelectEpisode(int position) {
+
+    }
+
+    /**
+     * 渲染选集列表，竖屏
+     */
+    private void drawPortraitEpisodeListView() {
+        if (mAlbumData != null && mAlbumData.getPayload() != null) {
+            List<Single> singles = mAlbumData.getPayload().getSingles();
+            mProEpiAdapter.addList(singles);
+
+            mListEpisodes = mProEpiAdapter.getDatas();
+        }
     }
 }

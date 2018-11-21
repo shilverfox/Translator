@@ -11,13 +11,16 @@
 
     <!-- 片库详情 -->
     <RelativeLayout
+        android:id="@+id/layout_player_album_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp">
+        android:layout_margin="@dimen/common_padding_horizontal">
         <TextView
             android:id="@+id/player_album_detail_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/black_333"
             android:text=""/>
 
         <TextView
@@ -25,6 +28,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/player_album_detail_title"
+            android:textSize="14sp"
+            android:textColor="@color/gray_666"
+            android:layout_marginTop="4dp"
             android:text=""/>
 
         <TextView
@@ -32,6 +38,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/player_album_detail_crew"
+            android:textSize="12sp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/gray_666"
             android:text=""/>
 
         <TextView
@@ -41,6 +50,8 @@
             android:layout_toRightOf="@+id/player_album_detail_count"
             android:layout_alignTop="@+id/player_album_detail_count"
             android:layout_marginLeft="18dp"
+            android:textSize="12sp"
+            android:textColor="@color/gray_666"
             android:text=""/>
 
         <ImageView
@@ -49,10 +60,47 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/player_album_detail_count"
-            android:src="@drawable/dkplayer_seekbar_thumb_normal"
+            android:src="@drawable/player_favorite_black"
             android:visibility="invisible"
+            android:paddingLeft="8dp"
             tools:visibility="visible"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/player_album_detail_summary"
+            android:layout_marginTop="8dp"
+            android:background="@color/divider_line" />
+
     </RelativeLayout>
+
+
+    <!-- 选集 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/common_padding_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选集"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_player_portrait_episodes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:paddingLeft="@dimen/common_padding_horizontal"
+            android:paddingRight="@dimen/common_padding_horizontal"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/player_album_detail_summary"
+            android:layout_marginTop="8dp"
+            android:background="@color/divider_line" />
+
+    </LinearLayout>
+
 
 </LinearLayout>
