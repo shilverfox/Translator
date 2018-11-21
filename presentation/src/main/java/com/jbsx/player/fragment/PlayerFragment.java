@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,7 +33,7 @@ import com.jbsx.player.presenter.PlayerPresenter;
 import com.jbsx.player.util.AlbumDetailUtil;
 import com.jbsx.player.util.SingleVideoUtil;
 import com.jbsx.utils.ProgressBarHelper;
-import com.jbsx.view.main.contact.RepertoryContact;
+import com.jbsx.utils.UiTools;
 import com.jbsx.view.main.entity.Single;
 
 import java.util.LinkedHashMap;
@@ -80,6 +81,11 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
 
     /** 片库详情信息 */
     private SpecialSingleData mSpecialSingleData;
+
+    /**
+     * 视屏详情对话框
+     */
+    private PushFromBottomDialog mSingleDetailDialog;
 
     private PlayerContact.Presenter mPresenter;
 
@@ -275,8 +281,36 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
             @Override
             public void onClick(View v) {
                 // 显示简介框
+                handleShowDetailDialog();
             }
         });
+    }
+
+    /**
+     * 显示专辑详情对话框
+     */
+    private void handleShowDetailDialog() {
+        View dialogView = LayoutInflater.from(MainApplicationLike.getAppContext())
+                .inflate(R.layout.single_video_detail_info_view, null);
+
+        TextView title = dialogView.findViewById(R.id.dialog_album_detail_title);
+        TextView crew = dialogView.findViewById(R.id.dialog_album_detail_crew);
+        TextView summary = dialogView.findViewById(R.id.dialog_album_detail_summary);
+        ImageView close = dialogView.findViewById(R.id.dialog_album_detail_close);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSingleDetailDialog.dismiss();
+            }
+        });
+
+        title.setText(AlbumDetailUtil.getTitle(mSpecialSingleData));
+        crew.setText(AlbumDetailUtil.getScrew(mSpecialSingleData));
+        summary.setText(AlbumDetailUtil.getIntroduce(mSpecialSingleData));
+
+        mSingleDetailDialog = new PushFromBottomDialog(mContext, dialogView);
+        mSingleDetailDialog.setSize(WindowManager.LayoutParams.MATCH_PARENT, UiTools.dip2px(350));
+        mSingleDetailDialog.show();
     }
 
     private void initViews() {

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 片库详情dialog -->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/dialog_album_detail_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="简介"
+            android:textColor="@color/gray_666"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/dialog_album_detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dialog_album_detail_name"
+            android:layout_marginTop="8dp"
+            android:text=""
+            android:textColor="@color/gray_666"
+            android:textSize="16sp"
+            tools:text="第一集"/>
+
+        <TextView
+            android:id="@+id/dialog_album_detail_crew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dialog_album_detail_title"
+            android:layout_marginTop="8dp"
+            android:text=""
+            android:textColor="@color/gray_666"
+            android:textSize="15sp"
+            tools:text="导演是我"/>
+
+
+        <TextView
+            android:id="@+id/dialog_album_detail_summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dialog_album_detail_crew"
+            android:layout_marginTop="16dp"
+            android:text=""
+            android:textColor="@color/gray_666"
+            android:textSize="12sp"
+            tools:text="剧情分析"/>
+
+        <ImageView
+            android:id="@+id/dialog_album_detail_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/dialog_album_detail_name"
+            android:layout_marginRight="-8dp"
+            android:layout_marginTop="-8dp"
+            android:padding="8dp"
+            android:src="@drawable/arrow_down_big"/>
+
+    </RelativeLayout>
+</ScrollView>

@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.jbsx.R;
+import com.jbsx.utils.UiTools;
 
 public class PushFromBottomDialog extends Dialog {
 
@@ -58,5 +59,18 @@ public class PushFromBottomDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    /**
+     * 设置大小
+     *
+     * @param width
+     * @param height
+     */
+    public void setSize(int width, int height) {
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.height = height;
+        params.width = width;
+        getWindow().setAttributes(params);
     }
 }
