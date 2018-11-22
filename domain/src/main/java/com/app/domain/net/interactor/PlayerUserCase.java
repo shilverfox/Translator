@@ -49,4 +49,21 @@ public class PlayerUserCase extends UserCase {
         BaseRequestEntity entity = HttpRequestPool.getAlbumDetailEntity(albumId, singleId);
         handleSendRequest(entity, callback);
     }
+
+    /**
+     * 发表视频评论
+     *
+     * @param token
+     * @param userId
+     * @param albumId
+     * @param singleId
+     * @param content
+     * @param callback
+     */
+    public void requestPostComment(String token, String userId, String albumId, String singleId,
+                                   String content, BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.postCommentEntity(token, albumId, singleId,
+                userId, content, "");
+        handleSendRequest(entity, callback);
+    }
 }

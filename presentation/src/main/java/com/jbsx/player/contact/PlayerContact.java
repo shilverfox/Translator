@@ -26,6 +26,11 @@ public class PlayerContact {
          * @param specialSingleData
          */
         void drawAlbumDetail(SpecialSingleData specialSingleData);
+
+        /**
+         * 评论发表成功
+         */
+        void drawPostSuccess();
     }
 
     public interface Presenter {
@@ -51,5 +56,14 @@ public class PlayerContact {
          * @param singleId
          */
         void loadAlbumDetail(String albumId, String singleId);
+
+        /**
+         * 发表评论
+         *
+         * @param albumId
+         * @param singleId
+         * @param content
+         */
+        void postComment(String albumId, String singleId, String content);
     }
 }

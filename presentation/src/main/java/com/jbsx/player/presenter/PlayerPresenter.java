@@ -120,4 +120,43 @@ public class PlayerPresenter implements PlayerContact.Presenter {
     private void handleLoadAlbumDetailFailed(BaseDomainData data) {
         MessageTools.showErrorMessage(data);
     }
+
+    /**
+     * 发表评论
+     *
+     * @param albumId
+     * @param singleId
+     * @param content
+     */
+    @Override
+    public void postComment(String albumId, String singleId, String content) {
+        mUserCase.requestPostComment(LoginHelper.getInstance().getUserToken(),
+                LoginHelper.getInstance().getUserId(), albumId, singleId, content,
+                new BaseRequestCallback() {
+                    @Override
+                    public void onRequestFailed(BaseDomainData data) {
+                        handlePostCommentFailed(data);
+                    }
+
+                    @Override
+                    public void onRequestSuccessful(String data) {
+                        handlePostCommentSuccessful(data);
+                    }
+
+                    @Override
+                    public void onNetError() {
+
+                    }
+                });
+    }
+
+    private void handlePostCommentSuccessful(String data) {
+        if (mView != null) {
+            mView.drawPostSuccess();
+        }
+    }
+
+    private void handlePostCommentFailed(BaseDomainData data) {
+        MessageTools.showErrorMessage(data);
+    }
 }

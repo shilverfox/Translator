@@ -1,5 +1,6 @@
 package com.jbsx.player.fragment;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +25,7 @@ import com.dueeeke.videoplayer.player.PlayerConfig;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
+import com.jbsx.customview.CommentInputDialog;
 import com.jbsx.customview.PushFromBottomDialog;
 import com.jbsx.customview.recyclerview.CenterLayoutManager;
 import com.jbsx.player.DefinitionController;
@@ -37,9 +40,11 @@ import com.jbsx.player.presenter.PlayerPresenter;
 import com.jbsx.player.util.AlbumDetailUtil;
 import com.jbsx.player.util.SingleVideoUtil;
 import com.jbsx.utils.ProgressBarHelper;
+import com.jbsx.utils.ShowTools;
 import com.jbsx.utils.UiTools;
 import com.jbsx.view.main.adapter.CelebrityItemAdapter;
 import com.jbsx.view.main.entity.Single;
+import com.jbsx.view.myinfo.data.UserComments;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -75,10 +80,22 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
     private View mRootView;
     private DefinitionIjkVideoView mPlayerView;
 
+    // 视频评论
+    private TextView mTvPostComment;
+
     /** 竖屏状态下的选集列表 */
     private RecyclerView mRvPorEpisodes;
     private EpisodePortraitItemAdapter mProEpiAdapter;
     private List<Single> mListEpisodes;
+
+    /** 视频评论列表 */
+    private VideoCommentsListView mVideoCommentsListView;
+
+    /** 评论输入框 */
+    private Dialog mInputCommentDialog;
+
+    /** 全0集 */
+    private TextView mTvPorEpisodesCountLabel;
 
 
     /** 上游请求的信息 */
@@ -99,6 +116,10 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
     private PushFromBottomDialog mSingleDetailDialog;
 
     private PlayerContact.Presenter mPresenter;
+
+    /** 当前视频的id信息 */
+    private String mAlbumId;
+    private String mSingleId;
 
     public PlayerFragment() {
         // Required empty public constructor
@@ -175,9 +196,6 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
     private void handleReadyToPlay() {
         removeProgressBar();
         initPlayer();
-
-        // 渲染选集列表
-        drawPortraitEpisodeListView();
     }
 
     private void removeProgressBar() {
@@ -192,6 +210,17 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
             ProgressBarHelper.addProgressBar(mRootView);
             mPresenter.loadVideoOfAlbum(mRequestData.getAlbumId());
         }
+    }
+
+    /**
+     * 设置专辑id和选集id，留着全局使用
+     *
+     * @param albumId
+     * @param singleId
+     */
+    private void setGlobalVideoIds(String albumId, String singleId) {
+        mAlbumId = albumId;
+        mSingleId = singleId;
     }
 
     /**
@@ -211,6 +240,9 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
             }
         }
 
+        // 记录全局数据
+        setGlobalVideoIds(mRequestData.getAlbumId(), singleId);
+
         if (!TextUtils.isEmpty(singleId)) {
             // 加载单一视频信息，不同清晰度需要切换接口返回，只能同时调用多次
             mPresenter.loadSingleVideo(singleId, ConstData.VIDEO_DEFINITION_TYPE_STAND);
@@ -219,6 +251,32 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
 
         // 加载片库信息
         mPresenter.loadAlbumDetail(mRequestData.getAlbumId(), singleId);
+
+        // 加载评论信息
+        initCommentsList(mRequestData.getAlbumId(), singleId);
+
+        // 渲染选集列表
+        drawPortraitEpisodeListView();
+    }
+
+    /**
+     * 切换选集
+     *
+     * @param episodeIndex
+     */
+    private void handleSelectEpisode(int episodeIndex) {
+        Single single = getSingleFromAlbum(episodeIndex);
+        if (single != null) {
+            mSingleId = single.getId();
+        }
+
+        // 重新加载清晰度
+        mDefinitionList.clear();
+        mPresenter.loadSingleVideo(mSingleId, ConstData.VIDEO_DEFINITION_TYPE_STAND);
+        mPresenter.loadSingleVideo(mSingleId, ConstData.VIDEO_DEFINITION_TYPE_HIGH);
+
+        // 加载评论信息
+        initCommentsList(mRequestData.getAlbumId(), mSingleId);
     }
 
     /**
@@ -331,10 +389,17 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
     private void initViews() {
         mPlayerView = mRootView.findViewById(R.id.player);
         mRvPorEpisodes = mRootView.findViewById(R.id.rv_player_portrait_episodes);
+        mTvPorEpisodesCountLabel = mRootView.findViewById(R.id.tv_portrait_episodes_count_label);
+        mTvPostComment = mRootView.findViewById(R.id.tv_add_comment);
     }
 
     private void initEvents() {
-
+        mTvPostComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handlePostComment();
+            }
+        });
     }
 
     private void initPlayer() {
@@ -426,15 +491,6 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
     }
 
     /**
-     * 选中某个选集
-     *
-     * @param position
-     */
-    private void handleSelectEpisode(int position) {
-
-    }
-
-    /**
      * 渲染选集列表，竖屏
      */
     private void drawPortraitEpisodeListView() {
@@ -443,6 +499,53 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
             mProEpiAdapter.addList(singles);
 
             mListEpisodes = mProEpiAdapter.getDatas();
+
+            mTvPorEpisodesCountLabel.setText("全" + mListEpisodes.size() + "集");
         }
+    }
+
+    /**
+     * 视频评论列表
+     */
+    private void initCommentsList(String albumId, String singleId) {
+        UserComments comments = new UserComments();
+        comments.setSpecialAlbumId(albumId);
+        comments.setSpecialSingleId(singleId);
+
+        mVideoCommentsListView = VideoCommentsListView.newInstance(comments);
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.layout_player_comments, mVideoCommentsListView)
+                .commitAllowingStateLoss();
+    }
+
+    /**
+     * 发表评论
+     */
+    private void handlePostComment() {
+        mInputCommentDialog = CommentInputDialog.showInputComment(getActivity(), "",new CommentInputDialog.CommentDialogListener() {
+            @Override
+            public void onClickPublish(Dialog dialog, EditText input, TextView btn) {
+                mPresenter.postComment(mAlbumId, mSingleId, input.getText().toString());
+                mInputCommentDialog.dismiss();
+            }
+
+            @Override
+            public void onShow(int[] inputViewCoordinatesOnScreen) {
+            }
+
+            @Override
+            public void onDismiss() {
+
+            }
+        });
+    }
+
+    @Override
+    public void drawPostSuccess() {
+        ShowTools.toast("评论成功");
+
+        // 刷新评论列表
+        mVideoCommentsListView.clearAndFresh();
     }
 }

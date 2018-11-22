@@ -625,4 +625,83 @@ public class HttpRequestPool {
 
         return baseRequest;
     }
+
+    /**
+     * 获得某个视频的评论列表
+     *
+     * @param token
+     * @param albumId
+     * @param singleId
+     * @param page
+     * @return
+     */
+    public static BaseRequestEntity getVideoCommentsEntity(String token, String albumId,
+                                                           String singleId, int page) {
+
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/getComment");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+        body.add("albumId", albumId);
+        body.add("singleId", singleId);
+        body.add("no", page + "");
+        body.add("size", ConstData.DEFAULT_PAGE_SIZE + "");
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, token);
+
+        return baseRequest;
+    }
+
+    /**
+     * 发表评论（视频评论，评论的评论）
+     *
+     * @param token
+     * @param albumId
+     * @param singleId
+     * @param userId
+     * @param content
+     * @param commentId (评论ID，若属发表的评论，此参数可忽略
+     * @return
+     */
+    public static BaseRequestEntity postCommentEntity(String token, String albumId, String singleId,
+                                                      String userId, String content, String commentId) {
+
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/tooComment");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+
+        if (!TextUtils.isEmpty(albumId)) {
+            body.add("albumId", albumId);
+        }
+
+
+        if (!TextUtils.isEmpty(singleId)) {
+            body.add("singleId", singleId);
+        }
+
+        if (!TextUtils.isEmpty(userId)) {
+            body.add("userId", userId);
+        }
+
+        if (!TextUtils.isEmpty(content)) {
+            body.add("content", content);
+        }
+
+        if (!TextUtils.isEmpty(commentId)) {
+            body.add("commentId", commentId);
+        }
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, token);
+
+        return baseRequest;
+    }
 }
