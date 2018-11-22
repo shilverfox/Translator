@@ -11,6 +11,7 @@ import android.view.View;
 
 public abstract class CommonListFragmentViewHolder<T> extends RecyclerView.ViewHolder {
     private View mRootView;
+    public IOnCommonItemClick mClickListener;
 
     public CommonListFragmentViewHolder(View view) {
         super(view);
@@ -22,6 +23,13 @@ public abstract class CommonListFragmentViewHolder<T> extends RecyclerView.ViewH
 
     public void setData(T data, int position) {
         drawViews(data, position);
+    }
+
+    /**
+     * 设置Item点击监听
+     */
+    public void setItemClickListener(IOnCommonItemClick clickListener) {
+        mClickListener = clickListener;
     }
 
     /**

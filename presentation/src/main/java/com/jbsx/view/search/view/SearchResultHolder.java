@@ -1,12 +1,15 @@
 package com.jbsx.view.search.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.app.domain.net.data.ConstData;
 import com.jbsx.R;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
+import com.jbsx.player.util.PlayerHelper;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.utils.DataUtil;
 import com.jbsx.view.main.entity.RepertoryData;
@@ -28,8 +31,6 @@ public class SearchResultHolder extends CommonListFragmentViewHolder<SpecialSing
 
     private SpecialSingles mData;
     private int mCurrentPosition;
-
-    private OnMyItemClickListener onMyItemClickListener;
 
     public SearchResultHolder(Context context, View view) {
         super(view);
@@ -102,16 +103,12 @@ public class SearchResultHolder extends CommonListFragmentViewHolder<SpecialSing
     }
 
     private void handleRootViewClick(int position) {
-        if (onMyItemClickListener != null) {
-            onMyItemClickListener.onClick(position);
+        if (mClickListener != null) {
+            mClickListener.onClick(position);
         }
-    }
 
-    public interface OnMyItemClickListener {
-        void onClick(int position);
-    }
-
-    public void setOnMyItemClickListener(OnMyItemClickListener onMyItemClickListener) {
-        this.onMyItemClickListener = onMyItemClickListener;
+        PlayerHelper.gotoPlayer((Activity)mContext, PlayerHelper.makePlayerData(
+                mData.getSingle().getSpecialAlbumId(),
+                mData.getSingle().getId(), ConstData.VIDEO_DEFINITION_TYPE_STAND));
     }
 }

@@ -310,6 +310,15 @@ public abstract class CommonListFragment<T> extends BaseFragment {
     }
 
     /**
+     * 设置Item点击监听
+     */
+    public void setItemClickListener(IOnCommonItemClick clickListener) {
+        if (mAdapter != null) {
+            mAdapter.setItemClickListener(clickListener);
+        }
+    }
+
+    /**
      * 清空数据并刷新页面
      */
     public void refreshView() {

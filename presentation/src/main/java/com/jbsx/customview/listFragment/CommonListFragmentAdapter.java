@@ -18,6 +18,7 @@ public abstract class CommonListFragmentAdapter<T>
 
     private Context mContext;
     private List<T> mAllData;
+    private IOnCommonItemClick mClickListener;
 
     public CommonListFragmentAdapter(Context context) {
         mContext = context;
@@ -55,16 +56,26 @@ public abstract class CommonListFragmentAdapter<T>
     }
 
     @Override
-    public void onBindViewHolder(CommonListFragmentViewHolder holder, int position) {
+    public void onBindViewHolder(CommonListFragmentViewHolder holder, final int position) {
         if (mAllData != null) {
             holder.isTheLastLine(position == mAllData.size() - 1);
             holder.setData(mAllData.get(position), position);
+            holder.setItemClickListener(mClickListener);
         }
     }
 
     @Override
     public int getItemCount() {
         return mAllData != null ? mAllData.size(): 0 ;
+    }
+
+    /**
+     * 设置Item点击监听
+     *
+     * @param clickListener
+     */
+    public void setItemClickListener(IOnCommonItemClick clickListener) {
+        mClickListener = clickListener;
     }
 
 
