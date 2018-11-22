@@ -34,12 +34,14 @@ public class EpisodePortraitItemAdapter extends UniversalAdapter2<Single> {
 
         mCurrentPosition = position;
 
-        TextView name = (TextView) holder.getViewById(R.id.tv_celebrity_item_name);
-        name.setText(position + "");
+        TextView name = (TextView) holder.getViewById(R.id.tv_episode_item_name);
+
+        // 没有0集
+        name.setText(position + 1 + "");
         name.setTextColor(getTextColor());
         name.setBackgroundResource(getBackgroundColor());
 
-        holder.getViewById(R.id.tv_celebrity_item_name).setOnClickListener(new View.OnClickListener() {
+        holder.getViewById(R.id.tv_episode_item_name).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (onMyItemClickListener != null) {
@@ -57,7 +59,8 @@ public class EpisodePortraitItemAdapter extends UniversalAdapter2<Single> {
     }
 
     private int getBackgroundColor() {
-        return isSelected() ? R.drawable.shape_round_47b34f : R.drawable.shape_round_f8f8f8;
+        return isSelected() ? R.drawable.shape_por_episode_select_bg
+                : R.drawable.shape_por_episode_normal_bg;
     }
 
     private boolean isSelected() {

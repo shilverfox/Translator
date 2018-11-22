@@ -8,4 +8,10 @@ public class AppConstData {
 
     /** 名家类型 15 主讲 */
     public final static int CELEBRITY_TYPE_ZHUJIANG = 15;
+
+    public final static int CELEBRITY_TYPE_DAOYAN = 10;
+
+    public final static int CELEBRITY_TYPE_ZHUCHI = 14;
+
+    public final static int CELEBRITY_TYPE_ZHUANGAO = 13;
 }

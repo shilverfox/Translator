@@ -1,5 +1,8 @@
 package com.jbsx.player.util;
 
+import android.text.TextUtils;
+
+import com.jbsx.data.AppConstData;
 import com.jbsx.player.data.SpecialSingleData;
 import com.jbsx.view.main.entity.Celebrities;
 import com.jbsx.view.main.entity.Single;
@@ -37,16 +40,69 @@ public class AlbumDetailUtil {
         return celebrities;
     }
 
-    public static String getScrew(SpecialSingleData data) {
-        List<Celebrities> celebrities = getCelebrities(data);
+    /**
+     * 找到剧组中的角色
+     *
+     * @param celebrities
+     * @param type
+     * @return
+     */
+    public static StringBuffer getScrewByType(List<Celebrities> celebrities, int type) {
         StringBuffer sb = new StringBuffer();
+
         if (celebrities != null) {
-            for (Celebrities cel : celebrities) {
-                sb.append(cel.getName());
+            for (int i = 0; i < celebrities.size(); i++) {
+                Celebrities cel = celebrities.get(i);
+
+                if (cel.getType() ==  type) {
+                    // 多个人名用逗号分隔
+                    if (sb.length() != 0) {
+                        sb.append(",");
+                    }
+
+                    sb.append(cel.getName());
+                }
             }
         }
 
+        return sb;
+    }
+
+    public static String getScrew(SpecialSingleData data) {
+        List<Celebrities> celebrities = getCelebrities(data);
+        StringBuffer sb = new StringBuffer();
+
+        sb.append(getTypeName(AppConstData.CELEBRITY_TYPE_DAOYAN))
+                .append(getScrewByType(celebrities, AppConstData.CELEBRITY_TYPE_DAOYAN));
+        sb.append("    ");
+
+        sb.append(getTypeName(AppConstData.CELEBRITY_TYPE_ZHUANGAO))
+                .append(getScrewByType(celebrities, AppConstData.CELEBRITY_TYPE_ZHUANGAO));
+        sb.append("    ");
+
+        sb.append(getTypeName(AppConstData.CELEBRITY_TYPE_ZHUCHI))
+                .append(getScrewByType(celebrities, AppConstData.CELEBRITY_TYPE_ZHUCHI));
+
         return sb.toString();
+    }
+
+    /**
+     * type翻译成中文名称
+     *
+     * @param type
+     * @return
+     */
+    public static String getTypeName(int type) {
+        switch (type) {
+            case AppConstData.CELEBRITY_TYPE_DAOYAN:
+                return "导演：";
+            case AppConstData.CELEBRITY_TYPE_ZHUCHI:
+                return "主持人：";
+            case AppConstData.CELEBRITY_TYPE_ZHUANGAO:
+                return "撰稿人：";
+            default:
+                return "";
+        }
     }
 
     public static String getTitle(SpecialSingleData data) {

@@ -411,7 +411,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
         CenterLayoutManager layoutManager = new CenterLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         mRvPorEpisodes.setLayoutManager(layoutManager);
 
-        mProEpiAdapter = new EpisodePortraitItemAdapter(mContext, R.layout.celebrity_item);
+        mProEpiAdapter = new EpisodePortraitItemAdapter(mContext, R.layout.protrait_episode_item);
         mProEpiAdapter.setDatas(mListEpisodes);
         mProEpiAdapter.setOnMyItemClickListener(new EpisodePortraitItemAdapter.OnMyItemClickListener() {
             @Override
