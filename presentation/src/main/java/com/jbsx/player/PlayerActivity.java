@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
+import com.github.ikidou.fragmentBackHandler.BackHandlerHelper;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragmentActivity;
 import com.jbsx.player.data.PlayerData;
@@ -38,6 +39,14 @@ public class PlayerActivity extends BaseFragmentActivity {
         if (fragment != null && this != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.layout_no_title_fragment_container, fragment).commitAllowingStateLoss();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        // 处理Fragment返回按键事件
+        if (!BackHandlerHelper.handleBackPress(this)) {
+            super.onBackPressed();
         }
     }
 }

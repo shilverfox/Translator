@@ -1,13 +1,16 @@
 package com.jbsx.view.myinfo.view.video;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.app.domain.net.data.ConstData;
 import com.jbsx.R;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
+import com.jbsx.player.util.PlayerHelper;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.utils.DataUtil;
 import com.jbsx.view.main.entity.Single;
@@ -135,6 +138,10 @@ public class MyInfoVideoViewHolder extends CommonListFragmentViewHolder<ViewHist
         if (onMyItemClickListener != null) {
             onMyItemClickListener.onClick(position);
         }
+
+        PlayerHelper.gotoPlayer((Activity)mContext, PlayerHelper.makePlayerData(
+                mData.getSingle().getSpecialAlbumId(),
+                mData.getSingle().getId(), ConstData.VIDEO_DEFINITION_TYPE_STAND));
     }
 
     public interface OnMyItemClickListener {

@@ -36,6 +36,9 @@ dependencies {
     compile 'com.github.dueeeke.dkplayer:dkplayer-armv7a:2.5.3'
     compile 'com.github.dueeeke.dkplayer:dkplayer-ui:2.5.3'
 
+    // 处理fragment 返回按键响应
+    compile 'com.github.ikidou:FragmentBackHandler:2.1'
+
     compile project(path: ':domain')
 
     debugCompile project.DEPENDENCY_LEAKCANARY

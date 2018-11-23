@@ -23,6 +23,8 @@ import com.app.domain.net.data.ConstData;
 import com.app.domain.net.interactor.PlayerUserCase;
 import com.dueeeke.videoplayer.player.IjkPlayer;
 import com.dueeeke.videoplayer.player.PlayerConfig;
+import com.github.ikidou.fragmentBackHandler.BackHandlerHelper;
+import com.github.ikidou.fragmentBackHandler.FragmentBackHandler;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
@@ -65,7 +67,7 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
  * 评论
  */
 
-public class PlayerFragment extends BaseFragment implements PlayerContact.View {
+public class PlayerFragment extends BaseFragment implements PlayerContact.View, FragmentBackHandler {
     /** 视频数据加载状态 */
     /** 即将获取专辑中的视频列表 */
     private final static int WAITING_FOR_VIDEO_OF_ALBUM = 1;
@@ -562,5 +564,28 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
 
         // 刷新评论列表
         mVideoCommentsListView.clearAndFresh();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mPlayerView.pause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPlayerView.resume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPlayerView.release();
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        return BackHandlerHelper.handleBackPress(this);
     }
 }

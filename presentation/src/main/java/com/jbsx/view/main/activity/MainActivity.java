@@ -12,9 +12,12 @@ import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragmentActivity;
+import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.TitleBar;
 import com.jbsx.utils.Router;
 import com.jbsx.utils.ShowTools;
+import com.jbsx.view.login.callback.ILoginResultListener;
+import com.jbsx.view.login.data.LoginResultEvent;
 import com.jbsx.view.main.entity.TabEntity;
 import com.jbsx.view.main.fragment.MainPageFragment;
 import com.jbsx.view.main.fragment.RepertoryFragment;
@@ -22,9 +25,12 @@ import com.jbsx.view.myinfo.activity.MyViewHistoryActivity;
 import com.jbsx.view.myinfo.fragment.MyInfoFragment;
 import com.jbsx.view.search.SearchActivity;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 
-public class MainActivity extends BaseFragmentActivity {
+public class MainActivity extends BaseFragmentActivity implements ILoginResultListener {
 
     private ArrayList<Fragment> mFragmentList = new ArrayList<>();
 
@@ -141,6 +147,20 @@ public class MainActivity extends BaseFragmentActivity {
         @Override
         public Fragment getItem(int position) {
             return mFragmentList.get(position);
+        }
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LoginResultEvent event) {
+        if (event != null && event.action == LoginResultEvent.LoginAction.SUCCESS) {
+            // 登录成功，切换到第一个tab
+            MainApplicationLike.getInstance().getHanlder().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mViewPager.setCurrentItem(0);
+                }
+            }, 500);
         }
     }
 }
