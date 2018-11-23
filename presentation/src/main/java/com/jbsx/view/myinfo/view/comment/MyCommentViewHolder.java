@@ -11,6 +11,7 @@ import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
 import com.jbsx.utils.Router;
 import com.jbsx.utils.image.ImageLoader;
+import com.jbsx.view.main.entity.Single;
 import com.jbsx.view.myinfo.data.CommentEvent;
 import com.jbsx.view.myinfo.data.MyCommentData;
 import com.jbsx.view.myinfo.data.MyInfoConst;
@@ -119,9 +120,15 @@ public class MyCommentViewHolder extends CommonListFragmentViewHolder<UserCommen
             mTvCommentCount.setText(data.getCommentReply() + "");
             mTvNbCount.setText(data.getCommentLove() + "");
             mTvCommentTime.setText(data.getCreatedAt());
-            mTvVideoTitle.setText(data.getSpecialSingleTitle());
+
+            // 视频信息
             mTvVideoCount.setVisibility(View.GONE);
             mTvVideoCelebrity.setVisibility(View.GONE);
+            Single singleInfo = data.getSingle();
+            if (singleInfo != null) {
+                mTvVideoTitle.setText(singleInfo.getTitle());
+                ImageLoader.displayImage(singleInfo.getPcImageUrl(), mIvVideoImage);
+            }
         }
     }
 

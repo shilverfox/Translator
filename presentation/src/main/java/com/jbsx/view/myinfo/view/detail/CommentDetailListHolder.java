@@ -74,12 +74,24 @@ public class CommentDetailListHolder extends CommonListFragmentViewHolder<UserCo
 
         if (data != null) {
             ImageLoader.displayImage("http://pic1.win4000.com/wallpaper/2018-01-09/5a54724e365b9.jpg", mIvUserHead, true);
-            mTvUserName.setText(data.getUserId());
+            mTvUserName.setText(data.getAccount());
             mTvMessageContent.setText(data.getComment());
             mTvResponseTime.setText(data.getCreatedAt());
             mTvComment.setText("评论" + data.getCommentReply());
             mTvNbCount.setText(data.getCommentLove() + "");
+
+            // 不显示评论回复
+            mTvResponseContent.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * 隐藏评论和赞
+     * 主要是共外部调用，这个holder是公共使用的
+     */
+    public void hideCommentAndNb() {
+        mTvComment.setVisibility(View.INVISIBLE);
+        mTvNbCount.setVisibility(View.INVISIBLE);
     }
 
     private boolean isCommentType(String type) {

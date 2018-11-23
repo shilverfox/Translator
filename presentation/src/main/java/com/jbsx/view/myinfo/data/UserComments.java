@@ -3,6 +3,8 @@ package com.jbsx.view.myinfo.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.jbsx.view.main.entity.Single;
+
 public class UserComments implements Parcelable {
     private String id;
     private String userId;
@@ -16,6 +18,24 @@ public class UserComments implements Parcelable {
     private String specialSingleTitle;
     private String createdAt;
     private String isLove;
+    private String userImage;
+    private Single single;
+
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
+    }
+
+    public Single getSingle() {
+        return single;
+    }
+
+    public void setSingle(Single single) {
+        this.single = single;
+    }
 
     public String getId() {
         return id;
@@ -113,6 +133,7 @@ public class UserComments implements Parcelable {
         this.isLove = isLove;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -132,6 +153,8 @@ public class UserComments implements Parcelable {
         dest.writeString(this.specialSingleTitle);
         dest.writeString(this.createdAt);
         dest.writeString(this.isLove);
+        dest.writeString(this.userImage);
+        dest.writeParcelable(this.single, flags);
     }
 
     public UserComments() {
@@ -150,6 +173,8 @@ public class UserComments implements Parcelable {
         this.specialSingleTitle = in.readString();
         this.createdAt = in.readString();
         this.isLove = in.readString();
+        this.userImage = in.readString();
+        this.single = in.readParcelable(Single.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<UserComments> CREATOR = new Parcelable.Creator<UserComments>() {

@@ -1,6 +1,9 @@
 package com.jbsx.view.main.entity;
 
-public class Single {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Single implements Parcelable {
     private String id;
     private String specialAlbumId;
     private String title;
@@ -109,4 +112,55 @@ public class Single {
     public void setSecond(int second) {
         this.second = second;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.specialAlbumId);
+        dest.writeString(this.title);
+        dest.writeString(this.introduce);
+        dest.writeString(this.appImageUrl);
+        dest.writeString(this.pcImageUrl);
+        dest.writeString(this.nextId);
+        dest.writeInt(this.playNum);
+        dest.writeString(this.isCollect);
+        dest.writeString(this.longTime);
+        dest.writeInt(this.second);
+        dest.writeByte(this.isCheck ? (byte) 1 : (byte) 0);
+    }
+
+    public Single() {
+    }
+
+    protected Single(Parcel in) {
+        this.id = in.readString();
+        this.specialAlbumId = in.readString();
+        this.title = in.readString();
+        this.introduce = in.readString();
+        this.appImageUrl = in.readString();
+        this.pcImageUrl = in.readString();
+        this.nextId = in.readString();
+        this.playNum = in.readInt();
+        this.isCollect = in.readString();
+        this.longTime = in.readString();
+        this.second = in.readInt();
+        this.isCheck = in.readByte() != 0;
+    }
+
+    public static final Parcelable.Creator<Single> CREATOR = new Parcelable.Creator<Single>() {
+        @Override
+        public Single createFromParcel(Parcel source) {
+            return new Single(source);
+        }
+
+        @Override
+        public Single[] newArray(int size) {
+            return new Single[size];
+        }
+    };
 }

@@ -5,13 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/my_comment_item_header_view" />
+    <RelativeLayout
+        android:id="@+id/layout_comment_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/my_comment_item_header_view" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/layout_comment_video"
         android:background="@color/divider_line"
         android:layout_width="match_parent"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="6dp"
         android:layout_marginLeft="@dimen/common_padding_horizontal"
         android:layout_marginRight="@dimen/common_padding_horizontal"
         android:layout_height="100dp">
@@ -30,7 +36,7 @@
             android:gravity="right"
             android:layout_weight="1">
             <TextView
-                android:id="@+id/tv_comment_count"
+                android:id="@+id/tv_detail_comment_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/comment_icon_red_big"
@@ -44,10 +50,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
             <TextView
-                android:id="@+id/tv_nb_count"
+                android:id="@+id/tv_detail_nb_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/tv_comment_count"
                 android:drawableLeft="@drawable/thumb_big"
                 android:layout_marginLeft="16dp"
                 android:drawablePadding="8dp"
