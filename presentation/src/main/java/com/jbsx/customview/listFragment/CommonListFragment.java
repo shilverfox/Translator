@@ -34,7 +34,7 @@ import java.util.List;
  * Created by lijian15 on 2017/9/4.
  */
 
-public abstract class CommonListFragment<T> extends BaseFragment {
+public abstract class CommonListFragment<T> extends BaseFragment implements IOnLoadMoreDataCallback {
     private final static String ERROR_INFO_NO_DATA = "无数据";
 
     /** 每页条数 */
@@ -66,6 +66,9 @@ public abstract class CommonListFragment<T> extends BaseFragment {
 
     private CommonListFragmentUserCase mUserCase;
 
+    /** 是否响应嵌套滑动事件 */
+    private boolean mEnableNestedScroll;
+
     private View mRootView;
     protected RecyclerView mListView;
     private CommonListFragmentAdapter mAdapter;
@@ -83,6 +86,14 @@ public abstract class CommonListFragment<T> extends BaseFragment {
         setListAdapter();
 
         return mRootView;
+    }
+
+    /**
+     * 是否支持nested嵌套
+     * @param enabled
+     */
+    public void setNestedScrollingEnabled(boolean enabled) {
+        mEnableNestedScroll = enabled;
     }
 
     @Override
@@ -109,6 +120,7 @@ public abstract class CommonListFragment<T> extends BaseFragment {
         mAdapter = getAdapter(mContext);
         mListView.setLayoutManager(new LinearLayoutManager(mContext));
         mListView.addItemDecoration(RecyclerViewHelper.getDivider(mContext));
+        mListView.setNestedScrollingEnabled(mEnableNestedScroll);
 
         if (needLoadByPage()) {
             // 翻页，第三方框架实现RecycleView，增加页脚信息
@@ -209,6 +221,31 @@ public abstract class CommonListFragment<T> extends BaseFragment {
     }
 
     /**
+     * 加载更多,可以支持外部调用，比如嵌套在NestedScrollView
+     */
+    @Override
+    public void onLoadMore() {
+        handleLoadNextPage();
+    }
+
+    /**
+     * 加载下一页
+     */
+    private void handleLoadNextPage() {
+        LoadingFooter.State state = RecyclerViewStateUtils.getFooterViewState(mListView);
+        if(state == LoadingFooter.State.Loading) {
+            return;
+        }
+
+        if (mHasNextPage) {
+            // loading more
+            RecyclerViewStateUtils.setFooterViewState(getActivity(), mListView, mPageSize,
+                    LoadingFooter.State.Loading, null);
+            loadAllData(false);
+        }
+    }
+
+    /**
      * 分页
      */
     private EndlessRecyclerOnScrollListener mOnScrollListener = new EndlessRecyclerOnScrollListener() {
@@ -216,18 +253,7 @@ public abstract class CommonListFragment<T> extends BaseFragment {
         @Override
         public void onLoadNextPage(View view) {
             super.onLoadNextPage(view);
-
-            LoadingFooter.State state = RecyclerViewStateUtils.getFooterViewState(mListView);
-            if(state == LoadingFooter.State.Loading) {
-                return;
-            }
-
-            if (mHasNextPage) {
-                // loading more
-                RecyclerViewStateUtils.setFooterViewState(getActivity(), mListView, mPageSize,
-                        LoadingFooter.State.Loading, null);
-                loadAllData(false);
-            }
+            handleLoadNextPage();
         }
     };
 

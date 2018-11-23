@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -82,6 +83,8 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
 
     // 视频评论
     private TextView mTvPostComment;
+
+    private NestedScrollView mNestedScrollView;
 
     /** 竖屏状态下的选集列表 */
     private RecyclerView mRvPorEpisodes;
@@ -388,6 +391,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
 
     private void initViews() {
         mPlayerView = mRootView.findViewById(R.id.player);
+        mNestedScrollView = mRootView.findViewById(R.id.nsv_player_page);
         mRvPorEpisodes = mRootView.findViewById(R.id.rv_player_portrait_episodes);
         mTvPorEpisodesCountLabel = mRootView.findViewById(R.id.tv_portrait_episodes_count_label);
         mTvPostComment = mRootView.findViewById(R.id.tv_add_comment);
@@ -398,6 +402,16 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
             @Override
             public void onClick(View view) {
                 handlePostComment();
+            }
+        });
+
+        mNestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
+                    // 评论数据翻页
+                    mVideoCommentsListView.onLoadMore();
+                }
             }
         });
     }
@@ -513,6 +527,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View {
         comments.setSpecialSingleId(singleId);
 
         mVideoCommentsListView = VideoCommentsListView.newInstance(comments);
+        mVideoCommentsListView.setNestedScrollingEnabled(false);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.layout_player_comments, mVideoCommentsListView)
