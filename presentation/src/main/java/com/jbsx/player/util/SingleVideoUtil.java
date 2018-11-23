@@ -1,5 +1,7 @@
 package com.jbsx.player.util;
 
+import android.text.TextUtils;
+
 import com.app.domain.net.data.ConstData;
 import com.jbsx.player.data.SingleVideoData;
 
@@ -16,6 +18,21 @@ public class SingleVideoUtil {
         }
 
         return url;
+    }
+
+    /**
+     * 是否收藏了视频
+     *
+     * @param data
+     * @return
+     */
+    public static boolean isFavorite(SingleVideoData data) {
+        boolean result = false;
+        if (data != null && data.getPayload() != null) {
+            result = !TextUtils.isEmpty(data.getPayload().getIsCollect());
+        }
+
+        return result;
     }
 
     private static boolean isStandDefinition(String type) {

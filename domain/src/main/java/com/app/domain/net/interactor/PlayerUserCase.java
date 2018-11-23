@@ -66,4 +66,19 @@ public class PlayerUserCase extends UserCase {
                 userId, content, "");
         handleSendRequest(entity, callback);
     }
+
+    /**
+     * 关注/取关视频
+     *
+     * @param token
+     * @param userId
+     * @param albumId
+     * @param singleId
+     * @param callback
+     */
+    public void requestConcernVideo(String token, String albumId, String singleId, String userId,
+                                    BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.concernVideoEntity(token, albumId, singleId, userId);
+        handleSendRequest(entity, callback);
+    }
 }

@@ -704,4 +704,33 @@ public class HttpRequestPool {
 
         return baseRequest;
     }
+
+    /**
+     * 关注、取关视频
+     *
+     * @param token
+     * @param albumId
+     * @param singleId
+     * @param userId
+     * @return
+     */
+    public static BaseRequestEntity concernVideoEntity(String token, String albumId, String singleId,
+                                                      String userId) {
+
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/collectSingle");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+        body.add("albumId", albumId);
+        body.add("singleId", singleId);
+        body.add("userId", userId);
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, token);
+
+        return baseRequest;
+    }
 }

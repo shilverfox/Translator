@@ -36,6 +36,7 @@ import com.jbsx.player.DefinitionIjkVideoView;
 import com.jbsx.player.adapter.EpisodePortraitItemAdapter;
 import com.jbsx.player.contact.PlayerContact;
 import com.jbsx.player.data.AlbumData;
+import com.jbsx.player.data.ConcernData;
 import com.jbsx.player.data.PlayerData;
 import com.jbsx.player.data.SingleVideoData;
 import com.jbsx.player.data.SpecialSingleData;
@@ -45,6 +46,7 @@ import com.jbsx.player.util.SingleVideoUtil;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.utils.UiTools;
+import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.main.adapter.CelebrityItemAdapter;
 import com.jbsx.view.main.entity.Single;
 import com.jbsx.view.myinfo.data.UserComments;
@@ -101,6 +103,8 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
 
     /** 全0集 */
     private TextView mTvPorEpisodesCountLabel;
+
+    private ImageView mIvFavorite;
 
 
     /** 上游请求的信息 */
@@ -332,6 +336,10 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         if (mDefinitionList.size() == 2) {
             setStatus(LOAD_VIDEO_INFO_SUCCESS);
         }
+
+        // 收藏状态
+        mIvFavorite.setVisibility(View.VISIBLE);
+        handleDrawConcernStatus(SingleVideoUtil.isFavorite(videoData));
     }
 
     /**
@@ -347,19 +355,24 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         TextView crew = mRootView.findViewById(R.id.player_album_detail_crew);
         TextView count = mRootView.findViewById(R.id.player_album_detail_count);
         TextView summary = mRootView.findViewById(R.id.player_album_detail_summary);
-        ImageView favorite = mRootView.findViewById(R.id.player_album_detail_favorite);
 
         title.setText(AlbumDetailUtil.getTitle(specialSingleData));
         crew.setText(AlbumDetailUtil.getScrew(specialSingleData));
         count.setText(AlbumDetailUtil.getCount(specialSingleData));
         summary.setText("简介 >");
-        favorite.setVisibility(View.VISIBLE);
 
         summary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 显示简介框
                 handleShowDetailDialog();
+            }
+        });
+
+        mIvFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleCencernClick();
             }
         });
     }
@@ -397,6 +410,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         mRvPorEpisodes = mRootView.findViewById(R.id.rv_player_portrait_episodes);
         mTvPorEpisodesCountLabel = mRootView.findViewById(R.id.tv_portrait_episodes_count_label);
         mTvPostComment = mRootView.findViewById(R.id.tv_add_comment);
+        mIvFavorite = mRootView.findViewById(R.id.player_album_detail_favorite);
     }
 
     private void initEvents() {
@@ -556,6 +570,33 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
 
             }
         });
+    }
+
+    /**
+     * 关注结果
+     */
+    @Override
+    public void drawConcernResult(ConcernData data) {
+        boolean isConcerned = (data != null && data.getPayload() != null
+                && !TextUtils.isEmpty(data.getPayload().getStatus()));
+
+        handleDrawConcernStatus(isConcerned);
+    }
+
+    /**
+     * 绘制关注状态
+     *
+     * @param concerned
+     */
+    private void handleDrawConcernStatus(boolean concerned) {
+        mIvFavorite.setImageResource(concerned ? R.drawable.player_favorite_red : R.drawable.player_favorite_black);
+    }
+
+    /**
+     * 收藏视频
+     */
+    private void handleCencernClick() {
+        mPresenter.handleConcernVideo(mAlbumId, mSingleId);
     }
 
     @Override

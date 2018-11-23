@@ -125,6 +125,23 @@ public class AlbumDetailUtil {
         return result + "次播放";
     }
 
+    /**
+     * 是否收藏
+     * 非空即为关注
+     *
+     * @param data
+     * @return
+     */
+    public static boolean isFavorite(SpecialSingleData data) {
+        boolean result = false;
+        Single single = getSingle(data);
+        if (single != null) {
+            result = !TextUtils.isEmpty(single.getIsCollect());
+        }
+
+        return result;
+    }
+
     public static String getIntroduce(SpecialSingleData data) {
         String result = "";
         Single single = getSingle(data);

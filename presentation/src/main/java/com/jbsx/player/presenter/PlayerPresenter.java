@@ -6,6 +6,7 @@ import com.app.domain.net.model.BaseDomainData;
 import com.app.domain.util.ParseUtil;
 import com.jbsx.player.contact.PlayerContact;
 import com.jbsx.player.data.AlbumData;
+import com.jbsx.player.data.ConcernData;
 import com.jbsx.player.data.SingleVideoData;
 import com.jbsx.player.data.SpecialSingleData;
 import com.jbsx.utils.MessageTools;
@@ -157,6 +158,44 @@ public class PlayerPresenter implements PlayerContact.Presenter {
     }
 
     private void handlePostCommentFailed(BaseDomainData data) {
+        MessageTools.showErrorMessage(data);
+    }
+
+    /**
+     * 收藏片库
+     *
+     * @param albumId
+     * @param singleId
+     */
+    @Override
+    public void handleConcernVideo(String albumId, String singleId) {
+        mUserCase.requestConcernVideo(LoginHelper.getInstance().getUserToken(), albumId, singleId,
+                LoginHelper.getInstance().getUserId(), new BaseRequestCallback() {
+                    @Override
+                    public void onRequestFailed(BaseDomainData data) {
+                        handleConcernVideoFailed(data);
+                    }
+
+                    @Override
+                    public void onRequestSuccessful(String data) {
+                        handleConcernVideoSuccessful(data);
+                    }
+
+                    @Override
+                    public void onNetError() {
+
+                    }
+                });
+    }
+
+    private void handleConcernVideoSuccessful(String data) {
+        ConcernData concernData = ParseUtil.parseData(data, ConcernData.class);
+        if (mView != null) {
+            mView.drawConcernResult(concernData);
+        }
+    }
+
+    private void handleConcernVideoFailed(BaseDomainData data) {
         MessageTools.showErrorMessage(data);
     }
 }

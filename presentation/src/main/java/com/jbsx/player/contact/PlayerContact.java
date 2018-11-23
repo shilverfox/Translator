@@ -1,6 +1,7 @@
 package com.jbsx.player.contact;
 
 import com.jbsx.player.data.AlbumData;
+import com.jbsx.player.data.ConcernData;
 import com.jbsx.player.data.SingleVideoData;
 import com.jbsx.player.data.SpecialSingleData;
 
@@ -31,6 +32,11 @@ public class PlayerContact {
          * 评论发表成功
          */
         void drawPostSuccess();
+
+        /**
+         * 关注结果
+         */
+        void drawConcernResult(ConcernData data);
     }
 
     public interface Presenter {
@@ -65,5 +71,13 @@ public class PlayerContact {
          * @param content
          */
         void postComment(String albumId, String singleId, String content);
+
+        /**
+         * 收藏片库
+         *
+         * @param albumId
+         * @param singleId
+         */
+        void handleConcernVideo(String albumId, String singleId);
     }
 }
