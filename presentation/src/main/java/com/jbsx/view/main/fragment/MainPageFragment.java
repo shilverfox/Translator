@@ -431,6 +431,11 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         loadBannerInfo();
         loadCelebrities();
         loadSpecialAlbum(mCurrentPage);

@@ -85,7 +85,6 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         mTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-                ShowTools.toast(position + "");
                 mViewPager.setCurrentItem(position);
             }
 

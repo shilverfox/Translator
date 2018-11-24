@@ -1,6 +1,7 @@
 package com.jbsx.player.fragment;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.app.domain.net.data.HttpRequestPool;
 import com.app.domain.net.model.BaseRequestEntity;

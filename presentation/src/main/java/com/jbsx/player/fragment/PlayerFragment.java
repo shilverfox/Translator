@@ -99,6 +99,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
 
     /** 视频评论列表 */
     private VideoCommentsListView mVideoCommentsListView;
+    private TextView mTvCommentCount;
 
     /** 评论输入框 */
     private Dialog mInputCommentDialog;
@@ -413,6 +414,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         mRvPorEpisodes = mRootView.findViewById(R.id.rv_player_portrait_episodes);
         mTvPorEpisodesCountLabel = mRootView.findViewById(R.id.tv_portrait_episodes_count_label);
         mTvPostComment = mRootView.findViewById(R.id.tv_add_comment);
+        mTvCommentCount = mRootView.findViewById(R.id.tv_comments_label);
         mIvFavorite = mRootView.findViewById(R.id.player_album_detail_favorite);
     }
 
@@ -452,7 +454,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
 
         mPlayerView.setDefinitionVideos(mDefinitionList);
         mPlayerView.setVideoController(controller);
-        mPlayerView.setTitle("韩雪：积极的悲观主义者");
+        mPlayerView.setTitle(AlbumDetailUtil.getTitle(mSpecialSingleData));
         mPlayerView.start();
 
 //        // 高级设置（可选，须在start()之前调用方可生效）
@@ -563,6 +565,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         comments.setSpecialSingleId(singleId);
 
         mVideoCommentsListView = VideoCommentsListView.newInstance(comments);
+        mVideoCommentsListView.setCommentCountView(mTvCommentCount);
         mVideoCommentsListView.setNestedScrollingEnabled(false);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()

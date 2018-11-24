@@ -2,13 +2,16 @@ package com.jbsx.view.myinfo.view.detail;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.app.domain.net.data.ConstData;
 import com.app.domain.net.data.HttpRequestPool;
 import com.app.domain.net.model.BaseRequestEntity;
 import com.google.gson.Gson;
+import com.jbsx.R;
 import com.jbsx.customview.listFragment.CommonListFragment;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
+import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.myinfo.data.MyCommentData;
 import com.jbsx.view.myinfo.data.UserComments;
@@ -25,6 +28,9 @@ public class CommentDetailListView extends CommonListFragment {
     private CommentDetailListAdapter mAdapter;
     private MyCommentData mResultData;
     private UserComments mRequestData;
+
+    /** 显示评论数 */
+    private TextView mTvCommentCount;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,24 @@ public class CommentDetailListView extends CommonListFragment {
         loadAllData(true);
     }
 
+    /**
+     * 评论总数
+     *
+     * @return
+     */
+    public int getTotalCommentCount() {
+        int count = 0;
+        if (mResultData != null && mResultData.getPayload() != null) {
+            count = mResultData.getPayload().getTotalElements();
+        }
+
+        return count;
+    }
+
+    public void setCommentCountView(TextView view) {
+        mTvCommentCount = view;
+    }
+
     @Override
     public CommonListFragmentAdapter getAdapter(Context context) {
         mAdapter = new CommentDetailListAdapter(mContext);
@@ -84,10 +108,21 @@ public class CommentDetailListView extends CommonListFragment {
 
         if (mResultData != null || mResultData.getPayload() != null) {
             List<UserComments> list = mResultData.getPayload().getUserComments();
+
+            // 设置评论数量
+            if (mTvCommentCount != null) {
+                mTvCommentCount.setText("评论（" + getTotalCommentCount() + "条）");
+            }
+
             return list;
         }
 
         return new ArrayList<UserComments>();
+    }
+
+    @Override
+    public void handleErrorBarOfEmptyData() {
+        ErroBarHelper.addErroBar(mListView, "还没有评论呢，添加一条吧！");
     }
 
     @Override

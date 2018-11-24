@@ -190,9 +190,17 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
             handleHasNextPage(null);
         } else {
             ProgressBarHelper.removeProgressBar(mListView);
-            ErroBarHelper.addErroBar(mListView, getNoDataAlertContent(), R.drawable.errorbar_icon_nonetwork,
-                    null, null);
+            handleErrorBarOfEmptyData();
         }
+    }
+
+    /**
+     * 空数据界面
+     * 子类可以自己去整
+     */
+    public void handleErrorBarOfEmptyData() {
+        ErroBarHelper.addErroBar(mListView, getNoDataAlertContent(), R.drawable.errorbar_icon_nonetwork,
+                null, null);
     }
 
     private void handleNetError() {

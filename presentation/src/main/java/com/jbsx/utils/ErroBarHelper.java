@@ -76,9 +76,14 @@ public class ErroBarHelper {
 
     private static void initErroBar(View LoadingErroBar, String title, int imgResId, final Runnable firstBtnClick,
                                     String firstBtnName, final Runnable secondBtnClick, String secondBtnName, String subTitle) {
+
+        ImageView imageView = (ImageView) LoadingErroBar.findViewById(R.id.erroIcon);
         if (imgResId >= 0) {
-            ImageView imageView = (ImageView) LoadingErroBar.findViewById(R.id.erroIcon);
             imageView.setImageResource(imgResId);
+            imageView.setVisibility(View.VISIBLE);
+        } else {
+            // 无错误图
+            imageView.setVisibility(View.INVISIBLE);
         }
         TextView tvTitle = (TextView) LoadingErroBar.findViewById(R.id.title);
         if (TextUtils.isEmpty(title)) {
