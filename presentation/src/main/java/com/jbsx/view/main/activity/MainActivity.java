@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.flyco.tablayout.CommonTabLayout;
@@ -40,6 +41,8 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     private CommonTabLayout mTabLayout;
     private TitleBar mTopBarLayout;
     private ViewPager mViewPager;
+
+    private long mExitTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +150,25 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         @Override
         public Fragment getItem(int position) {
             return mFragmentList.get(position);
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void exit() {
+        if ((System.currentTimeMillis() - mExitTime) > 2000) {
+            ShowTools.toast("再按一次退出程序");
+            mExitTime = System.currentTimeMillis();
+        } else {
+            finish();
+            System.exit(0);
         }
     }
 
