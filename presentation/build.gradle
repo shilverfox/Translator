@@ -39,6 +39,9 @@ dependencies {
     // 处理fragment 返回按键响应
     compile 'com.github.ikidou:FragmentBackHandler:2.1'
 
+    // Splash
+    compile 'gr.pantrif:easy-android-splash-screen:0.0.1'
+
     compile project(path: ':domain')
 
     debugCompile project.DEPENDENCY_LEAKCANARY
