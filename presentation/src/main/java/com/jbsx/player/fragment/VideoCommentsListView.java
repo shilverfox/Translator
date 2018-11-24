@@ -1,22 +1,12 @@
 package com.jbsx.player.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 
-import com.app.domain.net.data.ConstData;
 import com.app.domain.net.data.HttpRequestPool;
 import com.app.domain.net.model.BaseRequestEntity;
-import com.google.gson.Gson;
-import com.jbsx.customview.listFragment.CommonListFragment;
-import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.view.login.util.LoginHelper;
-import com.jbsx.view.myinfo.data.MyCommentData;
 import com.jbsx.view.myinfo.data.UserComments;
-import com.jbsx.view.myinfo.view.detail.CommentDetailListAdapter;
 import com.jbsx.view.myinfo.view.detail.CommentDetailListView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 视频的评论列表，结构和评论详情中的评论列表一样，只是请求参数不同

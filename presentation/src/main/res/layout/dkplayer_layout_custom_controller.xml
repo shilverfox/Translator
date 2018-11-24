@@ -136,12 +136,11 @@
             android:id="@+id/tv_select_episode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dkplayer_default_spacing"
-            android:layout_marginStart="@dimen/dkplayer_default_spacing"
             android:textColor="@android:color/white"
             android:textSize="@dimen/dkplayer_controller_time_text_size"
             android:visibility="gone"
             android:text="选集"
+            android:padding="10dp"
             tools:visibility="visible" />
 
         <ImageView
@@ -223,5 +222,55 @@
         android:indeterminateDrawable="@drawable/dkplayer_progress_loading"
         android:visibility="gone"
         tools:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/dl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#aa666666"
+        android:gravity="right"
+        android:orientation="horizontal"
+        tools:visibility="visible">
+        <View
+            android:id="@+id/view_place_holder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"/>
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray_666"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="选集"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/white"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_player_landscape_episodes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+    </LinearLayout>
 
 </FrameLayout>

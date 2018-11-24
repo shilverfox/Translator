@@ -7,6 +7,8 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -22,7 +24,6 @@ import com.dueeeke.videoplayer.util.L;
 import com.dueeeke.videoplayer.util.WindowUtil;
 import com.jbsx.R;
 import com.jbsx.player.interf.DefinitionMediaPlayerControl;
-import com.jbsx.utils.ShowTools;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -47,6 +48,11 @@ public class DefinitionController extends StandardVideoController {
     private TextView mTvEpisode;
     private List<String> mEpisodeList;
 
+    /** 选集列表 */
+    private View mDrawerLayout;
+    private RecyclerView mRvLandEpisodes;
+    private View mViewPlaceHolder;
+
 
     public DefinitionController(@NonNull Context context) {
         this(context, null);
@@ -65,6 +71,31 @@ public class DefinitionController extends StandardVideoController {
         super.initView();
         initMultiRate();
         initEpisode();
+        initEpisodeList();
+    }
+
+    private void initEpisodeList() {
+        int itemCount = 3;
+
+        // 点击空白区域关闭选集列表
+        mViewPlaceHolder = controllerView.findViewById(R.id.view_place_holder);
+        mViewPlaceHolder.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideLandScapeEpisodes();
+            }
+        });
+
+        // 初始化选集列表
+        mRvLandEpisodes = controllerView.findViewById(R.id.rv_player_landscape_episodes);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), itemCount);
+        mRvLandEpisodes.setLayoutManager(layoutManager);
+    }
+
+    public void setEpisodeAdapter(RecyclerView.Adapter adapter) {
+        if (adapter != null) {
+            mRvLandEpisodes.setAdapter(adapter);
+        }
     }
 
     /**
@@ -85,8 +116,8 @@ public class DefinitionController extends StandardVideoController {
      * 选集
      */
     private void initEpisode() {
+        mDrawerLayout = controllerView.findViewById(R.id.dl_container);
         mTvEpisode = controllerView.findViewById(R.id.tv_select_episode);
-        mTvEpisode.setVisibility(View.VISIBLE);
         mTvEpisode.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,8 +126,20 @@ public class DefinitionController extends StandardVideoController {
         });
     }
 
+    /**
+     * 显示选集列表
+     */
+    private void showLandScapeEpisodes() {
+        mDrawerLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void hideLandScapeEpisodes() {
+        mDrawerLayout.setVisibility(View.INVISIBLE);
+    }
+
     private void selectEpisode() {
-        ShowTools.toast("selectEpisode");
+        // 显示选集列表
+        showLandScapeEpisodes();
     }
 
     /**
@@ -115,9 +158,12 @@ public class DefinitionController extends StandardVideoController {
         switch (playerState) {
             case IjkVideoView.PLAYER_NORMAL:
                 multiRate.setVisibility(GONE);
+                mTvEpisode.setVisibility(View.GONE);
+                hideLandScapeEpisodes();
                 break;
             case IjkVideoView.PLAYER_FULL_SCREEN:
                 multiRate.setVisibility(VISIBLE);
+                mTvEpisode.setVisibility(View.VISIBLE);
                 break;
         }
     }

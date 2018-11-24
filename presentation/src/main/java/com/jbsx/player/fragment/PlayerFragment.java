@@ -33,6 +33,7 @@ import com.jbsx.customview.PushFromBottomDialog;
 import com.jbsx.customview.recyclerview.CenterLayoutManager;
 import com.jbsx.player.DefinitionController;
 import com.jbsx.player.DefinitionIjkVideoView;
+import com.jbsx.player.adapter.EpisodeLandScapeItemAdapter;
 import com.jbsx.player.adapter.EpisodePortraitItemAdapter;
 import com.jbsx.player.contact.PlayerContact;
 import com.jbsx.player.data.AlbumData;
@@ -46,8 +47,6 @@ import com.jbsx.player.util.SingleVideoUtil;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.utils.UiTools;
-import com.jbsx.view.login.util.LoginHelper;
-import com.jbsx.view.main.adapter.CelebrityItemAdapter;
 import com.jbsx.view.main.entity.Single;
 import com.jbsx.view.myinfo.data.UserComments;
 
@@ -94,6 +93,9 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
     private RecyclerView mRvPorEpisodes;
     private EpisodePortraitItemAdapter mProEpiAdapter;
     private List<Single> mListEpisodes;
+
+    /** 横屏状态下的选集列表 */
+    private EpisodeLandScapeItemAdapter mLandEpiAdapter;
 
     /** 视频评论列表 */
     private VideoCommentsListView mVideoCommentsListView;
@@ -168,6 +170,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         createPresenter();
         initViews();
         initPortraitEpisodesListView();
+        initLandScapeEpisodesListView();
         initEvents();
 
         // 初始状态为加载专辑视频列表
@@ -265,7 +268,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         initCommentsList(mRequestData.getAlbumId(), singleId);
 
         // 渲染选集列表
-        drawPortraitEpisodeListView();
+        drawBothEpisodeListView();
     }
 
     /**
@@ -434,6 +437,8 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
 
     private void initPlayer() {
         DefinitionController controller = new DefinitionController(mContext);
+        controller.setEpisodeAdapter(mLandEpiAdapter);
+
         mPlayerView.setPlayerConfig(new PlayerConfig.Builder()
                 .setCustomMediaPlayer(new IjkPlayer(mContext) {
                     @Override
@@ -521,12 +526,27 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
     }
 
     /**
-     * 渲染选集列表，竖屏
+     * 选集列表，横屏
      */
-    private void drawPortraitEpisodeListView() {
+    private void initLandScapeEpisodesListView() {
+        mLandEpiAdapter = new EpisodeLandScapeItemAdapter(mContext, R.layout.landscape_episode_item);
+        mLandEpiAdapter.setDatas(mListEpisodes);
+        mLandEpiAdapter.setOnMyItemClickListener(new EpisodePortraitItemAdapter.OnMyItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                handleSelectEpisode(position);
+            }
+        });
+    }
+
+    /**
+     * 渲染选集列表，竖屏+横屏
+     */
+    private void drawBothEpisodeListView() {
         if (mAlbumData != null && mAlbumData.getPayload() != null) {
             List<Single> singles = mAlbumData.getPayload().getSingles();
             mProEpiAdapter.addList(singles);
+            mLandEpiAdapter.addList(singles);
 
             mListEpisodes = mProEpiAdapter.getDatas();
 

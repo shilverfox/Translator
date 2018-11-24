@@ -54,16 +54,16 @@ public class EpisodePortraitItemAdapter extends UniversalAdapter2<Single> {
         });
     }
 
-    private int getTextColor() {
+    public int getTextColor() {
         return (isSelected() ? 0xffb83438 : 0xff666666);
     }
 
-    private int getBackgroundColor() {
+    public int getBackgroundColor() {
         return isSelected() ? R.drawable.shape_por_episode_select_bg
                 : R.drawable.shape_por_episode_normal_bg;
     }
 
-    private boolean isSelected() {
+    public boolean isSelected() {
         return mFocusedPosition == mCurrentPosition;
     }
 
