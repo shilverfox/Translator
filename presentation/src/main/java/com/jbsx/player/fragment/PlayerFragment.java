@@ -272,9 +272,6 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
 
         // 加载评论信息
         initCommentsList(mRequestData.getAlbumId(), singleId);
-
-        // 渲染选集列表
-        drawBothEpisodeListView();
     }
 
     /**
@@ -293,8 +290,14 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         mPresenter.loadSingleVideo(mSingleId, ConstData.VIDEO_DEFINITION_TYPE_STAND);
         mPresenter.loadSingleVideo(mSingleId, ConstData.VIDEO_DEFINITION_TYPE_HIGH);
 
+        // 加载片库信息
+        mPresenter.loadAlbumDetail(mRequestData.getAlbumId(), mSingleId);
+
         // 加载评论信息
         initCommentsList(mRequestData.getAlbumId(), mSingleId);
+
+        // 清空视屏状态
+        mPlayerView.release();
     }
 
     /**
@@ -325,6 +328,10 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
     public void drawVideoOfAlbum(AlbumData albumData) {
         // 绘制视频列表信息，同时加载视频信息
         mAlbumData = albumData;
+
+        // 渲染选集列表
+        drawBothEpisodeListView();
+
         setStatus(WAITING_FOR_VIDEO_INFO);
     }
 
