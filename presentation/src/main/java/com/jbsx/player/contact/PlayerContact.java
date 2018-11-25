@@ -79,5 +79,14 @@ public class PlayerContact {
          * @param singleId
          */
         void handleConcernVideo(String albumId, String singleId);
+
+        /**
+         * 记录播放时间
+         *
+         * @param albumId
+         * @param singleId
+         * @param second
+         */
+        void recordWatchTime(String albumId, String singleId, String second);
     }
 }

@@ -21,7 +21,9 @@ import android.widget.TextView;
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.data.ConstData;
 import com.app.domain.net.interactor.PlayerUserCase;
+import com.dueeeke.videoplayer.listener.OnVideoViewStateChangeListener;
 import com.dueeeke.videoplayer.player.IjkPlayer;
+import com.dueeeke.videoplayer.player.IjkVideoView;
 import com.dueeeke.videoplayer.player.PlayerConfig;
 import com.github.ikidou.fragmentBackHandler.BackHandlerHelper;
 import com.github.ikidou.fragmentBackHandler.FragmentBackHandler;
@@ -115,6 +117,9 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
 
     /** 专辑视频列表 */
     private AlbumData mAlbumData;
+
+    /** 当前视屏播放进度 */
+    private long mSingleCurrentPosition;
 
     /** 视频清晰度信息 */
     private LinkedHashMap<String, String> mDefinitionList;
@@ -341,6 +346,9 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
             setStatus(LOAD_VIDEO_INFO_SUCCESS);
         }
 
+        // 当前视频播放进度
+        mSingleCurrentPosition = SingleVideoUtil.getSecond(videoData);
+
         // 收藏状态
         mIvFavorite.setVisibility(View.VISIBLE);
         handleDrawConcernStatus(SingleVideoUtil.isFavorite(videoData));
@@ -451,6 +459,20 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
                 })
                 .autoRotate()//自动旋转屏幕
                 .build());
+
+        mPlayerView.addOnVideoViewStateChangeListener(new OnVideoViewStateChangeListener() {
+            @Override
+            public void onPlayerStateChanged(int i) {
+            }
+
+            @Override
+            public void onPlayStateChanged(int i) {
+                // 控制播放进度
+                if (i == IjkVideoView.STATE_PREPARED) {
+                    mPlayerView.seekTo(mSingleCurrentPosition);
+                }
+            }
+        });
 
         mPlayerView.setDefinitionVideos(mDefinitionList);
         mPlayerView.setVideoController(controller);
@@ -630,10 +652,18 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         mVideoCommentsListView.clearAndFresh();
     }
 
+    /**
+     * 记录播放时间
+     */
+    private void recordWatchTime() {
+        mPresenter.recordWatchTime(mAlbumId, mSingleId, mPlayerView.getCurrentPosition() + "");
+    }
+
     @Override
     public void onPause() {
         super.onPause();
         mPlayerView.pause();
+        recordWatchTime();
     }
 
     @Override

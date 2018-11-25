@@ -11,6 +11,8 @@ import com.jbsx.R;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
 import com.jbsx.player.util.PlayerHelper;
+import com.jbsx.player.util.SingleVideoUtil;
+import com.jbsx.utils.DateUtil;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.utils.DataUtil;
 import com.jbsx.view.main.entity.Single;
@@ -117,17 +119,22 @@ public class MyInfoVideoViewHolder extends CommonListFragmentViewHolder<ViewHist
     }
 
     /**
-     * 观看时常
+     * 观看时长
      *
      * @return
      */
     private String getViewTime() {
-        String time = "";
+        String percent = "";
 
-        if (mData != null) {
-            time = mData.getCreatedAt();
+        if (mData != null && mData.getSingle() != null) {
+            Single single = mData.getSingle();
+
+            long currentPlay = Long.parseLong(mData.getSecond());
+            long totalTime = DateUtil.parseMillSecond(single.getLongTime());
+
+            percent = SingleVideoUtil.getWatchPercent(currentPlay, totalTime);
         }
-        return "观看至：" + time;
+        return "观看至：" + percent + "%";
     }
 
     @Override

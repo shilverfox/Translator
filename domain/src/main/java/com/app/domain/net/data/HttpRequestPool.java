@@ -733,4 +733,35 @@ public class HttpRequestPool {
 
         return baseRequest;
     }
+
+    /**
+     * 记录播放时长
+     *
+     * @param token
+     * @param albumId
+     * @param singleId
+     * @param userId
+     * @param second
+     * @return
+     */
+    public static BaseRequestEntity recordWatchTimeEntity(String token, String albumId, String singleId,
+                                                       String userId, String second) {
+
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/writeSinglePlayTime");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+        body.add("albumId", albumId);
+        body.add("singleId", singleId);
+        body.add("userId", userId);
+        body.add("second", second);
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, token);
+
+        return baseRequest;
+    }
 }

@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import com.app.domain.net.data.ConstData;
 import com.jbsx.player.data.SingleVideoData;
 
+import java.text.DecimalFormat;
+
 public class SingleVideoUtil {
     /**
      * 拿到播放视频
@@ -18,6 +20,21 @@ public class SingleVideoUtil {
         }
 
         return url;
+    }
+
+    /**
+     * 当前视频播放进度
+     *
+     * @param data
+     * @return
+     */
+    public static long getSecond(SingleVideoData data) {
+        long second = 0;
+        if (data != null && data.getPayload() != null) {
+            second = data.getPayload().getSecond();
+        }
+
+        return second;
     }
 
     /**
@@ -65,5 +82,33 @@ public class SingleVideoUtil {
         }
 
         return type;
+    }
+
+    /**
+     * 计算进度百分比
+     *
+     * @param currentPosition
+     * @param totalLength
+     * @return
+     */
+    public static String getWatchPercent(float currentPosition, float totalLength) {
+        float percent = 0;
+        String format = "0.0";
+
+        try {
+            percent = (currentPosition / totalLength) * 100;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        DecimalFormat decimalFormat = new DecimalFormat(format);
+        String percentString = decimalFormat.format(percent);
+
+        if (format.equals(percentString)) {
+            // 0.0 数据直接返回0
+            percentString = "0";
+        }
+
+        return percentString;
     }
 }

@@ -81,4 +81,22 @@ public class PlayerUserCase extends UserCase {
         BaseRequestEntity entity = HttpRequestPool.concernVideoEntity(token, albumId, singleId, userId);
         handleSendRequest(entity, callback);
     }
+
+    /**
+     * 记录播放时间
+     *
+     * @param token
+     * @param albumId
+     * @param singleId
+     * @param userId
+     * @param second
+     * @param callback
+     */
+    public void recordWatchTime(String token, String albumId, String singleId, String userId,
+                                String second, BaseRequestCallback callback) {
+
+        BaseRequestEntity entity = HttpRequestPool.recordWatchTimeEntity(token, albumId, singleId,
+                userId, second);
+        handleSendRequest(entity, callback);
+    }
 }

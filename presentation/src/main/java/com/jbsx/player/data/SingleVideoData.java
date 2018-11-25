@@ -49,7 +49,7 @@ public class SingleVideoData {
 
         private String isCollect;
         private String playUrl;
-        private int second;
+        private long second;
         private BaseDomainData.ResultStatus resultStatus;
         private List<Param> param;
 
@@ -69,11 +69,11 @@ public class SingleVideoData {
             this.playUrl = playUrl;
         }
 
-        public int getSecond() {
+        public long getSecond() {
             return second;
         }
 
-        public void setSecond(int second) {
+        public void setSecond(long second) {
             this.second = second;
         }
 

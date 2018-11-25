@@ -9,6 +9,7 @@ import com.jbsx.player.data.AlbumData;
 import com.jbsx.player.data.ConcernData;
 import com.jbsx.player.data.SingleVideoData;
 import com.jbsx.player.data.SpecialSingleData;
+import com.jbsx.utils.LogTools;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.view.login.util.LoginHelper;
 
@@ -197,5 +198,28 @@ public class PlayerPresenter implements PlayerContact.Presenter {
 
     private void handleConcernVideoFailed(BaseDomainData data) {
         MessageTools.showErrorMessage(data);
+    }
+
+    @Override
+    public void recordWatchTime(String albumId, String singleId, String second) {
+        mUserCase.recordWatchTime(LoginHelper.getInstance().getUserToken(), albumId, singleId,
+                LoginHelper.getInstance().getUserId(), second, new BaseRequestCallback() {
+                    @Override
+                    public void onRequestFailed(BaseDomainData data) {
+                        // 记录成功与否无所谓
+                        LogTools.e("");
+                    }
+
+                    @Override
+                    public void onRequestSuccessful(String data) {
+                        // 记录成功与否无所谓
+                        LogTools.e("");
+                    }
+
+                    @Override
+                    public void onNetError() {
+
+                    }
+                });
     }
 }
