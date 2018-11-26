@@ -23,6 +23,7 @@ import com.jbsx.customview.recyclerview.LoadingFooter;
 import com.jbsx.player.util.PlayerHelper;
 import com.jbsx.utils.LogTools;
 import com.jbsx.utils.ProgressBarHelper;
+import com.jbsx.utils.Router;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.view.main.adapter.CelebrityIconItemAdapter;
 import com.jbsx.view.main.adapter.VideoItemAdapter;
@@ -35,6 +36,8 @@ import com.jbsx.view.main.entity.HostData;
 import com.jbsx.view.main.entity.SpecialAlbumData;
 import com.jbsx.view.main.entity.SpecialAlbums;
 import com.jbsx.view.main.presenter.MainPagePresenter;
+import com.jbsx.view.search.SearchResultActivity;
+import com.jbsx.view.search.util.SearchHelper;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
@@ -99,8 +102,23 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         createPresenter();
         initViews();
         initEvents();
+        loadData();
 
         return mRootView;
+    }
+
+    /**
+     * 加载网络数据
+     */
+    private void loadData() {
+        MainApplicationLike.getInstance().getHanlder().post(new Runnable() {
+            @Override
+            public void run() {
+                loadBannerInfo();
+                loadCelebrities();
+                loadSpecialAlbum(mCurrentPage);
+            }
+        });
     }
 
     private void initEvents() {
@@ -201,12 +219,20 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         mRvHostList.setAdapter(mAdapterCelebrity);
     }
 
+    /**
+     * 跳转到搜索结果也
+     *
+     * @param position
+     */
     private void handleCelebritySelect(int position) {
         if (mListCelebrity != null && mListCelebrity.size() > 0
                 && position >= 0 && position < mListCelebrity.size()) {
             Celebrities celebrity = mListCelebrity.get(position);
 
             if (celebrity != null) {
+                SearchHelper searchHelper = new SearchHelper();
+                searchHelper.doSearch(celebrity.getName());
+                Router.getInstance().open(SearchResultActivity.class, getActivity());
             }
         }
     }
@@ -436,9 +462,6 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     @Override
     public void onStart() {
         super.onStart();
-        loadBannerInfo();
-        loadCelebrities();
-        loadSpecialAlbum(mCurrentPage);
     }
 
     @Override
