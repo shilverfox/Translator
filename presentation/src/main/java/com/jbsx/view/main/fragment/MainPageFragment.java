@@ -444,6 +444,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         if (celebrityData != null && celebrityData.getPayload() != null) {
             List<Celebrities> data = celebrityData.getPayload().getCelebrities();
             if (data != null && !data.isEmpty()) {
+                mAdapterCelebrity.clear();
                 mAdapterCelebrity.addList(data);
                 mListCelebrity = mAdapterCelebrity.getDatas();
             }
