@@ -8,15 +8,15 @@ import android.os.Parcelable;
  */
 public class SearchEvent implements Parcelable {
     public final static int SEARCH_TYPE_TITLE_CELEBRITY = 0;
-    public final static int SEARCH_TYPE_CELEBRITY = 1;
-    public final static int SEARCH_TYPE_TITLE = 2;
+    public final static int SEARCH_TYPE_CELEBRITY = 2;
+    public final static int SEARCH_TYPE_TITLE = 1;
 
     public final static int SEARCH_SORT_BY_HOT = 1;
 
     private int celebrityId;
     private String searchKey;
 
-    /** 0 标题+主讲 1主讲 2标题 (默认值：0) */
+    /** 0 标题+主讲 2主讲 1标题 (默认值：0) */
     private int searchType;
 
     /** 排序热门1热门2非热门 */
