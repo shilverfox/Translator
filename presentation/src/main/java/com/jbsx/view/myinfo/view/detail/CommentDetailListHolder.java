@@ -1,18 +1,30 @@
 package com.jbsx.view.myinfo.view.detail;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.app.data.net.repository.TaskManager;
+import com.app.domain.net.BaseRequestCallback;
 import com.app.domain.net.data.ConstData;
+import com.app.domain.net.interactor.CommentsUserCase;
+import com.app.domain.net.model.BaseDomainData;
 import com.jbsx.R;
+import com.jbsx.app.MainApplicationLike;
+import com.jbsx.customview.CommentInputDialog;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
+import com.jbsx.utils.ShowTools;
 import com.jbsx.utils.image.ImageLoader;
-import com.jbsx.view.myinfo.data.MyCommentData;
-import com.jbsx.view.myinfo.data.MyMessageData;
+import com.jbsx.view.login.util.LoginHelper;
+import com.jbsx.view.myinfo.data.UpdateListEvent;
 import com.jbsx.view.myinfo.data.UserComments;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 评论详情中的评论列表
@@ -32,6 +44,11 @@ public class CommentDetailListHolder extends CommonListFragmentViewHolder<UserCo
     private UserComments mData;
     private int mCurrentPosition;
 
+    private CommentsUserCase mUserCase;
+
+    /** 评论输入框 */
+    private Dialog mInputCommentDialog;
+
     private CommonListFragmentAdapter mAdapter;
 
     private OnMyItemClickListener onMyItemClickListener;
@@ -40,6 +57,8 @@ public class CommentDetailListHolder extends CommonListFragmentViewHolder<UserCo
     public CommentDetailListHolder(Context context, View view) {
         super(view);
         mContext = context;
+        mUserCase = new CommentsUserCase(TaskManager.getTaskManager(),
+                MainApplicationLike.getUiThread());
     }
 
     @Override
@@ -80,9 +99,93 @@ public class CommentDetailListHolder extends CommonListFragmentViewHolder<UserCo
             mTvComment.setText("评论" + data.getCommentReply());
             mTvNbCount.setText(data.getCommentLove() + "");
 
+            mTvComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    postComment();
+                }
+            });
+
+            mTvNbCount.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    giveThumbToComment();
+                }
+            });
+
             // 不显示评论回复
             mTvResponseContent.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * 发表评论
+     */
+    private void postComment() {
+        mInputCommentDialog = CommentInputDialog.showInputComment((Activity)mContext, "",
+                new CommentInputDialog.CommentDialogListener() {
+            @Override
+            public void onClickPublish(Dialog dialog, EditText input, TextView btn) {
+                mUserCase.requestPostComment(LoginHelper.getInstance().getUserToken(),
+                        LoginHelper.getInstance().getUserId(), mData.getSpecialAlbumId(),
+                        mData.getSpecialSingleId(), input.getText().toString(), mData.getId(),
+                        new BaseRequestCallback() {
+                            @Override
+                            public void onRequestFailed(BaseDomainData data) {
+                                ShowTools.toast("评论失败，请重试");
+                            }
+
+                            @Override
+                            public void onRequestSuccessful(String data) {
+                                // 评论成功，刷新adapter
+                                ShowTools.toast("评论成功");
+                                notifyDataUpdate();
+                            }
+
+                            @Override
+                            public void onNetError() {
+
+                            }
+                        });
+                mInputCommentDialog.dismiss();
+            }
+
+            @Override
+            public void onShow(int[] inputViewCoordinatesOnScreen) {
+            }
+
+            @Override
+            public void onDismiss() {
+
+            }
+        });
+    }
+
+    /**
+     * 点赞
+     */
+    private void giveThumbToComment() {
+        mUserCase.requestGiveThumb(LoginHelper.getInstance().getUserToken(),
+                LoginHelper.getInstance().getUserId(), mData.getSpecialAlbumId(),
+                mData.getSpecialSingleId(), mData.getId(),
+                new BaseRequestCallback() {
+                    @Override
+                    public void onRequestFailed(BaseDomainData data) {
+                        ShowTools.toast("点赞，请重试");
+                    }
+
+                    @Override
+                    public void onRequestSuccessful(String data) {
+                        // 点赞成功，刷新adapter
+                        ShowTools.toast("点赞成功");
+                        notifyDataUpdate();
+                    }
+
+                    @Override
+                    public void onNetError() {
+
+                    }
+                });
     }
 
     /**
@@ -114,6 +217,10 @@ public class CommentDetailListHolder extends CommonListFragmentViewHolder<UserCo
         if (onMyItemClickListener != null) {
             onMyItemClickListener.onClick(position);
         }
+    }
+
+    private void notifyDataUpdate() {
+        EventBus.getDefault().post(new UpdateListEvent());
     }
 
     public interface OnMyItemClickListener {

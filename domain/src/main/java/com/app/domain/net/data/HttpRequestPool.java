@@ -706,6 +706,50 @@ public class HttpRequestPool {
     }
 
     /**
+     * 点赞
+     *
+     * @param token
+     * @param albumId
+     * @param singleId
+     * @param userId
+     * @param commentId
+     * @return
+     */
+    public static BaseRequestEntity giveThumbEntity(String token, String albumId, String singleId,
+                                                      String userId, String commentId) {
+
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Special/Special/tooLove");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+
+        if (!TextUtils.isEmpty(albumId)) {
+            body.add("albumId", albumId);
+        }
+
+
+        if (!TextUtils.isEmpty(singleId)) {
+            body.add("singleId", singleId);
+        }
+
+        if (!TextUtils.isEmpty(userId)) {
+            body.add("userId", userId);
+        }
+
+        if (!TextUtils.isEmpty(commentId)) {
+            body.add("commentId", commentId);
+        }
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, token);
+
+        return baseRequest;
+    }
+
+    /**
      * 关注、取关视频
      *
      * @param token

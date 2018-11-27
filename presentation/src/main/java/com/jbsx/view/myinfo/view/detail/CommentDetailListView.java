@@ -9,12 +9,17 @@ import com.app.domain.net.data.HttpRequestPool;
 import com.app.domain.net.model.BaseRequestEntity;
 import com.google.gson.Gson;
 import com.jbsx.R;
+import com.jbsx.app.BaseEvent;
 import com.jbsx.customview.listFragment.CommonListFragment;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.myinfo.data.MyCommentData;
+import com.jbsx.view.myinfo.data.UpdateListEvent;
 import com.jbsx.view.myinfo.data.UserComments;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,4 +139,9 @@ public class CommentDetailListView extends CommonListFragment {
     public boolean needLoadByPage() {
         return true;
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUpdateMessageEvent(UpdateListEvent event) {
+        clearAndFresh();
+    };
 }
