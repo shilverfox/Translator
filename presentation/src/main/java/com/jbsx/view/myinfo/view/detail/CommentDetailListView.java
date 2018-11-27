@@ -106,7 +106,7 @@ public class CommentDetailListView extends CommonListFragment {
         Gson gson = new Gson();
         mResultData = gson.fromJson(result, MyCommentData.class);
 
-        if (mResultData != null || mResultData.getPayload() != null) {
+        if (mResultData != null && mResultData.getPayload() != null) {
             List<UserComments> list = mResultData.getPayload().getUserComments();
 
             // 设置评论数量

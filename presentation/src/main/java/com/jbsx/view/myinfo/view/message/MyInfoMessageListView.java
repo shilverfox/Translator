@@ -77,7 +77,7 @@ public class MyInfoMessageListView extends CommonListFragment {
         Gson gson = new Gson();
         mMessageData = gson.fromJson(result, MyMessageData.class);
 
-        if (mMessageData != null || mMessageData.getPayload() != null) {
+        if (mMessageData != null && mMessageData.getPayload() != null) {
             List<MyMessageData.MessageList> list = mMessageData.getPayload().getMessageList();
             addMessageType(list);
             return list;

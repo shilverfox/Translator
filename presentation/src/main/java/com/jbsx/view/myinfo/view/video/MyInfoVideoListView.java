@@ -81,7 +81,7 @@ public class MyInfoVideoListView extends CommonListFragment {
         Gson gson = new Gson();
         mHistoryData = gson.fromJson(result, ViewHistoryData.class);
 
-        if (mHistoryData != null || mHistoryData.getPayload() != null) {
+        if (mHistoryData != null && mHistoryData.getPayload() != null) {
             return mHistoryData.getPayload().getUserSingles();
         }
 

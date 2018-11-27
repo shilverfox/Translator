@@ -78,7 +78,7 @@ public class MyCommentListView extends CommonListFragment {
         Gson gson = new Gson();
         mMessageData = gson.fromJson(result, MyCommentData.class);
 
-        if (mMessageData != null || mMessageData.getPayload() != null) {
+        if (mMessageData != null && mMessageData.getPayload() != null) {
             List<UserComments> list = mMessageData.getPayload().getUserComments();
             return list;
         }

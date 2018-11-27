@@ -90,7 +90,7 @@ public class SearchResultView extends CommonListFragment {
         Gson gson = new Gson();
         mRepertoryData = gson.fromJson(result, RepertoryData.class);
 
-        if (mRepertoryData != null || mRepertoryData.getPayload() != null) {
+        if (mRepertoryData != null && mRepertoryData.getPayload() != null) {
             return mRepertoryData.getPayload().getSpecialSingles();
         }
 
