@@ -21,12 +21,12 @@ public class SplashActivity extends BaseActivity {
                 .withFullScreen()
                 .withTargetActivity(MainActivity.class)
                 .withSplashTimeOut(4000)
-                .withBackgroundResource(android.R.color.holo_red_light)
-                .withHeaderText("Header")
-                .withFooterText("Copyright 2016")
-                .withBeforeLogoText("My cool company")
-                .withLogo(R.mipmap.ic_launcher)
-                .withAfterLogoText("Some more details")
+                .withBackgroundResource(R.drawable.splash)
+//                .withHeaderText("Header")
+//                .withFooterText("Copyright 2016")
+//                .withBeforeLogoText("My cool company")
+//                .withLogo(R.mipmap.ic_launcher)
+//                .withAfterLogoText("Some more details")
                 .create();
 
         setContentView(easySplashScreenView);
