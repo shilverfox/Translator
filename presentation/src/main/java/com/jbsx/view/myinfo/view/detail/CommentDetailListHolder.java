@@ -25,6 +25,9 @@ import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.myinfo.data.UpdateListEvent;
 import com.jbsx.view.myinfo.data.UserComments;
+import com.jbsx.view.myinfo.util.CommentDetailHelper;
+
+import org.greenrobot.eventbus.EventBus;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -125,6 +128,7 @@ public class CommentDetailListHolder extends CommonListFragmentViewHolder<UserCo
     }
 
     /**
+<<<<<<< HEAD
      * 点赞图标
      *
      * @param isLove
@@ -135,6 +139,8 @@ public class CommentDetailListHolder extends CommonListFragmentViewHolder<UserCo
     }
 
     /**
+=======
+>>>>>>> af8840214a40df18320400bee2efe96d6fb29c63
      * 发表评论
      */
     private void postComment() {
@@ -233,6 +239,9 @@ public class CommentDetailListHolder extends CommonListFragmentViewHolder<UserCo
         if (onMyItemClickListener != null) {
             onMyItemClickListener.onClick(position);
         }
+
+        // 跳转到评论详情
+        CommentDetailHelper.goToCommentDetailActivity((Activity)mContext, mData);
     }
 
     private void notifyDataUpdate() {

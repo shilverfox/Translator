@@ -99,6 +99,16 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         MainApplicationLike.getInstance().getHanlder().postDelayed(new Runnable() {
             public void run() {

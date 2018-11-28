@@ -38,50 +38,12 @@ public class RecyclerViewStateUtils {
         if (outerAdapter == null || !(outerAdapter instanceof HeaderAndFooterRecyclerViewAdapter)) {
             return;
         }
-//        DLog.d("hxt","setFooterViewState--0");
-        HeaderAndFooterRecyclerViewAdapter headerAndFooterAdapter = (HeaderAndFooterRecyclerViewAdapter) outerAdapter;
 
+        HeaderAndFooterRecyclerViewAdapter headerAndFooterAdapter = (HeaderAndFooterRecyclerViewAdapter) outerAdapter;
         LoadingFooter footerView;
 
-        //只有一页的时候，就别加什么FooterView了
-        int visibleItemCount = recyclerView.getLayoutManager().getChildCount();
-
-        int totalCount = headerAndFooterAdapter.getInnerAdapter().getItemCount();
-        if (totalCount < visibleItemCount) {
-//            DLog.d("hxt","setFooterViewState--1");
-            if (headerAndFooterAdapter.getFooterViewsCount() > 0) {
-//                DLog.d("hxt","setFooterViewState--2--old");
-                footerView = (LoadingFooter) headerAndFooterAdapter.getFooterView();
-                if (isNewEndText) {
-                    if (TextUtils.isEmpty(defaultText)) {
-                        footerView.setStrEndText("去看看其他分类吧");
-                    } else {
-                        footerView.setStrEndText(defaultText);
-                    }
-                }
-                footerView.setState(LoadingFooter.State.ONE_PAGE);
-            } else {
-//                DLog.d("hxt","setFooterViewState--3--new");
-                footerView = new LoadingFooter(instance);
-                if (isNewEndText) {
-                    if (TextUtils.isEmpty(defaultText)) {
-                        footerView.setStrEndText("去看看其他分类吧");
-                    } else {
-                        footerView.setStrEndText(defaultText);
-                    }
-                }
-                footerView.setState(LoadingFooter.State.ONE_PAGE);
-                headerAndFooterAdapter.addFooterView(footerView);
-                //recyclerView.scrollToPosition(headerAndFooterAdapter.getItemCount() - 1);
-            }
-
-            return;
-        }
-
-//        DLog.d("hxt","setFooterViewState--4");
-        //已经有footerView了
+        // 已经有footerView了
         if (headerAndFooterAdapter.getFooterViewsCount() > 0) {
-//            DLog.d("hxt","setFooterViewState--5--old");
             footerView = (LoadingFooter) headerAndFooterAdapter.getFooterView();
             if (isNewEndText) {
                 if (TextUtils.isEmpty(defaultText)) {
@@ -97,7 +59,6 @@ public class RecyclerViewStateUtils {
             }
             recyclerView.scrollToPosition(headerAndFooterAdapter.getItemCount() - 1);
         } else {
-//            DLog.d("hxt","setFooterViewState--6--new");
             footerView = new LoadingFooter(instance);
             if (isNewEndText) {
                 if (TextUtils.isEmpty(defaultText)) {
