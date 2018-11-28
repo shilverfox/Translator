@@ -3,6 +3,7 @@ package com.jbsx.view.myinfo.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,20 +85,36 @@ public class CommentDetailFragment extends BaseFragment {
         tvNbCount.setText(mRequestData.getCommentLove() + "");
     }
 
+    /**
+     * 当前数据中是否包含Single信息
+     *
+     * @return
+     */
+    private boolean hasSingleInfo() {
+        return mRequestData.getSingle() != null && !TextUtils.isEmpty(mRequestData.getSingle().getId());
+    }
+
     private void initVideoInfo() {
         View videoView = mRootView.findViewById(R.id.layout_comment_video);
-        SearchResultHolder viewHolder = new SearchResultHolder(mContext, videoView);
 
-        // 不显示主讲
-        View hideView = videoView.findViewById(R.id.iv_video_item_host);
-        hideView.setVisibility(View.GONE);
+        // 是否有视频数据
+        if (hasSingleInfo()) {
+            SearchResultHolder viewHolder = new SearchResultHolder(mContext, videoView);
 
-        // 造holder需要的数据
-        SpecialSingles specialSingles = new SpecialSingles();
-        specialSingles.setSingle(mRequestData.getSingle());
+            // 不显示主讲
+            View hideView = videoView.findViewById(R.id.iv_video_item_host);
+            hideView.setVisibility(View.GONE);
 
-        viewHolder.findViews(videoView);
-        viewHolder.drawViews(specialSingles, 0);
+            // 造holder需要的数据
+            SpecialSingles specialSingles = new SpecialSingles();
+            specialSingles.setSingle(mRequestData.getSingle());
+
+            viewHolder.findViews(videoView);
+            viewHolder.drawViews(specialSingles, 0);
+        } else {
+            // 没有视频信息，不显示视频
+            videoView.setVisibility(View.GONE);
+        }
     }
 
     private void initEvents() {

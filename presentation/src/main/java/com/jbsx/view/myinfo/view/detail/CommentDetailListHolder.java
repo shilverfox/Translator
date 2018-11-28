@@ -23,6 +23,7 @@ import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.myinfo.data.UpdateListEvent;
 import com.jbsx.view.myinfo.data.UserComments;
+import com.jbsx.view.myinfo.util.CommentDetailHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -217,6 +218,9 @@ public class CommentDetailListHolder extends CommonListFragmentViewHolder<UserCo
         if (onMyItemClickListener != null) {
             onMyItemClickListener.onClick(position);
         }
+
+        // 跳转到评论详情
+        CommentDetailHelper.goToCommentDetailActivity((Activity)mContext, mData);
     }
 
     private void notifyDataUpdate() {

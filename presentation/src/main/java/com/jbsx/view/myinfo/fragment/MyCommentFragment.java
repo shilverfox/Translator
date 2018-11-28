@@ -33,6 +33,7 @@ import com.jbsx.view.myinfo.data.CommentEvent;
 import com.jbsx.view.myinfo.data.MyCommentData;
 import com.jbsx.view.myinfo.data.MyInfoConst;
 import com.jbsx.view.myinfo.data.UserComments;
+import com.jbsx.view.myinfo.util.CommentDetailHelper;
 import com.jbsx.view.myinfo.view.comment.MyCommentListView;
 import com.jbsx.view.myinfo.view.message.MyInfoMessageListView;
 import com.jbsx.view.search.entity.SearchEvent;
@@ -107,9 +108,7 @@ public class MyCommentFragment extends BaseFragment {
      * @param userComments
      */
     private void goToCommentDetailActivity(UserComments userComments) {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(Router.COMMENT_DETAIL_KEY, userComments);
-        Router.getInstance().open(CommentDetailActivity.class, getActivity(), bundle);
+        CommentDetailHelper.goToCommentDetailActivity(getActivity(), userComments);
     }
 
     /**
