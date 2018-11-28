@@ -128,19 +128,16 @@ public class CommentDetailListHolder extends CommonListFragmentViewHolder<UserCo
     }
 
     /**
-<<<<<<< HEAD
      * 点赞图标
      *
      * @param isLove
      * @return
      */
     private int getThumbIcon(boolean isLove) {
-        return isLove ? R.drawable.thumb_small : R.drawable.thumb_small;
+        return isLove ? R.drawable.thumb_small_red : R.drawable.thumb_small;
     }
 
     /**
-=======
->>>>>>> af8840214a40df18320400bee2efe96d6fb29c63
      * 发表评论
      */
     private void postComment() {
