@@ -64,4 +64,7 @@ public class ConstData {
 
     /** 视频清晰度： 高清 */
     public final static String VIDEO_DEFINITION_TYPE_HIGH = "1";
+
+    /** 评论列表排列模式， 最新（时间） */
+    public final static String COMMENT_ORDER_MODE_TIME = "1";
 }

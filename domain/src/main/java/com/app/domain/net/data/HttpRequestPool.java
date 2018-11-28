@@ -547,6 +547,7 @@ public class HttpRequestPool {
         body.add("albumId", albumId);
         body.add("singleId", singleId);
         body.add("userId", userId);
+        body.add("mode", ConstData.COMMENT_ORDER_MODE_TIME); // 1最新评论，0：最热
         body.add("no", page + "");
         body.add("size", ConstData.DEFAULT_PAGE_SIZE + "");
 
