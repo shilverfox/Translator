@@ -3,6 +3,7 @@ package com.jbsx.player;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
 import com.github.ikidou.fragmentBackHandler.BackHandlerHelper;
@@ -13,10 +14,12 @@ import com.jbsx.player.fragment.PlayerFragment;
 import com.jbsx.utils.Router;
 
 /**
+ * 播放页面不适用通用的自定义Activity，状态栏不需要透明
+ *
  * Created by lijian on 2018/11/19.
  */
 
-public class PlayerActivity extends BaseFragmentActivity {
+public class PlayerActivity extends FragmentActivity {
     private PlayerData mPlayerData;
 
     @Override
