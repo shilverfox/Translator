@@ -1,4 +1,4 @@
-package com.jbsx.utils.sha1;
+package com.jbsx.utils.smskey;
 
 /**
  * 对外提供getSHA(String str)方法

@@ -1,7 +1,4 @@
-package com.jbsx.utils.sha1;
-
-import com.jbsx.utils.sha1.ISmsKeyGeneratorListener;
-import com.jbsx.utils.sha1.SHA;
+package com.jbsx.utils.smskey;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -16,7 +13,10 @@ import java.util.Random;
  * 签名字符串（算法：token,时间戳，随机数三个字符串按照首字母大小进行排序后拼接成字符串 ，hash(sha1(拼接的字符串)) ，加密后字符串转为大写）
  */
 public class SmsKeyGenerator {
-    private final static String TOKEN = "XQBYdcHKSO+RS16jQhf+cRYJqaerqCole";
+
+    static {
+        System.loadLibrary("hello-jni");
+    }
 
     public static void getKey(ISmsKeyGeneratorListener callback) {
         // 1.
@@ -24,7 +24,7 @@ public class SmsKeyGenerator {
         String timeStamp = getTimeStamp();
 
         List<String> params = new ArrayList<>();
-        params.add(TOKEN);
+        params.add(getStringFromJNI());
         params.add(randomInt);
         params.add(timeStamp);
 
@@ -60,4 +60,6 @@ public class SmsKeyGenerator {
     private static String getTimeStamp() {
         return System.currentTimeMillis() + "";
     }
+
+    public native static String getStringFromJNI();
 }
