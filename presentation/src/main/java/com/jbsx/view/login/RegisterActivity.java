@@ -8,10 +8,11 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.jbsx.R;
+import com.jbsx.app.BaseFragmentActivity;
 import com.jbsx.customview.TitleBar;
 import com.jbsx.view.login.view.fragment.LoginSimpleInputSmsFragment;
 
-public class RegisterActivity extends FragmentActivity {
+public class RegisterActivity extends BaseFragmentActivity {
     private LinearLayout mLayoutRoot;
     private TitleBar mTopBarLayout;
 

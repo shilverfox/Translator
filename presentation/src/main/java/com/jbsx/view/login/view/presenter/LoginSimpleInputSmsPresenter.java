@@ -6,6 +6,8 @@ import com.app.domain.net.interactor.LoginViewUserCase;
 import com.app.domain.net.model.BaseDomainData;
 import com.jbsx.utils.MD5Calculator;
 import com.jbsx.utils.MessageTools;
+import com.jbsx.utils.smskey.ISmsKeyGeneratorListener;
+import com.jbsx.utils.smskey.SmsKeyGenerator;
 import com.jbsx.view.login.view.contact.LoginSimpleInputSmsContract;
 
 /**
@@ -22,22 +24,28 @@ public class LoginSimpleInputSmsPresenter implements LoginSimpleInputSmsContract
     }
 
     @Override
-    public void handleGetSms(String mobile) {
+    public void handleGetSms(final String mobile) {
         if (mView != null && mLoginUserCase != null) {
-            mLoginUserCase.requestSmsCode(ConstData.REQUEST_SMS_TYPE_REGISTER, mobile, new BaseRequestCallback() {
+            SmsKeyGenerator.getKey(new ISmsKeyGeneratorListener() {
                 @Override
-                public void onRequestFailed(BaseDomainData data) {
-                    mView.onGetSmsFailed(MessageTools.getMessage(data));
-                }
+                public void onShaComplete(String timeStamp, String randomInt, String resultKey) {
+                    mLoginUserCase.requestSmsCode(ConstData.REQUEST_SMS_TYPE_REGISTER, mobile,
+                            timeStamp, resultKey, randomInt, new BaseRequestCallback() {
+                        @Override
+                        public void onRequestFailed(BaseDomainData data) {
+                            mView.onGetSmsFailed(MessageTools.getMessage(data));
+                        }
 
-                @Override
-                public void onRequestSuccessful(String data) {
-                    mView.onGetSmsSuccessful();
-                }
+                        @Override
+                        public void onRequestSuccessful(String data) {
+                            mView.onGetSmsSuccessful();
+                        }
 
-                @Override
-                public void onNetError() {
+                        @Override
+                        public void onNetError() {
 
+                        }
+                    });
                 }
             });
         }

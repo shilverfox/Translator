@@ -8,11 +8,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.jbsx.R;
+import com.jbsx.app.BaseFragmentActivity;
 import com.jbsx.customview.TitleBar;
 import com.jbsx.view.login.view.fragment.LoginResetPasswordFragment;
 import com.jbsx.view.login.view.fragment.LoginSimpleInputSmsFragment;
 
-public class ResetPasswordActivity extends FragmentActivity {
+public class ResetPasswordActivity extends BaseFragmentActivity {
     private LinearLayout mLayoutRoot;
     private TitleBar mTopBarLayout;
 

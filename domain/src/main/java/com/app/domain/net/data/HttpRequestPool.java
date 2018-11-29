@@ -231,7 +231,18 @@ public class HttpRequestPool {
         return baseRequest;
     }
 
-    public static BaseRequestEntity getRequestSmsCodeEntity(int type, String cellPhone) {
+    /**
+     * 获取短信验证码
+     *
+     * @param type
+     * @param cellPhone
+     * @param t 时间戳
+     * @param s key
+     * @param r 随机数
+     * @return
+     */
+    public static BaseRequestEntity getRequestSmsCodeEntity(int type, String cellPhone, String t,
+                                                            String s, String r) {
         BaseRequestEntity baseRequest = new BaseRequestEntity();
         baseRequest.setUrl(ConstData.HOST);
         baseRequest.setFunctionId("/User/User/requestSmsCodeByApp");
@@ -240,6 +251,18 @@ public class HttpRequestPool {
         BaseBody body = new BaseBody();
         body.add("type", type + "");
         body.add("cellphone", cellPhone);
+
+        if (!TextUtils.isEmpty(t)) {
+            body.add("t", t);
+        }
+
+        if (!TextUtils.isEmpty(s)) {
+            body.add("s", s);
+        }
+
+        if (!TextUtils.isEmpty(r)) {
+            body.add("r", r);
+        }
 
         baseRequest.setBaseBody(body);
 

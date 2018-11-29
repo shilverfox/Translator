@@ -60,8 +60,8 @@ public class LoginViewUserCase extends UserCase {
         handleSendRequest(entity, callback);
     }
 
-    public void requestSmsCode(int type, String cellPhone, BaseRequestCallback callback) {
-        BaseRequestEntity entity = HttpRequestPool.getRequestSmsCodeEntity(type, cellPhone);
+    public void requestSmsCode(int type, String cellPhone, String t, String s, String r, BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getRequestSmsCodeEntity(type, cellPhone, t, s, r);
         handleSendRequest(entity, callback);
     }
 
