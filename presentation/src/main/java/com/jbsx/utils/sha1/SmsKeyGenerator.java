@@ -11,9 +11,11 @@ import java.util.Random;
 
 /**
  * 短信防刷验证码生成器
+ *
+ *
+ * 签名字符串（算法：token,时间戳，随机数三个字符串按照首字母大小进行排序后拼接成字符串 ，hash(sha1(拼接的字符串)) ，加密后字符串转为大写）
  */
 public class SmsKeyGenerator {
-    // 签名字符串（算法：token,时间戳，随机数三个字符串按照首字母大小进行排序后拼接成字符串 ，hash(sha1(拼接的字符串)) ，加密后字符串转为大写）
     private final static String TOKEN = "XQBYdcHKSO+RS16jQhf+cRYJqaerqCole";
 
     public static void getKey(ISmsKeyGeneratorListener callback) {
@@ -48,15 +50,6 @@ public class SmsKeyGenerator {
         if (callback != null) {
             callback.onShaComplete(timeStamp, randomInt, result);
         }
-    }
-
-    private static List<String> getParams() {
-        List<String> params = new ArrayList<>();
-        params.add(TOKEN);
-        params.add(getRandomInt());
-        params.add(getTimeStamp());
-
-        return params;
     }
 
     private static String getRandomInt() {
