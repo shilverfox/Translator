@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import com.jbsx.utils.StatusBarUtil;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -21,6 +23,9 @@ public class BaseFragmentActivity extends FragmentActivity {
         eventBus = EventBus.getDefault();
         eventBus.register(this);
         mContext = this;
+
+        // 设置沉浸式状态栏
+        StatusBarUtil.setStatusBar(getWindow());
     }
 
     @Override

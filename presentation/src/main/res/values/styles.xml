@@ -6,8 +6,8 @@
     </style>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Light.NoTitleBar">
-    </style>
+    <style name="AppTheme" parent="android:Theme.Light.NoTitleBar" />
+    <style name="AppBaseTheme" parent="@android:style/Theme.Light.NoTitleBar" />
 
     <!-- 底部弹出Dialog动画 -->
     <style name="dialog_push_from_bottom_animation" parent="@android:style/Animation.Dialog">
