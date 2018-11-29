@@ -10,7 +10,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="#ffffff">
 
         <ImageView
@@ -18,97 +18,26 @@
             android:layout_width="100dp"
             android:layout_height="95dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dip"
+            android:layout_marginTop="150dip"
             android:background="@mipmap/ic_launcher" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_below="@+id/ivAppIcon"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="34dp"
-            android:background="#f5f5f5" />
-
-    </RelativeLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:orientation="horizontal"
-        android:paddingBottom="15dp"
-        android:paddingTop="8dp">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/btn_myinfo_about_good"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/about_good" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="评个价" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="match_parent"
-            android:background="#f5f5f5" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/btn_myinfo_about_bad"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/about_bad" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/btn_myinfo_about_bad"
-                android:layout_marginTop="5dp"
-                android:text="吐个槽" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="10dip"
-        android:gravity="bottom|center_horizontal"
-        android:orientation="vertical">
 
         <TextView
             android:id="@+id/txt_myinfo_about_slogan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="slogan" />
+            android:layout_above="@+id/txt_myinfo_about_version"
+            android:layout_centerHorizontal="true"
+            android:text="@string/app_name" />
 
         <TextView
             android:id="@+id/txt_myinfo_about_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:text="version" />
-    </LinearLayout>
 
+    </RelativeLayout>
 </LinearLayout>

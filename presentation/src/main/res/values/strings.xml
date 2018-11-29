@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TranslatMaster</string>
+    <string name="app_name">绝版赏析</string>
 
     <string name="main_btn_translate">Translate</string>
     <string name="main_btn_hot_fix">HotFix</string>
