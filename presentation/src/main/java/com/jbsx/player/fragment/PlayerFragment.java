@@ -242,6 +242,25 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
     }
 
     /**
+     * 获取当前选集在专辑中的索引
+     */
+    private int getEpisodeIndexOfAlbum(String singleId) {
+        if (mAlbumData != null && mAlbumData.getPayload() != null && mAlbumData.getPayload().getSingles() != null) {
+            List<Single> singleList = mAlbumData.getPayload().getSingles();
+
+            if (singleList != null && !singleList.isEmpty()) {
+                for(int i = 0; i < singleList.size(); i++) {
+                    if (singleList.get(i).getId().equals(singleId)) {
+                        return i;
+                    }
+                }
+            }
+        }
+
+        return 0;
+    }
+
+    /**
      * 获取某个视频
      */
     private void handleRequestSingleVideo() {
@@ -257,6 +276,9 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
                 singleId = single.getId();
             }
         }
+
+        // 设置当前默认选中的选集
+        syncEpisodeSelection(getEpisodeIndexOfAlbum(singleId));
 
         // 记录全局数据
         setGlobalVideoIds(mRequestData.getAlbumId(), singleId);
@@ -275,11 +297,25 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
     }
 
     /**
+     * 同步修改横屏、竖屏选集选中信息
+     */
+    private void syncEpisodeSelection(int episodeIndex) {
+        mProEpiAdapter.setFocusedPosition(episodeIndex);
+        mProEpiAdapter.notifyDataSetChanged();
+
+        mLandEpiAdapter.setFocusedPosition(episodeIndex);
+        mLandEpiAdapter.notifyDataSetChanged();
+    }
+
+    /**
      * 切换选集
      *
      * @param episodeIndex
      */
     private void handleSelectEpisode(int episodeIndex) {
+        // 绘制选中信息
+        syncEpisodeSelection(episodeIndex);
+
         Single single = getSingleFromAlbum(episodeIndex);
         if (single != null) {
             mSingleId = single.getId();
