@@ -192,6 +192,7 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
 
     private void handleSuccess(List<T> allList) {
         handleList(allList);
+        handleUiByData();
         ProgressBarHelper.removeProgressBar(mListView);
     }
 
@@ -202,6 +203,8 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
             ProgressBarHelper.removeProgressBar(mListView);
             handleErrorBarOfEmptyData();
         }
+
+        handleUiByData();
     }
 
     /**
@@ -228,6 +231,7 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
      * 服务端错误，请求成功，但返回失败
      */
     private void handleServerError() {
+        handleUiByData();
         ProgressBarHelper.removeProgressBar(mListView);
         ErroBarHelper.addErroBar(mListView, getInvalidResponseMessage(),
                 new Runnable() {
@@ -382,6 +386,11 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
         mInvalidResponseMessage = message;
     }
 
+    /**
+     * 填充数据后刷新UI，有的页面需要根据数据来处理一些控件的显示
+     */
+    public void handleUiByData() {
+    }
 
     /** 创建对应的Adapter */
     public abstract CommonListFragmentAdapter getAdapter(Context context);

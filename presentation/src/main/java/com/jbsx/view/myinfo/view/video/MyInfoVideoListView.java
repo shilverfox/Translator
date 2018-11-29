@@ -2,6 +2,7 @@ package com.jbsx.view.myinfo.view.video;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 
 import com.app.domain.net.data.ConstData;
 import com.app.domain.net.data.HttpRequestPool;
@@ -27,6 +28,9 @@ public class MyInfoVideoListView extends CommonListFragment {
     private MyInfoVideoAdapter mAdapter;
     private ViewHistoryData mHistoryData;
 
+    /** 编辑按钮 */
+    private View mBtnSelection;
+
     /** 只有functionId不同 */
     private String mFunctionId;
 
@@ -48,6 +52,10 @@ public class MyInfoVideoListView extends CommonListFragment {
         contentFragment.setArguments(bundle);
 
         return contentFragment;
+    }
+
+    public void setBtnSelection(View view) {
+        mBtnSelection = view;
     }
 
     /**
@@ -86,6 +94,21 @@ public class MyInfoVideoListView extends CommonListFragment {
         }
 
         return new ArrayList<ViewHistoryData.UserSingle>();
+    }
+
+    @Override
+    public void handleUiByData() {
+        handleBtnVisible();
+    }
+
+    /**
+     * 有数据再显示右上角的编辑按钮
+     */
+    private void handleBtnVisible() {
+        boolean hasList = mAdapter.getItemCount() > 0;
+        if (mBtnSelection != null) {
+            mBtnSelection.setVisibility(hasList ? View.VISIBLE : View.INVISIBLE);
+        }
     }
 
     @Override

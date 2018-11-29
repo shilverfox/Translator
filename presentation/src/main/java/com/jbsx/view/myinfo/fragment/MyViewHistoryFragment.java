@@ -174,6 +174,7 @@ public class MyViewHistoryFragment extends BaseFragment implements MyViewHistory
         FragmentManager fm = getFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         mRepertoryList = MyInfoVideoListView.newInstance("");
+        mRepertoryList.setBtnSelection(mTopBarLayout.getRightButton());
         mRepertoryList.setFunctionId(getSearchFunctionId());
         transaction.add(R.id.layout_my_history_container, mRepertoryList);
         transaction.commitAllowingStateLoss();
