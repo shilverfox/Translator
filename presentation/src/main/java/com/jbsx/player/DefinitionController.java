@@ -1,5 +1,7 @@
 package com.jbsx.player;
 
+import android.animation.AnimatorInflater;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -14,6 +16,8 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -23,6 +27,7 @@ import com.dueeeke.videoplayer.player.IjkVideoView;
 import com.dueeeke.videoplayer.util.L;
 import com.dueeeke.videoplayer.util.WindowUtil;
 import com.jbsx.R;
+import com.jbsx.app.MainApplicationLike;
 import com.jbsx.player.interf.DefinitionMediaPlayerControl;
 
 import java.util.ArrayList;
@@ -50,9 +55,15 @@ public class DefinitionController extends StandardVideoController {
 
     /** 选集列表 */
     private View mDrawerLayout;
+    private View mViewLandEpisodesContainer;
     private RecyclerView mRvLandEpisodes;
     private View mViewPlaceHolder;
+    private View mViewEpisodeBg;
 
+    private Animation mAnimationShow;
+    private Animation mAnimationHide;
+    private ObjectAnimator mAnimationFadeOut;
+    private ObjectAnimator  mAnimationFadeIn;
 
     public DefinitionController(@NonNull Context context) {
         this(context, null);
@@ -72,6 +83,61 @@ public class DefinitionController extends StandardVideoController {
         initMultiRate();
         initEpisode();
         initEpisodeList();
+        initEpisodeAnimation();
+    }
+
+    private void initEpisodeAnimation() {
+        Context context = MainApplicationLike.getAppContext();
+
+        // 黑色背景淡出
+        mAnimationFadeOut = (ObjectAnimator) AnimatorInflater.loadAnimator(context, R.animator.animator_alpha_out);
+        mAnimationFadeOut.setTarget(mViewEpisodeBg);
+
+        // 黑色背景淡入
+        mAnimationFadeIn = (ObjectAnimator)AnimatorInflater.loadAnimator(context, R.animator.animator_alpha_in);
+        mAnimationFadeIn.setTarget(mViewEpisodeBg);
+
+        // 分类列表进入
+        mAnimationShow = AnimationUtils.loadAnimation(context, R.anim.view_slide_right_to_left_in);
+        mAnimationShow.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                mAnimationFadeIn.start();
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {}
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+
+        // 分类列表退出
+        mAnimationHide = AnimationUtils.loadAnimation(context, R.anim.view_slide_right_to_left_out);
+        mAnimationHide.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                mAnimationFadeOut.start();
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                // 动画完毕后再隐藏界面
+                mDrawerLayout.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+    }
+
+    private void playAnimation(boolean show) {
+        if (show) {
+            mDrawerLayout.setVisibility(View.VISIBLE);
+            mViewLandEpisodesContainer.startAnimation(mAnimationShow);
+        } else {
+            mViewLandEpisodesContainer.startAnimation(mAnimationHide);
+        }
     }
 
     private void initEpisodeList() {
@@ -87,7 +153,9 @@ public class DefinitionController extends StandardVideoController {
         });
 
         // 初始化选集列表
+        mViewLandEpisodesContainer = controllerView.findViewById(R.id.rv_player_landscape_episodes_container);
         mRvLandEpisodes = controllerView.findViewById(R.id.rv_player_landscape_episodes);
+        mViewEpisodeBg = controllerView.findViewById(R.id.layout_episode_animation_bg);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), itemCount);
         mRvLandEpisodes.setLayoutManager(layoutManager);
     }
@@ -130,11 +198,11 @@ public class DefinitionController extends StandardVideoController {
      * 显示选集列表
      */
     private void showLandScapeEpisodes() {
-        mDrawerLayout.setVisibility(View.VISIBLE);
+        playAnimation(true);
     }
 
     private void hideLandScapeEpisodes() {
-        mDrawerLayout.setVisibility(View.INVISIBLE);
+        playAnimation(false);
     }
 
     private void selectEpisode() {
