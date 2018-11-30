@@ -12,7 +12,9 @@ import com.jbsx.customview.listFragment.CommonListFragment;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.main.entity.Single;
+import com.jbsx.view.main.entity.UserSingle;
 import com.jbsx.view.main.entity.ViewHistoryData;
+import com.jbsx.view.myinfo.util.SortListUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,10 +92,10 @@ public class MyInfoVideoListView extends CommonListFragment {
         mHistoryData = gson.fromJson(result, ViewHistoryData.class);
 
         if (mHistoryData != null && mHistoryData.getPayload() != null) {
-            return mHistoryData.getPayload().getUserSingles();
+            return SortListUtil.makeWrappedList(mAdapter.getData(), mHistoryData.getPayload().getUserSingles());
         }
 
-        return new ArrayList<ViewHistoryData.UserSingle>();
+        return new ArrayList<UserSingle>();
     }
 
     @Override
@@ -131,14 +133,14 @@ public class MyInfoVideoListView extends CommonListFragment {
         }
     }
 
-    private List<ViewHistoryData.UserSingle> getAllSings() {
+    private List<UserSingle> getAllSings() {
         return mHistoryData.getPayload().getUserSingles();
     }
 
     private void handleSelectAll(boolean select) {
-        List<ViewHistoryData.UserSingle> allSingle = getAllSings();
+        List<UserSingle> allSingle = getAllSings();
         if (allSingle != null) {
-            for (ViewHistoryData.UserSingle  userSingle: allSingle) {
+            for (UserSingle  userSingle: allSingle) {
                 Single single = userSingle.getSingle();
                 single.setCheck(select);
             }

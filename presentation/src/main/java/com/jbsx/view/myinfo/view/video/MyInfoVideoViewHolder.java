@@ -2,6 +2,7 @@ package com.jbsx.view.myinfo.view.video;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,24 +17,27 @@ import com.jbsx.utils.DateUtil;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.utils.DataUtil;
 import com.jbsx.view.main.entity.Single;
+import com.jbsx.view.main.entity.UserSingle;
 import com.jbsx.view.main.entity.ViewHistoryData;
 import com.jbsx.view.myinfo.fragment.MyViewHistoryFragment;
+import com.jbsx.view.myinfo.util.SortListUtil;
 
 /**
  * Created by lijian15 on 2017/9/4.
  */
 
-public class MyInfoVideoViewHolder extends CommonListFragmentViewHolder<ViewHistoryData.UserSingle> {
+public class MyInfoVideoViewHolder extends CommonListFragmentViewHolder<UserSingle> {
     private Context mContext;
 
     private View mRootView;
+    private TextView mTvGroup;
     private TextView mTvAmount;
     private TextView mTvTitle;
     private TextView mTvCelebrity;
     private ImageView mIvImageUrl;
     private ImageView mIvCheck;
 
-    private ViewHistoryData.UserSingle mData;
+    private UserSingle mData;
     private int mCurrentPosition;
 
     private CommonListFragmentAdapter mAdapter;
@@ -51,6 +55,7 @@ public class MyInfoVideoViewHolder extends CommonListFragmentViewHolder<ViewHist
         if (rootView != null) {
             mRootView = rootView;
 
+            mTvGroup  = mRootView.findViewById(R.id.iv_my_info_video_group);
             mTvAmount = mRootView.findViewById(R.id.iv_video_item_amount);
             mTvTitle = mRootView.findViewById(R.id.iv_video_item_description);
             mTvCelebrity = mRootView.findViewById(R.id.iv_video_item_host);
@@ -70,9 +75,17 @@ public class MyInfoVideoViewHolder extends CommonListFragmentViewHolder<ViewHist
     }
 
     @Override
-    public void drawViews(ViewHistoryData.UserSingle data, final int position) {
+    public void drawViews(UserSingle data, final int position) {
         mData = data;
         mCurrentPosition = position;
+
+        if (data != null) {
+            // 分组，只显示今天明天和更早
+            String group = data.getCreatedAt();
+            boolean hasGroupText = SortListUtil.groupIsValid(group);
+            mTvGroup.setVisibility(hasGroupText ? View.VISIBLE : View.GONE);
+            mTvGroup.setText(hasGroupText ? group : "");
+        }
 
         if (data != null && data.getSingle() != null) {
             final Single single = data.getSingle();

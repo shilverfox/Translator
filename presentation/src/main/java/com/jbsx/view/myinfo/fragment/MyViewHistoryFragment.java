@@ -167,7 +167,6 @@ public class MyViewHistoryFragment extends BaseFragment implements MyViewHistory
     @Override
     public void onResume() {
         super.onResume();
-        mRepertoryList.clearAndFresh();
     }
 
     private void initVideoListView() {

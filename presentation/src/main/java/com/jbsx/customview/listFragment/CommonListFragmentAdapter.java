@@ -43,6 +43,10 @@ public abstract class CommonListFragmentAdapter<T>
         mAllData = allData;
     }
 
+    public List<T> getData() {
+        return mAllData;
+    }
+
     public Context getContext() {
         return mContext;
     }
