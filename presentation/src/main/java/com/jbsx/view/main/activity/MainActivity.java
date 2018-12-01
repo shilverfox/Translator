@@ -77,6 +77,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
 
         // 滑动切换
         mTabLayout.setTabData(mTabEntities);
+        mViewPager.setOffscreenPageLimit(5);
         mViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         mViewPager.setCurrentItem(0);
     }
@@ -179,7 +180,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
             MainApplicationLike.getInstance().getHanlder().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mViewPager.setCurrentItem(0);
+//                    mViewPager.setCurrentItem(0);
                 }
             }, 500);
         }
