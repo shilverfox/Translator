@@ -90,7 +90,7 @@ public class SettingsActivity extends BaseFragmentActivity {
         MyInfoItem aboutItem = new MyInfoItem(SettingConst.SETTING_TYPE_ABOUT, "关于我们");
         aboutItem.setTo(AboutActivity.class);
         items.add(aboutItem);
-        items.add(new MyInfoItem(SettingConst.SETTING_TYPE_UPDATE, "检查更新"));
+//        items.add(new MyInfoItem(SettingConst.SETTING_TYPE_UPDATE, "检查更新"));
         mAdapter.setList(items);
     }
 
