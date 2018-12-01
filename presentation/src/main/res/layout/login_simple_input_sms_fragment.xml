@@ -19,16 +19,12 @@
             android:id="@+id/edt_login_ps_mobile"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            style="@style/login_input_text_style"
             android:drawableLeft="@drawable/login_mobile_icon"
             android:background="@null"
-            android:padding="15dp"
             android:inputType="phone"
             android:maxLength="11"
-            android:textSize="12sp"
-            android:drawablePadding="6dp"
-            android:textColorHint="@color/gray_999"
-            android:textColor="@color/gray_666"
-            android:hint="请输入手机号" >
+            android:hint="请输入您的手机号" >
 
             <requestFocus />
         </EditText>
@@ -47,20 +43,19 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/login_input_margin">
+        android:layout_marginLeft="@dimen/login_input_margin"
+        android:layout_marginRight="@dimen/login_input_margin">
         <EditText
             android:id="@+id/edt_login_ps_sms"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            style="@style/login_input_text_style"
             android:drawableLeft="@drawable/login_code_icon"
-            android:drawablePadding="6dp"
             android:background="@drawable/login_input_view_bg"
-            android:textColorHint="@color/gray_999"
-            android:textColor="@color/gray_666"
-            android:padding="15dp"
-            android:textSize="12sp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/edt_login_ps_get_sms"
+            android:inputType="number"
+            android:maxLength="8"
             android:hint="请输入收到的验证码" >
         </EditText>
 
@@ -82,7 +77,9 @@
         android:id="@+id/login_jd_password_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_margin="@dimen/login_input_margin"
+        android:layout_marginLeft="@dimen/login_input_margin"
+        android:layout_marginRight="@dimen/login_input_margin"
+        android:layout_marginTop="@dimen/login_input_margin"
         android:background="@drawable/login_input_view_bg"
         android:orientation="horizontal">
 
@@ -95,16 +92,11 @@
             android:ems="10"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:hint="请输入登录密码"
+            android:hint="@string/login_password_hint"
             android:inputType="textPassword"
-            android:drawablePadding="6dp"
             android:drawableLeft="@drawable/login_psw_icon"
             android:maxLength="30"
-            android:padding="15dp"
-            android:textSize="12sp"
             android:singleLine="true"
-            android:textColorHint="@color/gray_999"
-            android:textColor="@color/gray_666"
             android:layout_weight="4"/>
 
         <LinearLayout
@@ -136,16 +128,10 @@
     </LinearLayout>
 
     <com.jbsx.customview.MaterialRippleLayout
+        style="@style/login_button_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/login_button_margin_horizontal"
-        android:layout_marginRight="@dimen/login_button_margin_horizontal"
-        android:layout_marginTop="20dp"
-        app:mrl_rippleAlpha="0.2"
-        app:mrl_rippleColor="#585858"
-        app:mrl_rippleDelayClick="false"
-        app:mrl_rippleHover="true"
-        app:mrl_rippleOverlay="true">
+        android:layout_marginTop="50dp">
 
         <Button
             android:id="@+id/edt_login_ps_submit"

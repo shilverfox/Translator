@@ -32,8 +32,8 @@
     <style name="UserAgreementStyle">
         <item name="android:layout_weight">1</item>
         <item name="android:layout_marginTop">40dp</item>
-        <item name="android:layout_marginLeft">15dp</item>
-        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginLeft">@dimen/login_input_margin</item>
+        <item name="android:layout_marginRight">@dimen/login_input_margin</item>
     </style>
 
     <style name="csdj_goods_list_item_tab_text">
@@ -68,8 +68,23 @@
     </style>
 
     <style name="login_input_text_style">
-        <item name="android:textColor">#47b34f</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:drawablePadding">6dp</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:textColorHint">@color/gray_999</item>
+        <item name="android:textColor">@color/gray_666</item>
+    </style>
+
+    <!-- 登陆模块的按钮 -->
+    <style name="login_button_style">
+        <item name="android:layout_marginLeft">@dimen/login_button_margin_horizontal</item>
+        <item name="android:layout_marginRight">@dimen/login_button_margin_horizontal</item>
+        <item name="mrl_rippleAlpha">0.2</item>
+        <item name="mrl_rippleColor">#585858</item>
+        <item name="mrl_rippleDelayClick">false</item>
+        <item name="mrl_rippleHover">true</item>
+        <item name="mrl_rippleOverlay">true</item>
+        <item name="mrl_rippleRoundedCorners">@dimen/login_btn_radius</item>
     </style>
 
     <!-- 通用tab样式，查询结果，我的消息 -->

@@ -66,16 +66,10 @@
         android:layout_marginBottom="@dimen/my_info_bottom_height"/>
 
     <com.jbsx.customview.MaterialRippleLayout
+        style="@style/login_button_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/login_button_margin_horizontal"
-        android:layout_marginRight="@dimen/login_button_margin_horizontal"
         android:layout_marginTop="30dp"
-        app:mrl_rippleAlpha="0.2"
-        app:mrl_rippleColor="#585858"
-        app:mrl_rippleDelayClick="false"
-        app:mrl_rippleHover="true"
-        app:mrl_rippleOverlay="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/my_info_bottom_height">
 

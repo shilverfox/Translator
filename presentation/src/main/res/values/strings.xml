@@ -15,6 +15,8 @@
     <string name="dkplayer_unlocked">已解锁</string>
     <string name="dkplayer_locked">已锁定</string>
 
+    <string name="login_password_hint">密码6-16位数字字母</string>
+
     <string-array name="dest_trans_language">
         <item>zh</item>
         <item>en</item>

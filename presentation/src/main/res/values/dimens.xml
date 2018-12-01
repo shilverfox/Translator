@@ -5,8 +5,9 @@
     <dimen name="top_bar_title_height">0dp</dimen>
     <dimen name="login_button_height">45dp</dimen>
     <dimen name="login_button_margin_horizontal">30dp</dimen>
-    <dimen name="login_input_margin">12dp</dimen>
-    <dimen name="login_page_top_margin">20dp</dimen>
+    <dimen name="login_input_margin">24dp</dimen>
+    <dimen name="login_page_top_margin">40dp</dimen>
+    <dimen name="login_btn_radius">20dp</dimen>
 
     <dimen name="check_icon_width_height">32dp</dimen>
 
