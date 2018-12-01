@@ -13,6 +13,7 @@ import com.jbsx.R;
 import com.jbsx.adapter.UniversalAdapter2;
 import com.jbsx.adapter.UniversalViewHolder2;
 import com.jbsx.utils.Router;
+import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.myinfo.entity.MyInfoItem;
 
 /**
@@ -104,9 +105,14 @@ public class MyInfoAdapter extends UniversalAdapter2<MyInfoItem> {
                     onMyItemClickListener.onClick(position);
                 }
 
-                Class toView = myInfoItem.getTo();
-                if (toView != null) {
-                    Router.getInstance().open(myInfoItem.getTo(), (Activity) mContext);
+                boolean needLogin = myInfoItem.isNeedLogin();
+                if (!needLogin || (needLogin && LoginHelper.getInstance().isLogin())) {
+                    Class toView = myInfoItem.getTo();
+                    if (toView != null) {
+                        Router.getInstance().open(myInfoItem.getTo(), (Activity) mContext);
+                    }
+                } else {
+                    LoginHelper.getInstance().showLoginDialog(mContext);
                 }
             }
         });

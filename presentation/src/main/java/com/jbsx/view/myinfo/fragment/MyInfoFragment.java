@@ -110,6 +110,7 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
         for (int i = 0; i < MyInfoConst.MY_TYPE_IDS.length; i++) {
             MyInfoItem infoItem = new MyInfoItem(MyInfoConst.MY_TYPE_IDS[i], MyInfoConst.MY_TYPE_NAMES[i]);
             infoItem.setTo(MyInfoConst.MY_TYPE_NAVIGATIONS[i]);
+            infoItem.setNeedLogin(MyInfoConst.NEED_LOGIN[i]);
             items.add(infoItem);
         }
 

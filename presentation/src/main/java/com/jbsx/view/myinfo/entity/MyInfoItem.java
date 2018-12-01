@@ -13,6 +13,7 @@ public class MyInfoItem {
     private String openUrl;
     private String pinType;
     private Class to;
+    private boolean needLogin;
 
     public MyInfoItem(int id, String title) {
         this.id = id;
@@ -31,6 +32,14 @@ public class MyInfoItem {
 
     public Class getTo() {
         return to;
+    }
+
+    public boolean isNeedLogin() {
+        return needLogin;
+    }
+
+    public void setNeedLogin(boolean needLogin) {
+        this.needLogin = needLogin;
     }
 
     public void setTo(Class to) {

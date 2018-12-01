@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.jbsx.app.MainApplicationLike;
+import com.jbsx.customview.dialog.JDDJDialogFactory;
 import com.jbsx.utils.EncodeTool;
 import com.jbsx.utils.Router;
 import com.jbsx.view.login.LoginActivity;
@@ -129,6 +131,19 @@ public class LoginHelper {
     public void startLogin(Activity activity) {
         if (activity != null) {
             Router.getInstance().open(LoginActivity.class, activity);
+        }
+    }
+
+    // 显示登陆提示
+    public void showLoginDialog(Context context) {
+        if (context != null) {
+            JDDJDialogFactory.createDialog(context).setTitle("请先登录")
+                    .setFirstOnClickListener("知道了", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    }).show();
         }
     }
 }

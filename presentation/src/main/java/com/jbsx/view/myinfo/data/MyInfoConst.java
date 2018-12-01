@@ -44,4 +44,6 @@ public class MyInfoConst {
     public final static Class[] MY_TYPE_NAVIGATIONS = {
             MyViewHistoryActivity.class, MyFavoriteActivity.class, MyCommentActivity.class, MyMessageActivity.class, SettingsActivity.class,
     };
+
+    public final static boolean[] NEED_LOGIN = {true, true, true, true, false};
 }

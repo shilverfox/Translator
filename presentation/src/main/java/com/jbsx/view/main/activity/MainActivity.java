@@ -19,6 +19,7 @@ import com.jbsx.utils.Router;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.view.login.callback.ILoginResultListener;
 import com.jbsx.view.login.data.LoginResultEvent;
+import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.main.entity.TabEntity;
 import com.jbsx.view.main.fragment.MainPageFragment;
 import com.jbsx.view.main.fragment.RepertoryFragment;
@@ -126,7 +127,11 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         mTopBarLayout.setRightButton("观看历史", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Router.getInstance().open(MyViewHistoryActivity.class, MainActivity.this);
+                if (LoginHelper.getInstance().isLogin()) {
+                    Router.getInstance().open(MyViewHistoryActivity.class, MainActivity.this);
+                } else {
+                    LoginHelper.getInstance().showLoginDialog(mContext);
+                }
             }
         });
         mTopBarLayout.setRightButtonDrawables(R.drawable.view_history, -1, -1, -1);

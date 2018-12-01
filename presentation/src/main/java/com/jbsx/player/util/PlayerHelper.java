@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.jbsx.player.PlayerActivity;
 import com.jbsx.player.data.PlayerData;
 import com.jbsx.utils.Router;
+import com.jbsx.view.login.util.LoginHelper;
 
 /**
  * 跳转到视频播放页
@@ -14,11 +15,16 @@ import com.jbsx.utils.Router;
 public class PlayerHelper {
 
     public static void gotoPlayer(Activity context, PlayerData playerData) {
-        if (context != null && playerData != null) {
-            Bundle bundle = new Bundle();
-            bundle.putParcelable(Router.PLAYER_REQUEST_KEY, playerData);
+        // 看视频需要登陆
+        if (LoginHelper.getInstance().isLogin()) {
+            if (playerData != null) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Router.PLAYER_REQUEST_KEY, playerData);
 
-            Router.getInstance().open(PlayerActivity.class, context, bundle);
+                Router.getInstance().open(PlayerActivity.class, context, bundle);
+            }
+        } else {
+            LoginHelper.getInstance().showLoginDialog(context);
         }
     }
 
