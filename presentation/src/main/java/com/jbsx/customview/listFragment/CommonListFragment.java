@@ -21,6 +21,7 @@ import com.jbsx.customview.recyclerview.EndlessRecyclerOnScrollListener;
 import com.jbsx.customview.recyclerview.HeaderAndFooterRecyclerViewAdapter;
 import com.jbsx.customview.recyclerview.LoadingFooter;
 import com.jbsx.customview.recyclerview.RecyclerViewStateUtils;
+import com.jbsx.utils.ActivityStatusChecker;
 import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ProgressBarHelper;
@@ -172,18 +173,30 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
             mUserCase.handleSendRequest(entity, new BaseRequestCallback() {
                 @Override
                 public void onRequestFailed(BaseDomainData data) {
+                    if (ActivityStatusChecker.hasActivityBeenDestroyed(getActivity())) {
+                        return;
+                    }
+
                     setInvalidResponseMessage(MessageTools.getMessage(data));
                     handleServerError();
                 }
 
                 @Override
                 public void onRequestSuccessful(String data) {
+                    if (ActivityStatusChecker.hasActivityBeenDestroyed(getActivity())) {
+                        return;
+                    }
+
                     List<T> allList = parseList(data);
                     handleSuccess(allList);
                 }
 
                 @Override
                 public void onNetError() {
+                    if (ActivityStatusChecker.hasActivityBeenDestroyed(getActivity())) {
+                        return;
+                    }
+
                     handleNetError();
                 }
             });
