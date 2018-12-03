@@ -1,19 +1,17 @@
 package com.jbsx.app;
 
-import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
-import com.github.dfqin.grantor.PermissionListener;
-import com.github.dfqin.grantor.PermissionsUtil;
 import com.jbsx.utils.SharedPreferencesProvider;
+import com.jbsx.utils.UiTools;
 import com.jbsx.utils.UtilConstant;
+import com.jbsx.view.login.util.LoginHelper;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -21,9 +19,6 @@ import com.tencent.tinker.anno.DefaultLifeCycle;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
 import com.tencent.tinker.loader.app.DefaultApplicationLike;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
-import com.jbsx.utils.ShowTools;
-import com.jbsx.utils.UiTools;
-import com.jbsx.view.login.util.LoginHelper;
 
 /**
  * Created by lijian15 on 2016/12/13.
@@ -44,7 +39,7 @@ public class MainApplicationLike extends DefaultApplicationLike {
     // IWXAPI 是第三方app和微信通信的openapi接口
     private IWXAPI api;
     // 微信的key，此key为线上版本的key，开发版不可用，发正式版本要用这个key
-    public final static String APP_ID = "wxe9aee36de8c7cb82";
+    public final static String APP_ID = "";
 
     public MainApplicationLike(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag,
                                long applicationStartElapsedTime, long applicationStartMillisTime,
