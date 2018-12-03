@@ -12,6 +12,7 @@ import com.jbsx.utils.SharedPreferencesProvider;
 import com.jbsx.utils.UiTools;
 import com.jbsx.utils.UtilConstant;
 import com.jbsx.view.login.util.LoginHelper;
+import com.mob.MobSDK;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -66,7 +67,21 @@ public class MainApplicationLike extends DefaultApplicationLike {
         getWXApi();
         initHotFix(base);
         getStatusHeight();
-//        initLeakChecker(base);
+        handleInitDelay();
+    }
+
+    /**
+     * 需要延迟初始化的
+     * 依赖getApplicationContext
+     */
+    private void handleInitDelay() {
+        getHanlder().post(new Runnable() {
+            @Override
+            public void run() {
+//                initLeakChecker(getAppContext());
+                MobSDK.init(getAppContext());
+            }
+        });
     }
 
     public static MainApplicationLike getInstance() {

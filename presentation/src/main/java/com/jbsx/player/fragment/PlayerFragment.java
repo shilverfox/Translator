@@ -47,6 +47,7 @@ import com.jbsx.player.presenter.PlayerPresenter;
 import com.jbsx.player.util.AlbumDetailUtil;
 import com.jbsx.player.util.SingleVideoUtil;
 import com.jbsx.utils.ProgressBarHelper;
+import com.jbsx.utils.ShareHelper;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.utils.UiTools;
 import com.jbsx.view.main.entity.Single;
@@ -110,6 +111,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
     private TextView mTvPorEpisodesCountLabel;
 
     private ImageView mIvFavorite;
+    private ImageView mIvShare;
 
 
     /** 上游请求的信息 */
@@ -467,6 +469,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         mTvPostComment = mRootView.findViewById(R.id.tv_add_comment);
         mTvCommentCount = mRootView.findViewById(R.id.tv_comments_label);
         mIvFavorite = mRootView.findViewById(R.id.player_album_detail_favorite);
+        mIvShare = mRootView.findViewById(R.id.player_album_detail_share);
     }
 
     private void initEvents() {
@@ -486,6 +489,20 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
                 }
             }
         });
+
+        mIvShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleShareClick();
+            }
+        });
+    }
+
+    /**
+     * 一键分享
+     */
+    private void handleShareClick() {
+        ShareHelper.showShare(mContext);
     }
 
     private void initPlayer() {
