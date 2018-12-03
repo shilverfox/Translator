@@ -67,28 +67,11 @@ public class MainApplicationLike extends DefaultApplicationLike {
         mUiThread = new UIThread();
 
         SharedPreferencesProvider.init(UtilConstant.PreferencesCP.SHARED_NAME, UtilConstant.PreferencesCP.AUTHORITY);
-        handlePermissions();
         LoginHelper.getInstance().readData();
         getWXApi();
         initHotFix(base);
         getStatusHeight();
 //        initLeakChecker(base);
-    }
-
-    /**
-     * 动态权限申请
-     */
-    private void handlePermissions() {
-        PermissionsUtil.requestPermission(getApplication(), new PermissionListener() {
-            @Override
-            public void permissionGranted(@NonNull String[] permissions) {
-            }
-
-            @Override
-            public void permissionDenied(@NonNull String[] permissions) {
-                ShowTools.toast("拒绝READ_PHONE_STATE");
-            }
-        }, Manifest.permission.READ_PHONE_STATE);
     }
 
     public static MainApplicationLike getInstance() {

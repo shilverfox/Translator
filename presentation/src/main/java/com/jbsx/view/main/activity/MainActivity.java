@@ -1,6 +1,8 @@
 package com.jbsx.view.main.activity;
 
+import android.Manifest;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -11,6 +13,8 @@ import android.view.View;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.github.dfqin.grantor.PermissionListener;
+import com.github.dfqin.grantor.PermissionsUtil;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragmentActivity;
 import com.jbsx.app.MainApplicationLike;
@@ -54,12 +58,37 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         initTitleBar();
         initMainTab();
         registEvents();
+        handlePermissions();
     }
 
     private void findViews() {
         mTabLayout = findViewById(R.id.tab_main);
         mTopBarLayout = (TitleBar) findViewById(R.id.layout_title_bar_container);
         mViewPager = findViewById(R.id.vp_container);
+    }
+
+    /**
+     * 动态权限申请
+     */
+    private void handlePermissions() {
+        PermissionsUtil.requestPermission(getApplication(), new PermissionListener() {
+            @Override
+            public void permissionGranted(@NonNull String[] permissions) {
+            }
+
+            @Override
+            public void permissionDenied(@NonNull String[] permissions) {
+                ShowTools.toast("您拒绝了程序运行所需要的必要权限");
+
+                // 没有权限就别用了
+                MainApplicationLike.getInstance().getHanlder().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        handleExit();
+                    }
+                }, 1000);
+            }
+        }, Manifest.permission.READ_PHONE_STATE);
     }
 
     private void initMainTab() {
@@ -172,9 +201,13 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
             ShowTools.toast("再按一次退出程序");
             mExitTime = System.currentTimeMillis();
         } else {
-            finish();
-            System.exit(0);
+            handleExit();
         }
+    }
+
+    private void handleExit() {
+        finish();
+        System.exit(0);
     }
 
     @Override
