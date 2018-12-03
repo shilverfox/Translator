@@ -15,6 +15,7 @@ import com.jbsx.app.BaseFragment;
 import com.jbsx.utils.RecyclerViewHelper;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.login.callback.ILoginResultListener;
+import com.jbsx.view.login.callback.IOnLoginListener;
 import com.jbsx.view.login.data.LoginData;
 import com.jbsx.view.login.data.LoginResultEvent;
 import com.jbsx.view.login.util.LoginHelper;
@@ -97,7 +98,17 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
         mTxtLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginHelper.getInstance().startLogin(getActivity());
+                LoginHelper.getInstance().startLogin(getActivity(), new IOnLoginListener() {
+                    @Override
+                    public void onSucess() {
+                        // 普通登录，没啥可回调的
+                    }
+
+                    @Override
+                    public void onFailed() {
+
+                    }
+                });
             }
         });
     }

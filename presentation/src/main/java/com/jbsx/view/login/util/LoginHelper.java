@@ -4,15 +4,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.google.gson.Gson;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.dialog.JDDJDialogFactory;
+import com.jbsx.data.ITransKey;
+import com.jbsx.utils.DataIntent;
 import com.jbsx.utils.EncodeTool;
 import com.jbsx.utils.Router;
+import com.jbsx.utils.ShowTools;
 import com.jbsx.view.login.LoginActivity;
+import com.jbsx.view.login.callback.IOnLoginListener;
 import com.jbsx.view.login.data.LoginData;
 
 public class LoginHelper {
@@ -128,20 +133,43 @@ public class LoginHelper {
      *
      * @param activity
      */
-    public void startLogin(Activity activity) {
+    public void startLogin(Activity activity, IOnLoginListener loginListener) {
         if (activity != null) {
-            Router.getInstance().open(LoginActivity.class, activity);
+            if (isLogin() && loginListener != null) {
+                loginListener.onSucess();
+                return;
+            }
+
+            Bundle bundle = new Bundle();
+            DataIntent.put(bundle, ITransKey.KEY, loginListener);
+            Router.getInstance().open(LoginActivity.class, activity, bundle);
         }
     }
 
-    // 显示登陆提示
-    public void showLoginDialog(Context context) {
+    /** 显示登陆提示 */
+    public void showLoginDialog(final Context context, final IOnLoginListener loginListener) {
         if (context != null) {
             JDDJDialogFactory.createDialog(context).setTitle("请先登录")
                     .setFirstOnClickListener("知道了", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            startLogin((Activity) context, new IOnLoginListener() {
+                                @Override
+                                public void onSucess() {
+                                    if (loginListener != null) {
+                                        loginListener.onSucess();
+                                    }
+                                }
 
+                                @Override
+                                public void onFailed() {
+                                    if (loginListener != null) {
+                                        loginListener.onFailed();
+                                    }
+
+                                    ShowTools.toast("登录失败，请重试");
+                                }
+                            });
                         }
                     }).show();
         }

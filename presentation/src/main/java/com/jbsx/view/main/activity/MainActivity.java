@@ -22,6 +22,7 @@ import com.jbsx.customview.TitleBar;
 import com.jbsx.utils.Router;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.view.login.callback.ILoginResultListener;
+import com.jbsx.view.login.callback.IOnLoginListener;
 import com.jbsx.view.login.data.LoginResultEvent;
 import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.main.entity.TabEntity;
@@ -157,13 +158,27 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
             @Override
             public void onClick(View v) {
                 if (LoginHelper.getInstance().isLogin()) {
-                    Router.getInstance().open(MyViewHistoryActivity.class, MainActivity.this);
+                    handleGotoHistory();
                 } else {
-                    LoginHelper.getInstance().showLoginDialog(mContext);
+                    LoginHelper.getInstance().showLoginDialog(mContext, new IOnLoginListener() {
+                        @Override
+                        public void onSucess() {
+                            handleGotoHistory();
+                        }
+
+                        @Override
+                        public void onFailed() {
+
+                        }
+                    });
                 }
             }
         });
         mTopBarLayout.setRightButtonDrawables(R.drawable.view_history, -1, -1, -1);
+    }
+
+    private void handleGotoHistory() {
+        Router.getInstance().open(MyViewHistoryActivity.class, MainActivity.this);
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {

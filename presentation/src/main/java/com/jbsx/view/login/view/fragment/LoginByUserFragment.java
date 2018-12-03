@@ -24,6 +24,7 @@ import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.JDProgressBar;
+import com.jbsx.data.ITransKey;
 import com.jbsx.utils.FragmentUtil;
 import com.jbsx.utils.Router;
 import com.jbsx.utils.ShowTools;
@@ -106,8 +107,22 @@ public class LoginByUserFragment extends BaseFragment
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+        }
+    }
+
     public static LoginByUserFragment newInstance() {
-        return new LoginByUserFragment();
+        Bundle bundle = new Bundle();
+
+        LoginByUserFragment contentFragment = new LoginByUserFragment();
+        contentFragment.setArguments(bundle);
+
+        return contentFragment;
     }
 
     @Override

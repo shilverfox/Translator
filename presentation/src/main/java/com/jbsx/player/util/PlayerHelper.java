@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.jbsx.player.PlayerActivity;
 import com.jbsx.player.data.PlayerData;
 import com.jbsx.utils.Router;
+import com.jbsx.view.login.callback.IOnLoginListener;
 import com.jbsx.view.login.util.LoginHelper;
 
 /**
@@ -14,17 +15,31 @@ import com.jbsx.view.login.util.LoginHelper;
  */
 public class PlayerHelper {
 
-    public static void gotoPlayer(Activity context, PlayerData playerData) {
+    private static void handleGotoPlayer(Activity context, PlayerData playerData) {
+        if (playerData != null) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(Router.PLAYER_REQUEST_KEY, playerData);
+
+            Router.getInstance().open(PlayerActivity.class, context, bundle);
+        }
+    }
+
+    public static void gotoPlayer(final Activity context, final PlayerData playerData) {
         // 看视频需要登陆
         if (LoginHelper.getInstance().isLogin()) {
-            if (playerData != null) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(Router.PLAYER_REQUEST_KEY, playerData);
-
-                Router.getInstance().open(PlayerActivity.class, context, bundle);
-            }
+            handleGotoPlayer(context, playerData);
         } else {
-            LoginHelper.getInstance().showLoginDialog(context);
+            LoginHelper.getInstance().showLoginDialog(context, new IOnLoginListener() {
+                @Override
+                public void onSucess() {
+                    handleGotoPlayer(context, playerData);
+                }
+
+                @Override
+                public void onFailed() {
+
+                }
+            });
         }
     }
 

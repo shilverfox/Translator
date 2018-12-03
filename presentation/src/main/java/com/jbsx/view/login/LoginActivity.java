@@ -4,63 +4,39 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.jbsx.R;
-import com.jbsx.app.BaseEvent;
 import com.jbsx.app.BaseFragmentActivity;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.TitleBar;
 import com.jbsx.customview.TabGroupView;
 import com.jbsx.data.ITransKey;
-import com.jbsx.utils.Router;
-import com.jbsx.utils.ShowTools;
+import com.jbsx.utils.DataIntent;
 import com.jbsx.view.login.callback.ILoginResultListener;
+import com.jbsx.view.login.callback.IOnLoginListener;
 import com.jbsx.view.login.data.LoginResultEvent;
 import com.jbsx.view.login.util.LoginUtils;
 import com.jbsx.view.login.view.fragment.LoginByUserFragment;
-import com.jbsx.view.main.activity.MainActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 /**
  * 登录主界面
  */
 public class LoginActivity extends BaseFragmentActivity implements ILoginResultListener {
+    private List<IOnLoginListener> mLoginListener = new ArrayList<>();
+
     private LinearLayout mLayoutRoot;
     private TitleBar mTopBarLayout;
     private TabGroupView mTabGroupView;
-
-    /**
-     * 注册新用户
-     */
-//    private TextView mTxtRegister;
-
-    /**
-     * 是否需要回首页
-     */
-    private boolean mGoHome = true;
-
-    /**
-     * back是否需要回首页
-     */
-    private boolean mGoHomeForBack = false;
-
-    /**
-     * 是否是强制退出弹出的登录框
-     */
-    private boolean mIsForce = false;
-
-    /**
-     * 强制退出时弹出的提示消息
-     */
-    private String mMsg = "";
 
     private Fragment mFocusedFragment;
 
@@ -120,13 +96,6 @@ public class LoginActivity extends BaseFragmentActivity implements ILoginResultL
                 getLoginEntrance();
             }
         }, 200);
-
-        // 是强制退出登录
-        if (mIsForce) {
-            if (!TextUtils.isEmpty(mMsg)) {
-                ShowTools.toast(mMsg);
-            }
-        }
     }
 
     /**
@@ -140,35 +109,18 @@ public class LoginActivity extends BaseFragmentActivity implements ILoginResultL
 
     private void getDataFromIntent() {
         if (getIntent() != null) {
-            mGoHome = this.getIntent().getBooleanExtra(ITransKey.KEY1, true);
-            mGoHomeForBack = this.getIntent().getBooleanExtra("mGoHomeForBack", false);
-            mIsForce = this.getIntent().getBooleanExtra("isForce", false);
-            mMsg = this.getIntent().getStringExtra("msg");
-        } else {
-            mGoHome = true;
-            mGoHomeForBack = false;
+            IOnLoginListener onLoginListener = (IOnLoginListener) DataIntent.get(this.getIntent(), ITransKey.KEY);
+            mLoginListener.add(onLoginListener);
         }
-
-//        LoginHelper.OnLoginListener onLoginListener = (LoginHelper.OnLoginListener) DataIntent.get(this.getIntent(), ITransKey.KEY);
-//        list.add(onLoginListener);
     }
 
     private void findViews() {
         mLayoutRoot = (LinearLayout) findViewById(R.id.root);
         mTopBarLayout = (TitleBar) findViewById(R.id.layout_title_bar_container);
-//        mTxtRegister = (TextView) findViewById(R.id.menu_text);
         mTabGroupView = (TabGroupView) this.findViewById(R.id.tabGroupView);
     }
 
     private void registEvents() {
-//        mTxtRegister.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // 4.0去掉注册入口
-////                Router.getsInstance().open(LoginRegisterActivity.class, LoginActivity.this);
-//            }
-//        });
-
         // Tab切换
         mTabGroupView.setOnMyClickListener(new TabGroupView.MyOnClickListener() {
             @Override
@@ -199,9 +151,7 @@ public class LoginActivity extends BaseFragmentActivity implements ILoginResultL
     }
 
     private boolean isFragmentChanged() {
-        if (mFocusedFragment instanceof LoginByUserFragment
-//                || mFocusedFragment instanceof LoginSimpleInputPhoneFragment
-                ) {
+        if (mFocusedFragment instanceof LoginByUserFragment) {
             return false;
         }
 
@@ -209,19 +159,9 @@ public class LoginActivity extends BaseFragmentActivity implements ILoginResultL
     }
 
     private void onBackEvent() {
-        if (mGoHomeForBack) {
-            Router.getInstance().open(MainActivity.class, this,
-                    new Bundle(), Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        } else if (mIsForce) {
-            Bundle bundle = new Bundle();
-            bundle.putInt("selectpage", -1);
-            Router.getInstance().open(MainActivity.class, LoginActivity.this, bundle,
-                    Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        } else {
-            removeTabFragment();
-            finish();
-            overridePendingTransition(0, R.anim.login_activity_exit);
-        }
+        removeTabFragment();
+        finish();
+        overridePendingTransition(0, R.anim.login_activity_exit);
     }
 
     private void removeTabFragment() {
@@ -296,6 +236,7 @@ public class LoginActivity extends BaseFragmentActivity implements ILoginResultL
                 break;
 
             case SUCCESS:
+                handleLoginCallBack();
                 LoginUtils.hideSoftInputMethod(mContext, mLayoutRoot);
                 finish();
                 break;
@@ -303,6 +244,14 @@ public class LoginActivity extends BaseFragmentActivity implements ILoginResultL
                 break;
         }
     };
+
+    private void handleLoginCallBack() {
+        if (mLoginListener != null) {
+            for (int i = 0; i < mLoginListener.size(); i++) {
+                mLoginListener.get(i).onSucess();
+            }
+        }
+    }
 
     @Override
     public void onDestroy() {
