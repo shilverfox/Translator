@@ -21,8 +21,8 @@ public class MyViewHistoryPresenter implements MyViewHistoryContact.Presenter {
     }
 
     @Override
-    public void requestDelete() {
-        mUserCase.requestDeleteVideo(LoginHelper.getInstance().getUserToken(), mView.isHistory(),
+    public void requestDelete(String[] ids) {
+        mUserCase.requestDeleteVideo(LoginHelper.getInstance().getUserToken(), ids, mView.isHistory(),
                 new BaseRequestCallback() {
 
             @Override

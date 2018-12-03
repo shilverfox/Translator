@@ -8,6 +8,8 @@ import com.app.domain.net.model.BaseRequestEntity;
 import com.app.domain.net.model.RequestConst;
 import com.google.gson.Gson;
 
+import java.util.Arrays;
+
 /**
  * List all the http request.
  *
@@ -454,14 +456,18 @@ public class HttpRequestPool {
      * @param isHistory true,删除历史， false:删除收藏
      * @return
      */
-    public static BaseRequestEntity getDeleteVideoEntity(String token, boolean isHistory) {
+    public static BaseRequestEntity getDeleteVideoEntity(String token, String[] ids, boolean isHistory) {
         BaseRequestEntity baseRequest = new BaseRequestEntity();
         baseRequest.setUrl(ConstData.HOST);
-        baseRequest.setFunctionId(isHistory ? "/Special/Special/getUserHistory" : "dd");
+        baseRequest.setFunctionId(isHistory ? "/Special/Special/delAppSingleHistory" : "/Special/Special/getUserHistory");
         baseRequest.setMethod(RequestConst.REQUEST_POST);
 
         BaseBody body = new BaseBody();
         body.add("specialCode", "JBSX");
+
+        if (ids != null && ids.length > 0) {
+            body.add("idList[]", Arrays.toString(ids));
+        }
 
         baseRequest.setBaseBody(body);
         HttpRequestUtil.getHeader(baseRequest, token);

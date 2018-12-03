@@ -13,6 +13,6 @@ public class MyViewHistoryContact {
 
     public interface Presenter {
         void start();
-        void requestDelete();
+        void requestDelete(String[] ids);
     }
 }

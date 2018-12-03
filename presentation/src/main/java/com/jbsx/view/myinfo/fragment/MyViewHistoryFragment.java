@@ -17,9 +17,15 @@ import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.TitleBar;
+import com.jbsx.view.main.entity.Single;
+import com.jbsx.view.main.entity.UserSingle;
+import com.jbsx.view.main.entity.ViewHistoryData;
 import com.jbsx.view.myinfo.contact.MyViewHistoryContact;
 import com.jbsx.view.myinfo.presenter.MyViewHistoryPresenter;
 import com.jbsx.view.myinfo.view.video.MyInfoVideoListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyViewHistoryFragment extends BaseFragment implements MyViewHistoryContact.View {
     private View mRootView;
@@ -34,6 +40,9 @@ public class MyViewHistoryFragment extends BaseFragment implements MyViewHistory
 
     /** 视频 */
     private MyInfoVideoListView mRepertoryList;
+
+    /** 选中需要删除的id */
+    private List<String> mSelectIds;
 
     public static boolean mCanSelectItem;
     public boolean mIsSelectAll;
@@ -110,8 +119,35 @@ public class MyViewHistoryFragment extends BaseFragment implements MyViewHistory
         });
     }
 
+    /**
+     * 获得当前哪些项被选中
+     *
+     * @return
+     */
+    private String[] getSelectedIds() {
+        List<String> temp = new ArrayList();
+        List<UserSingle> allVideo = mRepertoryList.getAdapter().getData();
+
+        if (allVideo != null) {
+            for(UserSingle item : allVideo) {
+                Single single = item.getSingle();
+                if (single.isCheck()) {
+                    temp.add(single.getId());
+                }
+            }
+        }
+
+        String[] result = new String[temp.size()];
+        temp.toArray(result);
+
+        return result;
+    }
+
+    /**
+     * 删除选中id
+     */
     private void handleDeleteClick() {
-        mPresenter.requestDelete();
+        mPresenter.requestDelete(getSelectedIds());
     }
 
     /**

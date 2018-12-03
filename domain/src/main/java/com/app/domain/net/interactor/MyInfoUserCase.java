@@ -18,8 +18,8 @@ public class MyInfoUserCase extends UserCase {
      * @param isHistory
      * @param callback
      */
-    public void requestDeleteVideo(String token, boolean isHistory, BaseRequestCallback callback) {
-        BaseRequestEntity entity = HttpRequestPool.getDeleteVideoEntity(token, isHistory);
+    public void requestDeleteVideo(String token, String[] ids, boolean isHistory, BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getDeleteVideoEntity(token, ids, isHistory);
         handleSendRequest(entity, callback);
     }
 
