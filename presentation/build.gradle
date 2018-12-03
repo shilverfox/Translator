@@ -73,14 +73,10 @@ android {
 
     signingConfigs {
         release {
-            try {
-                storeFile file("./keystore/release.keystore")
-                storePassword "testres"
-                keyAlias "testres"
-                keyPassword "testres"
-            } catch (ex) {
-                throw new InvalidUserDataException(ex.toString())
-            }
+            keyAlias project.keyAlias
+            keyPassword project.keyPassword
+            storeFile file(project.storeFile);
+            storePassword project.storePassword
         }
 
         debug {
@@ -118,9 +114,10 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false
         }
         debug {
             debuggable true
@@ -133,6 +130,14 @@ android {
         main {
             jniLibs.srcDirs = ['libs']
         }
+    }
+
+    // 打Release包时不做lint校验
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 }
 
