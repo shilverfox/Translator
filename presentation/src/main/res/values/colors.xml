@@ -8,15 +8,15 @@
     <color name="light_black">#555555</color>
 
     <color name="app_word_red">#b83438</color>
-    <color name="title_bar_start">#b83438</color>
-    <color name="title_bar_end">#db5559</color>
+    <color name="title_bar_start">#db5559</color>
+    <color name="title_bar_end">#b83438</color>
 
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="root_bg_color">#f4f4f4</color>
-    <color name="divider_line">#e6e6e6</color>
+    <color name="divider_line">#f2f2f2</color>
 
     <color name="login_input_bg">#ffffff</color>
     <color name="login_input_text_color">#6cc272</color>

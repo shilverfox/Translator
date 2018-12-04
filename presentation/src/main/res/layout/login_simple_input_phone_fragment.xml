@@ -95,7 +95,6 @@
             android:id="@+id/login_jd_password"
             style="@style/login_input_text_style"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:background="@color/white"
             android:ems="10"
             android:focusable="true"

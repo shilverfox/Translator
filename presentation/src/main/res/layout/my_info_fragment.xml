@@ -81,7 +81,7 @@
             android:padding="10dp"
             android:text="退出登录"
             android:textColor="@color/white"
-            android:textSize="17sp"/>
+            android:textSize="18sp"/>
 
     </com.jbsx.customview.MaterialRippleLayout>
 

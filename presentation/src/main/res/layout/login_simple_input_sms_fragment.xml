@@ -18,7 +18,6 @@
         <EditText
             android:id="@+id/edt_login_ps_mobile"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
             style="@style/login_input_text_style"
             android:drawableLeft="@drawable/login_mobile_icon"
             android:background="@null"
@@ -48,7 +47,6 @@
         <EditText
             android:id="@+id/edt_login_ps_sms"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
             style="@style/login_input_text_style"
             android:drawableLeft="@drawable/login_code_icon"
             android:background="@drawable/login_input_view_bg"
@@ -76,7 +74,7 @@
     <LinearLayout
         android:id="@+id/login_jd_password_layout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/login_input_height"
         android:layout_marginLeft="@dimen/login_input_margin"
         android:layout_marginRight="@dimen/login_input_margin"
         android:layout_marginTop="@dimen/login_input_margin"
@@ -87,7 +85,6 @@
             android:id="@+id/login_jd_password"
             style="@style/login_input_text_style"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:background="@null"
             android:ems="10"
             android:focusable="true"
@@ -127,27 +124,34 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.jbsx.customview.MaterialRippleLayout
-        style="@style/login_button_style"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp">
-
-        <Button
-            android:id="@+id/edt_login_ps_submit"
+        android:paddingRight="@dimen/login_button_margin_horizontal"
+        android:paddingLeft="@dimen/login_button_margin_horizontal">
+        <com.jbsx.customview.MaterialRippleLayout
+            style="@style/login_button_style"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/login_button_height"
-            android:background="@drawable/longin_button_bg"
-            android:padding="10dp"
-            android:text="立即注册"
-            android:textColor="@color/login_button_text_color"
-            android:textSize="17sp"/>
-    </com.jbsx.customview.MaterialRippleLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="89dp">
+
+            <Button
+                android:id="@+id/edt_login_ps_submit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_button_height"
+                android:background="@drawable/longin_button_bg"
+                android:padding="10dp"
+                android:text="立即注册"
+                android:textColor="@color/login_button_text_color"
+                android:textSize="18sp"/>
+        </com.jbsx.customview.MaterialRippleLayout>
+    </FrameLayout>
 
     <!-- 用户协议 -->
     <com.jbsx.view.login.customview.LoginUserAgreementView
         android:id="@+id/viewUserAgreement"
         style="@style/UserAgreementStyle"
+        android:layout_marginTop="100dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

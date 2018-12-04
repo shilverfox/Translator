@@ -31,7 +31,6 @@
                     android:id="@+id/login_jd_num"
                     style="@style/login_input_text_style"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
                     android:ems="10"
                     android:hint="请输入您的手机号/用户名"
                     android:inputType="none"
@@ -47,7 +46,7 @@
             <LinearLayout
                 android:id="@+id/login_jd_password_layout"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="46dp"
                 android:background="@drawable/login_input_view_bg"
                 android:layout_marginTop="@dimen/login_input_margin"
                 android:orientation="horizontal">
@@ -56,7 +55,6 @@
                     android:id="@+id/login_jd_password"
                     style="@style/login_input_text_style"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
                     android:ems="10"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
@@ -135,7 +133,6 @@
                     android:id="@+id/login_phone_picture_password"
                     style="@style/login_input_text_style"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:background="@color/white"
                     android:hint="请输入图片验证码"
@@ -186,7 +183,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="12dp">
 
             <TextView
                 android:id="@+id/login_forget_password"
@@ -217,7 +214,7 @@
                 style="@style/login_button_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="93dp">
 
             <Button
                 android:id="@+id/login_jd_login"
@@ -227,7 +224,7 @@
                 android:padding="10dp"
                 android:text="登录"
                 android:textColor="@color/login_button_text_color"
-                android:textSize="17sp"/>
+                android:textSize="18sp"/>
 
             </com.jbsx.customview.MaterialRippleLayout>
 
