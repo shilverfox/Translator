@@ -45,6 +45,7 @@ import com.jbsx.player.data.SingleVideoData;
 import com.jbsx.player.data.SpecialSingleData;
 import com.jbsx.player.presenter.PlayerPresenter;
 import com.jbsx.player.util.AlbumDetailUtil;
+import com.jbsx.player.util.PlayerHelper;
 import com.jbsx.player.util.SingleVideoUtil;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ShareHelper;
@@ -373,6 +374,8 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         setStatus(WAITING_FOR_VIDEO_INFO);
     }
 
+
+
     /**
      * 绘制单一视频信息
      *
@@ -381,13 +384,15 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
     @Override
     public void drawSingleVideo(SingleVideoData videoData) {
         if (SingleVideoUtil.isStandDefinition(videoData)) {
-            mDefinitionList.put("标清", SingleVideoUtil.getVideoUrl(videoData));
+            mDefinitionList.put(ConstData.VIDEO_DEFINITION_TYPE_NAME_STAND, SingleVideoUtil.getVideoUrl(videoData));
         } else if (SingleVideoUtil.isHighDefinition(videoData)) {
-            mDefinitionList.put("高清", SingleVideoUtil.getVideoUrl(videoData));
+            mDefinitionList.put(ConstData.VIDEO_DEFINITION_TYPE_NAME_HIGH, SingleVideoUtil.getVideoUrl(videoData));
         }
 
         // 目前2个清晰度
         if (mDefinitionList.size() == 2) {
+            // 异步获取的清晰度，需要排序
+            mDefinitionList = PlayerHelper.sortDefinition(mDefinitionList);
             setStatus(LOAD_VIDEO_INFO_SUCCESS);
         }
 

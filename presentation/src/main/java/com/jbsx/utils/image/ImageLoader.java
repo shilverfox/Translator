@@ -36,6 +36,17 @@ public class ImageLoader {
                 .into(imgView);
     }
 
+    public static void displayImage(String url, int defaultImageId, ImageView imgView) {
+        if (TextUtils.isEmpty(url) || imgView == null) {
+            return;
+        }
+
+        Glide.with(MainApplicationLike.getAppContext())
+                .load(url)
+                .placeholder(defaultImageId)
+                .into(imgView);
+    }
+
     /**
      * 圆角图
      *

@@ -61,9 +61,12 @@ public class ConstData {
 
     /** 视频清晰度： 标清 */
     public final static String VIDEO_DEFINITION_TYPE_STAND = "2";
+    public final static String VIDEO_DEFINITION_TYPE_NAME_STAND = "标清";
+
 
     /** 视频清晰度： 高清 */
     public final static String VIDEO_DEFINITION_TYPE_HIGH = "1";
+    public final static String VIDEO_DEFINITION_TYPE_NAME_HIGH = "高清";
 
     /** 评论列表排列模式， 最新（时间） */
     public final static String COMMENT_ORDER_MODE_TIME = "1";

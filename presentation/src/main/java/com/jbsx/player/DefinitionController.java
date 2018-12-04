@@ -220,12 +220,17 @@ public class DefinitionController extends StandardVideoController {
         return R.layout.dkplayer_layout_custom_controller;
     }
 
+    /**
+     * 横竖都显示清晰度选项
+     *
+     * @param playerState
+     */
     @Override
     public void setPlayerState(int playerState) {
         super.setPlayerState(playerState);
         switch (playerState) {
             case IjkVideoView.PLAYER_NORMAL:
-                multiRate.setVisibility(GONE);
+                multiRate.setVisibility(VISIBLE);
                 mTvEpisode.setVisibility(View.GONE);
                 hideLandScapeEpisodes();
                 break;
