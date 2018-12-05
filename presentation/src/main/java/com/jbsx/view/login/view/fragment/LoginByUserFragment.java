@@ -84,11 +84,6 @@ public class LoginByUserFragment extends BaseFragment
      */
     private ImageView mImgDividor;
 
-    /**
-     * 密码输入框的父布局，当图片验证码显示出来时要把圆角变直角
-     */
-    private LinearLayout mLayoutParentPassword;
-
     private View mRootView;
 
     private JDProgressBar mJDProgressBar;
@@ -364,7 +359,6 @@ public class LoginByUserFragment extends BaseFragment
         mBtnDeletePassword = (ImageView) view.findViewById(R.id.delete_password);
         mBtnCreateAccount = (TextView) view.findViewById(R.id.login_register);
         mImgDividor = (ImageView) view.findViewById(R.id.view_line);
-        mLayoutParentPassword = (LinearLayout) view.findViewById(R.id.login_jd_password_layout);
         mViewUserAgment = (LoginUserAgreementView) view.findViewById(R.id.viewUserAgreement);
         mJDProgressBar = (JDProgressBar)view.findViewById(R.id.login_jd_progress);
     }

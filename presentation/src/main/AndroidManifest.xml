@@ -19,34 +19,61 @@
         android:theme="@style/AppTheme"
         android:name=".app.MainApplication"
         tools:replace="android:name">
-        <activity android:name=".view.start.SplashActivity">
+        <activity android:name=".view.start.SplashActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.main.activity.MainActivity" />
-        <activity android:name=".view.web.WebActivity" />
-        <activity android:name=".view.login.RegisterActivity" />
-        <activity android:name=".view.login.ResetPasswordActivity" />
-        <activity android:name=".view.setting.SettingsActivity" />
-        <activity android:name=".view.setting.AboutActivity" />
-        <activity android:name=".view.myinfo.activity.MyViewHistoryActivity" />
-        <activity android:name=".view.myinfo.activity.MyFavoriteActivity" />
-        <activity android:name=".view.myinfo.activity.MyMessageActivity" />
-        <activity android:name=".view.myinfo.activity.MyCommentActivity" />
-        <activity android:name=".view.myinfo.activity.CommentDetailActivity" />
-        <activity android:name=".view.login.LoginActivity" />
-
+        <activity android:name=".view.main.activity.MainActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".view.web.WebActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".view.login.RegisterActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".view.login.ResetPasswordActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".view.setting.SettingsActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".view.setting.AboutActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".view.myinfo.activity.MyViewHistoryActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".view.myinfo.activity.MyFavoriteActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".view.myinfo.activity.MyMessageActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".view.myinfo.activity.MyCommentActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".view.myinfo.activity.CommentDetailActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".view.login.LoginActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
         <activity android:name=".view.search.SearchActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".view.search.SearchResultActivity" />
-
+            android:launchMode="singleTask"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".view.search.SearchResultActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
         <activity android:name=".player.PlayerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"/>
-
 
         <!-- 微信分享返回结果的activity -->
         <activity
