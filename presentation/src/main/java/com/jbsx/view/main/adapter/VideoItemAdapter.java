@@ -3,12 +3,15 @@ package com.jbsx.view.main.adapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jbsx.R;
 import com.jbsx.adapter.UniversalAdapter2;
 import com.jbsx.adapter.UniversalViewHolder2;
 import com.jbsx.utils.ShowTools;
+import com.jbsx.utils.StatisticsReportUtil;
+import com.jbsx.utils.UiTools;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.main.entity.Album;
 import com.jbsx.view.main.entity.SpecialAlbums;
@@ -48,8 +51,10 @@ public class VideoItemAdapter extends UniversalAdapter2<SpecialAlbums> {
         }
 
         // 图片
+        ImageView imgView = (ImageView)holder.getViewById(R.id.iv_video_item_image);
+        calculateImageHeight(imgView);
         String imgUrl = album.getAppImageUrl();
-        ImageLoader.displayImage(imgUrl, (ImageView)holder.getViewById(R.id.iv_video_item_image));
+        ImageLoader.displayImage(imgUrl, imgView);
 
         holder.getViewById(R.id.layout_video_item).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +64,20 @@ public class VideoItemAdapter extends UniversalAdapter2<SpecialAlbums> {
                 }
             }
         });
+    }
+
+    /**
+     * 根据屏幕宽度和宽高比计算高度
+     * 240 *150
+     * @param imageView
+     */
+    private void calculateImageHeight(ImageView imageView) {
+        if (imageView != null) {
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
+            float percent = ((StatisticsReportUtil.getScreenWidth()/2 - 4*UiTools.dip2px(4))  * 150) / ((float) 240);
+            params.height = (int) percent;
+            imageView.setLayoutParams(params);
+        }
     }
 
     public interface OnMyItemClickListener {
