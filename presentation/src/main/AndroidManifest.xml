@@ -65,9 +65,10 @@
                   android:configChanges="orientation|keyboardHidden|screenSize"
                   android:screenOrientation="portrait"/>
         <activity android:name=".view.search.SearchActivity"
-            android:launchMode="singleTask"
+                  android:launchMode="singleTask"
                   android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"/>
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateAlwaysVisible|adjustPan"/>
         <activity android:name=".view.search.SearchResultActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"
                   android:screenOrientation="portrait"/>
