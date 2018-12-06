@@ -1,5 +1,6 @@
 package com.jbsx.utils;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,34 +19,37 @@ public class ReloadBarHelper {
     public static int ERRO_PARENT_ID = -10001;
 
     private static View createReloadBar() {
-        View LoadingErroBar = LayoutInflater.from(MainApplicationLike.getAppContext())
+        View reloadBar = LayoutInflater.from(MainApplicationLike.getAppContext())
                 .inflate(R.layout.reload, null);
-        return LoadingErroBar;
+        return reloadBar;
     }
 
-    public static void addReloadBar(final View content, final Runnable firstBtnClick) {
+    public static void addReloadBar(final View content, final String message, final Runnable clickListener) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                addReloadBarInUiThread(content, firstBtnClick);
+                addReloadBarInUiThread(content, message, clickListener);
             }
         };
         MainApplicationLike.getInstance().getHanlder().post(runnable);
     }
 
-    private static void initReloadBar(View LoadingErroBar, final Runnable firstBtnClick) {
-        TextView btnFirst = LoadingErroBar.findViewById(R.id.tv_reload);
-        if (firstBtnClick != null) {
-            btnFirst.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View arg0) {
-                    firstBtnClick.run();
-                }
-            });
+    private static void initReloadBar(View reloadBar, String message, final Runnable clickListener) {
+        View rootView = reloadBar.findViewById(R.id.root_view);
+        rootView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                clickListener.run();
+            }
+        });
+
+        TextView tvMessage = reloadBar.findViewById(R.id.tv_reload_message);
+        if (!TextUtils.isEmpty(message)) {
+            tvMessage.setText(message);
         }
     }
 
-    private static void addReloadBarInUiThread(View content, final Runnable firstBtnClick) {
+    private static void addReloadBarInUiThread(View content, String message, final Runnable clickListener) {
         if (content == null) {
             return;
         }
@@ -64,7 +68,7 @@ public class ReloadBarHelper {
         content.setVisibility(View.GONE);
 
         View reloadBar = createReloadBar();
-        initReloadBar(reloadBar, firstBtnClick);
+        initReloadBar(reloadBar, message, clickListener);
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT);

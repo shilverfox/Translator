@@ -5,6 +5,7 @@ import com.app.domain.net.interactor.MainPageUserCase;
 import com.app.domain.net.interactor.MainViewUserCase;
 import com.app.domain.net.model.BaseDomainData;
 import com.app.domain.util.ParseUtil;
+import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.view.main.contact.MainContact;
 import com.jbsx.view.main.contact.MainPageContact;
@@ -14,6 +15,8 @@ import com.jbsx.view.main.entity.CelebrityData;
 import com.jbsx.view.main.entity.HostData;
 import com.jbsx.view.main.entity.SpecialAlbumData;
 import com.youth.banner.Banner;
+
+import org.xml.sax.ErrorHandler;
 
 /**
  * 首页
@@ -51,9 +54,7 @@ public class MainPagePresenter implements MainPageContact.Presenter {
 
                 @Override
                 public void onNetError() {
-                    if (mView != null) {
-                        mView.drawEmptyBanner();
-                    }
+                    handlePageNetError();
                 }
             });
         }
@@ -68,6 +69,9 @@ public class MainPagePresenter implements MainPageContact.Presenter {
 
     private void handleLoadBannerFailed(BaseDomainData data) {
         MessageTools.showErrorMessage(data);
+        if (mView != null) {
+            mView.drawEmptyBanner(MessageTools.getMessage(data));
+        }
     }
 
     @Override
@@ -86,7 +90,7 @@ public class MainPagePresenter implements MainPageContact.Presenter {
 
                 @Override
                 public void onNetError() {
-
+                    handlePageNetError();
                 }
             });
         }
@@ -100,7 +104,9 @@ public class MainPagePresenter implements MainPageContact.Presenter {
     }
 
     private void handleLoadHostFailed(BaseDomainData data) {
-
+        if (mView != null) {
+            mView.drawEmptyCelebrities(MessageTools.getMessage(data));
+        }
     }
 
     @Override
@@ -119,7 +125,7 @@ public class MainPagePresenter implements MainPageContact.Presenter {
 
                 @Override
                 public void onNetError() {
-
+                    handlePageNetError();
                 }
             });
         }
@@ -133,7 +139,9 @@ public class MainPagePresenter implements MainPageContact.Presenter {
     }
 
     private void handleLoadAlbumFailed(BaseDomainData data) {
-
+        if (mView != null) {
+            mView.drawEmptySpecialAlbum(MessageTools.getMessage(data));
+        }
     }
 
     @Override
@@ -152,7 +160,7 @@ public class MainPagePresenter implements MainPageContact.Presenter {
 
                 @Override
                 public void onNetError() {
-
+                    handlePageNetError();
                 }
             });
         }
@@ -166,6 +174,17 @@ public class MainPagePresenter implements MainPageContact.Presenter {
     }
 
     private void handleLoadCelebritiesFailed(BaseDomainData data) {
+        if (mView != null) {
+            mView.drawEmptyCelebrities(MessageTools.getMessage(data));
+        }
+    }
 
+    /**
+     * 联网失败统一走这里，整个页面显示一个失败
+     */
+    private void handlePageNetError() {
+        if (mView != null) {
+            mView.drawNetError();
+        }
     }
 }

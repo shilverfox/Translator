@@ -18,8 +18,13 @@ public class MainPageContact {
         void drawSpecialAlbumInfo(SpecialAlbumData albumsData);
         void drawCelebritiesInfo(CelebrityData celebrityData);
 
-        /** 获取banner数据为空 */
-        void drawEmptyBanner();
+        /** 获取banner数据为空，每个模块单独处理 */
+        void drawEmptyBanner(String errorMessage);
+        void drawEmptyCelebrities(String errorMessage);
+        void drawEmptySpecialAlbum(String errorMessage);
+
+        /** 联网失败，整个一个大页面 */
+        void drawNetError();
     }
 
     public interface Presenter {

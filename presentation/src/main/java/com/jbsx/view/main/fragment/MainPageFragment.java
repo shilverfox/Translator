@@ -21,10 +21,11 @@ import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.recyclerview.CenterLayoutManager;
 import com.jbsx.customview.recyclerview.LoadingFooter;
 import com.jbsx.player.util.PlayerHelper;
+import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.LogTools;
 import com.jbsx.utils.ProgressBarHelper;
+import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.utils.Router;
-import com.jbsx.utils.ShowTools;
 import com.jbsx.view.main.adapter.CelebrityIconItemAdapter;
 import com.jbsx.view.main.adapter.VideoItemAdapter;
 import com.jbsx.view.main.contact.MainPageContact;
@@ -57,6 +58,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     private final static String TAG = "MainPageFragment";
 
     private View mRootView;
+    private ViewGroup mViewContainer;
     private Banner mViewBanner;
     private RecyclerView mRvHostList;
 
@@ -193,6 +195,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         mLayoutHost = mRootView.findViewById(R.id.layout_host);
         mLayoutRecomment = mRootView.findViewById(R.id.layout_album);
         mNsvRoot = mRootView.findViewById(R.id.nsv_main_page_root);
+        mViewContainer = mRootView.findViewById(R.id.view_main_page_root);
 
         initSpecialAlbumView();
         initCelebrityView();
@@ -374,14 +377,18 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
             initBanner(bannerData.getPayload().getSpecialAlbums());
         }
 
-        // 模块是否可见
-        handleFloorVisible(mLayoutHost, bannerData.getPayload().getSpecialAlbums());
         toggleBannerProgress(false);
     }
 
     @Override
-    public void drawEmptyBanner() {
-        ShowTools.toast("手机是不是断网了");
+    public void drawEmptyBanner(String errorMessage) {
+        toggleBannerProgress(false);
+        ReloadBarHelper.addReloadBar(mViewBanner, errorMessage, new Runnable() {
+            @Override
+            public void run() {
+                loadBannerInfo();
+            }
+        });
     }
 
     @Override
@@ -401,29 +408,26 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
             mHasNextPage = hasNextPage(data);
         }
 
-        // 模块是否可见
-        handleFloorVisible(mLayoutRecomment, mAdapterAlbum.getDatas());
         handleAlbumLoadMoreComplete();
         toggleSpecialAlbumProgress(false);
+    }
+
+    @Override
+    public void drawEmptySpecialAlbum(String errorMessage) {
+        mHasNextPage = false;
+        toggleSpecialAlbumProgress(false);
+        ReloadBarHelper.addReloadBar(mRvRecommendList, errorMessage, new Runnable() {
+            @Override
+            public void run() {
+                loadSpecialAlbum(mCurrentPage);
+            }
+        });
     }
 
     private void handleAlbumLoadMoreComplete() {
         mRvRecommendList.loadMoreComplete();
         mRvRecommendList.setLoadingMoreEnabled(mHasNextPage);
         showLoadingMoreFooter(mHasNextPage);
-    }
-
-    /**
-     * 楼层是否可见
-     *
-     * @param floorLayout
-     * @param data
-     */
-    private void handleFloorVisible(View floorLayout, List data) {
-        if (floorLayout != null) {
-            boolean hasList = listNotEmpty(data);
-            floorLayout.setVisibility(hasList ? View.VISIBLE : View.GONE);
-        }
     }
 
     private boolean listNotEmpty(List list) {
@@ -450,9 +454,32 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
             }
         }
 
-        // 模块是否可见
-        handleFloorVisible(mLayoutHost, mAdapterCelebrity.getDatas());
         toggleCelebrityProgress(false);
+    }
+
+    @Override
+    public void drawEmptyCelebrities(String errorMessage) {
+        toggleCelebrityProgress(false);
+        ReloadBarHelper.addReloadBar(mRvHostList, errorMessage, new Runnable() {
+            @Override
+            public void run() {
+                loadCelebrities();
+            }
+        });
+    }
+
+    /**
+     * 联网失败
+     */
+    @Override
+    public void drawNetError() {
+        ErroBarHelper.addErroBar(mViewContainer, ErroBarHelper.ERRO_TYPE_NET_INTERNET, new Runnable() {
+            @Override
+            public void run() {
+                ErroBarHelper.removeErroBar(mViewContainer);
+                loadData();
+            }
+        });
     }
 
     @Override

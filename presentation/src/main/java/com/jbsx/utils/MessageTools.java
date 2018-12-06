@@ -14,6 +14,13 @@ public class MessageTools {
         }
     }
 
+    public static BaseDomainData createNoNetMessage() {
+        BaseDomainData data = new BaseDomainData();
+        data.setMsg(ErroBarHelper.ERRO_TYPE_NET_INTERNET);
+
+        return data;
+    }
+
     public static boolean hasErrorMessage(BaseDomainData data) {
         return data != null && data.getPayload() != null && data.getPayload().getResultStatus() != null
                 && !TextUtils.isEmpty(data.getPayload().getResultStatus().getMessage());
