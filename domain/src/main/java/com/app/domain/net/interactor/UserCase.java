@@ -1,12 +1,19 @@
 package com.app.domain.net.interactor;
 
+import android.content.ComponentName;
+import android.content.Intent;
+
 import com.app.domain.net.BaseRequestCallback;
+import com.app.domain.net.data.ServerCode;
+import com.app.domain.net.event.BadSessionEvent;
 import com.app.domain.net.executor.PostExecutionThread;
 import com.app.domain.net.model.BaseDomainData;
 import com.app.domain.net.model.BaseRequestEntity;
 import com.app.domain.net.model.BaseResponse;
 import com.app.domain.net.repository.ITaskDataSource;
 import com.app.domain.util.ParseUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import rx.Observable;
 import rx.functions.Action1;
@@ -83,10 +90,32 @@ public abstract class UserCase {
 //                baseDomainData = createErrorDomainData(errorMessage);
                 callback.onNetError();
             } else {
+                if (isLoginInvalid(baseDomainData)) {
+                    // 登录过期
+                    handleSessionInvalid();
+                }
+
                 callback.onRequestFailed(baseDomainData);
             }
 
         }
+    }
+
+    /**
+     * 是否为登录态失效
+     *
+     * @param baseDomainData
+     * @return
+     */
+    private boolean isLoginInvalid(BaseDomainData baseDomainData) {
+        boolean isOk = (baseDomainData != null && baseDomainData.getPayload() != null
+                && baseDomainData.getPayload().getResultStatus() != null
+                && !ServerCode.SERVER_ERROR_TYPE_NO_SESSION.equals(baseDomainData.getPayload().getResultStatus().getStatus()));
+        return !isOk;
+    }
+
+    private void handleSessionInvalid() {
+        EventBus.getDefault().post(new BadSessionEvent());
     }
 
     /**

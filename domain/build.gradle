@@ -30,4 +30,5 @@ dependencies {
     testCompile project.DEPENDENCY_JUNIT
     compile project.DEPENDENCY_RX_JAVA
     compile project.DEPENDENCY_GOOGLE_GSON
+    compile project.DEPENDENCY_EVENT_BUS
 }

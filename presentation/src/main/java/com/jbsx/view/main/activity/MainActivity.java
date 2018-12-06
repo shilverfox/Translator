@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
 
+import com.app.domain.net.event.BadSessionEvent;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -236,6 +237,30 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
 //                    mViewPager.setCurrentItem(0);
                 }
             }, 500);
+        }
+    }
+
+    /**
+     * 接受domain层传递过来的登录失效event
+     * 唤起登录
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(BadSessionEvent event) {
+        if (event != null) {
+            LoginHelper.getInstance().logOut();
+            LoginHelper.getInstance().startLogin(MainActivity.this, new IOnLoginListener() {
+                @Override
+                public void onSucess() {
+                    ShowTools.toast("请重新尝试刷新页面");
+                }
+
+                @Override
+                public void onFailed() {
+                    ShowTools.toast("登录失败，请重试");
+                }
+            });
         }
     }
 }
