@@ -16,6 +16,8 @@ import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.recyclerview.CenterLayoutManager;
+import com.jbsx.utils.ErroBarHelper;
+import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.view.main.adapter.CelebrityItemAdapter;
 import com.jbsx.view.main.contact.RepertoryContact;
 import com.jbsx.view.main.entity.Celebrities;
@@ -140,6 +142,8 @@ public class RepertoryFragment extends BaseFragment implements RepertoryContact.
                 handleCelebritySelect(0);
             }
         }
+
+        ReloadBarHelper.removeReloadBar(mRvCelebrities);
     }
 
     private void addViewAllCelebrityItem(List<Celebrities> data) {
@@ -147,5 +151,18 @@ public class RepertoryFragment extends BaseFragment implements RepertoryContact.
         celebrities.setId(ConstData.INVALID_CELEBRITY_ID);
         celebrities.setName("查看全部");
         data.add(0, celebrities);
+    }
+
+    /**
+     * 获取数据失败
+     */
+    @Override
+    public void drawGetCelebritiesError(String errorMessage) {
+        ErroBarHelper.addErroBar(mRvCelebrities, errorMessage, new Runnable() {
+            @Override
+            public void run() {
+                requestCelebrities();
+            }
+        });
     }
 }

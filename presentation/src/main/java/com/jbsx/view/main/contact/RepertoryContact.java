@@ -6,6 +6,7 @@ public class RepertoryContact {
     public interface View {
         void createPresenter();
         void drawCelebrities(CelebrityData data);
+        void drawGetCelebritiesError(String errorMessage);
     }
 
     public interface Presenter {

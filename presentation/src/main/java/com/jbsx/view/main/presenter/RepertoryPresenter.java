@@ -5,6 +5,7 @@ import com.app.domain.net.interactor.MainPageUserCase;
 import com.app.domain.net.interactor.RepertoryUserCase;
 import com.app.domain.net.model.BaseDomainData;
 import com.app.domain.util.ParseUtil;
+import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.view.main.contact.RepertoryContact;
 import com.jbsx.view.main.entity.CelebrityData;
 
@@ -34,7 +35,7 @@ public class RepertoryPresenter implements RepertoryContact.Presenter {
             mUserCase.requestCelebrities(new BaseRequestCallback() {
                 @Override
                 public void onRequestFailed(BaseDomainData data) {
-                    handleLoadCelebritiesFailed(data);
+                    handleLoadCelebritiesFailed(ErroBarHelper.ERRO_TYPE_PARSE_NAME);
                 }
 
                 @Override
@@ -44,7 +45,7 @@ public class RepertoryPresenter implements RepertoryContact.Presenter {
 
                 @Override
                 public void onNetError() {
-
+                    handleLoadCelebritiesFailed(ErroBarHelper.ERRO_TYPE_NET_INTERNET);
                 }
             });
         }
@@ -57,7 +58,9 @@ public class RepertoryPresenter implements RepertoryContact.Presenter {
         }
     }
 
-    private void handleLoadCelebritiesFailed(BaseDomainData data) {
-
+    private void handleLoadCelebritiesFailed(String errorMessage) {
+        if (mView != null) {
+            mView.drawGetCelebritiesError(errorMessage);
+        }
     }
 }
