@@ -54,8 +54,8 @@ public class LoginSimpleInputSmsPresenter implements LoginSimpleInputSmsContract
     @Override
     public void handleRegisterByPhone(String mobile, String password, String sms) {
         if (mLoginUserCase != null) {
-            String pswd = MD5Calculator.calculateMD5(password);
-            mLoginUserCase.register(mobile, pswd, sms, new BaseRequestCallback() {
+//            String pswd = MD5Calculator.calculateMD5(password);
+            mLoginUserCase.register(mobile, password, sms, new BaseRequestCallback() {
                 @Override
                 public void onRequestFailed(BaseDomainData data) {
                     mView.onRegisterByPhoneError(0, MessageTools.getMessage(data));

@@ -228,4 +228,14 @@ public class MyViewHistoryFragment extends BaseFragment implements MyViewHistory
     public boolean isHistory() {
         return true;
     }
+
+    @Override
+    public void showMessage(String message) {
+
+    }
+
+    @Override
+    public void refreshView() {
+
+    }
 }

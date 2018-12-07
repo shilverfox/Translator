@@ -9,6 +9,10 @@ public class MyViewHistoryContact {
 
         /** 当前页面是否为观看历史 */
         boolean isHistory();
+
+        /** 操作成功后刷新页面 */
+        void refreshView();
+        void showMessage(String message);
     }
 
     public interface Presenter {

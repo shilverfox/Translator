@@ -459,7 +459,7 @@ public class HttpRequestPool {
     public static BaseRequestEntity getDeleteVideoEntity(String token, String[] ids, boolean isHistory) {
         BaseRequestEntity baseRequest = new BaseRequestEntity();
         baseRequest.setUrl(ConstData.HOST);
-        baseRequest.setFunctionId(isHistory ? "/Special/Special/delAppSingleHistory" : "/Special/Special/getUserHistory");
+        baseRequest.setFunctionId(isHistory ? "/Special/Special/delAppSingleHistory" : "/Special/Special/deleteCollect");
         baseRequest.setMethod(RequestConst.REQUEST_POST);
 
         BaseBody body = new BaseBody();

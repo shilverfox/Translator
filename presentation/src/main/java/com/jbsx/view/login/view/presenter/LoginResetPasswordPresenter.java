@@ -54,7 +54,7 @@ public class LoginResetPasswordPresenter extends LoginSimpleInputSmsPresenter
     @Override
     public void handleRegisterByPhone(String mobile, String password, String sms) {
         if (mLoginUserCase != null) {
-            String pswd = MD5Calculator.calculateMD5(password);
+//            String pswd = MD5Calculator.calculateMD5(password);
             mLoginUserCase.resetPassword(mobile, password, sms, new BaseRequestCallback() {
                 @Override
                 public void onRequestFailed(BaseDomainData data) {

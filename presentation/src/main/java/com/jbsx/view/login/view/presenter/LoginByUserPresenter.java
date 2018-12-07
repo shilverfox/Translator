@@ -38,7 +38,7 @@ public class LoginByUserPresenter implements LoginByUserContract.Presenter {
             return;
         }
 
-        String pswd = MD5Calculator.calculateMD5(password);
+//        String pswd = MD5Calculator.calculateMD5(password);
         mLoginUserCase.loginByUser(userName, password, new BaseRequestCallback() {
             @Override
             public void onRequestFailed(BaseDomainData data) {

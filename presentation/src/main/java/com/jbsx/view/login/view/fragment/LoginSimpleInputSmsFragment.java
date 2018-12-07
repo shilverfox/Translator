@@ -23,7 +23,9 @@ import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.utils.LogTools;
 import com.jbsx.utils.ShowTools;
+import com.jbsx.view.login.callback.IOnLoginListener;
 import com.jbsx.view.login.customview.LoginUserAgreementView;
+import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.login.util.LoginUtils;
 import com.jbsx.view.login.view.contact.LoginSimpleInputSmsContract;
 import com.jbsx.view.login.view.presenter.LoginSimpleInputSmsPresenter;
@@ -385,7 +387,24 @@ public class LoginSimpleInputSmsFragment extends BaseFragment
     public void onRegisterByPhoneSuccessful() {
         // 停止倒计时
         stopCountDown();
+        handleGotoLogin();
         ShowTools.toast(getSuccessToast());
+    }
+
+    private void handleGotoLogin() {
+        // 去登录
+        LoginHelper.getInstance().startLogin(getActivity(), new IOnLoginListener() {
+            @Override
+            public void onSucess() {
+                if (getActivity() != null) {
+                    getActivity().finish();
+                }
+            }
+
+            @Override
+            public void onFailed() {
+            }
+        });
     }
 
     @Override

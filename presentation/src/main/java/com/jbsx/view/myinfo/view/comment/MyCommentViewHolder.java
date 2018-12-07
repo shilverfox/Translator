@@ -87,7 +87,8 @@ public class MyCommentViewHolder extends CommonListFragmentViewHolder<UserCommen
         mTvCommentCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleAddCommentClick(mCurrentPosition);
+                // 我自己就别评论我自己了
+//                handleAddCommentClick(mCurrentPosition);
             }
         });
     }

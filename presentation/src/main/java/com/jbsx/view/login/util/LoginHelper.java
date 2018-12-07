@@ -141,7 +141,11 @@ public class LoginHelper {
             }
 
             Bundle bundle = new Bundle();
-            DataIntent.put(bundle, ITransKey.KEY, loginListener);
+
+            if (loginListener != null) {
+                DataIntent.put(bundle, ITransKey.KEY, loginListener);
+            }
+
             Router.getInstance().open(LoginActivity.class, activity, bundle);
         }
     }
@@ -149,8 +153,8 @@ public class LoginHelper {
     /** 显示登陆提示 */
     public void showLoginDialog(final Context context, final IOnLoginListener loginListener) {
         if (context != null) {
-            JDDJDialogFactory.createDialog(context).setTitle("请先登录")
-                    .setFirstOnClickListener("知道了", new View.OnClickListener() {
+            JDDJDialogFactory.createDialog(context).setTitle("您还未登录")
+                    .setSecondOnClickListener("现在登录", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             startLogin((Activity) context, new IOnLoginListener() {
@@ -170,6 +174,12 @@ public class LoginHelper {
                                     ShowTools.toast("登录失败，请重试");
                                 }
                             });
+                        }
+                    })
+                    .setFirstOnClickListener("再用看看", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
                         }
                     }).show();
         }
