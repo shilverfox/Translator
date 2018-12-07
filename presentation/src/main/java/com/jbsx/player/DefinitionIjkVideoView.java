@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import com.dueeeke.videoplayer.player.IjkVideoView;
 import com.jbsx.player.interf.DefinitionMediaPlayerControl;
+import com.jbsx.player.interf.IOnDefinitionSwitchListener;
 import com.jbsx.player.interf.ListMediaPlayerControl;
 
 import java.util.LinkedHashMap;
@@ -23,6 +24,9 @@ public class DefinitionIjkVideoView extends IjkVideoView
 
     protected List<VideoModel> mVideoModels;//列表播放数据
     protected int mCurrentVideoPosition = 0;//列表播放时当前播放视频的在List中的位置
+
+    /** 清晰度切换后及时更新播放进度 */
+    private IOnDefinitionSwitchListener mOnDefinitionSwitch;
 
     public DefinitionIjkVideoView(@NonNull Context context) {
         super(context);
@@ -44,12 +48,23 @@ public class DefinitionIjkVideoView extends IjkVideoView
     @Override
     public void switchDefinition(String definition) {
         String url = mDefinitionMap.get(definition);
-        if (definition.equals(mCurrentDefinition)) return;
+        if (definition.equals(mCurrentDefinition)) {
+            return;
+        }
+
+        if (mOnDefinitionSwitch != null) {
+            mOnDefinitionSwitch.onDefinitionSwitch(getCurrentPosition());
+        }
+
         mCurrentUrl = url;
         addDisplay();
         getCurrentPosition();
         startPrepare(true);
         mCurrentDefinition = definition;
+    }
+
+    public void setOnDefinitionSwitchListener(IOnDefinitionSwitchListener listener) {
+        mOnDefinitionSwitch = listener;
     }
 
     public void setDefinitionVideos(LinkedHashMap<String, String> videos) {

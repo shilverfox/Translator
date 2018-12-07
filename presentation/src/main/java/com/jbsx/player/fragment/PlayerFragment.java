@@ -43,6 +43,7 @@ import com.jbsx.player.data.ConcernData;
 import com.jbsx.player.data.PlayerData;
 import com.jbsx.player.data.SingleVideoData;
 import com.jbsx.player.data.SpecialSingleData;
+import com.jbsx.player.interf.IOnDefinitionSwitchListener;
 import com.jbsx.player.presenter.PlayerPresenter;
 import com.jbsx.player.util.AlbumDetailUtil;
 import com.jbsx.player.util.PlayerHelper;
@@ -536,6 +537,14 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
                 if (i == IjkVideoView.STATE_PREPARED) {
                     mPlayerView.seekTo(mSingleCurrentPosition);
                 }
+            }
+        });
+
+        mPlayerView.setOnDefinitionSwitchListener(new IOnDefinitionSwitchListener() {
+            @Override
+            public void onDefinitionSwitch(long currentPosition) {
+                // 切换清晰度后更新播放进度，只记录本地
+                mSingleCurrentPosition = currentPosition;
             }
         });
 

@@ -37,7 +37,7 @@ public class ImageLoader {
     }
 
     public static void displayImage(String url, int defaultImageId, ImageView imgView) {
-        if (TextUtils.isEmpty(url) || imgView == null) {
+        if (imgView == null) {
             return;
         }
 
@@ -80,8 +80,8 @@ public class ImageLoader {
      * @param imgView
      * @param circle
      */
-    public static void displayImage(String url, ImageView imgView, boolean circle) {
-        if (TextUtils.isEmpty(url) || imgView == null) {
+    public static void displayImage(String url, ImageView imgView, int defaultImageId, boolean circle) {
+        if (imgView == null) {
             return;
         }
 
@@ -89,6 +89,7 @@ public class ImageLoader {
         Glide.with(MainApplicationLike.getAppContext())
                 .load(url)
                 .asBitmap()
+                .placeholder(defaultImageId)
                 .transform(new Transformation[]{transformation1})
                 .into(imgView);
     }
