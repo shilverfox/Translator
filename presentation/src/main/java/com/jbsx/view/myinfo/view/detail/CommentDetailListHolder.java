@@ -97,7 +97,7 @@ public class CommentDetailListHolder extends CommonListFragmentViewHolder<UserCo
         mCurrentPosition = position;
 
         if (data != null) {
-            ImageLoader.displayImage("http://pic1.win4000.com/wallpaper/2018-01-09/5a54724e365b9.jpg", mIvUserHead, true);
+            ImageLoader.displayImage(data.getUserImage(), mIvUserHead, R.drawable.default_head, true);
             mTvUserName.setText(data.getAccount());
             mTvMessageContent.setText(data.getComment());
             mTvResponseTime.setText(data.getCreatedAt());

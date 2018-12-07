@@ -146,7 +146,7 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
                 mTxtLogin.setVisibility(View.GONE);
 
                 // 头像
-                ImageLoader.displayImage(userInfo.getImageUrl(), mIvUserHead, true);
+                ImageLoader.displayImage(userInfo.getImageUrl(), mIvUserHead, R.drawable.default_head, true);
             }
         } else {
             // 未登录
