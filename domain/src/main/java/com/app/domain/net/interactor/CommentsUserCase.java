@@ -49,4 +49,21 @@ public class CommentsUserCase extends UserCase {
                 userId, commentId);
         handleSendRequest(entity, callback);
     }
+
+    /**
+     * 举报
+     *
+     * @param token
+     * @param userId
+     * @param albumId
+     * @param singleId
+     * @param commentId
+     * @param callback
+     */
+    public void requestBadComment(String token, String userId, String albumId, String singleId,
+                                 String commentId, BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.isBadComment(token, albumId, singleId,
+                userId, commentId);
+        handleSendRequest(entity, callback);
+    }
 }

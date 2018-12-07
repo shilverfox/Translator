@@ -48,6 +48,7 @@ import com.jbsx.player.presenter.PlayerPresenter;
 import com.jbsx.player.util.AlbumDetailUtil;
 import com.jbsx.player.util.PlayerHelper;
 import com.jbsx.player.util.SingleVideoUtil;
+import com.jbsx.player.view.VideoCommentsView;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ShareHelper;
 import com.jbsx.utils.ShowTools;
@@ -103,7 +104,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
     private EpisodeLandScapeItemAdapter mLandEpiAdapter;
 
     /** 视频评论列表 */
-    private VideoCommentsListView mVideoCommentsListView;
+    private VideoCommentsView mVideoCommentsListView;
     private TextView mTvCommentCount;
 
     /** 评论输入框 */
@@ -660,7 +661,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         comments.setSpecialAlbumId(albumId);
         comments.setSpecialSingleId(singleId);
 
-        mVideoCommentsListView = VideoCommentsListView.newInstance(comments);
+        mVideoCommentsListView = VideoCommentsView.newInstance(comments);
         mVideoCommentsListView.setCommentCountView(mTvCommentCount);
         mVideoCommentsListView.setNestedScrollingEnabled(false);
         FragmentManager fragmentManager = getFragmentManager();

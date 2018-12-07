@@ -46,10 +46,10 @@ public class CommentDetailListHolder extends CommonListFragmentViewHolder<UserCo
     private TextView mTvResponseTime;
     private TextView mTvMessageContent;
     private TextView mTvResponseContent;
-    private UserComments mData;
+    public UserComments mData;
     private int mCurrentPosition;
 
-    private CommentsUserCase mUserCase;
+    public CommentsUserCase mUserCase;
 
     /** 评论输入框 */
     private Dialog mInputCommentDialog;
@@ -190,7 +190,7 @@ public class CommentDetailListHolder extends CommonListFragmentViewHolder<UserCo
                 new BaseRequestCallback() {
                     @Override
                     public void onRequestFailed(BaseDomainData data) {
-                        ShowTools.toast("点赞，请重试");
+                        ShowTools.toast("点赞失败，请重试");
                     }
 
                     @Override

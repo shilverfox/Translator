@@ -30,7 +30,7 @@ import java.util.List;
 public class CommentDetailListView extends CommonListFragment {
     public static final String ARGUMENT = "argument";
 
-    private CommentDetailListAdapter mAdapter;
+    public CommentDetailListAdapter mAdapter;
     private MyCommentData mResultData;
     private UserComments mRequestData;
 
