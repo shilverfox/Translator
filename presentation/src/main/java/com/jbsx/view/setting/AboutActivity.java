@@ -37,7 +37,7 @@ public class AboutActivity extends BaseActivity {
 		mTxtVersion.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				mTxtVersion.setText(StatisticsReportUtil.getSimpleVersionName());
+				mTxtVersion.setText(StatisticsReportUtil.getSimpleVersionName() + "(" + StatisticsReportUtil.getSoftwareVersionCode() + ")");
 			}
 		});
 	}
