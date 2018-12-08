@@ -2,6 +2,7 @@ package com.jbsx.utils;
 
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.view.View;
 
 import com.jbsx.app.MainApplicationLike;
 
@@ -29,5 +30,33 @@ public class UiTools {
         }
 
         return drawable;
+    }
+
+    /**
+     * 动态测量wrap模式下控件大小
+     *
+     * @param view
+     */
+    public static void measureForWrap(View view) {
+        if (view != null) {
+            int width = View.MeasureSpec.makeMeasureSpec((1 << 30) - 1, View.MeasureSpec.AT_MOST);
+            int height = View.MeasureSpec.makeMeasureSpec((1 << 30) - 1, View.MeasureSpec.AT_MOST);
+
+            view.measure(width, height);
+        }
+    }
+
+    /**
+     * 动态测量给定大小的控件的实际尺寸
+     *
+     * @param view
+     */
+    public static void measureForExactly(View view) {
+        if (view != null) {
+            int width = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.EXACTLY);
+            int height = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.EXACTLY);
+
+            view.measure(width, height);
+        }
     }
 }

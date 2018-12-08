@@ -26,9 +26,14 @@
 
     <ImageView
         android:id="@+id/iv_video_bad_comment"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/red_rect_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="20dp"
+        android:layout_marginRight="-8dp"
+        android:paddingRight="10dp"
+        android:src="@drawable/bad_comment_icon"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/img_sd_civ_icon"
         android:layout_alignBottom="@id/img_sd_civ_icon"/>

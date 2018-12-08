@@ -14,6 +14,7 @@ import com.jbsx.R;
 import com.jbsx.utils.UiTools;
 
 public class PushFromBottomDialog extends Dialog {
+    private View mContentView;
 
     public PushFromBottomDialog(Context context) {
         super(context);
@@ -35,6 +36,7 @@ public class PushFromBottomDialog extends Dialog {
 
     private void init(Context context, View contentView) {
         int outsideMenuWidth = 0;
+        mContentView = contentView;
 
         WindowManager.LayoutParams localLayoutParams = getWindow()
                 .getAttributes();
@@ -54,6 +56,10 @@ public class PushFromBottomDialog extends Dialog {
         setCancelable(true);
         setCanceledOnTouchOutside(true);
         setContentView(contentView);
+    }
+
+    public View getContentView() {
+        return mContentView;
     }
 
     @Override
