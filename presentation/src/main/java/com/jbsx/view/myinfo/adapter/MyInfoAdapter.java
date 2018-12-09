@@ -95,7 +95,7 @@ public class MyInfoAdapter extends UniversalAdapter2<MyInfoItem> {
         }
 
         // 右箭头
-        boolean hasNav = (myInfoItem.getTo() != null);
+        boolean hasNav = (myInfoItem.getTo() != null) || myInfoItem.isRightDeliver();
         holder.getViewById(R.id.iv_myinfo_item_forward).setVisibility(hasNav ? View.VISIBLE : View.INVISIBLE);
 
         holder.getViewById(R.id.rl_myinfo_item).setOnClickListener(new View.OnClickListener() {

@@ -15,8 +15,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="root_bg_color">#f4f4f4</color>
+    <color name="root_bg_color">#ffffff</color>
     <color name="divider_line">#f2f2f2</color>
+    <color name="divider_line_dark">#e6e6e6</color>
+
+    <color name="grey_background">#e6e6e6</color>
 
     <color name="login_input_bg">#ffffff</color>
     <color name="login_input_text_color">#6cc272</color>

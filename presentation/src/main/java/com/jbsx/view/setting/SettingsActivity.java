@@ -59,7 +59,7 @@ public class SettingsActivity extends BaseFragmentActivity {
         mLvContent.setAdapter(mAdapter);
         mLvContent.setHasFixedSize(true);
         mLvContent.setLayoutManager(linearLayoutManager);
-        mLvContent.addItemDecoration(RecyclerViewHelper.getDivider(mContext));
+        mLvContent.addItemDecoration(RecyclerViewHelper.getDivider(mContext, true));
 
         mAdapter.setOnMyItemClickListener(new MyInfoAdapter.OnMyItemClickListener() {
             @Override

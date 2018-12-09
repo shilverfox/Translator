@@ -64,7 +64,7 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        mRecyclerView.addItemDecoration(RecyclerViewHelper.getDivider(mContext));
+        mRecyclerView.addItemDecoration(RecyclerViewHelper.getDivider(mContext, true));
 
         refreshUI();
     }

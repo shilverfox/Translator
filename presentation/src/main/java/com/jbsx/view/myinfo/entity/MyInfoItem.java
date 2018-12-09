@@ -21,6 +21,18 @@ public class MyInfoItem {
     }
 
     /**
+     *
+     * @param id
+     * @param title
+     * @param showNav 是否显示向右箭头
+     */
+    public MyInfoItem(int id, String title, boolean showNav) {
+        this.id = id;
+        this.title = title;
+        this.rightDeliver = showNav;
+    }
+
+    /**
      * 设置界面用到
      */
     public MyInfoItem(int id, String title, CharSequence hint) {

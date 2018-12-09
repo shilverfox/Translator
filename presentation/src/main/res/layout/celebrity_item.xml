@@ -20,6 +20,6 @@
         android:ellipsize="end"
         android:textSize="12sp"
         android:layout_marginRight="8dp"
-        android:text=""/>
+        android:text="dddd"/>
 
 </FrameLayout>

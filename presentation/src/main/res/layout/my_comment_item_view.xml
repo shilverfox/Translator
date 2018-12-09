@@ -14,7 +14,7 @@
 
     <RelativeLayout
         android:id="@+id/layout_comment_video"
-        android:background="@color/divider_line"
+        android:background="@color/divider_line_dark"
         android:layout_width="match_parent"
         android:layout_marginTop="14dp"
         android:layout_height="100dp">

@@ -230,7 +230,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
      */
     private void handleRequestVideoOfAlbum() {
         if (hasAlbumInfo()) {
-            ProgressBarHelper.addProgressBar(mRootView);
+//            ProgressBarHelper.addProgressBar(mRootView);
             mPresenter.loadVideoOfAlbum(mRequestData.getAlbumId());
         }
     }

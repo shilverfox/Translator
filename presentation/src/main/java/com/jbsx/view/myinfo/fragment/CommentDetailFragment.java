@@ -105,6 +105,9 @@ public class CommentDetailFragment extends BaseFragment {
             View hideView = videoView.findViewById(R.id.iv_video_item_host);
             hideView.setVisibility(View.GONE);
 
+            TextView name = videoView.findViewById(R.id.iv_video_item_description);
+            name.setTextColor(getContext().getResources().getColor(R.color.app_word_red));
+
             // 造holder需要的数据
             SpecialSingles specialSingles = new SpecialSingles();
             specialSingles.setSingle(mRequestData.getSingle());

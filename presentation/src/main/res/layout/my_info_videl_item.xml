@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        android:background="@drawable/line_rect_bg"
+        android:padding="@dimen/common_padding_horizontal"
         android:text="jintian"/>
 
     <RelativeLayout

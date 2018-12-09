@@ -17,6 +17,7 @@ import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.recyclerview.CenterLayoutManager;
 import com.jbsx.utils.ErroBarHelper;
+import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.view.main.adapter.CelebrityItemAdapter;
 import com.jbsx.view.main.contact.RepertoryContact;
@@ -90,6 +91,7 @@ public class RepertoryFragment extends BaseFragment implements RepertoryContact.
      * 获取名家列表
      */
     private void requestCelebrities() {
+        ProgressBarHelper.addProgressBar(mRvCelebrities);
         mPresenter.requestCelebrities();
     }
 
@@ -143,7 +145,7 @@ public class RepertoryFragment extends BaseFragment implements RepertoryContact.
             }
         }
 
-        ReloadBarHelper.removeReloadBar(mRvCelebrities);
+        ProgressBarHelper.removeProgressBar(mRvCelebrities);
     }
 
     private void addViewAllCelebrityItem(List<Celebrities> data) {

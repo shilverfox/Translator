@@ -128,6 +128,7 @@ public class MyCommentViewHolder extends CommonListFragmentViewHolder<UserCommen
             Single singleInfo = data.getSingle();
             if (singleInfo != null) {
                 mTvVideoTitle.setText(singleInfo.getTitle());
+                mTvVideoTitle.setTextColor(mContext.getResources().getColor(R.color.app_word_red));
                 ImageLoader.displayImage(singleInfo.getPcImageUrl(), mIvVideoImage);
             }
         }
