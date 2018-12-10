@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/iv_video_item_image"
         android:text=""
-        android:textSize="15sp"
+        android:textSize="18sp"
         android:layout_marginLeft="@dimen/common_padding_horizontal"
         android:textColor="@color/gray_999" />
 
@@ -43,6 +43,7 @@
         android:layout_below="@id/iv_video_item_description"
         android:gravity="bottom"
         android:text=""
+        android:textSize="12sp"
         android:textColor="@color/app_word_red" />
 
 </RelativeLayout>

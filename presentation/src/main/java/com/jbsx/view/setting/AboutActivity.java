@@ -100,7 +100,7 @@ public class AboutActivity extends BaseActivity {
 			String url = "";
 			switch (item.getId()) {
 				case 1:
-					url = "http://www.baidu.com";
+					url = "http://jbsx.china1896.com/jbsx/src/forapp/teamGp.html";
 					break;
 				case 2:
 					url = "http://www.baidu.com";

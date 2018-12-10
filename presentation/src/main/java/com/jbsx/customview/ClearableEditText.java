@@ -53,7 +53,7 @@ public class ClearableEditText extends AppCompatEditText implements View.OnFocus
 
         mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth(),
                 mClearDrawable.getIntrinsicHeight());
-        setCompoundDrawablePadding(mClearDrawable.getIntrinsicWidth());
+//        setCompoundDrawablePadding(mClearDrawable.getIntrinsicWidth());
         // 默认设置隐藏图标
         setClearIconVisible(false);
         // 设置焦点改变的监听

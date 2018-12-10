@@ -155,6 +155,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
             }
         });
 
+        mTopBarLayout.getRightButton().setTextSize(11);
         mTopBarLayout.setRightButton("观看历史", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
