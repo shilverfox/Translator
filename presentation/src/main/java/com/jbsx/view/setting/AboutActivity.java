@@ -103,10 +103,10 @@ public class AboutActivity extends BaseActivity {
 					url = "http://jbsx.china1896.com/jbsx/src/forapp/teamGp.html";
 					break;
 				case 2:
-					url = "http://www.baidu.com";
+					url = "http://jbsx.china1896.com/jbsx/src/forapp/article1.html";
 					break;
 				case 3:
-					url = "http://www.baidu.com";
+					url = "http://jbsx.china1896.com/jbsx/src/forapp/article2.html";
 					break;
 			}
 
