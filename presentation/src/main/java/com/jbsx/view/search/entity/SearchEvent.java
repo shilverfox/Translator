@@ -22,11 +22,22 @@ public class SearchEvent implements Parcelable {
     /** 排序热门1热门2非热门 */
     private int sort;
 
+    /** 默认选中的tab索引 */
+    private int defaultFocus;
+
     public SearchEvent(int celebrityId, String searchKey, int searchType, int sort) {
         this.celebrityId = celebrityId;
         this.searchKey = searchKey;
         this.searchType = searchType;
         this.sort = sort;
+    }
+
+    public int getDefaultFocus() {
+        return defaultFocus;
+    }
+
+    public void setDefaultFocus(int defaultFocus) {
+        this.defaultFocus = defaultFocus;
     }
 
     public int getCelebrityId() {
@@ -72,6 +83,7 @@ public class SearchEvent implements Parcelable {
         dest.writeString(this.searchKey);
         dest.writeInt(this.searchType);
         dest.writeInt(this.sort);
+        dest.writeInt(this.defaultFocus);
     }
 
     protected SearchEvent(Parcel in) {
@@ -79,6 +91,7 @@ public class SearchEvent implements Parcelable {
         this.searchKey = in.readString();
         this.searchType = in.readInt();
         this.sort = in.readInt();
+        this.defaultFocus = in.readInt();
     }
 
     public static final Parcelable.Creator<SearchEvent> CREATOR = new Parcelable.Creator<SearchEvent>() {

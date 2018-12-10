@@ -14,10 +14,11 @@ public class SearchEventGenerator {
      * @param searchKey
      * @return
      */
-    public static SearchEvent getKeyWordSearch(String searchKey) {
+    public static SearchEvent getKeyWordSearch(String searchKey, int defaultFocus) {
         SearchEvent event = new SearchEvent(ConstData.INVALID_CELEBRITY_ID, searchKey,
                 SearchEvent.SEARCH_TYPE_TITLE_CELEBRITY,
                 SearchEvent.SEARCH_SORT_BY_HOT);
+        event.setDefaultFocus(defaultFocus);
 
         return event;
     }

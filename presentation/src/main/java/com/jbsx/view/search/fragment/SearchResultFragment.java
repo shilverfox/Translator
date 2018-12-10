@@ -111,7 +111,7 @@ public class SearchResultFragment extends BaseFragment implements ISearchRequest
 
         // 不支持滑动切换
         mTabLayout.setTabData(mTabEntities, getActivity(), R.id.layout_search_result, mFragmentList);
-        mTabLayout.setCurrentTab(0);
+        mTabLayout.setCurrentTab(event.getDefaultFocus());
     }
 
     @Override

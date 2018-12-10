@@ -112,13 +112,17 @@ public class SearchHelper {
     }
 
     public void doSearch(final String searchKey) {
+        doSearch(searchKey, 0);
+    }
+
+    public void doSearch(final String searchKey, final int defaultFocus) {
         saveSearchHistory(searchKey);
 
         // Event bus 需要等到Activity初始化完毕后才能响应
         MainApplicationLike.getInstance().getHanlder().postDelayed(new Runnable() {
             @Override
             public void run() {
-                EventBus.getDefault().post(SearchEventGenerator.getKeyWordSearch(searchKey));
+                EventBus.getDefault().post(SearchEventGenerator.getKeyWordSearch(searchKey, defaultFocus));
             }
         }, 1000);
     }

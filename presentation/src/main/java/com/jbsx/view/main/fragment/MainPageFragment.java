@@ -233,8 +233,9 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
             Celebrities celebrity = mListCelebrity.get(position);
 
             if (celebrity != null) {
+                // 首页进入的搜索结果默认切刀第二个tab——主讲人
                 SearchHelper searchHelper = new SearchHelper();
-                searchHelper.doSearch(celebrity.getName());
+                searchHelper.doSearch(celebrity.getName(), 1);
                 Router.getInstance().open(SearchResultActivity.class, getActivity());
             }
         }
