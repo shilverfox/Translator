@@ -112,11 +112,20 @@ public class SearchHelper {
     }
 
     public void doSearch(final String searchKey) {
-        doSearch(searchKey, 0);
+        doSearch(searchKey, 0, true);
     }
 
-    public void doSearch(final String searchKey, final int defaultFocus) {
-        saveSearchHistory(searchKey);
+    /**
+     * 搜索
+     *
+     * @param searchKey
+     * @param defaultFocus 搜索结果页的默认选中tab
+     * @param saveKey 是否保存搜索关键字
+     */
+    public void doSearch(final String searchKey, final int defaultFocus, boolean saveKey) {
+        if (saveKey) {
+            saveSearchHistory(searchKey);
+        }
 
         // Event bus 需要等到Activity初始化完毕后才能响应
         MainApplicationLike.getInstance().getHanlder().postDelayed(new Runnable() {
