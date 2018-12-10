@@ -1,13 +1,9 @@
 package com.jbsx.view.search.util;
 
-import android.content.Context;
 import android.text.TextUtils;
 
-import com.app.domain.net.data.ConstData;
-import com.jbsx.app.MainApplication;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.utils.PersistentUtils;
-import com.jbsx.view.search.entity.SearchEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
