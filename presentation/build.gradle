@@ -7,12 +7,12 @@ MobSDK {
     ShareSDK {
         devInfo {
             Wechat {
-                appId "2913a192f8410"
-                appSecret "cc53adec9e9ebd16ca113b68d63aaebe"
+                appId "wxed02cd1003a8a1e2"
+                appSecret "565e7051822aa0bca52691701f997aaa"
             }
             WechatMoments {
-                appId "2913a192f8410"
-                appSecret "cc53adec9e9ebd16ca113b68d63aaebe"
+                appId "wxed02cd1003a8a1e2"
+                appSecret "565e7051822aa0bca52691701f997aaa"
             }
             QQ {
                 appId "100371282"
