@@ -25,7 +25,7 @@
     <dimen name="dialog_width">250dp</dimen>
 
     <dimen name="common_padding_vertical">8dp</dimen>
-    <dimen name="common_padding_horizontal">8dp</dimen>
+    <dimen name="common_padding_horizontal">10dp</dimen>
 
     <dimen name="dkplayer_controller_height">46dp</dimen>
     <dimen name="dkplayer_controller_icon_padding">12dp</dimen>

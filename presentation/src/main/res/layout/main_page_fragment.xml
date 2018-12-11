@@ -18,9 +18,9 @@
             android:id="@+id/banner"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            app:indicator_height="8dp"
-            app:indicator_margin="4dp"
-            app:indicator_width="8dp"/>
+            app:indicator_height="10dp"
+            app:indicator_margin="6dp"
+            app:indicator_width="10dp"/>
 
         <LinearLayout
             android:id="@+id/layout_host"
@@ -37,9 +37,11 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/red_bar"
                 android:gravity="center_vertical"
-                android:drawablePadding="8dp"
+                android:drawablePadding="7dp"
                 android:paddingTop="@dimen/common_padding_vertical"
                 android:paddingBottom="@dimen/common_padding_vertical"
+                android:textColor="@color/black"
+                android:textSize="15sp"
                 android:text="艺术顾问" />
 
             <android.support.v7.widget.RecyclerView
@@ -65,9 +67,11 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/red_bar"
                 android:gravity="center_vertical"
+                android:drawablePadding="7dp"
                 android:paddingTop="@dimen/common_padding_vertical"
                 android:paddingBottom="@dimen/common_padding_vertical"
-                android:drawablePadding="8dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
                 android:text="专题系列" />
 
             <com.zhouyou.recyclerview.XRecyclerView
