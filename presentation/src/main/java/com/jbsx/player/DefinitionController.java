@@ -2,6 +2,7 @@ package com.jbsx.player;
 
 import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -84,6 +85,24 @@ public class DefinitionController extends StandardVideoController {
         initEpisode();
         initEpisodeList();
         initEpisodeAnimation();
+        initEvent();
+    }
+
+    private void initEvent() {
+        // 返回箭头，重写父类事件，父类竖屏不显示
+        backButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mediaPlayer.isFullScreen()) {
+                    doStartStopFullScreen();
+                } else {
+                    // 竖屏状态返回直接关闭当前页
+                    if (getContext() != null && getContext() instanceof Activity) {
+                        ((Activity)getContext()).finish();
+                    }
+                }
+            }
+        });
     }
 
     private void initEpisodeAnimation() {
@@ -232,11 +251,16 @@ public class DefinitionController extends StandardVideoController {
             case IjkVideoView.PLAYER_NORMAL:
                 multiRate.setVisibility(VISIBLE);
                 mTvEpisode.setVisibility(View.GONE);
+
+                // 竖屏下也要现实返回箭头
+                topContainer.setVisibility(View.VISIBLE);
+                backButton.setVisibility(View.VISIBLE);
                 hideLandScapeEpisodes();
                 break;
             case IjkVideoView.PLAYER_FULL_SCREEN:
                 multiRate.setVisibility(VISIBLE);
                 mTvEpisode.setVisibility(View.VISIBLE);
+                backButton.setVisibility(View.VISIBLE);
                 break;
         }
     }
