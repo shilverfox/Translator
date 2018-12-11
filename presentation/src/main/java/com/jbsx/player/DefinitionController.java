@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -30,6 +32,8 @@ import com.dueeeke.videoplayer.util.WindowUtil;
 import com.jbsx.R;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.player.interf.DefinitionMediaPlayerControl;
+import com.jbsx.player.interf.IOnFavoriteClickListener;
+import com.jbsx.player.interf.IOnShareClickListener;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -51,6 +55,10 @@ public class DefinitionController extends StandardVideoController {
     private List<TextView> mRateItems;
     private LinearLayout mPopLayout;
 
+    /** 分享、收藏 */
+    private ImageView mIvFavorite;
+    private ImageView mIvShare;
+
     private TextView mTvEpisode;
     private List<String> mEpisodeList;
 
@@ -65,6 +73,9 @@ public class DefinitionController extends StandardVideoController {
     private Animation mAnimationHide;
     private ObjectAnimator mAnimationFadeOut;
     private ObjectAnimator  mAnimationFadeIn;
+
+    private IOnFavoriteClickListener mFavoriteClickListener;
+    private IOnShareClickListener mShareClickListener;
 
     public DefinitionController(@NonNull Context context) {
         this(context, null);
@@ -85,7 +96,13 @@ public class DefinitionController extends StandardVideoController {
         initEpisode();
         initEpisodeList();
         initEpisodeAnimation();
+        initShareAndFavorite();
         initEvent();
+    }
+
+    private void initShareAndFavorite() {
+        mIvFavorite = controllerView.findViewById(R.id.player_album_detail_favorite);
+        mIvShare = controllerView.findViewById(R.id.player_album_detail_share);
     }
 
     private void initEvent() {
@@ -100,6 +117,24 @@ public class DefinitionController extends StandardVideoController {
                     if (getContext() != null && getContext() instanceof Activity) {
                         ((Activity)getContext()).finish();
                     }
+                }
+            }
+        });
+
+        mIvFavorite.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mFavoriteClickListener != null) {
+                    mFavoriteClickListener.onClick();
+                }
+            }
+        });
+
+        mIvShare.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mShareClickListener != null) {
+                    mShareClickListener.onClick();
                 }
             }
         });
@@ -185,6 +220,25 @@ public class DefinitionController extends StandardVideoController {
         }
     }
 
+    public void setOnShareClickListener(IOnShareClickListener listener) {
+        mShareClickListener = listener;
+    }
+
+    public void setOnFavoriteClickListener(IOnFavoriteClickListener listener) {
+        mFavoriteClickListener = listener;
+    }
+
+    /**
+     * 收藏
+     *
+     * @param drawable
+     */
+    public void updateConcernDrawable(Drawable drawable) {
+        if (drawable != null) {
+            mIvFavorite.setImageDrawable(drawable);
+        }
+    }
+
     /**
      * 清晰度选择
      */
@@ -251,6 +305,8 @@ public class DefinitionController extends StandardVideoController {
             case IjkVideoView.PLAYER_NORMAL:
                 multiRate.setVisibility(VISIBLE);
                 mTvEpisode.setVisibility(View.GONE);
+                mIvFavorite.setVisibility(View.GONE);
+                mIvShare.setVisibility(View.GONE);
 
                 // 竖屏下也要现实返回箭头
                 topContainer.setVisibility(View.VISIBLE);
@@ -261,6 +317,8 @@ public class DefinitionController extends StandardVideoController {
                 multiRate.setVisibility(VISIBLE);
                 mTvEpisode.setVisibility(View.VISIBLE);
                 backButton.setVisibility(View.VISIBLE);
+                mIvFavorite.setVisibility(View.VISIBLE);
+                mIvShare.setVisibility(View.VISIBLE);
                 break;
         }
     }

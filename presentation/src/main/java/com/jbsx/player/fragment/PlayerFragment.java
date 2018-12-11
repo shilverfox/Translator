@@ -44,6 +44,8 @@ import com.jbsx.player.data.PlayerData;
 import com.jbsx.player.data.SingleVideoData;
 import com.jbsx.player.data.SpecialSingleData;
 import com.jbsx.player.interf.IOnDefinitionSwitchListener;
+import com.jbsx.player.interf.IOnFavoriteClickListener;
+import com.jbsx.player.interf.IOnShareClickListener;
 import com.jbsx.player.presenter.PlayerPresenter;
 import com.jbsx.player.util.AlbumDetailUtil;
 import com.jbsx.player.util.PlayerHelper;
@@ -88,6 +90,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
     public static final String ARGUMENT = "argument";
 
     private View mRootView;
+    private DefinitionController mPlayerController;
     private DefinitionIjkVideoView mPlayerView;
 
     // 视频评论
@@ -436,7 +439,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         mIvFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleCencernClick();
+                handleConcernClick();
             }
         });
     }
@@ -513,8 +516,25 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
     }
 
     private void initPlayer() {
-        DefinitionController controller = new DefinitionController(mContext);
-        controller.setEpisodeAdapter(mLandEpiAdapter);
+        mPlayerController = new DefinitionController(mContext);
+        mPlayerController.setEpisodeAdapter(mLandEpiAdapter);
+        mPlayerController.updateConcernDrawable(mIvFavorite.getDrawable());
+
+        // 全屏下关注视频
+        mPlayerController.setOnFavoriteClickListener(new IOnFavoriteClickListener() {
+            @Override
+            public void onClick() {
+                handleConcernClick();
+            }
+        });
+
+        // 全屏下分享
+        mPlayerController.setOnShareClickListener(new IOnShareClickListener() {
+            @Override
+            public void onClick() {
+                handleShareClick();
+            }
+        });
 
         mPlayerView.setPlayerConfig(new PlayerConfig.Builder()
                 .setCustomMediaPlayer(new IjkPlayer(mContext) {
@@ -550,7 +570,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         });
 
         mPlayerView.setDefinitionVideos(mDefinitionList);
-        mPlayerView.setVideoController(controller);
+        mPlayerView.setVideoController(mPlayerController);
         mPlayerView.setTitle(AlbumDetailUtil.getTitle(mSpecialSingleData));
         mPlayerView.start();
 
@@ -710,12 +730,16 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
      */
     private void handleDrawConcernStatus(boolean concerned) {
         mIvFavorite.setImageResource(concerned ? R.drawable.player_favorite_red : R.drawable.player_favorite_black);
+
+        if (mPlayerController != null) {
+            mPlayerController.updateConcernDrawable(mIvFavorite.getDrawable());
+        }
     }
 
     /**
      * 收藏视频
      */
-    private void handleCencernClick() {
+    private void handleConcernClick() {
         mPresenter.handleConcernVideo(mAlbumId, mSingleId);
     }
 
