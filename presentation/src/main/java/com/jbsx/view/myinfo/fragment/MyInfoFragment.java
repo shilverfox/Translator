@@ -137,7 +137,7 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
             LoginData.UserInfo userInfo = userData.getPayload().getUserInfo();
 
             if (userInfo != null) {
-                mTxtUserName.setText(userData.getPayload().getCellPhone());
+                mTxtUserName.setText(userData.getPayload().getAccount());
                 mTxtUserName.setVisibility(View.VISIBLE);
                 mTxtBusinessName.setText(userInfo.getDepartment());
                 mTxtBusinessName.setVisibility(View.VISIBLE);

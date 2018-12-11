@@ -91,6 +91,8 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
 
     /**
      * 是否支持nested嵌套
+     * 注意：嵌套后会导致recyclerView失去复用机制，卡死你
+     *
      * @param enabled
      */
     public void setNestedScrollingEnabled(boolean enabled) {
@@ -230,14 +232,29 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
     }
 
     private void handleNetError() {
-        ProgressBarHelper.removeProgressBar(mListView);
-        ErroBarHelper.addErroBar(mListView, ErroBarHelper.ERRO_TYPE_NET_INTERNET,
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        loadAllData(true);
-                    }
-                }, "重新加载");
+        if (isTheFirstPage()) {
+            // 第一页则显示错误页面
+            ProgressBarHelper.removeProgressBar(mListView);
+            ErroBarHelper.addErroBar(mListView, ErroBarHelper.ERRO_TYPE_NET_INTERNET,
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            loadAllData(true);
+                        }
+                    }, "重新加载");
+        } else {
+            // 加载失败索引回退
+            mPageIndex--;
+
+            // 非第一页，只在页脚显示
+            RecyclerViewStateUtils.setFooterViewState(getActivity(), mListView, mPageSize,
+                    LoadingFooter.State.NetWorkError, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            handleLoadNextPage();
+                        }
+                    });
+        }
     }
 
     /**

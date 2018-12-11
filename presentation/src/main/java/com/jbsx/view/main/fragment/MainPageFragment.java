@@ -312,7 +312,8 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
             if (path != null && path instanceof SpecialAlbums) {
                 SpecialAlbums albums = (SpecialAlbums)path;
                 if (albums != null && albums.getAlbum() != null) {
-                    com.jbsx.utils.image.ImageLoader.displayImage(albums.getAlbum().getAppImageUrl(), imageView);
+                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                    com.jbsx.utils.image.ImageLoader.displayImage(albums.getAlbum().getAppGeneralizeImageUrl(), imageView);
                 }
             }
         }
