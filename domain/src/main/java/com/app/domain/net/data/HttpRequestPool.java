@@ -502,6 +502,29 @@ public class HttpRequestPool {
     }
 
     /**
+     * 根据id获取用户信息
+     *
+     * @param token
+     * @param id
+     * @return
+     */
+    public static BaseRequestEntity getUserInfoEntity(String token, String id) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/User/User/getUserByUserId");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+        body.add("userId", id);
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, token);
+
+        return baseRequest;
+    }
+
+    /**
      * 获取当前用户所有评论
      *
      * @param token

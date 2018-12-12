@@ -33,4 +33,16 @@ public class MyInfoUserCase extends UserCase {
         BaseRequestEntity entity = HttpRequestPool.getDeleteCommentEntity(token, commentId, userId);
         handleSendRequest(entity, callback);
     }
+
+    /**
+     * 根据id获取用户信息
+     *
+     * @param token
+     * @param ids
+     * @param callback
+     */
+    public void requestUserInfo(String token, String ids, BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getUserInfoEntity(token, ids);
+        handleSendRequest(entity, callback);
+    }
 }

@@ -10,8 +10,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.app.data.net.repository.TaskManager;
+import com.app.domain.net.interactor.MyInfoUserCase;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
+import com.jbsx.app.MainApplicationLike;
 import com.jbsx.utils.RecyclerViewHelper;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.login.callback.ILoginResultListener;
@@ -20,8 +23,10 @@ import com.jbsx.view.login.data.LoginData;
 import com.jbsx.view.login.data.LoginResultEvent;
 import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.myinfo.adapter.MyInfoAdapter;
+import com.jbsx.view.myinfo.contact.MyInfoContact;
 import com.jbsx.view.myinfo.data.MyInfoConst;
 import com.jbsx.view.myinfo.entity.MyInfoItem;
+import com.jbsx.view.myinfo.presenter.MyInfoPresenter;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -29,7 +34,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyInfoFragment extends BaseFragment implements ILoginResultListener {
+public class MyInfoFragment extends BaseFragment implements ILoginResultListener, MyInfoContact.View {
     private View mRootView;
     private RecyclerView mRecyclerView;
     private Button mBtnLogOut;
@@ -40,6 +45,8 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
     private ImageView mIvUserHead;
 
     private MyInfoAdapter mAdapter;
+
+    public MyInfoContact.Presenter mPresenter;
 
     public MyInfoFragment() {
         // Required empty public constructor
@@ -52,12 +59,21 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         mRootView = inflater.inflate(R.layout.my_info_fragment, null, false);
+        createPresenter();
         findViews();
         initEvents();
         initAdapter();
         initViews();
+        loadUserInfo();
 
         return mRootView;
+    }
+
+    @Override
+    public void createPresenter() {
+        MyInfoUserCase userCase = new MyInfoUserCase(TaskManager.getTaskManager(),
+                MainApplicationLike.getUiThread());
+        mPresenter = new MyInfoPresenter(this, userCase);
     }
 
     private void initViews() {
@@ -65,8 +81,19 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.addItemDecoration(RecyclerViewHelper.getDivider(mContext, true));
+    }
 
-        refreshUI();
+    /**
+     * 先加载一遍用户信息，有效期有可能会更新
+     * 获取后更新保存的用户数据
+     * 更新页面
+     */
+    private void loadUserInfo() {
+        if (LoginHelper.getInstance().isLogin()) {
+            mPresenter.requestUserInfo(LoginHelper.getInstance().getUserId());
+        } else {
+            refreshUI();
+        }
     }
 
     private void handleLogBtnUI() {
@@ -126,6 +153,18 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
         }
 
         mAdapter.setList(items);
+    }
+
+    /**
+     * 接口获取用户信息成功，更新用户信息
+     *
+     * @param userInfo
+     */
+    @Override
+    public void updateUserInfo(LoginData userInfo) {
+        LoginHelper.getInstance().setLoginUser(userInfo);
+        LoginHelper.getInstance().saveData();
+        refreshUI();
     }
 
     /**
