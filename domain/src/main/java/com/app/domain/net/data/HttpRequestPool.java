@@ -701,6 +701,7 @@ public class HttpRequestPool {
         body.add("albumId", albumId);
         body.add("singleId", singleId);
         body.add("no", page + "");
+        body.add("mode", ConstData.COMMENT_ORDER_MODE_TIME);
         body.add("size", ConstData.DEFAULT_PAGE_SIZE + "");
 
         baseRequest.setBaseBody(body);
