@@ -209,4 +209,10 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
         handleLogBtnUI();
         handleUserData();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshUI();
+    }
 }

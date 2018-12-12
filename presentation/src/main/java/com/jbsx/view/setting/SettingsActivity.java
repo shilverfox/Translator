@@ -16,6 +16,8 @@ import com.jbsx.customview.dialog.JDDJDialogFactory;
 import com.jbsx.utils.FileUtils;
 import com.jbsx.utils.RecyclerViewHelper;
 import com.jbsx.utils.ShowTools;
+import com.jbsx.view.login.callback.IOnLoginListener;
+import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.myinfo.adapter.MyInfoAdapter;
 import com.jbsx.view.myinfo.entity.MyInfoItem;
 import com.jbsx.view.setting.data.SettingConst;
@@ -178,6 +180,7 @@ public class SettingsActivity extends BaseFragmentActivity {
                                         public void run() {
                                             mAdapter.getDatas().get(0).setHint("0K");
                                             mAdapter.notifyDataSetChanged();
+                                            handleClearCacheSuccess();
                                             ShowTools.toast("清除成功!");
                                         }
                                     });
@@ -188,5 +191,12 @@ public class SettingsActivity extends BaseFragmentActivity {
                         }.start();
                     }
                 }).setFirstOnClickListener("取消", null).show();
+    }
+
+    /**
+     * 清缓存成功了，也要清除本地登录态
+     */
+    private void handleClearCacheSuccess() {
+        LoginHelper.getInstance().logOut();
     }
 }
