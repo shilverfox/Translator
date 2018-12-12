@@ -3,15 +3,16 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_celebrity_icon_item"
     android:padding="4dp"
-    android:layout_width="100dp"
-    android:layout_height="100dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/tv_celebrity_icon_item_head"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:scaleType="fitXY"
         android:src="@drawable/timg"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -22,13 +23,14 @@
     <TextView
         android:id="@+id/tv_celebrity_icon_item_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="name"
-        android:gravity="center"
+        android:layout_height="17dp"
         android:background="#44333333"
+        android:gravity="center"
+        android:text="name"
         android:textColor="@color/white"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

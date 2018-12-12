@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.data.net.repository.TaskManager;
@@ -54,6 +55,7 @@ import com.jbsx.player.view.VideoCommentsView;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ShareHelper;
 import com.jbsx.utils.ShowTools;
+import com.jbsx.utils.StatisticsReportUtil;
 import com.jbsx.utils.UiTools;
 import com.jbsx.view.main.entity.Single;
 import com.jbsx.view.myinfo.data.UserComments;
@@ -183,6 +185,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         mRootView = inflater.inflate(R.layout.player_fragment, null, false);
         createPresenter();
         initViews();
+        calculatePlayerViewHeight();
         initPortraitEpisodesListView();
         initLandScapeEpisodesListView();
         initEvents();
@@ -191,6 +194,15 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         setStatus(WAITING_FOR_VIDEO_OF_ALBUM);
 
         return mRootView;
+    }
+
+    /**
+     * 视频控件高度
+     */
+    private void calculatePlayerViewHeight() {
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mPlayerView.getLayoutParams();
+        params.height = StatisticsReportUtil.getScreenWidth() * 202 / 375;
+        mPlayerView.setLayoutParams(params);
     }
 
     private void setStatus(int status) {

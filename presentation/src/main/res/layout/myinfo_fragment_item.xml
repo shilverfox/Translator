@@ -35,8 +35,8 @@
             android:layout_toRightOf="@+id/iv_myinfo_item_icon"
             android:drawablePadding="5dp"
             android:text="测试测试"
-            android:textColor="#333333"
-            android:textSize="15sp"/>
+            android:textColor="#b3000000"
+            android:textSize="14sp"/>
 
         <ImageView
             android:id="@+id/iv_myinfo_item_notice"

@@ -12,6 +12,8 @@
         android:visibility="gone"
         android:background="@drawable/line_rect_bg"
         android:padding="@dimen/common_padding_horizontal"
+        android:textSize="14sp"
+        android:textColor="@color/alpha_e6_0"
         android:text="jintian"/>
 
     <RelativeLayout

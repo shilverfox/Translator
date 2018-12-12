@@ -59,7 +59,7 @@ public class CelebrityItemAdapter extends UniversalAdapter2<Celebrities> {
     }
 
     private int getTextColor() {
-        return (isSelected() ? 0xffb83438 : 0xff666666);
+        return (isSelected() ? 0xffaf2c30 : 0xff505050);
     }
 
     private int getBackgroundColor() {

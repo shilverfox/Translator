@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.data.ConstData;
@@ -26,6 +28,7 @@ import com.jbsx.utils.LogTools;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.utils.Router;
+import com.jbsx.utils.StatisticsReportUtil;
 import com.jbsx.view.main.adapter.CelebrityIconItemAdapter;
 import com.jbsx.view.main.adapter.VideoItemAdapter;
 import com.jbsx.view.main.contact.MainPageContact;
@@ -105,6 +108,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         initViews();
         initEvents();
         loadData();
+        calculateBannerHeight();
 
         return mRootView;
     }
@@ -304,6 +308,12 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
                     .setImageLoader(new BannerImageLoader())
                     .start();
         }
+    }
+
+    private void calculateBannerHeight() {
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mViewBanner.getLayoutParams();
+        params.height = StatisticsReportUtil.getScreenWidth() * 182 / 375;
+        mViewBanner.setLayoutParams(params);
     }
 
     private static class BannerImageLoader extends ImageLoader {

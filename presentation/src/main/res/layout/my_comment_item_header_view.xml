@@ -20,8 +20,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/img_sd_civ_icon"
-        android:textSize="15sp"
+        android:textSize="13sp"
         android:layout_marginLeft="8dp"
+        android:textColor="#b3000000"
         android:text="评论用户名"/>
 
     <TextView
@@ -59,7 +60,8 @@
         android:layout_alignLeft="@id/img_sd_civ_name"
         android:layout_alignBottom="@id/img_sd_civ_icon"
         android:gravity="bottom"
-        android:textSize="12sp"
+        android:textSize="10sp"
+        android:textColor="#91000000"
         android:text="14天前"/>
 
     <TextView
@@ -68,6 +70,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/img_sd_civ_icon"
         android:layout_marginTop="8dp"
+        android:textSize="12sp"
+        android:textColor="#cc000000"
         android:text="评论内容"/>
 
     <TextView
@@ -81,6 +85,8 @@
         android:paddingBottom="8dp"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
+        android:textSize="12sp"
+        android:textColor="#b32c2c2c"
         android:text="回复内容"/>
 
 </RelativeLayout>

@@ -74,7 +74,7 @@ public class VideoItemAdapter extends UniversalAdapter2<SpecialAlbums> {
     private void calculateImageHeight(ImageView imageView) {
         if (imageView != null) {
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
-            float percent = ((StatisticsReportUtil.getScreenWidth()/2 - 4*UiTools.dip2px(4))  * 150) / ((float) 240);
+            float percent = ((StatisticsReportUtil.getScreenWidth()/2 - 4*UiTools.dip2px(4))  * 107.5f) / ((float) 172);
             params.height = (int) percent;
             imageView.setLayoutParams(params);
         }

@@ -98,6 +98,7 @@ public class MyInfoVideoViewHolder extends CommonListFragmentViewHolder<UserSing
 
             // 时长
             if (mTvCelebrity != null) {
+                mTvCelebrity.setTextColor(0xff989898);
                 mTvCelebrity.setText(getViewTime());
             }
 

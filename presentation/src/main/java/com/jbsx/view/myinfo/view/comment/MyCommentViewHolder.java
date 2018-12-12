@@ -3,6 +3,7 @@ package com.jbsx.view.myinfo.view.comment;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.domain.net.data.ConstData;
@@ -10,6 +11,7 @@ import com.jbsx.R;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
 import com.jbsx.utils.Router;
+import com.jbsx.utils.UiTools;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.main.entity.Single;
 import com.jbsx.view.myinfo.data.CommentEvent;
@@ -17,6 +19,7 @@ import com.jbsx.view.myinfo.data.MyCommentData;
 import com.jbsx.view.myinfo.data.MyInfoConst;
 import com.jbsx.view.myinfo.data.MyMessageData;
 import com.jbsx.view.myinfo.data.UserComments;
+import com.jbsx.view.myinfo.util.CommentUiTools;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -122,13 +125,16 @@ public class MyCommentViewHolder extends CommonListFragmentViewHolder<UserCommen
             mTvNbCount.setText(data.getCommentLove() + "");
             mTvCommentTime.setText(data.getCreatedAt());
 
+            // 设置图片高度
+            CommentUiTools.setSmallVideoView(mIvVideoImage);
+
             // 视频信息
             mTvVideoCount.setVisibility(View.GONE);
             mTvVideoCelebrity.setVisibility(View.GONE);
             Single singleInfo = data.getSingle();
             if (singleInfo != null) {
                 mTvVideoTitle.setText(singleInfo.getTitle());
-                mTvVideoTitle.setTextColor(mContext.getResources().getColor(R.color.app_word_red));
+                mTvVideoTitle.setTextColor(0xffb93439);
                 ImageLoader.displayImage(singleInfo.getPcImageUrl(), mIvVideoImage);
             }
         }

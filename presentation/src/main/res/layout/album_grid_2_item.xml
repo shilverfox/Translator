@@ -23,7 +23,7 @@
         android:paddingRight="8dp"
         android:paddingLeft="8dp"
         android:layout_marginBottom="4dp"
-        android:textSize="16sp"/>
+        android:textSize="11sp"/>
 
 
     <TextView
@@ -32,9 +32,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_video_item_image"
         android:text=""
-        android:textColor="@color/gray_999"
+        android:textColor="@color/alpha_e6_0"
         android:paddingTop="4dp"
         android:maxLines="1"
-        android:textSize="15sp"/>
+        android:textSize="13sp"/>
 
 </RelativeLayout>
