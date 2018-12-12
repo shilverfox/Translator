@@ -29,8 +29,6 @@ import com.jbsx.view.myinfo.util.CommentDetailHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
-import org.greenrobot.eventbus.EventBus;
-
 /**
  * 评论详情中的评论列表
  */
@@ -111,14 +109,18 @@ public class CommentDetailListHolder extends CommonListFragmentViewHolder<UserCo
             mTvComment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    postComment();
+                    if (canBeInteracted()) {
+                        postComment();
+                    }
                 }
             });
 
             mTvNbCount.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    giveThumbToComment();
+                    if (canBeInteracted()) {
+                        giveThumbToComment();
+                    }
                 }
             });
 
@@ -238,7 +240,9 @@ public class CommentDetailListHolder extends CommonListFragmentViewHolder<UserCo
         }
 
         // 跳转到评论详情
-        CommentDetailHelper.goToCommentDetailActivity((Activity)mContext, mData);
+        if (canBeInteracted()) {
+            CommentDetailHelper.goToCommentDetailActivity((Activity) mContext, mData);
+        }
     }
 
     private void notifyDataUpdate() {
@@ -259,5 +263,15 @@ public class CommentDetailListHolder extends CommonListFragmentViewHolder<UserCo
 
     public void setOnSelectIconClickListener(OnSelectIconClickListener onMyItemClickListener) {
         mOnSelectIconClickListener = onMyItemClickListener;
+    }
+
+    /**
+     * 是否可被交互（评论，点赞，点击item）
+     * 评论详情页中的item不能继续评论
+     *
+     * @return
+     */
+    public boolean canBeInteracted() {
+        return false;
     }
 }

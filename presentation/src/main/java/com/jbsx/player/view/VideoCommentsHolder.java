@@ -155,4 +155,14 @@ public class VideoCommentsHolder extends CommentDetailListHolder {
                 BAD_COMMENTS_MENU.length * itemHeight);
         mBadCommentDialog.show();
     }
+
+    /**
+     * 是否可被交互（评论，点赞，点击item）
+     * 评论详情页中的item不能继续评论
+     *
+     * @return
+     */
+    public boolean canBeInteracted() {
+        return true;
+    }
 }
