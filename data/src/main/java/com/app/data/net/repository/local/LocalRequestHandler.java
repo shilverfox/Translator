@@ -23,8 +23,8 @@ public class LocalRequestHandler {
         String functionId = "";
         BaseBody baseBody = appRequest.getBaseBody();
         if (baseBody != null) {
-            HashMap<String, String> keyAndValue = baseBody.getMapBody();
-            functionId = keyAndValue.get(ConstData.KEY_FUNCTION_ID);
+            HashMap<String, Object> keyAndValue = baseBody.getMapBody();
+            functionId = (String)keyAndValue.get(ConstData.KEY_FUNCTION_ID);
         }
 
         return functionId;

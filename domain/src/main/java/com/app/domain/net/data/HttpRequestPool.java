@@ -466,7 +466,7 @@ public class HttpRequestPool {
         body.add("specialCode", "JBSX");
 
         if (ids != null && ids.length > 0) {
-            body.add("idList[]", Arrays.toString(ids));
+            body.add("idList", ids);
         }
 
         baseRequest.setBaseBody(body);
