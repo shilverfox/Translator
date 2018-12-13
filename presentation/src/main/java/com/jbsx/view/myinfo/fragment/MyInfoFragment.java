@@ -36,6 +36,7 @@ import java.util.List;
 
 public class MyInfoFragment extends BaseFragment implements ILoginResultListener, MyInfoContact.View {
     private View mRootView;
+    private View mViewUserContainer;
     private RecyclerView mRecyclerView;
     private Button mBtnLogOut;
     private TextView mTxtUserName;
@@ -109,6 +110,7 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
         mTxtValidDate = mRootView.findViewById(R.id.tv_my_info_valid_date);
         mTxtLogin = mRootView.findViewById(R.id.tv_my_info_login);
         mIvUserHead = mRootView.findViewById(R.id.iv_my_info_user_head);
+        mViewUserContainer = mRootView.findViewById(R.id.view_my_info_user);
     }
 
     private void initEvents() {
@@ -122,20 +124,22 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
         });
 
         // 未登录时可以点击登录
-        mTxtLogin.setOnClickListener(new View.OnClickListener() {
+        mViewUserContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginHelper.getInstance().startLogin(getActivity(), new IOnLoginListener() {
-                    @Override
-                    public void onSucess() {
-                        // 普通登录，没啥可回调的
-                    }
+                if (!LoginHelper.getInstance().isLogin()) {
+                    LoginHelper.getInstance().startLogin(getActivity(), new IOnLoginListener() {
+                        @Override
+                        public void onSucess() {
+                            // 普通登录，没啥可回调的
+                        }
 
-                    @Override
-                    public void onFailed() {
+                        @Override
+                        public void onFailed() {
 
-                    }
-                });
+                        }
+                    });
+                }
             }
         });
     }
