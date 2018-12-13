@@ -77,6 +77,19 @@ public class SearchResultFragment extends BaseFragment implements ISearchRequest
     }
 
     /**
+     * 设置查找条件
+     * 加这个是因为改成了没有tab区分了，默认查找title和名家姓名
+     *
+     * @param event
+     * @return
+     */
+    private SearchEvent makeSearchByTitleAndCelebrity(SearchEvent event) {
+        SearchEvent result = copySearchEvent(event);
+        result.setSearchType(SearchEvent.SEARCH_TYPE_TITLE_CELEBRITY);
+        return result;
+    }
+
+    /**
      * 设置查找条件，by title
      *
      * @param event
@@ -100,9 +113,20 @@ public class SearchResultFragment extends BaseFragment implements ISearchRequest
         return result;
     }
 
+    /**
+     * 初始化tab
+     * 目前不展示tab，但是实际数据还在，如果需要显示，需要更改2处：
+     * 1. 布局search_result_fragment.xml 中让tab可见
+     * 2. 修改此方法里add tab选项的查找类型（打开注释）
+     *
+     * @param event
+     */
     private void initMainTab(SearchEvent event) {
-        mFragmentList.add(SearchResultView.newInstance(makeSearchByTitle(event)));
-        mFragmentList.add(SearchResultView.newInstance(makeSearchByCelebrity(event)));
+//        mFragmentList.add(SearchResultView.newInstance(makeSearchByTitle(event)));
+//        mFragmentList.add(SearchResultView.newInstance(makeSearchByCelebrity(event)));
+
+        mFragmentList.add(SearchResultView.newInstance(makeSearchByTitleAndCelebrity(event)));
+        mFragmentList.add(SearchResultView.newInstance(makeSearchByTitleAndCelebrity(event)));
 
         mTitles[0] = event.getSearchKey();
         for (int i = 0; i < mTitles.length; i++) {

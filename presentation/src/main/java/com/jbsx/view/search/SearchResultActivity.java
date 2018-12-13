@@ -1,6 +1,5 @@
 package com.jbsx.view.search;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,9 +11,7 @@ import com.jbsx.customview.TitleBar;
 import com.jbsx.utils.Router;
 import com.jbsx.view.search.callback.ISearchRequestListener;
 import com.jbsx.view.search.entity.SearchEvent;
-import com.jbsx.view.search.fragment.SearchFragment;
 import com.jbsx.view.search.fragment.SearchResultFragment;
-import com.jbsx.view.search.util.SearchHelper;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
