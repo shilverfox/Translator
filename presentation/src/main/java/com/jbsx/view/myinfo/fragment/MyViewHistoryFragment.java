@@ -17,6 +17,8 @@ import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.TitleBar;
+import com.jbsx.utils.MessageTools;
+import com.jbsx.utils.ShowTools;
 import com.jbsx.view.main.entity.Single;
 import com.jbsx.view.main.entity.UserSingle;
 import com.jbsx.view.main.entity.ViewHistoryData;
@@ -132,7 +134,7 @@ public class MyViewHistoryFragment extends BaseFragment implements MyViewHistory
             for(UserSingle item : allVideo) {
                 Single single = item.getSingle();
                 if (single.isCheck()) {
-                    temp.add(single.getId());
+                    temp.add(item.getId());
                 }
             }
         }
@@ -231,11 +233,13 @@ public class MyViewHistoryFragment extends BaseFragment implements MyViewHistory
 
     @Override
     public void showMessage(String message) {
-
+        ShowTools.toast(message);
     }
 
     @Override
     public void refreshView() {
-
+        ShowTools.toast("删除成功");
+        mRepertoryList.clearAdapter();
+        mRepertoryList.clearAndFresh();
     }
 }

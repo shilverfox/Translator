@@ -4,6 +4,15 @@ public class UserSingle {
     private Single single;
     private String second;
     private String createdAt;
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public Single getSingle() {
         return single;

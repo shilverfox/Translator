@@ -67,6 +67,13 @@ public class MyInfoVideoListView extends CommonListFragment {
         loadAllData(true);
     }
 
+    /**
+     * 清空Adapter数据
+     */
+    public void clearAdapter() {
+        mAdapter.clearData();
+    }
+
     @Override
     public CommonListFragmentAdapter getAdapter(Context context) {
         mAdapter = new MyInfoVideoAdapter(mContext);
