@@ -63,6 +63,10 @@ public class LoginHelper {
         mLoginData = loginUser;
     }
 
+    public void setToken(String token) {
+        mLoginData.getPayload().setToken(token);
+    }
+
     public void saveData() {
         SharedPreferences sharedPreferences = MainApplicationLike.getAppContext()
                 .getSharedPreferences(LOGIN_FILE_NAME, Context.MODE_MULTI_PROCESS);

@@ -157,12 +157,16 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
 
     /**
      * 接口获取用户信息成功，更新用户信息
+     * 这个接口不返回token，因此不要更新token
      *
      * @param userInfo
      */
     @Override
     public void updateUserInfo(LoginData userInfo) {
+        // 缓存token
+        String token = new String(LoginHelper.getInstance().getUserToken());
         LoginHelper.getInstance().setLoginUser(userInfo);
+        LoginHelper.getInstance().setToken(token);
         LoginHelper.getInstance().saveData();
         refreshUI();
     }
