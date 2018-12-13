@@ -226,6 +226,17 @@ public class MyViewHistoryFragment extends BaseFragment implements MyViewHistory
         return ConstData.FUNCTION_ID_MY_HISTORY;
     }
 
+    /**
+     * 当前列表数据不为空
+     *
+     * @return
+     */
+    private boolean isListNotEmpty() {
+        return mRepertoryList != null && mRepertoryList.getAdapter() != null
+                && mRepertoryList.getAdapter().getData() != null
+                && mRepertoryList.getAdapter().getData().size() > 0;
+    }
+
     @Override
     public boolean isHistory() {
         return true;
@@ -239,7 +250,10 @@ public class MyViewHistoryFragment extends BaseFragment implements MyViewHistory
     @Override
     public void refreshView() {
         ShowTools.toast("删除成功");
-        mRepertoryList.clearAdapter();
+
+        // 设置全选按钮状态
+        mIsSelectAll = false;
+        handleSelectAllStuff();
         mRepertoryList.clearAndFresh();
     }
 }

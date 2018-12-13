@@ -99,7 +99,9 @@ public class MyInfoVideoListView extends CommonListFragment {
         mHistoryData = gson.fromJson(result, ViewHistoryData.class);
 
         if (mHistoryData != null && mHistoryData.getPayload() != null) {
-            return SortListUtil.makeWrappedList(mAdapter.getData(), mHistoryData.getPayload().getUserSingles());
+            List<UserSingle> emptySource = new ArrayList<>();
+            return SortListUtil.makeWrappedList(needClearData() ? emptySource : mAdapter.getData(),
+                    mHistoryData.getPayload().getUserSingles());
         }
 
         return new ArrayList<UserSingle>();

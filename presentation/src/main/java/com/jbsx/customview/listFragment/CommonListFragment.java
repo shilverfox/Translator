@@ -166,6 +166,10 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
         handleLoadData();
     }
 
+    protected boolean needClearData() {
+        return mNeedClearData;
+    }
+
     /**
      * 加载所有数据
      */
