@@ -524,7 +524,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
      * 一键分享
      */
     private void handleShareClick() {
-        ShareHelper.showShare(mContext);
+        ShareHelper.getInstance().showShareDialog(getFragmentManager());
     }
 
     private void initPlayer() {
@@ -562,6 +562,8 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         mPlayerView.addOnVideoViewStateChangeListener(new OnVideoViewStateChangeListener() {
             @Override
             public void onPlayerStateChanged(int i) {
+                // 屏幕方向变化，关闭分享对话框
+                ShareHelper.getInstance().dismissShareDialog();
             }
 
             @Override
