@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 首页片库tab -->
+<!-- 首页片库tab，顶部名家列表不展示，想看就把高度设置成40dp -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
@@ -11,7 +11,7 @@
         android:id="@+id/rv_repertory_celebrities"
         android:paddingLeft="8dp"
         android:layout_width="match_parent"
-        android:layout_height="40dp" />
+        android:layout_height="0dp" />
 
     <View
         android:layout_width="match_parent"
