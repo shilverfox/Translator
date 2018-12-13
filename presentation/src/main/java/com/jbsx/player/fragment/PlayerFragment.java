@@ -436,7 +436,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         TextView summary = mRootView.findViewById(R.id.player_album_detail_summary);
 
         title.setText(AlbumDetailUtil.getTitle(specialSingleData));
-        crew.setText(AlbumDetailUtil.getScrew(specialSingleData));
+        crew.setText(AlbumDetailUtil.getCrew(specialSingleData, false));
         count.setText(AlbumDetailUtil.getCount(specialSingleData));
         summary.setText("简介 >");
 
@@ -475,7 +475,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         });
 
         title.setText(AlbumDetailUtil.getTitle(mSpecialSingleData));
-        crew.setText(AlbumDetailUtil.getScrew(mSpecialSingleData));
+        crew.setText(AlbumDetailUtil.getCrew(mSpecialSingleData, true));
         summary.setText(AlbumDetailUtil.getIntroduce(mSpecialSingleData));
 
         mSingleDetailDialog = new PushFromBottomDialog(mContext, dialogView);

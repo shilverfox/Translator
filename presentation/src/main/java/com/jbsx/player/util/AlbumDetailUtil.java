@@ -68,20 +68,35 @@ public class AlbumDetailUtil {
         return sb;
     }
 
-    public static String getScrew(SpecialSingleData data) {
+    private static int[] getCrewData(boolean showAllCrew) {
+        return showAllCrew ? AppConstData.CREW_ALL : AppConstData.CREW_MAIN;
+    }
+
+    /**
+     * 显示剧组列表
+     *
+     * @param data
+     * @param showAllCrew 是否显示全剧组
+     * @return
+     */
+    public static String getCrew(SpecialSingleData data, boolean showAllCrew) {
         List<Celebrities> celebrities = getCelebrities(data);
         StringBuffer sb = new StringBuffer();
 
-        sb.append(getTypeName(AppConstData.CELEBRITY_TYPE_DAOYAN))
-                .append(getScrewByType(celebrities, AppConstData.CELEBRITY_TYPE_DAOYAN));
-        sb.append("    ");
+        int[] crewData = getCrewData(showAllCrew);
+        for(int i = 0; i < crewData.length; i++) {
+            // 对应类型的职员列表
+            StringBuffer memberOfType = getScrewByType(celebrities, crewData[i]);
+            if (memberOfType != null && memberOfType.length() > 0) {
+                // 有内容才拼接
+                sb.append(getTypeName(crewData[i]));
+                sb.append(memberOfType);
 
-        sb.append(getTypeName(AppConstData.CELEBRITY_TYPE_ZHUANGAO))
-                .append(getScrewByType(celebrities, AppConstData.CELEBRITY_TYPE_ZHUANGAO));
-        sb.append("    ");
-
-        sb.append(getTypeName(AppConstData.CELEBRITY_TYPE_ZHUCHI))
-                .append(getScrewByType(celebrities, AppConstData.CELEBRITY_TYPE_ZHUCHI));
+                if (i != crewData.length - 1) {
+                    sb.append("    ");
+                }
+            }
+        }
 
         return sb.toString();
     }
@@ -100,6 +115,24 @@ public class AlbumDetailUtil {
                 return "主持人：";
             case AppConstData.CELEBRITY_TYPE_ZHUANGAO:
                 return "撰稿人：";
+            case AppConstData.CELEBRITY_TYPE_ZHUZHE:
+                return "作者：";
+            case AppConstData.CELEBRITY_TYPE_JIESHUO:
+                return "解说：";
+            case AppConstData.CELEBRITY_TYPE_ZHUJIANG:
+                return "主讲嘉宾：";
+            case AppConstData.CELEBRITY_TYPE_ZRBJ:
+                return "责任编辑：";
+            case AppConstData.CELEBRITY_TYPE_ZONGBJ:
+                return "总编辑：";
+            case AppConstData.CELEBRITY_TYPE_XSYSGW:
+                return "艺术顾问：";
+            case AppConstData.CELEBRITY_TYPE_ZONGGW:
+                return "总顾问：";
+            case AppConstData.CELEBRITY_TYPE_JIANZHI:
+                return "监制：";
+            case AppConstData.CELEBRITY_TYPE_ZONGJIANZHI:
+                return "总监制：";
             default:
                 return "";
         }
