@@ -524,7 +524,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
      * 一键分享
      */
     private void handleShareClick() {
-        ShareHelper.getInstance().showShareDialog(getFragmentManager());
+        ShareHelper.getInstance().showShareDialog(mContext, getFragmentManager());
     }
 
     private void initPlayer() {

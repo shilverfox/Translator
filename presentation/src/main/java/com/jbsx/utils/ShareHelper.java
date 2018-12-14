@@ -1,5 +1,6 @@
 package com.jbsx.utils;
 
+import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 
@@ -36,7 +37,11 @@ public class ShareHelper {
         return mInstance;
     }
 
-    private void doShare(String platform) {
+    private void doShare(Context context, String platform) {
+        if (context == null) {
+            return;
+        }
+
         OnekeyShare oks = new OnekeyShare();
 
         if (platform != null) {
@@ -56,8 +61,8 @@ public class ShareHelper {
         oks.setImageUrl("http://jbsx.china1896.com/jbsx/commons/imgs/share.png");
         // url在微信、微博，Facebook等平台中使用
         oks.setUrl(SHARE_URL);
-        // 启动分享GUI，不显示默认提供的dialog，这里传null就行
-        oks.show(null);
+        // 启动分享GUI，不显示默认提供的dialog
+        oks.show(context);
     }
 
     public void dismissShareDialog() {
@@ -66,7 +71,7 @@ public class ShareHelper {
         }
     }
 
-    public void showShareDialog(FragmentManager fragmentManager) {
+    public void showShareDialog(final Context context, FragmentManager fragmentManager) {
         if (mNiceDialog == null) {
             mNiceDialog = NiceDialog.init();
         }
@@ -79,28 +84,28 @@ public class ShareHelper {
                         holder.setOnClickListener(R.id.wechat, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                doShare(Wechat.NAME);
+                                doShare(context, Wechat.NAME);
                             }
                         });
 
                         holder.setOnClickListener(R.id.wechat_pyq, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                doShare(WechatMoments.NAME);
+                                doShare(context, WechatMoments.NAME);
                             }
                         });
 
                         holder.setOnClickListener(R.id.qq, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                doShare(QQ.NAME);
+                                doShare(context, QQ.NAME);
                             }
                         });
 
                         holder.setOnClickListener(R.id.weibo, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                doShare(SinaWeibo.NAME);
+                                doShare(context, SinaWeibo.NAME);
                             }
                         });
                     }
