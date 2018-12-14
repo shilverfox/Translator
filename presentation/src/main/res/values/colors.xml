@@ -9,8 +9,8 @@
     <color name="light_black">#555555</color>
 
     <color name="app_word_red">#af2c30</color>
-    <color name="title_bar_start">#db5559</color>
-    <color name="title_bar_end">#b83438</color>
+    <color name="title_bar_start">#ff0000</color>
+    <color name="title_bar_end">#ff0000</color>
 
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>

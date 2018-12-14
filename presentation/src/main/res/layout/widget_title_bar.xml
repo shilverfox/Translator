@@ -69,12 +69,12 @@
 
                     <ImageView
                         android:id="@+id/tv_title_bar_left_image"
-                        android:layout_width="109dp"
+                        android:layout_width="66dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left|center_vertical"
                         android:gravity="left|center_vertical"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="14dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="14dp"
                         android:visibility="gone"/>
 
                 </LinearLayout>
