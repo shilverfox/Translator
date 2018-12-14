@@ -50,6 +50,7 @@ import java.util.Map;
 public class DefinitionController extends StandardVideoController {
     protected TextView multiRate;
     //    private PopupMenu mPopupMenu;
+    /** 清晰度菜单 */
     private PopupWindow mPopupWindow;
     private List<String> mRateStr;
     private List<TextView> mRateItems;
@@ -307,16 +308,11 @@ public class DefinitionController extends StandardVideoController {
                 mTvEpisode.setVisibility(View.GONE);
                 mIvFavorite.setVisibility(View.GONE);
                 mIvShare.setVisibility(View.GONE);
-
-                // 竖屏下也要现实返回箭头
-                topContainer.setVisibility(View.VISIBLE);
-                backButton.setVisibility(View.VISIBLE);
                 hideLandScapeEpisodes();
                 break;
             case IjkVideoView.PLAYER_FULL_SCREEN:
                 multiRate.setVisibility(VISIBLE);
                 mTvEpisode.setVisibility(View.VISIBLE);
-                backButton.setVisibility(View.VISIBLE);
                 mIvFavorite.setVisibility(View.VISIBLE);
                 mIvShare.setVisibility(View.VISIBLE);
                 break;
@@ -337,6 +333,23 @@ public class DefinitionController extends StandardVideoController {
         super.hide();
         if (mPopupWindow.isShowing()) {
             mPopupWindow.dismiss();
+        }
+
+        // 处理非全屏的状态栏
+        if (!mediaPlayer.isFullScreen()) {
+            backButton.setVisibility(View.GONE);
+            topContainer.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void show() {
+        super.show();
+
+        // 处理非全屏的状态栏
+        if (!mediaPlayer.isFullScreen()) {
+            backButton.setVisibility(View.VISIBLE);
+            topContainer.setVisibility(View.VISIBLE);
         }
     }
 
