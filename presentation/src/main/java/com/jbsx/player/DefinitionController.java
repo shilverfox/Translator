@@ -308,6 +308,10 @@ public class DefinitionController extends StandardVideoController {
                 mTvEpisode.setVisibility(View.GONE);
                 mIvFavorite.setVisibility(View.GONE);
                 mIvShare.setVisibility(View.GONE);
+
+                // 竖屏状态一直显示返回箭头
+                backButton.setVisibility(View.VISIBLE);
+                topContainer.setVisibility(View.VISIBLE);
                 hideLandScapeEpisodes();
                 break;
             case IjkVideoView.PLAYER_FULL_SCREEN:
@@ -315,6 +319,9 @@ public class DefinitionController extends StandardVideoController {
                 mTvEpisode.setVisibility(View.VISIBLE);
                 mIvFavorite.setVisibility(View.VISIBLE);
                 mIvShare.setVisibility(View.VISIBLE);
+
+                // 切到横屏状态需要先隐藏，具体显示和隐藏会由show,hide方法处理
+                topContainer.setVisibility(View.GONE);
                 break;
         }
     }
@@ -335,22 +342,16 @@ public class DefinitionController extends StandardVideoController {
             mPopupWindow.dismiss();
         }
 
-        // 处理非全屏的状态栏
+        // 处理非全屏的状态栏，返回箭头一直显示，不需要隐藏
         if (!mediaPlayer.isFullScreen()) {
-            backButton.setVisibility(View.GONE);
-            topContainer.setVisibility(View.GONE);
+            backButton.setVisibility(View.VISIBLE);
+            topContainer.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void show() {
         super.show();
-
-        // 处理非全屏的状态栏
-        if (!mediaPlayer.isFullScreen()) {
-            backButton.setVisibility(View.VISIBLE);
-            topContainer.setVisibility(View.VISIBLE);
-        }
     }
 
     private void showRateMenu() {
