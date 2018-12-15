@@ -15,6 +15,7 @@ import com.jbsx.app.BaseFragmentActivity;
 import com.jbsx.player.data.PlayerData;
 import com.jbsx.player.fragment.PlayerFragment;
 import com.jbsx.utils.Router;
+import com.jbsx.utils.StatusBarUtil;
 
 /**
  * 播放页面不适用通用的自定义Activity，状态栏不需要透明
@@ -60,12 +61,8 @@ public class PlayerActivity extends FragmentActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            // 横屏状态设置全屏
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
-        } else {
-            // 竖屏显示状态栏
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-        }
+        // 横屏状态设置全屏, 竖屏显示状态栏
+        boolean isLandScape = (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE);
+        StatusBarUtil.showStatusBar(getWindow(), !isLandScape);
     }
 }

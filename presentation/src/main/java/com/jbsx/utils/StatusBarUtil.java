@@ -44,4 +44,18 @@ public class StatusBarUtil {
             }
         }
     }
+
+    /**
+     * 显示隐藏状态栏
+     *
+     * @param window
+     * @param show
+     */
+    public static void showStatusBar(Window window, boolean show) {
+        if (window != null) {
+            View decorView = window.getDecorView();
+            decorView.setSystemUiVisibility(show ? View.SYSTEM_UI_FLAG_VISIBLE
+                    : View.SYSTEM_UI_FLAG_FULLSCREEN);
+        }
+    }
 }

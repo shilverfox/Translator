@@ -562,8 +562,13 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         mPlayerView.addOnVideoViewStateChangeListener(new OnVideoViewStateChangeListener() {
             @Override
             public void onPlayerStateChanged(int i) {
-                // 屏幕方向变化，关闭分享对话框
+                // 屏幕方向变化，关闭分享对话框，避免出现宽度不自动调整的情况
                 ShareHelper.getInstance().dismissShareDialog();
+
+                // 偶发横屏状态没有title
+                if (TextUtils.isEmpty(mPlayerView.getTitle())) {
+                    mPlayerView.setTitle(AlbumDetailUtil.getTitle(mSpecialSingleData));
+                }
             }
 
             @Override
