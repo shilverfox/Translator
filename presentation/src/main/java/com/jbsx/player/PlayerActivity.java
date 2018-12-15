@@ -1,10 +1,13 @@
 package com.jbsx.player;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.view.View;
+import android.view.WindowManager;
 
 import com.github.ikidou.fragmentBackHandler.BackHandlerHelper;
 import com.jbsx.R;
@@ -50,6 +53,19 @@ public class PlayerActivity extends FragmentActivity {
         // 处理Fragment返回按键事件
         if (!BackHandlerHelper.handleBackPress(this)) {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // 横屏状态设置全屏
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+        } else {
+            // 竖屏显示状态栏
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
         }
     }
 }
