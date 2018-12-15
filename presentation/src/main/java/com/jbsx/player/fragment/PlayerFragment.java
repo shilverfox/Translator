@@ -333,6 +333,9 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
      * @param episodeIndex
      */
     private void handleSelectEpisode(int episodeIndex) {
+        // 记录正在播放的选集进度
+        recordWatchTime();
+
         // 绘制选中信息
         syncEpisodeSelection(episodeIndex);
 
