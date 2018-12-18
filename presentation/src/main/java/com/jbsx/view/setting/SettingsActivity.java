@@ -21,6 +21,7 @@ import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.myinfo.adapter.MyInfoAdapter;
 import com.jbsx.view.myinfo.entity.MyInfoItem;
 import com.jbsx.view.setting.data.SettingConst;
+import com.jbsx.view.web.WebHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,8 +90,12 @@ public class SettingsActivity extends BaseFragmentActivity {
         // 制造数据
         List<MyInfoItem> items = new ArrayList<MyInfoItem>();
         items.add(new MyInfoItem(SettingConst.SETTING_TYPE_CLEAR_CACHE, "清除本地缓存", FileUtils.totalCache(this)));
+        MyInfoItem viewCrew = new MyInfoItem(SettingConst.SETTING_TYPE_CREW, "制作团队");
+        viewCrew.setRightDeliver(true);
         MyInfoItem aboutItem = new MyInfoItem(SettingConst.SETTING_TYPE_ABOUT, "关于我们");
         aboutItem.setTo(AboutActivity.class);
+
+        items.add(viewCrew);
         items.add(aboutItem);
 //        items.add(new MyInfoItem(SettingConst.SETTING_TYPE_UPDATE, "检查更新"));
         mAdapter.setList(items);
@@ -126,6 +131,9 @@ public class SettingsActivity extends BaseFragmentActivity {
                 break;
             case SettingConst.SETTING_TYPE_UPDATE:
                 handleUpdateCheck();
+                break;
+            case SettingConst.SETTING_TYPE_CREW:
+                WebHelper.openWeb(mContext, "http://jbsx.china1896.com/jbsx/src/forapp/teamGp.html", "制作团队");
                 break;
         }
     }

@@ -14,6 +14,8 @@ import com.jbsx.utils.FileUtils;
 import com.jbsx.utils.RecyclerViewHelper;
 import com.jbsx.utils.StatisticsReportUtil;
 import com.jbsx.view.myinfo.adapter.MyInfoAdapter;
+import com.jbsx.view.myinfo.adapter.MyInfoBigImageAdapter;
+import com.jbsx.view.myinfo.entity.MyInfoBigItem;
 import com.jbsx.view.myinfo.entity.MyInfoItem;
 import com.jbsx.view.setting.data.SettingConst;
 import com.jbsx.view.web.WebHelper;
@@ -28,7 +30,7 @@ public class AboutActivity extends BaseActivity {
 	private TextView mTxtVersion;
 	private TitleBar mTitleBar;
 
-	private MyInfoAdapter mAdapter;
+	private MyInfoBigImageAdapter mAdapter;
 	private RecyclerView mRvContent;
 	private LinearLayoutManager linearLayoutManager;
 
@@ -66,14 +68,6 @@ public class AboutActivity extends BaseActivity {
 		mRvContent.setLayoutManager(linearLayoutManager);
 		mRvContent.addItemDecoration(RecyclerViewHelper.getDivider(mContext, true));
 
-		mAdapter.setOnMyItemClickListener(new MyInfoAdapter.OnMyItemClickListener() {
-			@Override
-			public void onClick(int position) {
-				MyInfoItem item = mAdapter.getDatas().get(position);
-				gotoView(item);
-			}
-		});
-
 		mTitleBar.setBackButton(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -83,14 +77,22 @@ public class AboutActivity extends BaseActivity {
 	}
 
 	private void initData() {
-		mAdapter = new MyInfoAdapter(this, R.layout.myinfo_fragment_item);
+		mAdapter = new MyInfoBigImageAdapter(this, R.layout.myinfo_fragment_big_item);
 		linearLayoutManager = new LinearLayoutManager(mContext);
 
 		// 制造数据
-		List<MyInfoItem> items = new ArrayList<MyInfoItem>();
-		items.add(new MyInfoItem(1, "制作团队", true));
-		items.add(new MyInfoItem(2, "让\"绝版\"活在当下——傅谨", true));
-		items.add(new MyInfoItem(3, "与三老的最后一面——代跋（柴俊为）", true));
+		List<MyInfoBigItem> items = new ArrayList<MyInfoBigItem>();
+		for (int i = 0; i < SettingConst.ABOUT_APP.length; i++) {
+			MyInfoBigItem item = new MyInfoBigItem();
+			item.setTitle(SettingConst.ABOUT_APP[i][SettingConst.POSITION_ABOUT_TITLE]);
+			item.setAuthor(SettingConst.ABOUT_APP[i][SettingConst.POSITION_ABOUT_AUTHOR]);
+			item.setSummary(SettingConst.ABOUT_APP[i][SettingConst.POSITION_ABOUT_SUMMARY]);
+//			item.setImgId(Integer.parseInt(SettingConst.ABOUT_APP[i][SettingConst.POSITION_ABOUT_IMG_ID]));
+			item.setImgUrl(SettingConst.ABOUT_APP[i][SettingConst.POSITION_ABOUT_IMG_URL]);
+			item.setToUrl(SettingConst.ABOUT_APP[i][SettingConst.POSITION_ABOUT_TO_URL]);
+
+			items.add(item);
+		}
 
 		mAdapter.setList(items);
 	}
