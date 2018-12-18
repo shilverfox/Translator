@@ -29,6 +29,7 @@ import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.main.entity.TabEntity;
 import com.jbsx.view.main.fragment.MainPageFragment;
 import com.jbsx.view.main.fragment.RepertoryFragment;
+import com.jbsx.view.main.fragment.SpecialAlbumFragment;
 import com.jbsx.view.myinfo.activity.MyViewHistoryActivity;
 import com.jbsx.view.myinfo.fragment.MyInfoFragment;
 import com.jbsx.view.search.SearchActivity;
@@ -42,7 +43,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
 
     private ArrayList<Fragment> mFragmentList = new ArrayList<>();
 
-    private String[] mTitles = {"精选", "片库", "我的"};
+    private String[] mTitles = {"精选", "片库", "专题", "我的"};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     private CommonTabLayout mTabLayout;
@@ -96,6 +97,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     private void initMainTab() {
         mFragmentList.add(MainPageFragment.newInstance());
         mFragmentList.add(RepertoryFragment.newInstance());
+        mFragmentList.add(SpecialAlbumFragment.newInstance());
         mFragmentList.add(MyInfoFragment.newInstance());
 
         for (int i = 0; i < mTitles.length; i++) {
