@@ -7,16 +7,25 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.app.data.net.repository.TaskManager;
+import com.app.domain.net.BaseRequestCallback;
+import com.app.domain.net.interactor.MyInfoUserCase;
+import com.app.domain.net.model.BaseDomainData;
+import com.app.domain.util.ParseUtil;
 import com.jbsx.R;
 import com.jbsx.app.BaseActivity;
+import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.TitleBar;
 import com.jbsx.utils.FileUtils;
+import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.RecyclerViewHelper;
+import com.jbsx.utils.ShowTools;
 import com.jbsx.utils.StatisticsReportUtil;
 import com.jbsx.view.myinfo.adapter.MyInfoAdapter;
 import com.jbsx.view.myinfo.adapter.MyInfoBigImageAdapter;
 import com.jbsx.view.myinfo.entity.MyInfoBigItem;
 import com.jbsx.view.myinfo.entity.MyInfoItem;
+import com.jbsx.view.setting.data.AboutData;
 import com.jbsx.view.setting.data.SettingConst;
 import com.jbsx.view.web.WebHelper;
 
@@ -34,14 +43,22 @@ public class AboutActivity extends BaseActivity {
 	private RecyclerView mRvContent;
 	private LinearLayoutManager linearLayoutManager;
 
+	private MyInfoUserCase mUserCase;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about_activity);
 
-		initData();
+		initUserCase();
 		initViews();
 		initEvent();
+		loadAboutInfo();
+	}
+
+	private void initUserCase() {
+		mUserCase = new MyInfoUserCase(TaskManager.getTaskManager(),
+				MainApplicationLike.getUiThread());
 	}
 	
 	private void initViews() {
@@ -76,25 +93,57 @@ public class AboutActivity extends BaseActivity {
 		});
 	}
 
-	private void initData() {
+	private void initData(List<AboutData.AboutItem> aboutItemList) {
 		mAdapter = new MyInfoBigImageAdapter(this, R.layout.myinfo_fragment_big_item);
 		linearLayoutManager = new LinearLayoutManager(mContext);
 
 		// 制造数据
 		List<MyInfoBigItem> items = new ArrayList<MyInfoBigItem>();
-		for (int i = 0; i < SettingConst.ABOUT_APP.length; i++) {
+		for (int i = 0; aboutItemList != null && i < aboutItemList.size(); i++) {
 			MyInfoBigItem item = new MyInfoBigItem();
-			item.setTitle(SettingConst.ABOUT_APP[i][SettingConst.POSITION_ABOUT_TITLE]);
-			item.setAuthor(SettingConst.ABOUT_APP[i][SettingConst.POSITION_ABOUT_AUTHOR]);
-			item.setSummary(SettingConst.ABOUT_APP[i][SettingConst.POSITION_ABOUT_SUMMARY]);
+			AboutData.AboutItem aboutItem = aboutItemList.get(i);
+
+			item.setTitle(aboutItem.getTitle());
+			item.setAuthor(aboutItem.getAuthor());
+			item.setSummary(aboutItem.getIntro());
 //			item.setImgId(Integer.parseInt(SettingConst.ABOUT_APP[i][SettingConst.POSITION_ABOUT_IMG_ID]));
-			item.setImgUrl(SettingConst.ABOUT_APP[i][SettingConst.POSITION_ABOUT_IMG_URL]);
-			item.setToUrl(SettingConst.ABOUT_APP[i][SettingConst.POSITION_ABOUT_TO_URL]);
+			item.setImgUrl(aboutItem.getImageUrl());
+			item.setToUrl(aboutItem.getToUrl());
 
 			items.add(item);
 		}
 
 		mAdapter.setList(items);
+	}
+
+	private void loadAboutInfo() {
+		mUserCase.requestAboutInfo(new BaseRequestCallback() {
+			@Override
+			public void onRequestFailed(BaseDomainData data) {
+				handleGetAboutFailed(data);
+			}
+
+			@Override
+			public void onRequestSuccessful(String data) {
+				handleGetAboutSuccessful(data);
+			}
+
+			@Override
+			public void onNetError() {
+
+			}
+		});
+	}
+
+	private void handleGetAboutSuccessful(String data) {
+		AboutData aboutData = ParseUtil.parseData(data, AboutData.class);
+		if (aboutData != null && aboutData.getPayload() != null) {
+			initData(aboutData.getPayload().getAboutItem());
+		}
+	}
+
+	private void handleGetAboutFailed(BaseDomainData data) {
+		MessageTools.showErrorMessage(data);
 	}
 
 	private void gotoView(MyInfoItem item) {

@@ -45,4 +45,14 @@ public class MyInfoUserCase extends UserCase {
         BaseRequestEntity entity = HttpRequestPool.getUserInfoEntity(token, ids);
         handleSendRequest(entity, callback);
     }
+
+    /**
+     * 关于页面中的介绍
+     *
+     * @param callback
+     */
+    public void requestAboutInfo(BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getAboutEntity();
+        handleSendRequest(entity, callback);
+    }
 }

@@ -525,6 +525,25 @@ public class HttpRequestPool {
     }
 
     /**
+     * 关于页面的list
+     *
+     * @return
+     */
+    public static BaseRequestEntity getAboutEntity() {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/User/User/about");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
+    /**
      * 获取当前用户所有评论
      *
      * @param token
