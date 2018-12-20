@@ -7,6 +7,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ import com.jbsx.view.main.entity.SpecialAlbums;
 import com.jbsx.view.main.presenter.MainPagePresenter;
 import com.jbsx.view.search.SearchResultActivity;
 import com.jbsx.view.search.util.SearchHelper;
+import com.jbsx.view.web.WebHelper;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
@@ -127,13 +129,34 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         });
     }
 
+    /**
+     * Banner点击，如果有专辑id去播放，否则去url
+     *
+     * @param bannerInfo
+     */
+    private void handleBannerClick(BannerData.Banner bannerInfo) {
+        if (bannerInfo != null) {
+            boolean hasAlbumId = !TextUtils.isEmpty(bannerInfo.getSpecialAlbumId());
+            boolean hasAdId = !TextUtils.isEmpty(bannerInfo.getUrl());
+
+            if (hasAlbumId) {
+                PlayerHelper.gotoPlayer(getActivity(), PlayerHelper.makePlayerData(
+                        bannerInfo.getSpecialAlbumId(), "", ConstData.VIDEO_DEFINITION_TYPE_STAND));
+            } else if (hasAdId) {
+                String title = bannerInfo.getName();
+                title = (TextUtils.isEmpty(title) ? "介绍" : title);
+                WebHelper.openWeb(mContext, bannerInfo.getUrl(), title);
+            }
+        }
+    }
+
     private void initEvents() {
         mViewBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
                 if (mBannerData != null && mBannerData.getPayload() != null
-                        && mBannerData.getPayload().getSpecialAlbums() != null) {
-                    handleGoToPlayer(mBannerData.getPayload().getSpecialAlbums().get(position));
+                        && mBannerData.getPayload().getBananers() != null) {
+                    handleBannerClick(mBannerData.getPayload().getBananers().get(position));
                 }
             }
         });
@@ -319,11 +342,11 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     private static class BannerImageLoader extends ImageLoader {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
-            if (path != null && path instanceof SpecialAlbums) {
-                SpecialAlbums albums = (SpecialAlbums)path;
-                if (albums != null && albums.getAlbum() != null) {
+            if (path != null && path instanceof BannerData.Banner) {
+                BannerData.Banner albums = (BannerData.Banner)path;
+                if (albums != null && albums.getImage() != null) {
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    com.jbsx.utils.image.ImageLoader.displayImage(albums.getAlbum().getAppGeneralizeImageUrl(), imageView);
+                    com.jbsx.utils.image.ImageLoader.displayImage(albums.getImage(), imageView);
                 }
             }
         }
@@ -386,7 +409,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     public void drawBannerInfo(BannerData bannerData) {
         if (bannerData != null && bannerData.getPayload() != null) {
             mBannerData = bannerData;
-            initBanner(bannerData.getPayload().getSpecialAlbums());
+            initBanner(bannerData.getPayload().getBananers());
         }
 
         toggleBannerProgress(false);
