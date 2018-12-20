@@ -2,6 +2,7 @@ package com.jbsx.player.util;
 
 import android.text.TextUtils;
 
+import com.jbsx.R;
 import com.jbsx.data.AppConstData;
 import com.jbsx.player.data.SpecialSingleData;
 import com.jbsx.view.main.entity.Celebrities;
@@ -110,31 +111,56 @@ public class AlbumDetailUtil {
     public static String getTypeName(int type) {
         switch (type) {
             case AppConstData.CELEBRITY_TYPE_DAOYAN:
-                return "导演：";
+                return "导演";
             case AppConstData.CELEBRITY_TYPE_ZHUCHI:
-                return "主持人：";
+                return "主持人";
             case AppConstData.CELEBRITY_TYPE_ZHUANGAO:
-                return "撰稿人：";
+                return "撰稿人";
             case AppConstData.CELEBRITY_TYPE_ZHUZHE:
-                return "作者：";
+                return "作者";
             case AppConstData.CELEBRITY_TYPE_JIESHUO:
-                return "解说：";
+                return "解说";
             case AppConstData.CELEBRITY_TYPE_ZHUJIANG:
-                return "主讲嘉宾：";
+                return "主讲嘉宾";
             case AppConstData.CELEBRITY_TYPE_ZRBJ:
-                return "责任编辑：";
+                return "责任编辑";
             case AppConstData.CELEBRITY_TYPE_ZONGBJ:
-                return "总编辑：";
+                return "总编辑";
             case AppConstData.CELEBRITY_TYPE_XSYSGW:
-                return "艺术顾问：";
+                return "艺术顾问";
             case AppConstData.CELEBRITY_TYPE_ZONGGW:
-                return "总顾问：";
+                return "总顾问";
             case AppConstData.CELEBRITY_TYPE_JIANZHI:
-                return "监制：";
+                return "监制";
             case AppConstData.CELEBRITY_TYPE_ZONGJIANZHI:
-                return "总监制：";
+                return "总监制";
             default:
                 return "";
+        }
+    }
+
+    /**
+     * 每个角色的图标
+     *
+     * @param type
+     * @return
+     */
+    public static int getTypeIcon(int type) {
+        switch (type) {
+            case AppConstData.CELEBRITY_TYPE_DAOYAN:
+                return R.drawable.daoyan_icon;
+            case AppConstData.CELEBRITY_TYPE_ZHUCHI:
+                return R.drawable.zhuchi_icon;
+            case AppConstData.CELEBRITY_TYPE_ZHUANGAO:
+                return R.drawable.zhuangao_icon;
+            case AppConstData.CELEBRITY_TYPE_JIESHUO:
+                return R.drawable.jieshuo_icon;
+            case AppConstData.CELEBRITY_TYPE_ZHUJIANG:
+                return R.drawable.zhujiang_icon;
+            case AppConstData.CELEBRITY_TYPE_XSYSGW:
+                return R.drawable.guwen_icon;
+            default:
+                return -1;
         }
     }
 

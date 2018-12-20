@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -52,6 +53,7 @@ import com.jbsx.player.util.AlbumDetailUtil;
 import com.jbsx.player.util.PlayerHelper;
 import com.jbsx.player.util.SingleVideoUtil;
 import com.jbsx.player.view.VideoCommentsView;
+import com.jbsx.player.view.VideoDetailDialog;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ShareHelper;
 import com.jbsx.utils.ShowTools;
@@ -136,11 +138,6 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
 
     /** 片库详情信息 */
     private SpecialSingleData mSpecialSingleData;
-
-    /**
-     * 视屏详情对话框
-     */
-    private PushFromBottomDialog mSingleDetailDialog;
 
     private PlayerContact.Presenter mPresenter;
 
@@ -463,27 +460,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
      * 显示专辑详情对话框
      */
     private void handleShowDetailDialog() {
-        View dialogView = LayoutInflater.from(MainApplicationLike.getAppContext())
-                .inflate(R.layout.single_video_detail_info_view, null);
-
-        TextView title = dialogView.findViewById(R.id.dialog_album_detail_title);
-        TextView crew = dialogView.findViewById(R.id.dialog_album_detail_crew);
-        TextView summary = dialogView.findViewById(R.id.dialog_album_detail_summary);
-        ImageView close = dialogView.findViewById(R.id.dialog_album_detail_close);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSingleDetailDialog.dismiss();
-            }
-        });
-
-        title.setText(AlbumDetailUtil.getTitle(mSpecialSingleData));
-        crew.setText(AlbumDetailUtil.getCrew(mSpecialSingleData, true));
-        summary.setText(AlbumDetailUtil.getIntroduce(mSpecialSingleData));
-
-        mSingleDetailDialog = new PushFromBottomDialog(mContext, dialogView);
-        mSingleDetailDialog.setSize(WindowManager.LayoutParams.MATCH_PARENT, UiTools.dip2px(350));
-        mSingleDetailDialog.show();
+        new VideoDetailDialog(mContext, mSpecialSingleData).showDetailDialog();
     }
 
     private void initViews() {

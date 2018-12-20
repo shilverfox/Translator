@@ -21,18 +21,18 @@ public class AppConstData {
 
     /** 剧组角色列表，全部，用于播放页面的剧组简介显示 */
     public final static int[] CREW_ALL = {
-        CELEBRITY_TYPE_DAOYAN,
-        CELEBRITY_TYPE_ZHUZHE,
-        CELEBRITY_TYPE_JIESHUO,
-        CELEBRITY_TYPE_ZHUANGAO,
-        CELEBRITY_TYPE_ZHUCHI,
-        CELEBRITY_TYPE_ZHUJIANG,
-        CELEBRITY_TYPE_ZRBJ,
-        CELEBRITY_TYPE_ZONGBJ,
-        CELEBRITY_TYPE_XSYSGW,
-        CELEBRITY_TYPE_ZONGGW,
-        CELEBRITY_TYPE_JIANZHI,
-        CELEBRITY_TYPE_ZONGJIANZHI
+            CELEBRITY_TYPE_DAOYAN,
+            CELEBRITY_TYPE_ZHUCHI,
+            CELEBRITY_TYPE_ZHUANGAO,
+            CELEBRITY_TYPE_JIESHUO,
+            CELEBRITY_TYPE_XSYSGW,
+            CELEBRITY_TYPE_ZHUJIANG,
+            CELEBRITY_TYPE_ZHUZHE,
+            CELEBRITY_TYPE_ZRBJ,
+            CELEBRITY_TYPE_ZONGBJ,
+            CELEBRITY_TYPE_ZONGGW,
+            CELEBRITY_TYPE_JIANZHI,
+            CELEBRITY_TYPE_ZONGJIANZHI
     };
 
     /** 剧组角色列表，主要角色，用于播放页面的人员显示 */

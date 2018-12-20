@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 视频页面简介对话框中的演职员列表item -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
+    android:background="@drawable/shape_video_detail_crew_bg">
+
+    <LinearLayout
+        android:id="@+id/view_crew_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_crew_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/daoyan_icon"/>
+
+        <TextView
+            android:id="@+id/tv_crew_type_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_crew_icon"
+            android:gravity="center"
+            android:textSize="11sp"
+            android:singleLine="true"
+            android:lines="1"
+            android:textColor="@color/app_word_red"
+            android:layout_marginTop="2dp"
+            android:text="导演演演演"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_crew_names"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/view_crew_info"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp"
+        android:textSize="13sp"
+        android:textColor="@color/gray_666"
+        android:text="导演是我我是导演"/>
+
+</RelativeLayout>
