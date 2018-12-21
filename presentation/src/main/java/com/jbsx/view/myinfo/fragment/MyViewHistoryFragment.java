@@ -1,5 +1,6 @@
 package com.jbsx.view.myinfo.fragment;
 
+import android.animation.AnimatorInflater;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -7,6 +8,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,6 +52,8 @@ public class MyViewHistoryFragment extends BaseFragment implements MyViewHistory
     public static boolean mCanSelectItem;
     public boolean mIsSelectAll;
 
+    private Animation mAnimationBottom;
+
     public MyViewHistoryFragment() {
         // Required empty public constructor
 
@@ -72,12 +77,17 @@ public class MyViewHistoryFragment extends BaseFragment implements MyViewHistory
         mRootView = inflater.inflate(R.layout.my_view_history_fragment, null, false);
         createPresenter();
         initViews();
+        initSelectAllAnimation();
         initEvents();
         initVideoListView();
         handleSelectorUI();
         handleSelectAllStuff();
 
         return mRootView;
+    }
+
+    private void initSelectAllAnimation() {
+        mAnimationBottom = AnimationUtils.loadAnimation(mContext, R.anim.dialog_push_up_in);
     }
 
     private void initViews() {
@@ -185,6 +195,7 @@ public class MyViewHistoryFragment extends BaseFragment implements MyViewHistory
     private void handleSelectorUI() {
         mTopBarLayout.setRightButtonText(mCanSelectItem ? "取消" : "编辑");
         mLayoutSelectAll.setVisibility(mCanSelectItem ? View.VISIBLE : View.GONE);
+        mLayoutSelectAll.startAnimation(mAnimationBottom);
     }
 
     /**
