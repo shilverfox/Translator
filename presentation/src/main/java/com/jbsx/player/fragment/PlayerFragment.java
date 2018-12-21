@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.data.net.repository.TaskManager;
@@ -99,6 +100,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
 
     // 视频评论
     private TextView mTvPostComment;
+    private View mViewBottomComment;
 
     private NestedScrollView mNestedScrollView;
 
@@ -197,7 +199,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
      * 视频控件高度
      */
     private void calculatePlayerViewHeight() {
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mPlayerView.getLayoutParams();
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mPlayerView.getLayoutParams();
         params.height = StatisticsReportUtil.getScreenWidth() * 202 / 375;
         mPlayerView.setLayoutParams(params);
     }
@@ -469,6 +471,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         mRvPorEpisodes = mRootView.findViewById(R.id.rv_player_portrait_episodes);
         mTvPorEpisodesCountLabel = mRootView.findViewById(R.id.tv_portrait_episodes_count_label);
         mTvPostComment = mRootView.findViewById(R.id.tv_add_comment);
+        mViewBottomComment = mRootView.findViewById(R.id.player_comment_bottom);
         mTvCommentCount = mRootView.findViewById(R.id.tv_comments_label);
         mIvFavorite = mRootView.findViewById(R.id.player_album_detail_favorite);
         mIvShare = mRootView.findViewById(R.id.player_album_detail_share);
@@ -476,6 +479,13 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
 
     private void initEvents() {
         mTvPostComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handlePostComment();
+            }
+        });
+
+        mViewBottomComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 handlePostComment();

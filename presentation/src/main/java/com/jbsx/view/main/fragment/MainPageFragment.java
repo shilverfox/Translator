@@ -241,7 +241,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
             @Override
             public void onClick(int position) {
                 // 点击item的自动居中
-                mRvHostList.smoothScrollToPosition(position);
+//                mRvHostList.smoothScrollToPosition(position);
                 handleCelebritySelect(position);
             }
         });

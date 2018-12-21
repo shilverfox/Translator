@@ -19,11 +19,20 @@
             android:textColor="@color/gray_666"
             android:textSize="18sp"/>
 
+        <View
+            android:id="@+id/dividor"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/dialog_album_detail_name"
+            android:background="@color/divider_line"/>
+
         <TextView
             android:id="@+id/dialog_album_detail_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/dialog_album_detail_name"
+            android:layout_below="@+id/dividor"
             android:layout_marginTop="8dp"
             android:text=""
             android:textColor="@color/gray_666"
