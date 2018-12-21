@@ -73,7 +73,7 @@ public class AboutData {
         private String imageUrl;
         private String author;
         private String intro;
-        private String toUrl;
+        private String url;
 
         public String getTitle() {
             return title;
@@ -108,11 +108,11 @@ public class AboutData {
         }
 
         public String getToUrl() {
-            return toUrl;
+            return url;
         }
 
         public void setToUrl(String toUrl) {
-            this.toUrl = toUrl;
+            this.url = toUrl;
         }
     }
 }

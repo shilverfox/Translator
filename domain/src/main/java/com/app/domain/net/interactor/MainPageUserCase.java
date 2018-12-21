@@ -29,10 +29,10 @@ public class MainPageUserCase extends UserCase {
     }
 
     /**
-     * 专题列表
+     * 第一个tab中的专题列表
      */
     public void requestSpecialAlbusList(int page, BaseRequestCallback callback) {
-        BaseRequestEntity entity = HttpRequestPool.getMainPageSpecialAlbumEntity(page);
+        BaseRequestEntity entity = HttpRequestPool.getMainPageSpecialAlbumEntity(page, false);
         handleSendRequest(entity, callback);
     }
 
@@ -43,6 +43,16 @@ public class MainPageUserCase extends UserCase {
      */
     public void requestCelebrities(BaseRequestCallback callback) {
         BaseRequestEntity entity = HttpRequestPool.getMainPageCelebritiesEntity();
+        handleSendRequest(entity, callback);
+    }
+
+    /**
+     * 首页专题tab
+     *
+     * @param callback
+     */
+    public void requestSpecialAlbum(int page, BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getMainPageSpecialAlbumEntity(page, true);
         handleSendRequest(entity, callback);
     }
 }

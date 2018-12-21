@@ -323,12 +323,15 @@ public class HttpRequestPool {
 
     /**
      * 专题列表
+     *
+     * @param showAll true:显示全部，用于首页的专辑tab，false第一个tab中的专题
      */
-    public static BaseRequestEntity getMainPageSpecialAlbumEntity(int page) {
+    public static BaseRequestEntity getMainPageSpecialAlbumEntity(int page, boolean showAll) {
         BaseRequestEntity baseRequest = new BaseRequestEntity();
         baseRequest.setUrl(ConstData.HOST);
-        // TODO: 2018/11/12 /Special/Special/getIndexAlbumList 
-        baseRequest.setFunctionId("/Special/Special/getAllAlbumList");
+
+        String function = showAll ? "getAllAlbumList" : "getIndexAlbumList";
+        baseRequest.setFunctionId("/Special/Special/" + function);
         baseRequest.setMethod(RequestConst.REQUEST_POST);
 
         BaseBody body = new BaseBody();

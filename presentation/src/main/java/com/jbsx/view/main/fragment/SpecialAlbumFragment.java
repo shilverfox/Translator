@@ -7,8 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.data.net.repository.TaskManager;
+import com.app.domain.net.BaseRequestCallback;
 import com.app.domain.net.data.ConstData;
 import com.app.domain.net.interactor.MainPageUserCase;
+import com.app.domain.net.interactor.MyInfoUserCase;
+import com.app.domain.net.model.BaseDomainData;
+import com.app.domain.util.ParseUtil;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
@@ -16,8 +20,10 @@ import com.jbsx.customview.recyclerview.EndlessRecyclerOnScrollListener;
 import com.jbsx.customview.recyclerview.LoadingFooter;
 import com.jbsx.player.util.PlayerHelper;
 import com.jbsx.utils.ErroBarHelper;
+import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
+import com.jbsx.utils.ShowTools;
 import com.jbsx.view.main.adapter.VideoItemAdapter;
 import com.jbsx.view.main.contact.MainPageContact;
 import com.jbsx.view.main.entity.Album;
@@ -42,7 +48,7 @@ import butterknife.ButterKnife;
  * Created by Li Jian
  */
 
-public class SpecialAlbumFragment extends BaseFragment implements MainPageContact.View {
+public class SpecialAlbumFragment extends BaseFragment {
     private final static String TAG = "SpecialAlbumFragment";
 
     private View mRootView;
@@ -51,7 +57,7 @@ public class SpecialAlbumFragment extends BaseFragment implements MainPageContac
     private List<SpecialAlbums> mListAlbum = new ArrayList<>();
     private LoadingFooter mFooterLoadingMore;
 
-    private MainPageContact.Presenter mPresenter;
+    private MainPageUserCase mUserCase;
 
     /** 当前页码 */
     private int mCurrentPage = 1;
@@ -66,22 +72,21 @@ public class SpecialAlbumFragment extends BaseFragment implements MainPageContac
     }
 
     @Override
-    public void createPresenter() {
-        MainPageUserCase userCase = new MainPageUserCase(TaskManager.getTaskManager(),
-                MainApplicationLike.getUiThread());
-        mPresenter = new MainPagePresenter(this, userCase);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         mRootView = inflater.inflate(R.layout.special_album_page_fragment, null, false);
         ButterKnife.bind(this, mRootView);
-        createPresenter();
+
+        initUserCase();
         initViews();
         initEvents();
         loadData();
 
         return mRootView;
+    }
+
+    private void initUserCase() {
+        mUserCase = new MainPageUserCase(TaskManager.getTaskManager(),
+                MainApplicationLike.getUiThread());
     }
 
     /**
@@ -163,23 +168,38 @@ public class SpecialAlbumFragment extends BaseFragment implements MainPageContac
     }
 
     private void loadSpecialAlbum(int page) {
-        mPresenter.requestSpecialAlbumList(page);
+        mUserCase.requestSpecialAlbum(page, new BaseRequestCallback() {
+            @Override
+            public void onRequestFailed(BaseDomainData data) {
+                handleLoadAlbumFailed(data);
+            }
+
+            @Override
+            public void onRequestSuccessful(String data) {
+                handleLoadAlbumSuccessful(data);
+            }
+
+            @Override
+            public void onNetError() {
+                ErroBarHelper.addErroBar(mRvRecommendList, ErroBarHelper.ERRO_TYPE_NET_INTERNET, new Runnable() {
+                    @Override
+                    public void run() {
+                        loadData();
+                    }
+                });
+            }
+        });
     }
 
-    @Override
-    public void drawBannerInfo(BannerData bannerData) {
+    private void handleLoadAlbumSuccessful(String data) {
+        SpecialAlbumData parseData = ParseUtil.parseData(data, SpecialAlbumData.class);
+        drawSpecialAlbumInfo(parseData);
     }
 
-    @Override
-    public void drawEmptyBanner(String errorMessage) {
+    private void handleLoadAlbumFailed(BaseDomainData data) {
+        ShowTools.toast(MessageTools.getMessage(data));
     }
 
-    @Override
-    public void drawHostInfo(HostData hostData) {
-
-    }
-
-    @Override
     public void drawSpecialAlbumInfo(SpecialAlbumData albumsData) {
         if (albumsData != null && albumsData.getPayload() != null) {
             List<SpecialAlbums> data = albumsData.getPayload().getSpecialAlbums();
@@ -195,7 +215,6 @@ public class SpecialAlbumFragment extends BaseFragment implements MainPageContac
         ProgressBarHelper.removeProgressBar(mRvRecommendList);
     }
 
-    @Override
     public void drawEmptySpecialAlbum(String errorMessage) {
         mHasNextPage = false;
         ProgressBarHelper.removeProgressBar(mRvRecommendList);
@@ -220,22 +239,8 @@ public class SpecialAlbumFragment extends BaseFragment implements MainPageContac
     }
 
     /**
-     * 渲染名家列表
-     *
-     * @param celebrityData
-     */
-    @Override
-    public void drawCelebritiesInfo(CelebrityData celebrityData) {
-    }
-
-    @Override
-    public void drawEmptyCelebrities(String errorMessage) {
-    }
-
-    /**
      * 联网失败
      */
-    @Override
     public void drawNetError() {
         ErroBarHelper.addErroBar(mRvRecommendList, ErroBarHelper.ERRO_TYPE_NET_INTERNET, new Runnable() {
             @Override
