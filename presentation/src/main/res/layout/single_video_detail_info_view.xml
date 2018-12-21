@@ -49,7 +49,7 @@
             android:layout_marginTop="15dp"
             android:scrollbars="none"
             android:layout_below="@id/dialog_album_detail_title"/>
-        
+
         <TextView
             android:id="@+id/dialog_album_detail_summary"
             android:layout_width="match_parent"

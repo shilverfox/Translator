@@ -52,6 +52,7 @@ public class AboutActivity extends BaseActivity {
 
 		initUserCase();
 		initViews();
+		initAboutList();
 		initEvent();
 		loadAboutInfo();
 	}
@@ -80,11 +81,6 @@ public class AboutActivity extends BaseActivity {
 	}
 
 	private void initEvent(){
-		mRvContent.setAdapter(mAdapter);
-		mRvContent.setHasFixedSize(true);
-		mRvContent.setLayoutManager(linearLayoutManager);
-		mRvContent.addItemDecoration(RecyclerViewHelper.getDivider(mContext, true));
-
 		mTitleBar.setBackButton(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -93,10 +89,16 @@ public class AboutActivity extends BaseActivity {
 		});
 	}
 
-	private void initData(List<AboutData.AboutItem> aboutItemList) {
+	private void initAboutList() {
 		mAdapter = new MyInfoBigImageAdapter(this, R.layout.myinfo_fragment_big_item);
 		linearLayoutManager = new LinearLayoutManager(mContext);
+		mRvContent.setAdapter(mAdapter);
+		mRvContent.setHasFixedSize(true);
+		mRvContent.setLayoutManager(linearLayoutManager);
+		mRvContent.addItemDecoration(RecyclerViewHelper.getDivider(mContext, true));
+	}
 
+	private void initData(List<AboutData.AboutItem> aboutItemList) {
 		// 制造数据
 		List<MyInfoBigItem> items = new ArrayList<MyInfoBigItem>();
 		for (int i = 0; aboutItemList != null && i < aboutItemList.size(); i++) {
@@ -138,7 +140,7 @@ public class AboutActivity extends BaseActivity {
 	private void handleGetAboutSuccessful(String data) {
 		AboutData aboutData = ParseUtil.parseData(data, AboutData.class);
 		if (aboutData != null && aboutData.getPayload() != null) {
-			initData(aboutData.getPayload().getAboutItem());
+			initData(aboutData.getPayload().getAbout());
 		}
 	}
 

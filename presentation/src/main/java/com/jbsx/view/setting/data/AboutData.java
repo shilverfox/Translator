@@ -48,15 +48,15 @@ public class AboutData {
     }
 
     public class Payload {
-        private List<AboutItem> AboutItem;
+        private List<AboutItem> about;
         private BaseDomainData.ResultStatus resultStatus;
 
-        public List<AboutData.AboutItem> getAboutItem() {
-            return AboutItem;
+        public List<AboutItem> getAbout() {
+            return about;
         }
 
-        public void setAboutItem(List<AboutData.AboutItem> aboutItem) {
-            AboutItem = aboutItem;
+        public void setAbout(List<AboutItem> about) {
+            this.about = about;
         }
 
         public BaseDomainData.ResultStatus getResultStatus() {

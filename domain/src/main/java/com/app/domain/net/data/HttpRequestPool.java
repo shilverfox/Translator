@@ -532,7 +532,7 @@ public class HttpRequestPool {
     public static BaseRequestEntity getAboutEntity() {
         BaseRequestEntity baseRequest = new BaseRequestEntity();
         baseRequest.setUrl(ConstData.HOST);
-        baseRequest.setFunctionId("/User/User/about");
+        baseRequest.setFunctionId("/Special/Special/about");
         baseRequest.setMethod(RequestConst.REQUEST_POST);
 
         BaseBody body = new BaseBody();
