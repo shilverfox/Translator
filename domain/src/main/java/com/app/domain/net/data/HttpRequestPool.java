@@ -388,7 +388,7 @@ public class HttpRequestPool {
      * @param celebrityId
      * @param keyWord 搜索关键字
      * @param type 0 标题+主讲 2主讲 1标题 (默认值：0)
-     * @param sort 排序热门1热门2非热门
+     * @param sort 排序是否热门1热门2非热门3集数正序4集数倒叙5名称正序6名称倒叙
      * @param page
      * @return
      */

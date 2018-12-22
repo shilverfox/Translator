@@ -11,7 +11,23 @@ public class SearchEvent implements Parcelable {
     public final static int SEARCH_TYPE_CELEBRITY = 2;
     public final static int SEARCH_TYPE_TITLE = 1;
 
+    /** 排序：热门 */
     public final static int SEARCH_SORT_BY_HOT = 1;
+
+    /** 排序：非热门 */
+    public final static int SEARCH_SORT_BY_NOT_HOT = 2;
+
+    /** 排序：集数 正序 */
+    public final static int SEARCH_SORT_BY_COUNT_INCREASE = 3;
+
+    /** 排序：集数 倒序 */
+    public final static int SEARCH_SORT_BY_COUNT_DESCENT = 4;
+
+    /** 排序：名称 正序 */
+    public final static int SEARCH_SORT_BY_NAME_INCREASE = 5;
+
+    /** 排序：名称 倒序 */
+    public final static int SEARCH_SORT_BY_NAME_DESCENT = 6;
 
     private int celebrityId;
     private String searchKey;

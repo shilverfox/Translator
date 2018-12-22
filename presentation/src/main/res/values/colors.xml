@@ -36,4 +36,7 @@
     <color name="dkplayer_background_color">#96000000</color>
 
     <color name="dialog_button_grey">#fafafa</color>
+
+    <color name="text_gray">#999999</color>
+    <color name="text_orange">#fe8a0f</color>
 </resources>

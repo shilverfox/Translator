@@ -30,10 +30,9 @@ public class SearchEventGenerator {
      * @param celebrityId
      * @return
      */
-    public static SearchEvent getCelebrityIdSearch(int celebrityId) {
+    public static SearchEvent getCelebrityIdSearch(int celebrityId, int sortType) {
         SearchEvent event = new SearchEvent(celebrityId, null,
-                SearchEvent.SEARCH_TYPE_TITLE_CELEBRITY,
-                SearchEvent.SEARCH_SORT_BY_HOT);
+                SearchEvent.SEARCH_TYPE_TITLE_CELEBRITY, sortType);
 
         return event;
     }

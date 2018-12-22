@@ -20,6 +20,17 @@ public class UiTools {
         return (int)(pxValue / scale + 0.5F);
     }
 
+    /**
+     * 将px值转换为sp值，保证文字大小不变
+     * @param pxValue
+     *
+     * @return
+     */
+    public static int px2sp(float pxValue) {
+        final float fontScale = MainApplicationLike.getAppContext().getResources().getDisplayMetrics().scaledDensity;
+        return (int) (pxValue / fontScale + 0.5f);
+    }
+
     public static Drawable getDrawable(int resId, int size) {
         Drawable drawable = null;
         try {

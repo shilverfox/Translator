@@ -14,4 +14,11 @@
         <attr name="mrl_rippleInAdapter" format="boolean" localization="suggested" />
         <attr name="mrl_rippleRoundedCorners" format="dimension" localization="suggested" />
     </declare-styleable>
+
+    <declare-styleable name="SortView">
+        <attr name="sortview_count" format="integer"/>
+        <attr name="sortview_normalcolor" format="color"/>
+        <attr name="sortview_highlightcolor" format="color"/>
+        <attr name="sortview_textsize" format="dimension"/>
+    </declare-styleable>
 </resources>

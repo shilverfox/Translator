@@ -2,6 +2,8 @@
 <!-- 首页片库tab，顶部名家列表不展示，想看就把高度设置成40dp -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/root_bg_color"
     android:layout_width="match_parent"
@@ -12,6 +14,21 @@
         android:paddingLeft="8dp"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/divider_line"/>
+
+    <com.jbsx.customview.SortBar
+        android:id="@+id/sortView"
+        app:sortview_count="3"
+        android:background="#ffffff"
+        app:sortview_normalcolor="@color/text_gray"
+        app:sortview_highlightcolor="@color/app_word_red"
+        app:sortview_textsize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp" />
 
     <View
         android:layout_width="match_parent"
