@@ -1,6 +1,7 @@
 package com.jbsx.utils.image;
 
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
@@ -59,6 +60,14 @@ public class ImageLoader {
             return;
         }
 
+        Glide.with(MainApplicationLike.getAppContext())
+                .load(url)
+                .asBitmap()
+                .transform(new Transformation[]{makeCornerTransform(roundRadius)})
+                .into(imgView);
+    }
+
+    private static CornerTransform makeCornerTransform(int roundRadius) {
         CornerTransform transformation1 = new CornerTransform(MainApplicationLike.getAppContext(),
                 (float) UiTools.dip2px(roundRadius));
         transformation1.setExceptCorner(false, false, false, false);
@@ -66,11 +75,12 @@ public class ImageLoader {
         drawable1.setCornerRadius(UiTools.dip2px(6));
         drawable1.setColor(ColorTools.parseColor("#f4f4f4"));
 
-        Glide.with(MainApplicationLike.getAppContext())
-                .load(url)
-                .asBitmap()
-                .transform(new Transformation[]{transformation1})
-                .into(imgView);
+        return transformation1;
+    }
+
+    private static GlideCircleTransform makeCircleTransform() {
+        GlideCircleTransform transformation1 = new GlideCircleTransform(MainApplicationLike.getAppContext());
+        return transformation1;
     }
 
     /**
@@ -85,12 +95,24 @@ public class ImageLoader {
             return;
         }
 
-        GlideCircleTransform transformation1 = new GlideCircleTransform(MainApplicationLike.getAppContext());
         Glide.with(MainApplicationLike.getAppContext())
                 .load(url)
                 .asBitmap()
                 .placeholder(defaultImageId)
-                .transform(new Transformation[]{transformation1})
+                .transform(new Transformation[]{makeCircleTransform()})
+                .into(imgView);
+    }
+
+    public static void displayImage(Uri uri, int defaultImageId, ImageView imgView, boolean circle) {
+        if (imgView == null) {
+            return;
+        }
+
+        Glide.with(MainApplicationLike.getAppContext())
+                .load(uri)
+                .asBitmap()
+                .placeholder(defaultImageId)
+                .transform(new Transformation[]{makeCircleTransform()})
                 .into(imgView);
     }
 

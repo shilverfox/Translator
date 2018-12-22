@@ -40,6 +40,9 @@
         <activity android:name=".view.login.ResetPasswordActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".view.login.ModifyPasswordActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
         <activity android:name=".view.setting.SettingsActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"
                   android:screenOrientation="portrait"/>
@@ -76,6 +79,9 @@
         <activity android:name=".player.PlayerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"/>
+        <activity android:name=".view.myinfo.activity.MyInfoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
 
         <!-- 微信分享返回结果的activity -->
         <activity
@@ -88,6 +94,21 @@
             android:name=".utils.SharedPreferencesProvider"
             android:authorities="com.jbsx.android.provider.preference"
             android:exported="false" />
+
+        <!-- 头像选择相关 -->
+        <activity
+            android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:theme="@style/PhotoTheme" />
+
+        <activity
+            android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
 
     </application>
 

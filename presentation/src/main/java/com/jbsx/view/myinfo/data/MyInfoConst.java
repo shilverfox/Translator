@@ -2,6 +2,7 @@ package com.jbsx.view.myinfo.data;
 
 import com.jbsx.player.PlayerActivity;
 import com.jbsx.view.login.LoginActivity;
+import com.jbsx.view.login.ModifyPasswordActivity;
 import com.jbsx.view.myinfo.activity.MyCommentActivity;
 import com.jbsx.view.myinfo.activity.MyFavoriteActivity;
 import com.jbsx.view.myinfo.activity.MyMessageActivity;
@@ -37,12 +38,24 @@ public class MyInfoConst {
             MY_TYPE_HISTORY, MY_TYPE_FAVORITY, MY_TYPE_COMMENT, MY_TYPE_MESSAGE, MY_TYPE_SETTING
     };
 
+    public final static int[] MY_INFO_IDS = {
+            MY_TYPE_HISTORY, MY_TYPE_FAVORITY
+    };
+
     public final static String[] MY_TYPE_NAMES = {
             "观看历史", "我的收藏", "我的评论", "我的消息", "系统设置"
     };
 
+    public final static String[] MY_INFO_NAMES = {
+            "昵称", "修改密码"
+    };
+
     public final static Class[] MY_TYPE_NAVIGATIONS = {
             MyViewHistoryActivity.class, MyFavoriteActivity.class, MyCommentActivity.class, MyMessageActivity.class, SettingsActivity.class,
+    };
+
+    public final static Class[] MY_INFO_NAVIGATIONS = {
+            MyViewHistoryActivity.class, ModifyPasswordActivity.class
     };
 
     public final static boolean[] NEED_LOGIN = {true, true, true, true, false};

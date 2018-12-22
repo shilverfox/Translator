@@ -32,6 +32,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     compile project.DEPENDENCY_SUPPORT_V7
+    compile project.DEPENDENCY_SUPPORT_DESIGN
     compile project.DEPENDENCY_GOOGLE_GSON
     compile project.DEPENDENCY_BUTTERKNIFE
     compile project.DEPENDENCY_BUTTERKNIFE_COMPILER
@@ -69,6 +70,10 @@ dependencies {
 
     // Splash
     compile 'gr.pantrif:easy-android-splash-screen:0.0.1'
+
+    // 头像选择
+    compile 'com.longsh:PhotoPicker:1.5.0'
+    compile 'com.yalantis:ucrop:2.2.0'
 
     compile project(path: ':domain')
 

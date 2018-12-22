@@ -68,7 +68,7 @@ public class AboutActivity extends BaseActivity {
 		mRvContent = (RecyclerView) findViewById(R.id.rv_about_body);
 
 		mTitleBar.showBackButton(true);
-		mTitleBar.setCenterTitle("关于我们");
+		mTitleBar.setCenterTitle("关于" + mContext.getResources().getString(R.string.app_name));
 
 		// 版本号
 		mTxtVersion.setText(StatisticsReportUtil.getSimpleVersionName());

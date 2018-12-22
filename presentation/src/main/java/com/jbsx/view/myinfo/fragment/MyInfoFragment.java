@@ -16,12 +16,14 @@ import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.utils.RecyclerViewHelper;
+import com.jbsx.utils.Router;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.login.callback.ILoginResultListener;
 import com.jbsx.view.login.callback.IOnLoginListener;
 import com.jbsx.view.login.data.LoginData;
 import com.jbsx.view.login.data.LoginResultEvent;
 import com.jbsx.view.login.util.LoginHelper;
+import com.jbsx.view.myinfo.activity.MyInfoActivity;
 import com.jbsx.view.myinfo.adapter.MyInfoAdapter;
 import com.jbsx.view.myinfo.contact.MyInfoContact;
 import com.jbsx.view.myinfo.data.MyInfoConst;
@@ -123,11 +125,11 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
             }
         });
 
-        // 未登录时可以点击登录
         mViewUserContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!LoginHelper.getInstance().isLogin()) {
+                    // 未登录时可以点击登录
                     LoginHelper.getInstance().startLogin(getActivity(), new IOnLoginListener() {
                         @Override
                         public void onSucess() {
@@ -139,6 +141,9 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
 
                         }
                     });
+                } else {
+                    // 登陆状态查看个人信息
+                    Router.getInstance().open(MyInfoActivity.class, getActivity());
                 }
             }
         });
