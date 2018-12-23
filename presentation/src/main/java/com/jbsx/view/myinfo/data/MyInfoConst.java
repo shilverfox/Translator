@@ -1,7 +1,5 @@
 package com.jbsx.view.myinfo.data;
 
-import com.jbsx.player.PlayerActivity;
-import com.jbsx.view.login.LoginActivity;
 import com.jbsx.view.login.ModifyPasswordActivity;
 import com.jbsx.view.myinfo.activity.ModifyUserInfoActivity;
 import com.jbsx.view.myinfo.activity.MyCommentActivity;
@@ -60,4 +58,9 @@ public class MyInfoConst {
     };
 
     public final static boolean[] NEED_LOGIN = {true, true, true, true, false};
+
+    /** Message type */
+    public final static int MESSAGE_TYPE_SYSTEM = 1;
+    public final static int MESSAGE_TYPE_RESPONSE = 2;
+    public final static int MESSAGE_TYPE_THUMB = 3;
 }

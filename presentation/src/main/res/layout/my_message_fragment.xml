@@ -7,10 +7,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- 先不显示tab -->
     <com.flyco.tablayout.CommonTabLayout
         android:id="@+id/tab_my_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         style="@style/common_tab_style"/>
 
     <View
