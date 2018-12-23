@@ -82,6 +82,9 @@
         <activity android:name=".view.myinfo.activity.MyInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"/>
+        <activity android:name=".view.myinfo.activity.ModifyUserInfoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
 
         <!-- 微信分享返回结果的activity -->
         <activity

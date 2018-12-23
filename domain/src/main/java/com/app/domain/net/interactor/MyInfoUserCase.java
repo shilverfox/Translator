@@ -55,4 +55,14 @@ public class MyInfoUserCase extends UserCase {
         BaseRequestEntity entity = HttpRequestPool.getAboutEntity();
         handleSendRequest(entity, callback);
     }
+
+    /**
+     * 更改用户信息
+     *
+     * @param callback
+     */
+    public void requestModifyUserInfo(String token, String nickName, BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getModifyUserInfoEntity(token, nickName);
+        handleSendRequest(entity, callback);
+    }
 }

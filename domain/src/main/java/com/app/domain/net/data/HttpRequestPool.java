@@ -547,6 +547,27 @@ public class HttpRequestPool {
     }
 
     /**
+     * 更改用户信息
+     *
+     * @return
+     */
+    public static BaseRequestEntity getModifyUserInfoEntity(String token, String nickName) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/User/User/updateUser");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+        body.add("nickName", nickName);
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, token);
+
+        return baseRequest;
+    }
+
+    /**
      * 获取当前用户所有评论
      *
      * @param token

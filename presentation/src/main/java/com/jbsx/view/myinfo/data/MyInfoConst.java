@@ -3,6 +3,7 @@ package com.jbsx.view.myinfo.data;
 import com.jbsx.player.PlayerActivity;
 import com.jbsx.view.login.LoginActivity;
 import com.jbsx.view.login.ModifyPasswordActivity;
+import com.jbsx.view.myinfo.activity.ModifyUserInfoActivity;
 import com.jbsx.view.myinfo.activity.MyCommentActivity;
 import com.jbsx.view.myinfo.activity.MyFavoriteActivity;
 import com.jbsx.view.myinfo.activity.MyMessageActivity;
@@ -55,7 +56,7 @@ public class MyInfoConst {
     };
 
     public final static Class[] MY_INFO_NAVIGATIONS = {
-            MyViewHistoryActivity.class, ModifyPasswordActivity.class
+            ModifyUserInfoActivity.class, ModifyPasswordActivity.class
     };
 
     public final static boolean[] NEED_LOGIN = {true, true, true, true, false};
