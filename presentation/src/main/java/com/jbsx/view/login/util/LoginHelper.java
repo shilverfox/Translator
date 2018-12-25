@@ -50,6 +50,15 @@ public class LoginHelper {
         return token;
     }
 
+    public String getUserNickName() {
+        String name = "";
+        if (isLogin()) {
+            name = mLoginData.getPayload().getUserInfo().getNickname();
+        }
+
+        return name;
+    }
+
     public String getUserId() {
         String id = "";
         if (isLogin()) {

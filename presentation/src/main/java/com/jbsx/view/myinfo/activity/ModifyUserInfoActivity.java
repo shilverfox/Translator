@@ -1,5 +1,6 @@
 package com.jbsx.view.myinfo.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import com.jbsx.R;
 import com.jbsx.app.BaseFragmentActivity;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.TitleBar;
+import com.jbsx.data.ITransKey;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.setting.data.AboutData;
@@ -26,15 +28,26 @@ public class ModifyUserInfoActivity extends BaseFragmentActivity {
 
     private MyInfoUserCase mUserCase;
 
+    private String mOldInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.modify_user_info_activity);
 
+        getDataFromIntent();
         initUserCase();
         findViews();
         initTitleBar();
         registerEvents();
+        initView();
+    }
+
+    private void getDataFromIntent() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            mOldInfo = intent.getStringExtra(ITransKey.KEY);
+        }
     }
 
     private void initUserCase() {
@@ -68,6 +81,12 @@ public class ModifyUserInfoActivity extends BaseFragmentActivity {
         });
     }
 
+    private void initView() {
+        if (mOldInfo != null) {
+            mEtUserInfo.setText(mOldInfo);
+        }
+    }
+
     private void onBackEvent() {
         finish();
     }
@@ -75,7 +94,8 @@ public class ModifyUserInfoActivity extends BaseFragmentActivity {
     private void handleModify() {
         String nickName = mEtUserInfo.getText().toString();
         mUserCase.requestModifyUserInfo(LoginHelper.getInstance().getUserToken(),
-                nickName, new BaseRequestCallback() {
+                LoginHelper.getInstance().getUserId(), nickName,
+                new BaseRequestCallback() {
             @Override
             public void onRequestFailed(BaseDomainData data) {
                 handleModifyInfoFailed(data);

@@ -1,90 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.jbsx">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.jbsx">
 
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- SD card permission is requested by tinker -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
+        android:name=".app.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".app.MainApplication"
         tools:replace="android:name">
-        <activity android:name=".view.start.SplashActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".view.start.SplashActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.main.activity.MainActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".view.web.WebActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".view.login.RegisterActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".view.login.ResetPasswordActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".view.login.ModifyPasswordActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".view.setting.SettingsActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".view.setting.AboutActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".view.myinfo.activity.MyViewHistoryActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".view.myinfo.activity.MyFavoriteActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".view.myinfo.activity.MyMessageActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".view.myinfo.activity.MyCommentActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".view.myinfo.activity.CommentDetailActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".view.login.LoginActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"
-                  android:launchMode="singleTask"/>
-        <activity android:name=".view.search.SearchActivity"
-                  android:launchMode="singleTask"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"
-                  android:windowSoftInputMode="stateAlwaysVisible|adjustPan"/>
-        <activity android:name=".view.search.SearchResultActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".player.PlayerActivity"
+        <activity
+            android:name=".view.main.activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.web.WebActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.login.RegisterActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.login.ResetPasswordActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.login.ModifyPasswordActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.setting.SettingsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.setting.AboutActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.myinfo.activity.MyViewHistoryActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.myinfo.activity.MyFavoriteActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.myinfo.activity.MyMessageActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.myinfo.activity.MyCommentActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.myinfo.activity.CommentDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.login.LoginActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.search.SearchActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustPan" />
+        <activity
+            android:name=".view.search.SearchResultActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".player.PlayerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.myinfo.activity.MyInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.myinfo.activity.MyInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.myinfo.activity.ModifyUserInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.myinfo.activity.ModifyUserInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustPan" />
 
         <!-- 微信分享返回结果的activity -->
         <activity

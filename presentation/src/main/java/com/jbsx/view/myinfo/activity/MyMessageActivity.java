@@ -89,7 +89,7 @@ public class MyMessageActivity extends BaseFragmentActivity {
         MyInfoItem thumbMessage = new MyInfoItem(MyInfoConst.MESSAGE_TYPE_THUMB, "被赞消息");
         thumbMessage.setRightDeliver(true);
 
-        items.add(systemMessage);
+//        items.add(systemMessage);
         items.add(responseMessage);
         items.add(thumbMessage);
 

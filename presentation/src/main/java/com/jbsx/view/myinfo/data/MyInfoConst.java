@@ -37,9 +37,9 @@ public class MyInfoConst {
             MY_TYPE_HISTORY, MY_TYPE_FAVORITY, MY_TYPE_COMMENT, MY_TYPE_MESSAGE, MY_TYPE_SETTING
     };
 
-    public final static int[] MY_INFO_IDS = {
-            MY_TYPE_HISTORY, MY_TYPE_FAVORITY
-    };
+//    public final static int[] MY_INFO_IDS = {
+//            MY_TYPE_HISTORY, MY_TYPE_FAVORITY
+//    };
 
     public final static String[] MY_TYPE_NAMES = {
             "观看历史", "我的收藏", "我的评论", "我的消息", "系统设置"

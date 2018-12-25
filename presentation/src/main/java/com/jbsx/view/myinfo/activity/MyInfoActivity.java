@@ -11,8 +11,12 @@ import android.widget.ImageView;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragmentActivity;
 import com.jbsx.customview.TitleBar;
+import com.jbsx.data.ITransKey;
 import com.jbsx.utils.RecyclerViewHelper;
+import com.jbsx.utils.Router;
 import com.jbsx.utils.image.ImageLoader;
+import com.jbsx.view.login.ResetPasswordActivity;
+import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.myinfo.adapter.MyInfoAdapter;
 import com.jbsx.view.myinfo.data.MyInfoConst;
 import com.jbsx.view.myinfo.entity.MyInfoItem;
@@ -58,9 +62,10 @@ public class MyInfoActivity extends BaseFragmentActivity {
 
         // 制造数据
         List<MyInfoItem> items = new ArrayList<MyInfoItem>();
-        for (int i = 0; i < MyInfoConst.MY_INFO_IDS.length; i++) {
-            MyInfoItem infoItem = new MyInfoItem(MyInfoConst.MY_INFO_IDS[i], MyInfoConst.MY_INFO_NAMES[i]);
-            infoItem.setTo(MyInfoConst.MY_INFO_NAVIGATIONS[i]);
+        for (int i = 0; i < 2; i++) {
+            MyInfoItem infoItem = new MyInfoItem(i, MyInfoConst.MY_INFO_NAMES[i]);
+//            infoItem.setTo(MyInfoConst.MY_INFO_NAVIGATIONS[i]);
+            infoItem.setRightDeliver(true);
             infoItem.setNeedLogin(true);
             items.add(infoItem);
         }
@@ -104,6 +109,33 @@ public class MyInfoActivity extends BaseFragmentActivity {
                         .start(MyInfoActivity.this);
             }
         });
+
+        mAdapter.setOnMyItemClickListener(new MyInfoAdapter.OnMyItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                MyInfoItem item = mAdapter.getDatas().get(position);
+                if (item == null) {
+                    return;
+                }
+                gotoView(item.getId());
+            }
+        });
+    }
+
+    private void gotoView(int id) {
+        if (id == 0) {
+            // 修改昵称
+            handleGotoModifyInfo(LoginHelper.getInstance().getUserId());
+        } else if (id == 1) {
+            Router.getInstance().open(ResetPasswordActivity.class, MyInfoActivity.this);
+        }
+    }
+
+    private void handleGotoModifyInfo(String oldInfo) {
+        Bundle bundle = new Bundle();
+        bundle.putString(ITransKey.KEY, oldInfo);
+
+        Router.getInstance().open(ModifyUserInfoActivity.class, MyInfoActivity.this, bundle);
     }
 
     private void onBackEvent() {

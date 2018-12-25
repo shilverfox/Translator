@@ -61,8 +61,8 @@ public class MyInfoUserCase extends UserCase {
      *
      * @param callback
      */
-    public void requestModifyUserInfo(String token, String nickName, BaseRequestCallback callback) {
-        BaseRequestEntity entity = HttpRequestPool.getModifyUserInfoEntity(token, nickName);
+    public void requestModifyUserInfo(String token, String userId, String nickName, BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getModifyUserInfoEntity(token, userId, nickName);
         handleSendRequest(entity, callback);
     }
 }

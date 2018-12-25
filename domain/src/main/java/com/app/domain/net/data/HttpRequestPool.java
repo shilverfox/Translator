@@ -551,7 +551,7 @@ public class HttpRequestPool {
      *
      * @return
      */
-    public static BaseRequestEntity getModifyUserInfoEntity(String token, String nickName) {
+    public static BaseRequestEntity getModifyUserInfoEntity(String token, String userId, String nickName) {
         BaseRequestEntity baseRequest = new BaseRequestEntity();
         baseRequest.setUrl(ConstData.HOST);
         baseRequest.setFunctionId("/User/User/updateUser");
@@ -559,7 +559,8 @@ public class HttpRequestPool {
 
         BaseBody body = new BaseBody();
         body.add("specialCode", "JBSX");
-        body.add("nickName", nickName);
+        body.add("userId", userId);
+        body.add("nickname", nickName);
 
         baseRequest.setBaseBody(body);
         HttpRequestUtil.getHeader(baseRequest, token);
