@@ -59,6 +59,15 @@ public class LoginHelper {
         return name;
     }
 
+    public String getUserHead() {
+        String imgUrl = "";
+        if (isLogin()) {
+            imgUrl = mLoginData.getPayload().getUserInfo().getImageUrl();
+        }
+
+        return imgUrl;
+    }
+
     public String getUserId() {
         String id = "";
         if (isLogin()) {

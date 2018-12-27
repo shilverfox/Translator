@@ -27,6 +27,7 @@ import com.jbsx.view.myinfo.activity.MyInfoActivity;
 import com.jbsx.view.myinfo.adapter.MyInfoAdapter;
 import com.jbsx.view.myinfo.contact.MyInfoContact;
 import com.jbsx.view.myinfo.data.MyInfoConst;
+import com.jbsx.view.myinfo.data.ReloadUserInfo;
 import com.jbsx.view.myinfo.entity.MyInfoItem;
 import com.jbsx.view.myinfo.presenter.MyInfoPresenter;
 
@@ -216,6 +217,15 @@ public class MyInfoFragment extends BaseFragment implements ILoginResultListener
         if (event != null && event.action == LoginResultEvent.LoginAction.SUCCESS) {
             refreshUI();
         }
+    }
+
+    /**
+     * 重新加载用户信息，比如更改了头像
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ReloadUserInfo event) {
+        loadUserInfo();
     }
 
     private void refreshUI() {

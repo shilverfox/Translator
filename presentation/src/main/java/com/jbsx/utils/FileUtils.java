@@ -3,7 +3,11 @@ package com.jbsx.utils;
 import android.content.Context;
 import android.os.Environment;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -131,5 +135,49 @@ public class FileUtils {
         } else {
             return dir.delete();
         }
+    }
+
+    public static byte[] getBytesFromFile(File file) {
+        byte[] data = null;
+        if (file != null) {
+            FileInputStream fis = null;
+            ByteArrayOutputStream bos = null;
+
+            try {
+                fis = new FileInputStream(file);
+                bos = new ByteArrayOutputStream();
+
+                byte[] b = new byte[1024];
+                int n;
+
+                while ((n = fis.read(b)) != -1) {
+                    bos.write(b, 0, n);
+                }
+
+                data = bos.toByteArray();
+            } catch (FileNotFoundException ex) {
+                LogTools.e(ex.toString());
+            } catch (IOException ex) {
+                LogTools.e(ex.toString());
+            } finally {
+                try {
+                    if (null != bos) {
+                        bos.close();
+                    }
+                } catch (IOException ex) {
+                    LogTools.e(ex.toString());
+                } finally{
+                    try {
+                        if(null!=fis){
+                            fis.close();
+                        }
+                    } catch (IOException ex) {
+                        LogTools.e(ex.toString());
+                    }
+                }
+            }
+        }
+
+        return data;
     }
 }

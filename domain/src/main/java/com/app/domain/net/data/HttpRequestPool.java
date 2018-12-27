@@ -8,6 +8,9 @@ import com.app.domain.net.model.BaseRequestEntity;
 import com.app.domain.net.model.RequestConst;
 import com.google.gson.Gson;
 
+import org.json.JSONObject;
+
+import java.io.File;
 import java.util.Arrays;
 
 /**
@@ -551,7 +554,8 @@ public class HttpRequestPool {
      *
      * @return
      */
-    public static BaseRequestEntity getModifyUserInfoEntity(String token, String userId, String nickName) {
+    public static BaseRequestEntity getModifyUserInfoEntity(String token, String userId,
+                                                            String nickName, String imgId) {
         BaseRequestEntity baseRequest = new BaseRequestEntity();
         baseRequest.setUrl(ConstData.HOST);
         baseRequest.setFunctionId("/User/User/updateUser");
@@ -560,7 +564,78 @@ public class HttpRequestPool {
         BaseBody body = new BaseBody();
         body.add("specialCode", "JBSX");
         body.add("userId", userId);
-        body.add("nickname", nickName);
+
+        if (!TextUtils.isEmpty(nickName)) {
+            body.add("nickname", nickName);
+        }
+
+        if (!TextUtils.isEmpty(imgId)) {
+            body.add("image", imgId);
+        }
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, token);
+
+        return baseRequest;
+    }
+
+    /**
+     * 上传用户头像
+     *
+     * @param token
+     * @param userId
+     * @return
+     */
+    public static BaseRequestEntity getUploadUserHeadEntity(String token, String userId,
+                                                            String fileName, File file) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Material/Material/getFileToken");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+        body.add("userId", userId);
+        body.add("fileType", 1);
+
+//        body.setFile(file);
+//        body.setFileName(fileName);
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, token);
+
+        return baseRequest;
+    }
+
+
+    /**
+     * 把上传7牛的结果信息告诉jb服务器
+     *
+     * @param token
+     * @param id
+     * @param name
+     * @param size
+     * @param format
+     * @param fileObject
+     * @param bucket
+     * @return
+     */
+    public static BaseRequestEntity getUpload7NiuResultEntity(String token, String id, String name,
+                                                              String size, String format,
+                                                              JSONObject fileObject, String bucket) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/Material/Material/updateFile");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("specialCode", "JBSX");
+        body.add("id", id);
+        body.add("name", name);
+        body.add("size", size);
+        body.add("format", format);
+        body.add("fileObject", fileObject);
+        body.add("bucket", bucket);
 
         baseRequest.setBaseBody(body);
         HttpRequestUtil.getHeader(baseRequest, token);

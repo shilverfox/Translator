@@ -9,15 +9,15 @@ import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
 import com.app.domain.net.interactor.MyInfoUserCase;
 import com.app.domain.net.model.BaseDomainData;
-import com.app.domain.util.ParseUtil;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragmentActivity;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.TitleBar;
 import com.jbsx.data.ITransKey;
 import com.jbsx.utils.MessageTools;
+import com.jbsx.utils.ShowTools;
+import com.jbsx.view.login.data.LoginData;
 import com.jbsx.view.login.util.LoginHelper;
-import com.jbsx.view.setting.data.AboutData;
 
 /**
  * 更改个人信息页面
@@ -94,7 +94,7 @@ public class ModifyUserInfoActivity extends BaseFragmentActivity {
     private void handleModify() {
         String nickName = mEtUserInfo.getText().toString();
         mUserCase.requestModifyUserInfo(LoginHelper.getInstance().getUserToken(),
-                LoginHelper.getInstance().getUserId(), nickName,
+                LoginHelper.getInstance().getUserId(), nickName, null,
                 new BaseRequestCallback() {
             @Override
             public void onRequestFailed(BaseDomainData data) {
@@ -114,9 +114,15 @@ public class ModifyUserInfoActivity extends BaseFragmentActivity {
     }
 
     private void handleModifyInfoSuccessful(String data) {
-        AboutData aboutData = ParseUtil.parseData(data, AboutData.class);
-        if (aboutData != null && aboutData.getPayload() != null) {
+        ShowTools.toast("修改成功");
+
+        // 更新昵称信息
+        LoginData.UserInfo userInfo = LoginHelper.getInstance().getLoginUser().getPayload().getUserInfo();
+        if (userInfo != null) {
+            userInfo.setNickname(mEtUserInfo.getText().toString());
         }
+
+        finish();
     }
 
     private void handleModifyInfoFailed(BaseDomainData data) {

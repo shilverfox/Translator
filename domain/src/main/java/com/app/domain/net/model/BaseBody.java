@@ -2,6 +2,7 @@ package com.app.domain.net.model;
 
 import android.text.TextUtils;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -12,6 +13,24 @@ import java.util.Map;
 
 public class BaseBody {
     private HashMap<String, Object> mData;
+    private String fileName;
+    private File file;
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
     public BaseBody() {
         mData = new HashMap();
