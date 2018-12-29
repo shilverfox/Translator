@@ -15,8 +15,10 @@ public class LoginViewUserCase extends UserCase {
         super(dataSource, threadExecutor);
     }
 
-    public void modifyPassword(String userId, String oldPass, String newPass, BaseRequestCallback callback) {
-        BaseRequestEntity entity = HttpRequestPool.getModifyPasswordEntity(userId, oldPass, newPass);
+    public void modifyPassword(String token, String userId, String oldPass, String newPass,
+                               BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getModifyPasswordEntity(token, userId, oldPass,
+                newPass);
         handleSendRequest(entity, callback);
     }
 

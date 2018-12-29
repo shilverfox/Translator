@@ -104,16 +104,21 @@ public class HttpRequestPool {
     }
 
 
-    public static BaseRequestEntity getModifyPasswordEntity(String userId, String oldPass, String newPass) {
+    public static BaseRequestEntity getModifyPasswordEntity(String token, String userId,
+                                                            String oldPass, String newPass) {
         BaseRequestEntity baseRequest = new BaseRequestEntity();
         baseRequest.setUrl(ConstData.HOST);
-        baseRequest.setFunctionId("/Special/Special/getHotSingleList");
+        baseRequest.setFunctionId("/User/User/modifyPassword");
         baseRequest.setMethod(RequestConst.REQUEST_POST);
 
         BaseBody body = new BaseBody();
         body.add("specialCode", "JBSX");
+        body.add("oldPwd", oldPass);
+        body.add("newPwd", newPass);
+        body.add("userId", userId);
 
         baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, token);
 
         return baseRequest;
     }

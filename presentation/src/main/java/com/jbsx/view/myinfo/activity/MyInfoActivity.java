@@ -27,6 +27,7 @@ import com.jbsx.utils.RecyclerViewHelper;
 import com.jbsx.utils.Router;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.utils.image.ImageLoader;
+import com.jbsx.view.login.ModifyPasswordActivity;
 import com.jbsx.view.login.ResetPasswordActivity;
 import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.myinfo.adapter.MyInfoAdapter;
@@ -160,7 +161,7 @@ public class MyInfoActivity extends BaseFragmentActivity {
             // 修改昵称
             handleGotoModifyInfo(LoginHelper.getInstance().getUserNickName());
         } else if (id == 1) {
-            Router.getInstance().open(ResetPasswordActivity.class, MyInfoActivity.this);
+            Router.getInstance().open(ModifyPasswordActivity.class, MyInfoActivity.this);
         }
     }
 
