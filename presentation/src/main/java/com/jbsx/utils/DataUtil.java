@@ -25,4 +25,18 @@ public class DataUtil {
 
         return name;
     }
+
+    public static String getGuwen(List<Celebrities> celebrities) {
+        String name = "";
+        if (celebrities != null && !celebrities.isEmpty()) {
+            for(Celebrities yooMan : celebrities) {
+                if (yooMan != null && yooMan.getType() == AppConstData.CELEBRITY_TYPE_XSYSGW) {
+                    name = yooMan.getName();
+                    break;
+                }
+            }
+        }
+
+        return name;
+    }
 }

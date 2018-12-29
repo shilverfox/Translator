@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/iv_myinfo_item_icon"
-            android:layout_width="58dp"
-            android:layout_height="58dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"/>
 
@@ -36,7 +36,7 @@
             android:layout_alignLeft="@id/tv_myinfo_item_title"
             android:text="作者"
             android:textColor="#b3000000"
-            android:textSize="14sp"/>
+            android:textSize="13sp"/>
 
         <TextView
             android:id="@+id/tv_myinfo_item_summary"
@@ -45,10 +45,11 @@
             android:layout_below="@id/tv_myinfo_item_author"
             android:layout_alignLeft="@id/tv_myinfo_item_title"
             android:text=""
-            android:textColor="#b3000000"
+            android:textColor="#999999"
             android:maxLines="3"
+            android:layout_marginTop="4dp"
             android:ellipsize="end"
-            android:textSize="14sp"/>
+            android:textSize="11sp"/>
     </RelativeLayout>
 
     <View

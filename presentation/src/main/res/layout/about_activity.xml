@@ -28,6 +28,9 @@
             android:layout_below="@+id/ivAppIcon"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="#b3000000"
             android:text="@string/app_name" />
 
         <TextView
@@ -38,6 +41,8 @@
             android:layout_marginBottom="20dp"
             android:layout_below="@id/txt_myinfo_about_slogan"
             android:layout_centerHorizontal="true"
+            android:textSize="13sp"
+            android:textColor="#666666"
             android:text="version" />
 
     </RelativeLayout>

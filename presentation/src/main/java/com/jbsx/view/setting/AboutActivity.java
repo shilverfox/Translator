@@ -71,7 +71,7 @@ public class AboutActivity extends BaseActivity {
 		mTitleBar.setCenterTitle("关于" + mContext.getResources().getString(R.string.app_name));
 
 		// 版本号
-		mTxtVersion.setText(StatisticsReportUtil.getSimpleVersionName());
+		mTxtVersion.setText("版本号" + StatisticsReportUtil.getSimpleVersionName());
 		mTxtVersion.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {

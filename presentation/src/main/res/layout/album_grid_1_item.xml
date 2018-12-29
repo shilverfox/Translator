@@ -34,16 +34,31 @@
         android:layout_marginLeft="@dimen/common_padding_horizontal"
         android:textColor="#cc020202" />
 
-    <TextView
-        android:id="@+id/iv_video_item_host"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:orientation="vertical"
         android:layout_alignBottom="@id/iv_video_item_image"
         android:layout_alignLeft="@id/iv_video_item_description"
-        android:layout_below="@id/iv_video_item_description"
-        android:gravity="bottom"
-        android:text=""
-        android:textSize="12sp"
-        android:textColor="@color/app_word_red" />
+        android:layout_below="@id/iv_video_item_description">
+
+        <TextView
+            android:id="@+id/iv_video_item_guwen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="12sp"
+            android:visibility="gone"
+            android:textColor="@color/app_word_red" />
+
+        <TextView
+            android:id="@+id/iv_video_item_host"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="12sp"
+            android:textColor="@color/app_word_red" />
+    </LinearLayout>
 
 </RelativeLayout>

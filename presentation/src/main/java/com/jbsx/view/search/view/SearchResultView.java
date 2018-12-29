@@ -2,6 +2,7 @@ package com.jbsx.view.search.view;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.app.domain.net.data.ConstData;
 import com.app.domain.net.data.HttpRequestPool;
@@ -39,6 +40,15 @@ public class SearchResultView extends CommonListFragment {
         }
     }
 
+    /**
+     * 是否显示顾问信息，只有搜索（搜索关键字）页面展示
+     */
+    private void handleShowGuwenInfo() {
+        // 是否有关键字
+        boolean hasKeyWord = mSearchData != null && !TextUtils.isEmpty(mSearchData.getSearchKey());
+        mAdapter.showGuwen(hasKeyWord);
+    }
+
     public static SearchResultView newInstance(SearchEvent argument) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(ARGUMENT, argument);
@@ -66,6 +76,7 @@ public class SearchResultView extends CommonListFragment {
     @Override
     public CommonListFragmentAdapter getAdapter(Context context) {
         mAdapter = new SearchResultAdapter(mContext);
+        handleShowGuwenInfo();
         return mAdapter;
     }
 

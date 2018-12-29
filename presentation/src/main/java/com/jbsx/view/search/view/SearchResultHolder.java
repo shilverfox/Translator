@@ -2,6 +2,7 @@ package com.jbsx.view.search.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,14 +28,22 @@ public class SearchResultHolder extends CommonListFragmentViewHolder<SpecialSing
     private TextView mTvAmount;
     private TextView mTvTitle;
     private TextView mTvCelebrity;
+    private TextView mTvGuwen;
     private ImageView mIvImageUrl;
 
     private SpecialSingles mData;
     private int mCurrentPosition;
 
+    /** 是否显示艺术顾问 */
+    private boolean mShowGuwen;
+
     public SearchResultHolder(Context context, View view) {
         super(view);
         mContext = context;
+    }
+
+    public void showGuwen(boolean show) {
+        mShowGuwen = show;
     }
 
     @Override
@@ -45,6 +54,7 @@ public class SearchResultHolder extends CommonListFragmentViewHolder<SpecialSing
             mTvAmount = mRootView.findViewById(R.id.iv_video_item_amount);
             mTvTitle = mRootView.findViewById(R.id.iv_video_item_description);
             mTvCelebrity = mRootView.findViewById(R.id.iv_video_item_host);
+            mTvGuwen = mRootView.findViewById(R.id.iv_video_item_guwen);
             mIvImageUrl = mRootView.findViewById(R.id.iv_video_item_image);
         }
     }
@@ -78,6 +88,14 @@ public class SearchResultHolder extends CommonListFragmentViewHolder<SpecialSing
                 mTvCelebrity.setText(getCelebrity());
             }
 
+            // 顾问
+            if (mTvGuwen != null) {
+                String guwen = getGuwen();
+                mTvGuwen.setVisibility((mShowGuwen && !TextUtils.isEmpty(guwen))
+                        ? View.VISIBLE : View.GONE);
+                mTvGuwen.setText(guwen);
+            }
+
             // 图片
             String imgUrl = single.getAppImageUrl();
             ImageLoader.displayImage(imgUrl, mIvImageUrl);
@@ -96,6 +114,15 @@ public class SearchResultHolder extends CommonListFragmentViewHolder<SpecialSing
             name = DataUtil.getCelebrity(mData.getCelebrities());
         }
         return "主讲：" + name;
+    }
+
+    private String getGuwen() {
+        String name = "";
+
+        if (mData != null) {
+            name = DataUtil.getGuwen(mData.getCelebrities());
+        }
+        return "艺术顾问：" + name;
     }
 
     @Override

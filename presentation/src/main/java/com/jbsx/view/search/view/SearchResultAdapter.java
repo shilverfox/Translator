@@ -12,6 +12,8 @@ import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
  */
 
 public class SearchResultAdapter extends CommonListFragmentAdapter {
+    /** 是否显示艺术顾问 */
+    private boolean mShowGuwen;
 
     public SearchResultAdapter(Context context) {
         super(context);
@@ -24,6 +26,13 @@ public class SearchResultAdapter extends CommonListFragmentAdapter {
 
     @Override
     public CommonListFragmentViewHolder getViewHolder(View rootView) {
-        return new SearchResultHolder(getContext(), rootView);
+        SearchResultHolder holder = new SearchResultHolder(getContext(), rootView);
+        holder.showGuwen(mShowGuwen);
+
+        return holder;
+    }
+
+    public void showGuwen(boolean show) {
+        mShowGuwen = show;
     }
 }
