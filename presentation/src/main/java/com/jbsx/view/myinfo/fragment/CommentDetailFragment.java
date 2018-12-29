@@ -3,6 +3,7 @@ package com.jbsx.view.myinfo.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -114,7 +115,7 @@ public class CommentDetailFragment extends BaseFragment {
             hideView.setVisibility(View.GONE);
 
             TextView name = videoView.findViewById(R.id.iv_video_item_description);
-            name.setTextColor(getContext().getResources().getColor(R.color.app_word_red));
+            name.setTextColor(ContextCompat.getColor(mContext, R.color.app_word_red));
 
             // 造holder需要的数据
             SpecialSingles specialSingles = new SpecialSingles();

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -112,10 +113,10 @@ public class LoginUtils {
 
         if (isEnable) {
             button.setBackgroundResource(R.drawable.longin_button_bg);
-            button.setTextColor(context.getResources().getColor(R.color.white));
+            button.setTextColor(ContextCompat.getColor(context, R.color.white));
         } else {
             button.setBackgroundResource(R.drawable.longin_button_bg_disable);
-            button.setTextColor(context.getResources().getColor(R.color.white));
+            button.setTextColor(ContextCompat.getColor(context, R.color.white));
         }
     }
 
@@ -128,10 +129,10 @@ public class LoginUtils {
 
         if (isEnable) {
             button.setBackgroundResource(R.drawable.longin_button_bg);
-            button.setTextColor(context.getResources().getColor(R.color.white));
+            button.setTextColor(ContextCompat.getColor(context, R.color.white));
         } else {
             button.setBackgroundResource(R.drawable.longin_button_bg_disable);
-            button.setTextColor(context.getResources().getColor(R.color.white));
+            button.setTextColor(ContextCompat.getColor(context, R.color.white));
         }
     }
 

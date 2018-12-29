@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -112,7 +113,7 @@ public class SortBar extends HorizontalScrollView implements View.OnClickListene
         RelativeLayout.LayoutParams tvlp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         tvlp.addRule(RelativeLayout.CENTER_IN_PARENT);
         tv.setGravity(Gravity.CENTER);
-        tv.setTextColor(getResources().getColor(COLOR_TEXT_NORMAL));
+        tv.setTextColor(ContextCompat.getColor(getContext(), COLOR_TEXT_NORMAL));
         tv.setText(text);
         tv.setId(R.id.withText);
         tv.setTextSize(UiTools.px2sp(TEXT_SIZE));
@@ -159,9 +160,9 @@ public class SortBar extends HorizontalScrollView implements View.OnClickListene
                     //当是TextView的时候 判断是不是点击的那个Relativelayout下面的TextView 来设置颜色
                     if (childview instanceof TextView) {
                         if (v.getTag().equals(itemRelativelayout.getTag())) {
-                            ((TextView) childview).setTextColor(getResources().getColor(COLOR_TEXT_HIGHLIGHTCOLOR));
+                            ((TextView) childview).setTextColor(ContextCompat.getColor(getContext(), COLOR_TEXT_HIGHLIGHTCOLOR));
                         } else {
-                            ((TextView) childview).setTextColor(getResources().getColor(COLOR_TEXT_NORMAL));
+                            ((TextView) childview).setTextColor(ContextCompat.getColor(getContext(), COLOR_TEXT_NORMAL));
                         }
                     } else if (childview instanceof ImageView) {
                         //當是ImageView的時候，判断是不是点击的那个Relativelayout

@@ -1,6 +1,7 @@
 package com.jbsx.view.myinfo.view.comment;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -134,7 +135,7 @@ public class MyCommentViewHolder extends CommonListFragmentViewHolder<UserCommen
             Single singleInfo = data.getSingle();
             if (singleInfo != null) {
                 mTvVideoTitle.setText(singleInfo.getTitle());
-                mTvVideoTitle.setTextColor(0xffb93439);
+                mTvVideoTitle.setTextColor(ContextCompat.getColor(mContext, R.color.app_word_red));
                 ImageLoader.displayImage(singleInfo.getPcImageUrl(), mIvVideoImage);
             }
         }
