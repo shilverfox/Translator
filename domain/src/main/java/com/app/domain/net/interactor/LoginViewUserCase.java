@@ -52,6 +52,11 @@ public class LoginViewUserCase extends UserCase {
         handleSendRequest(entity, callback);
     }
 
+    public void loginByWechat(String id, BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getLoginByWechatEntity(id);
+        handleSendRequest(entity, callback);
+    }
+
     public void bindUser(String userId, String phone, String wxId, int type, BaseRequestCallback callback) {
         BaseRequestEntity entity = HttpRequestPool.getBindUserEntity(userId, phone, wxId, type);
         handleSendRequest(entity, callback);

@@ -6,11 +6,33 @@
     android:orientation="vertical"
     android:background="@color/root_bg_color">
 
-    <TextView
-        android:id="@+id/txt_login_third_label"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="使用第三方账号登录"/>
+        android:gravity="center_vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/divider_line_dark"/>
+        <TextView
+            android:id="@+id/txt_login_third_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="其他登录方式"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="@color/divider_line_dark"/>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout_login_third_icon"

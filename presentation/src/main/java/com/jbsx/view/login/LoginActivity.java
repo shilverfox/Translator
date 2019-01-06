@@ -20,6 +20,7 @@ import com.jbsx.view.login.callback.IOnLoginListener;
 import com.jbsx.view.login.data.LoginResultEvent;
 import com.jbsx.view.login.util.LoginUtils;
 import com.jbsx.view.login.view.fragment.LoginByUserFragment;
+import com.jbsx.view.login.view.fragment.LoginThirdPartyFragment;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -82,7 +83,7 @@ public class LoginActivity extends BaseFragmentActivity implements ILoginResultL
             mFocusedFragment.setArguments(args);
 
             // 第三方登录
-            addThirdPartyEntrance();
+//            addThirdPartyEntrance();
         }
     }
 
@@ -102,9 +103,9 @@ public class LoginActivity extends BaseFragmentActivity implements ILoginResultL
      * 第三方登录入口
      */
     private void addThirdPartyEntrance() {
-//        FragmentManager fm = getSupportFragmentManager();
-//        LoginThirdPartyFragment fragment = LoginThirdPartyFragment.newInstance();
-//        fm.beginTransaction().add(R.id.third_party_pane, fragment).commitAllowingStateLoss();
+        FragmentManager fm = getSupportFragmentManager();
+        LoginThirdPartyFragment fragment = LoginThirdPartyFragment.newInstance();
+        fm.beginTransaction().add(R.id.third_party_pane, fragment).commitAllowingStateLoss();
     }
 
     private void getDataFromIntent() {

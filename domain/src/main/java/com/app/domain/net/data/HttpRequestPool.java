@@ -213,14 +213,44 @@ public class HttpRequestPool {
         return baseRequest;
     }
 
+    public static BaseRequestEntity getLoginByWechatEntity(String id) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/User/User/wechatLogin");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        body.add("code", id);
+        body.add("innerIp", "127.0.0.1");
+        body.add("outIp", "127.0.0.1");
+
+        baseRequest.setBaseBody(body);
+
+        return baseRequest;
+    }
+
     public static BaseRequestEntity getBindUserEntity(String userId, String phone, String wxId, int type) {
         BaseRequestEntity baseRequest = new BaseRequestEntity();
         baseRequest.setUrl(ConstData.HOST);
-        baseRequest.setFunctionId("/Special/Special/getHotSingleList");
+        baseRequest.setFunctionId("/Special/Special/bindAccount");
         baseRequest.setMethod(RequestConst.REQUEST_POST);
 
         BaseBody body = new BaseBody();
         body.add("specialCode", "JBSX");
+
+        if (!TextUtils.isEmpty(phone)) {
+            body.add("cellphone", phone);
+        }
+
+        if (!TextUtils.isEmpty(phone)) {
+            body.add("openId", wxId);
+        }
+
+        if (!TextUtils.isEmpty(phone)) {
+            body.add("userId", userId);
+        }
+
+        body.add("type", type);
 
         baseRequest.setBaseBody(body);
 
