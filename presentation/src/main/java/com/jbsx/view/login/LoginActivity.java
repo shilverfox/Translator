@@ -162,7 +162,7 @@ public class LoginActivity extends BaseFragmentActivity implements ILoginResultL
     private void onBackEvent() {
         removeTabFragment();
         finish();
-        overridePendingTransition(0, R.anim.login_activity_exit);
+//        overridePendingTransition(0, R.anim.login_activity_exit);
     }
 
     private void removeTabFragment() {
