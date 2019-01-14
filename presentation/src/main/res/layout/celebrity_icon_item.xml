@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 首页名家列表，头像 item -->
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_celebrity_icon_item"
-    android:padding="4dp"
+    android:paddingRight="6.5dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/tv_celebrity_icon_item_head"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/timg"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+    <RelativeLayout
+        android:layout_width="83dp"
+        android:layout_height="117dp"
+        android:background="@drawable/head_bg">
+        <ImageView
+            android:id="@+id/tv_celebrity_icon_item_head"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="fitXY"
+            android:layout_marginTop="12dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/timg"/>
 
-    <TextView
-        android:id="@+id/tv_celebrity_icon_item_name"
-        android:layout_width="match_parent"
-        android:layout_height="17dp"
-        android:background="#44333333"
-        android:gravity="center"
-        android:text="name"
-        android:textColor="@color/white"
-        android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_celebrity_icon_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:gravity="center"
+            android:text="name"
+            android:textColor="#010000"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="19dp"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+</RelativeLayout>

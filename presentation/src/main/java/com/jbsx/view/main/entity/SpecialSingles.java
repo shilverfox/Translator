@@ -5,13 +5,13 @@ import java.util.List;
 public class SpecialSingles {
     private Single single;
     private List<Celebrities> celebrities;
-    private List<String> tags;
+    private List<Tag> tags;
 
-    public List<String> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<String> tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
 

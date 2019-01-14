@@ -232,16 +232,13 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
      * 主讲嘉宾
      */
     private void initCelebrityView() {
-        CenterLayoutManager layoutManager = new CenterLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
-        mRvHostList.setLayoutManager(layoutManager);
+        mRvHostList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
 
         mAdapterCelebrity = new CelebrityIconItemAdapter(mContext, R.layout.celebrity_icon_item);
         mAdapterCelebrity.setDatas(mListCelebrity);
         mAdapterCelebrity.setOnMyItemClickListener(new CelebrityIconItemAdapter.OnMyItemClickListener() {
             @Override
             public void onClick(int position) {
-                // 点击item的自动居中
-//                mRvHostList.smoothScrollToPosition(position);
                 handleCelebritySelect(position);
             }
         });

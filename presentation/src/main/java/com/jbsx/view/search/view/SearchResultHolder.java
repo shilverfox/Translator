@@ -24,6 +24,7 @@ import com.jbsx.utils.DataUtil;
 import com.jbsx.view.main.entity.Celebrities;
 import com.jbsx.view.main.entity.Single;
 import com.jbsx.view.main.entity.SpecialSingles;
+import com.jbsx.view.main.entity.Tag;
 
 import java.util.List;
 
@@ -157,10 +158,10 @@ public class SearchResultHolder extends CommonListFragmentViewHolder<SpecialSing
         StringBuffer nb = new StringBuffer();
 
         if (mData != null) {
-            List<String> tags = mData.getTags();
+            List<Tag> tags = mData.getTags();
             if (tags != null) {
-                for(String tag : tags) {
-                    nb.append(tag);
+                for(Tag tag : tags) {
+                    nb.append(tag.getName());
                 }
             }
         }
