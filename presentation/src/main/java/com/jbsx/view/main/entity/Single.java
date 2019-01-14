@@ -15,7 +15,16 @@ public class Single implements Parcelable {
     private String isCollect;
     private String longTime;
     private int second;
+    private int type; //1片库 2专辑
     private boolean isCheck;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public boolean isCheck() {
         return isCheck;
@@ -131,6 +140,7 @@ public class Single implements Parcelable {
         dest.writeString(this.isCollect);
         dest.writeString(this.longTime);
         dest.writeInt(this.second);
+        dest.writeInt(this.type);
         dest.writeByte(this.isCheck ? (byte) 1 : (byte) 0);
     }
 
@@ -149,6 +159,7 @@ public class Single implements Parcelable {
         this.isCollect = in.readString();
         this.longTime = in.readString();
         this.second = in.readInt();
+        this.type = in.readInt();
         this.isCheck = in.readByte() != 0;
     }
 

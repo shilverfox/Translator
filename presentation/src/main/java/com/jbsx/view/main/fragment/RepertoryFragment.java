@@ -21,16 +21,15 @@ import com.jbsx.customview.SortBar;
 import com.jbsx.customview.recyclerview.CenterLayoutManager;
 import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.ProgressBarHelper;
-import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.view.main.adapter.CelebrityItemAdapter;
 import com.jbsx.view.main.contact.RepertoryContact;
 import com.jbsx.view.main.entity.Celebrities;
 import com.jbsx.view.main.entity.CelebrityData;
 import com.jbsx.view.main.presenter.RepertoryPresenter;
+import com.jbsx.view.main.view.RepertoryListView;
 import com.jbsx.view.search.data.SearchConstData;
 import com.jbsx.view.search.entity.SearchEvent;
 import com.jbsx.view.search.util.SearchEventGenerator;
-import com.jbsx.view.search.view.SearchResultView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,7 +46,7 @@ public class RepertoryFragment extends BaseFragment implements RepertoryContact.
     private List<Celebrities> mListCelebrity = new ArrayList<>();
 
     /** 片库列表 */
-    private SearchResultView mRepertoryList;
+    private RepertoryListView mRepertoryList;
 
     private SortBar mSortBar;
 
@@ -144,7 +143,7 @@ public class RepertoryFragment extends BaseFragment implements RepertoryContact.
     private void initVideoListView() {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        mRepertoryList = SearchResultView.newInstance(
+        mRepertoryList = RepertoryListView.newInstance(
                 SearchEventGenerator.getCelebrityIdSearch(ConstData.INVALID_CELEBRITY_ID,
                         SearchEvent.SEARCH_SORT_BY_HOT));
         transaction.add(R.id.rv_repertory_video_list, mRepertoryList);

@@ -31,6 +31,12 @@ public class UiTools {
         return (int) (pxValue / fontScale + 0.5f);
     }
 
+    public static int sp2px(float spValue) {
+        final float fontScale = MainApplicationLike.getAppContext().getResources().getDisplayMetrics().scaledDensity;
+        return (int) (spValue * fontScale + 0.5f);
+    }
+
+
     public static Drawable getDrawable(int resId, int size) {
         Drawable drawable = null;
         try {

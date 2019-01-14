@@ -16,7 +16,7 @@ public class SearchEventGenerator {
      */
     public static SearchEvent getKeyWordSearch(String searchKey, int defaultFocus) {
         SearchEvent event = new SearchEvent(ConstData.INVALID_CELEBRITY_ID, searchKey,
-                SearchEvent.SEARCH_TYPE_TITLE_CELEBRITY,
+                SearchEvent.SEARCH_TYPE_PIANKU_AND_ZHUANTI,
                 SearchEvent.SEARCH_SORT_BY_HOT);
         event.setDefaultFocus(defaultFocus);
 
@@ -32,7 +32,7 @@ public class SearchEventGenerator {
      */
     public static SearchEvent getCelebrityIdSearch(int celebrityId, int sortType) {
         SearchEvent event = new SearchEvent(celebrityId, null,
-                SearchEvent.SEARCH_TYPE_TITLE_CELEBRITY, sortType);
+                SearchEvent.SEARCH_TYPE_PIANKU, sortType);
 
         return event;
     }

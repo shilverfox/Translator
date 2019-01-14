@@ -2,6 +2,9 @@ package com.jbsx.view.search.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,13 +12,20 @@ import android.widget.TextView;
 
 import com.app.domain.net.data.ConstData;
 import com.jbsx.R;
+import com.jbsx.customview.RadiusBackgroundSpan;
+import com.jbsx.customview.TextTagSpan;
+import com.jbsx.customview.Truss;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
+import com.jbsx.player.util.AlbumDetailUtil;
 import com.jbsx.player.util.PlayerHelper;
+import com.jbsx.utils.UiTools;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.utils.DataUtil;
-import com.jbsx.view.main.entity.RepertoryData;
+import com.jbsx.view.main.entity.Celebrities;
 import com.jbsx.view.main.entity.Single;
 import com.jbsx.view.main.entity.SpecialSingles;
+
+import java.util.List;
 
 /**
  * Created by lijian15 on 2017/9/4.
@@ -24,18 +34,18 @@ import com.jbsx.view.main.entity.SpecialSingles;
 public class SearchResultHolder extends CommonListFragmentViewHolder<SpecialSingles> {
     private Context mContext;
 
-    private View mRootView;
-    private TextView mTvAmount;
-    private TextView mTvTitle;
-    private TextView mTvCelebrity;
-    private TextView mTvGuwen;
-    private ImageView mIvImageUrl;
+    protected View mRootView;
+    protected TextView mTvAmount;
+    protected TextView mTvTitle;
+    protected TextView mTvCelebrity;
+    protected TextView mTvGuwen;
+    protected ImageView mIvImageUrl;
 
-    private SpecialSingles mData;
-    private int mCurrentPosition;
+    protected SpecialSingles mData;
+    protected int mCurrentPosition;
 
     /** 是否显示艺术顾问 */
-    private boolean mShowGuwen;
+    protected boolean mShowGuwen;
 
     public SearchResultHolder(Context context, View view) {
         super(view);
@@ -81,16 +91,25 @@ public class SearchResultHolder extends CommonListFragmentViewHolder<SpecialSing
             mTvAmount.setVisibility(View.INVISIBLE);
 
             // 描述、标题
-            mTvTitle.setText(single.getTitle());
+            setTitle(mTvTitle, single.getTitle(), single.getType());
 
-            // 主讲
-            if (mTvCelebrity != null) {
-                mTvCelebrity.setText(getCelebrity());
-            }
+//            // 主讲
+//            if (mTvCelebrity != null) {
+//                mTvCelebrity.setText(getCelebrity());
+//            }
+//
+//            // 顾问
+//            if (mTvGuwen != null) {
+//                String guwen = getGuwen();
+//                mTvGuwen.setVisibility((mShowGuwen && !TextUtils.isEmpty(guwen))
+//                        ? View.VISIBLE : View.GONE);
+//                mTvGuwen.setText(guwen);
+//            }
 
-            // 顾问
+            mTvCelebrity.setText(getFirstCelebrity());
+
             if (mTvGuwen != null) {
-                String guwen = getGuwen();
+                String guwen = getTags();
                 mTvGuwen.setVisibility((mShowGuwen && !TextUtils.isEmpty(guwen))
                         ? View.VISIBLE : View.GONE);
                 mTvGuwen.setText(guwen);
@@ -102,12 +121,30 @@ public class SearchResultHolder extends CommonListFragmentViewHolder<SpecialSing
         }
     }
 
+    private String getFirstCelebrity() {
+        StringBuffer nb = new StringBuffer();
+
+        if (mData != null) {
+            List<Celebrities> celebrities = mData.getCelebrities();
+            if (celebrities != null && celebrities.size() > 0) {
+                Celebrities hiMan = celebrities.get(0);
+                if (hiMan != null) {
+                    nb.append(AlbumDetailUtil.getTypeName(hiMan.getType()));
+                    nb.append("：");
+                    nb.append(hiMan.getName());
+                }
+            }
+        }
+
+        return nb.toString();
+    }
+
     /**
      * 主讲人
      *
      * @return
      */
-    private String getCelebrity() {
+    protected String getCelebrity() {
         String name = "";
 
         if (mData != null) {
@@ -116,13 +153,18 @@ public class SearchResultHolder extends CommonListFragmentViewHolder<SpecialSing
         return "主讲：" + name;
     }
 
-    private String getGuwen() {
-        String name = "";
+    private String getTags() {
+        StringBuffer nb = new StringBuffer();
 
         if (mData != null) {
-            name = DataUtil.getGuwen(mData.getCelebrities());
+            List<String> tags = mData.getTags();
+            if (tags != null) {
+                for(String tag : tags) {
+                    nb.append(tag);
+                }
+            }
         }
-        return "艺术顾问：" + name;
+        return nb.toString();
     }
 
     @Override
@@ -137,5 +179,43 @@ public class SearchResultHolder extends CommonListFragmentViewHolder<SpecialSing
         PlayerHelper.gotoPlayer((Activity)mContext, PlayerHelper.makePlayerData(
                 mData.getSingle().getSpecialAlbumId(),
                 mData.getSingle().getId(), ConstData.VIDEO_DEFINITION_TYPE_STAND));
+    }
+
+    private String getLabelByType(int type) {
+        String result = "";
+        if (type == 1) {
+            result = "片库";
+        } else if (type == 2) {
+            result = "专辑";
+        }
+
+        return result;
+    }
+
+    /**
+     * title后增加tag
+     *
+     * @param textView
+     * @param receiptTitle
+     * @param receiptType
+     */
+    private void setTitle(TextView textView, String receiptTitle, int receiptType) {
+        if (textView != null && !TextUtils.isEmpty(receiptTitle)) {
+            String tagContent = getLabelByType(receiptType);
+
+            Truss truss = new Truss();
+            TextTagSpan span = new TextTagSpan(mContext, UiTools.dip2px(25), UiTools.dip2px(15))
+                    .setLeftMargin(UiTools.dip2px(5))
+                    .setTextColor(Color.RED)
+                    .setTextSize(UiTools.sp2px(10))
+                    .setRadius(UiTools.dip2px(3))
+                    .setStrokeWidth(UiTools.dip2px(0.5f))
+                    .setStrokeColor(Color.RED);
+
+            truss.append(receiptTitle)
+                    .pushSpan(span)
+                    .append(tagContent);
+            textView.setText(truss.build());
+        }
     }
 }

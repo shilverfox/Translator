@@ -20,6 +20,7 @@ import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.utils.UiTools;
 import com.jbsx.view.main.entity.SpecialSingles;
+import com.jbsx.view.main.view.RepertoryListHolder;
 import com.jbsx.view.myinfo.data.UserComments;
 import com.jbsx.view.myinfo.util.CommentUiTools;
 import com.jbsx.view.myinfo.view.comment.MyCommentListView;
@@ -104,7 +105,7 @@ public class CommentDetailFragment extends BaseFragment {
 
         // 是否有视频数据
         if (hasSingleInfo()) {
-            SearchResultHolder viewHolder = new SearchResultHolder(mContext, videoView);
+            RepertoryListHolder viewHolder = new RepertoryListHolder(mContext, videoView);
 
             // 设置视频图片大小
             ImageView videoPic = videoView.findViewById(R.id.iv_video_item_image);

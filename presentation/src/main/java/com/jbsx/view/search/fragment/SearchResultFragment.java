@@ -12,7 +12,6 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.utils.ErroBarHelper;
-import com.jbsx.utils.ShowTools;
 import com.jbsx.view.main.entity.TabEntity;
 import com.jbsx.view.search.callback.ISearchRequestListener;
 import com.jbsx.view.search.entity.SearchEvent;
@@ -85,31 +84,7 @@ public class SearchResultFragment extends BaseFragment implements ISearchRequest
      */
     private SearchEvent makeSearchByTitleAndCelebrity(SearchEvent event) {
         SearchEvent result = copySearchEvent(event);
-        result.setSearchType(SearchEvent.SEARCH_TYPE_TITLE_CELEBRITY);
-        return result;
-    }
-
-    /**
-     * 设置查找条件，by title
-     *
-     * @param event
-     * @return
-     */
-    private SearchEvent makeSearchByTitle(SearchEvent event) {
-        SearchEvent result = copySearchEvent(event);
-        result.setSearchType(SearchEvent.SEARCH_TYPE_TITLE);
-        return result;
-    }
-
-    /**
-     * 设置查找条件，by 主讲
-     *
-     * @param event
-     * @return
-     */
-    private SearchEvent makeSearchByCelebrity(SearchEvent event) {
-        SearchEvent result = copySearchEvent(event);
-        result.setSearchType(SearchEvent.SEARCH_TYPE_CELEBRITY);
+        result.setSearchType(SearchEvent.SEARCH_TYPE_PIANKU_AND_ZHUANTI);
         return result;
     }
 
@@ -122,9 +97,6 @@ public class SearchResultFragment extends BaseFragment implements ISearchRequest
      * @param event
      */
     private void initMainTab(SearchEvent event) {
-//        mFragmentList.add(SearchResultView.newInstance(makeSearchByTitle(event)));
-//        mFragmentList.add(SearchResultView.newInstance(makeSearchByCelebrity(event)));
-
         mFragmentList.add(SearchResultView.newInstance(makeSearchByTitleAndCelebrity(event)));
         mFragmentList.add(SearchResultView.newInstance(makeSearchByTitleAndCelebrity(event)));
 

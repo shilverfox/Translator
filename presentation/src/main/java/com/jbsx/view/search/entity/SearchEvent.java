@@ -7,9 +7,11 @@ import android.os.Parcelable;
  * 搜索数据，用来被Event bus发出
  */
 public class SearchEvent implements Parcelable {
-    public final static int SEARCH_TYPE_TITLE_CELEBRITY = 0;
-    public final static int SEARCH_TYPE_CELEBRITY = 2;
-    public final static int SEARCH_TYPE_TITLE = 1;
+    /** 片库 */
+    public final static int SEARCH_TYPE_PIANKU = 0;
+
+    /** 片库 + 专题 */
+    public final static int SEARCH_TYPE_PIANKU_AND_ZHUANTI = 1;
 
     /** 排序：热门 */
     public final static int SEARCH_SORT_BY_HOT = 1;

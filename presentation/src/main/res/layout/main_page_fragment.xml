@@ -72,7 +72,7 @@
                 android:paddingBottom="@dimen/common_padding_vertical"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:text="专题系列" />
+                android:text="推荐专题" />
 
             <com.zhouyou.recyclerview.XRecyclerView
                 android:id="@+id/rv_floor_recommend"

@@ -144,7 +144,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
                         bannerInfo.getSpecialAlbumId(), "", ConstData.VIDEO_DEFINITION_TYPE_STAND));
             } else if (hasAdId) {
                 String title = bannerInfo.getName();
-                title = (TextUtils.isEmpty(title) ? "介绍" : title);
+                title = (TextUtils.isEmpty(title) ? "详情" : title);
                 WebHelper.openWeb(mContext, bannerInfo.getUrl(), title);
             }
         }
