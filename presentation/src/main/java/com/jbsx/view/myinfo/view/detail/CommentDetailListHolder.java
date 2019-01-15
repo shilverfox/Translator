@@ -102,6 +102,9 @@ public class CommentDetailListHolder extends CommonListFragmentViewHolder<UserCo
             mTvComment.setText("评论" + data.getCommentReply());
             mTvNbCount.setText(data.getCommentLove() + "");
 
+            // 评论是否可见
+            mTvComment.setVisibility(canBeInteracted() ? View.VISIBLE : View.INVISIBLE);
+
             // 是否点赞
             boolean isLove = !(TextUtils.isEmpty(data.getIsLove()));
             mTvNbCount.setCompoundDrawables(UiTools.getDrawable(getThumbIcon(isLove), 16), null, null, null);
@@ -118,9 +121,7 @@ public class CommentDetailListHolder extends CommonListFragmentViewHolder<UserCo
             mTvNbCount.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (canBeInteracted()) {
-                        giveThumbToComment();
-                    }
+                    giveThumbToComment();
                 }
             });
 
