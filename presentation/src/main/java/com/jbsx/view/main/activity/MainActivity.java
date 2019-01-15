@@ -91,7 +91,8 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
                     }
                 }, 1000);
             }
-        }, Manifest.permission.READ_PHONE_STATE);
+        }, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
     private void initMainTab() {
