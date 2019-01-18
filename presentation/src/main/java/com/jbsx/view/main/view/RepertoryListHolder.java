@@ -31,6 +31,7 @@ public class RepertoryListHolder extends SearchResultHolder {
             // 主讲
             if (mTvCelebrity != null) {
                 mTvCelebrity.setText(getCelebrity());
+                changeSomeColor(mTvCelebrity);
             }
 
             // 图片

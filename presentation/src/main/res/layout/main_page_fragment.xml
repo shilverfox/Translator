@@ -38,8 +38,8 @@
                 android:drawableLeft="@drawable/red_bar"
                 android:gravity="center_vertical"
                 android:drawablePadding="7dp"
-                android:paddingTop="@dimen/common_padding_vertical"
-                android:paddingBottom="@dimen/common_padding_vertical"
+                android:paddingTop="21dp"
+                android:paddingBottom="14.5dp"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:text="艺术顾问" />
@@ -66,8 +66,7 @@
                 android:drawableLeft="@drawable/red_bar"
                 android:gravity="center_vertical"
                 android:drawablePadding="7dp"
-                android:paddingTop="@dimen/common_padding_vertical"
-                android:paddingBottom="@dimen/common_padding_vertical"
+                android:paddingTop="21dp"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:text="推荐专题" />
@@ -77,6 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
+                android:layout_marginTop="-11dp"
                 android:layout_marginLeft="-4dp"
                 android:layout_marginRight="-4dp"/>
         </LinearLayout>

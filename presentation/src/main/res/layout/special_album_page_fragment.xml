@@ -34,7 +34,5 @@
         android:id="@+id/rv_floor_recommend"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rv_floor_sort"
-        android:layout_marginLeft="@dimen/common_padding_horizontal"
-        android:layout_marginRight="@dimen/common_padding_horizontal"/>
+        android:layout_below="@id/rv_floor_sort"/>
 </RelativeLayout>

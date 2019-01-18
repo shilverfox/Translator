@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import com.jbsx.customview.RadiusBackgroundSpan;
 import com.jbsx.customview.TextTagSpan;
 import com.jbsx.customview.Truss;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
+import com.jbsx.data.AppConstData;
 import com.jbsx.player.util.AlbumDetailUtil;
 import com.jbsx.player.util.PlayerHelper;
 import com.jbsx.utils.UiTools;
@@ -33,6 +35,8 @@ import java.util.List;
  */
 
 public class SearchResultHolder extends CommonListFragmentViewHolder<SpecialSingles> {
+    private final static String MAO = "：";
+
     private Context mContext;
 
     protected View mRootView;
@@ -107,18 +111,38 @@ public class SearchResultHolder extends CommonListFragmentViewHolder<SpecialSing
 //                mTvGuwen.setText(guwen);
 //            }
 
-            mTvCelebrity.setText(getFirstCelebrity());
+            mTvCelebrity.setText(getCelebrity());
+            changeSomeColor(mTvCelebrity);
 
             if (mTvGuwen != null) {
-                String guwen = getTags();
-                mTvGuwen.setVisibility((mShowGuwen && !TextUtils.isEmpty(guwen))
+                String firstTag = getFirstTag();
+                mTvGuwen.setVisibility((mShowGuwen && !TextUtils.isEmpty(firstTag))
                         ? View.VISIBLE : View.GONE);
-                mTvGuwen.setText(guwen);
+                mTvGuwen.setText(firstTag);
+                changeSomeColor(mTvGuwen);
             }
 
             // 图片
             String imgUrl = single.getAppImageUrl();
             ImageLoader.displayImage(imgUrl, mIvImageUrl);
+        }
+    }
+
+    public void changeSomeColor(TextView textView) {
+        String label = null;
+        if (textView.getText() != null) {
+            label = textView.getText().toString();
+        }
+
+        if (label != null) {
+            int index = label.indexOf(MAO);
+
+            if (index != -1) {
+                SpannableString spannableString = new SpannableString(label);
+                spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#666666")),
+                        0, index + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                textView.setText(spannableString);
+            }
         }
     }
 
@@ -151,7 +175,12 @@ public class SearchResultHolder extends CommonListFragmentViewHolder<SpecialSing
         if (mData != null) {
             name = DataUtil.getCelebrity(mData.getCelebrities());
         }
-        return "主讲：" + name;
+
+        if (TextUtils.isEmpty(name)) {
+            return "";
+        } else {
+            return AlbumDetailUtil.getTypeName(AppConstData.CELEBRITY_TYPE_ZHUJIANG) + MAO + name;
+        }
     }
 
     private String getTags() {
@@ -163,6 +192,21 @@ public class SearchResultHolder extends CommonListFragmentViewHolder<SpecialSing
                 for(Tag tag : tags) {
                     nb.append(tag.getName());
                 }
+            }
+        }
+        return nb.toString();
+    }
+
+    private String getFirstTag() {
+        StringBuffer nb = new StringBuffer();
+        if (mData != null) {
+            List<Tag> tags = mData.getTags();
+            if (tags != null && !tags.isEmpty()) {
+                Tag tag = tags.get(0);
+
+                nb.append(AlbumDetailUtil.getTypeName(tag.getType()));
+                nb.append(MAO);
+                nb.append(tag.getName());
             }
         }
         return nb.toString();
@@ -187,7 +231,7 @@ public class SearchResultHolder extends CommonListFragmentViewHolder<SpecialSing
         if (type == 1) {
             result = "片库";
         } else if (type == 2) {
-            result = "专辑";
+            result = "专题";
         }
 
         return result;

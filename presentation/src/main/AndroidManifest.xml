@@ -121,11 +121,13 @@
         <!-- 头像选择相关 -->
         <activity
             android:name="me.iwf.photopicker.PhotoPickerActivity"
-            android:theme="@style/PhotoTheme" />
+            android:theme="@style/PhotoTheme"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name="me.iwf.photopicker.PhotoPagerActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"

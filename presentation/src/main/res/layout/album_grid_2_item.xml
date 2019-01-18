@@ -4,7 +4,9 @@
     android:id="@+id/layout_video_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="4dp">
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:paddingTop="25dp">
 
 
     <ImageView
@@ -33,7 +35,7 @@
         android:layout_below="@id/iv_video_item_image"
         android:text=""
         android:textColor="@color/alpha_e6_0"
-        android:paddingTop="4dp"
+        android:paddingTop="12.5dp"
         android:maxLines="1"
         android:textSize="13sp"/>
 

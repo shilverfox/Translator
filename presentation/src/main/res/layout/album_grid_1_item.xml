@@ -44,20 +44,20 @@
         android:layout_below="@id/iv_video_item_description">
 
         <TextView
+            android:id="@+id/iv_video_item_host"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="12sp"
+            android:textColor="@color/app_word_red" />
+
+        <TextView
             android:id="@+id/iv_video_item_guwen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
             android:textSize="12sp"
             android:visibility="gone"
-            android:textColor="@color/app_word_red" />
-
-        <TextView
-            android:id="@+id/iv_video_item_host"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="12sp"
             android:textColor="@color/app_word_red" />
     </LinearLayout>
 
