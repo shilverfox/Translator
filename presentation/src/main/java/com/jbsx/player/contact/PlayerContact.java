@@ -37,6 +37,9 @@ public class PlayerContact {
          * 关注结果
          */
         void drawConcernResult(ConcernData data);
+
+        /** 视频无法播放时是否显示返回按钮 */
+        void drawBackArrowForNotPlay(boolean show);
     }
 
     public interface Presenter {

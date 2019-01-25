@@ -10,6 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <ImageView
+        android:id="@+id/iv_back_for_not_play"
+        android:layout_width="@dimen/dkplayer_controller_height"
+        android:layout_height="@dimen/dkplayer_controller_height"
+        android:layout_gravity="center"
+        android:padding="@dimen/dkplayer_controller_icon_padding"
+        android:src="@drawable/dkplayer_ic_action_arrow_back"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nsv_player_page"
         android:layout_below="@+id/player"

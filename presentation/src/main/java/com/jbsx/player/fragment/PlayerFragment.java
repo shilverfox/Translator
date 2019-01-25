@@ -1,5 +1,6 @@
 package com.jbsx.player.fragment;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
@@ -97,6 +98,9 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
     private View mRootView;
     private DefinitionController mPlayerController;
     private DefinitionIjkVideoView mPlayerView;
+
+    /** 视频无法播放的时候要显示返回 */
+    private ImageView mIvBackArrowForNotPlay;
 
     // 视频评论
     private TextView mTvPostComment;
@@ -394,6 +398,10 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
     }
 
 
+    @Override
+    public void drawBackArrowForNotPlay(boolean show) {
+        mIvBackArrowForNotPlay.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+    }
 
     /**
      * 绘制单一视频信息
@@ -475,6 +483,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
         mTvCommentCount = mRootView.findViewById(R.id.tv_comments_label);
         mIvFavorite = mRootView.findViewById(R.id.player_album_detail_favorite);
         mIvShare = mRootView.findViewById(R.id.player_album_detail_share);
+        mIvBackArrowForNotPlay = mRootView.findViewById(R.id.iv_back_for_not_play);
     }
 
     private void initEvents() {
@@ -506,6 +515,15 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
             @Override
             public void onClick(View v) {
                 handleShareClick();
+            }
+        });
+
+        mIvBackArrowForNotPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getContext() != null && getContext() instanceof Activity) {
+                    ((Activity)getContext()).finish();
+                }
             }
         });
     }

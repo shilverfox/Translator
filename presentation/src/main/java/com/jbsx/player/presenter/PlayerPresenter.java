@@ -85,11 +85,15 @@ public class PlayerPresenter implements PlayerContact.Presenter {
         SingleVideoData videoData = ParseUtil.parseData(data, SingleVideoData.class);
         if (mView != null) {
             mView.drawSingleVideo(videoData);
+            mView.drawBackArrowForNotPlay(false);
         }
     }
 
     private void handleLoadSingleVideoFailed(BaseDomainData data) {
         MessageTools.showErrorMessage(data);
+        if (mView != null) {
+            mView.drawBackArrowForNotPlay(true);
+        }
     }
 
     @Override

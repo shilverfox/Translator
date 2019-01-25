@@ -42,7 +42,7 @@
                 android:paddingBottom="14.5dp"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:text="艺术顾问" />
+                android:text="主讲嘉宾" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_floor_host"
