@@ -38,8 +38,8 @@ public class PlayerContact {
          */
         void drawConcernResult(ConcernData data);
 
-        /** 视频无法播放时是否显示返回按钮 */
-        void drawBackArrowForNotPlay(boolean show);
+        /** 视频无法播放时的退出口 */
+        void handleCloseForPlayException(boolean show);
     }
 
     public interface Presenter {

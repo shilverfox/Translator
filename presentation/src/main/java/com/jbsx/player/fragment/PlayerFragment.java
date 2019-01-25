@@ -399,7 +399,7 @@ public class PlayerFragment extends BaseFragment implements PlayerContact.View, 
 
 
     @Override
-    public void drawBackArrowForNotPlay(boolean show) {
+    public void handleCloseForPlayException(boolean show) {
         mIvBackArrowForNotPlay.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
     }
 
