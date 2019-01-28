@@ -28,35 +28,53 @@ public class DateFormatUtil {
     }
 
     /**
-     * 将日期信息转换成今天、明天、后天、星期
+     * 将日期信息转换成今天、昨天，更早
      *
-     * @param date
+     * @param time
      * @return
      */
-    public static String getDateDetail(String date) {
-        Calendar today = Calendar.getInstance();
-        Calendar target = Calendar.getInstance();
-
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static String getDateDetail(String time) {
+        SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss" );
+        Date date = null;
         try {
-            today.setTime(df.parse(getNowDateToStr()));
-            today.set(Calendar.HOUR, 0);
-            today.set(Calendar.MINUTE, 0);
-            today.set(Calendar.SECOND, 0);
-
-            target.setTime(df.parse(date));
-            target.set(Calendar.HOUR, 0);
-            target.set(Calendar.MINUTE, 0);
-            target.set(Calendar.SECOND, 0);
-        } catch (ParseException e) {
+            date = format.parse( time);
+        } catch (ParseException e ) {
             e.printStackTrace();
-            return null;
         }
 
-        long intervalMilli = target.getTimeInMillis() - today.getTimeInMillis();
-        int xcts = (int) (intervalMilli / (24 * 60 * 60 * 1000));
+        Calendar current = Calendar. getInstance();
 
-        return showDateDetail(xcts);
+        // 今天
+        Calendar today = Calendar. getInstance();
+        today.set(Calendar. YEAR, current.get(Calendar.YEAR));
+        today.set(Calendar. MONTH, current.get(Calendar.MONTH));
+        today.set(Calendar. DAY_OF_MONTH, current.get(Calendar.DAY_OF_MONTH));
+        // Calendar.HOUR——12小时制的小时数 Calendar.HOUR_OF_DAY——24小时制的小时数
+        today.set(Calendar. HOUR_OF_DAY, 0);
+        today.set(Calendar. MINUTE, 0);
+        today.set(Calendar. SECOND, 0);
+
+        // 昨天
+        Calendar yesterday = Calendar.getInstance();
+        yesterday.set(Calendar.YEAR, current.get(Calendar.YEAR));
+        yesterday.set(Calendar.MONTH, current.get(Calendar.MONTH));
+        yesterday.set(Calendar.DAY_OF_MONTH, current.get(Calendar.DAY_OF_MONTH) - 1);
+        yesterday.set(Calendar.HOUR_OF_DAY, 0);
+        yesterday.set(Calendar.MINUTE, 0);
+        yesterday.set(Calendar.SECOND, 0);
+
+        current.setTime( date);
+
+        int timeDiff = -1;
+        if (current .after(today )) {
+            timeDiff = 0;
+        } else if (current .before(today ) && current.after(yesterday )) {
+            timeDiff = -1;
+        } else {
+            timeDiff = -8;
+        }
+
+        return showDateDetail(timeDiff);
     }
 
     /**
