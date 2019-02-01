@@ -1,6 +1,5 @@
 package com.jbsx.view.myinfo.fragment;
 
-import android.animation.AnimatorInflater;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -20,11 +19,9 @@ import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.TitleBar;
-import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.view.main.entity.Single;
 import com.jbsx.view.main.entity.UserSingle;
-import com.jbsx.view.main.entity.ViewHistoryData;
 import com.jbsx.view.myinfo.contact.MyViewHistoryContact;
 import com.jbsx.view.myinfo.presenter.MyViewHistoryPresenter;
 import com.jbsx.view.myinfo.view.video.MyInfoVideoListView;

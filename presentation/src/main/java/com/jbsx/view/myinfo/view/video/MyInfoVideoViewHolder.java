@@ -74,18 +74,43 @@ public class MyInfoVideoViewHolder extends CommonListFragmentViewHolder<UserSing
         });
     }
 
+    /**
+     * 处理分组信息，只显示今天明天和更早
+     *
+     * @param data
+     * @param position
+     */
+    private void handleGroupName(UserSingle data, final int position) {
+        if (data == null) {
+            return;
+        }
+
+        String group = data.getCreatedAt();
+        boolean hasGroupText = SortListUtil.groupIsValid(group);
+        mTvGroup.setText(hasGroupText ? group : "");
+
+        // 当前item的前一个
+        UserSingle prevItem = null;
+        if (position > 0) {
+            prevItem = (UserSingle) mAdapter.getData().get(position - 1);
+        }
+
+        // 当前item是否为第一个
+        boolean isTheFirst = (prevItem == null);
+
+        // 第一个、当前item分组名和上一个不同，则显示分组
+        boolean canBeShown = isTheFirst || !(prevItem.getCreatedAt().equals(group));
+
+        mTvGroup.setVisibility(canBeShown ? View.VISIBLE : View.GONE);
+    }
+
     @Override
     public void drawViews(UserSingle data, final int position) {
         mData = data;
         mCurrentPosition = position;
 
-        if (data != null) {
-            // 分组，只显示今天明天和更早
-            String group = data.getCreatedAt();
-            boolean hasGroupText = SortListUtil.groupIsValid(group);
-            mTvGroup.setVisibility(hasGroupText ? View.VISIBLE : View.GONE);
-            mTvGroup.setText(hasGroupText ? group : "");
-        }
+        // 分组，只显示今天明天和更早
+        handleGroupName(data, position);
 
         if (data != null && data.getSingle() != null) {
             final Single single = data.getSingle();

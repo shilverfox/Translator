@@ -21,23 +21,12 @@ public class SortListUtil {
         if (newData != null && source != null) {
             // 遍历每个一个元素
             for (UserSingle userSingle : newData) {
-
-                // 获得当前的日期描述，今天昨天更早
+                /*
+                  获得当前的日期描述，今天昨天更早，并替换掉原有的时间内容
+                  将来如果需要更细粒度的显示时间，这里可以新更加字段去处理分组信息
+                */
                 String dateDescription = DateFormatUtil.getDateDetail(userSingle.getCreatedAt());
-
-                // 判断这个描述是否存在，如果source内容为0，则说明第一次添加，此时要用newData比较
-                boolean sourceNotEmpty = (source.size() > 0);
-                boolean hasIt = hasTheSameDescription(sourceNotEmpty ? source : newData, dateDescription);
-
-                // 如果不存在，则设置这个描述
-                if (!hasIt) {
-                    userSingle.setCreatedAt(dateDescription);
-                }
-
-                // 如果已经有更早，则剩下的全是更早了，赶紧结束
-                if (DateFormatUtil.BEFORE_YESTERDAY.equals(dateDescription) && hasIt) {
-                    break;
-                }
+                userSingle.setCreatedAt(dateDescription);
             }
         }
 
