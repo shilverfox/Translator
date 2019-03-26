@@ -36,6 +36,8 @@ public class MyInfoVideoListView extends CommonListFragment {
     /** 只有functionId不同 */
     private String mFunctionId;
 
+    private IDataListener mDataListener;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,8 +102,13 @@ public class MyInfoVideoListView extends CommonListFragment {
 
         if (mHistoryData != null && mHistoryData.getPayload() != null) {
             List<UserSingle> emptySource = new ArrayList<>();
-            return SortListUtil.makeWrappedList(needClearData() ? emptySource : mAdapter.getData(),
+            List<UserSingle> data = SortListUtil.makeWrappedList(needClearData() ? emptySource : mAdapter.getData(),
                     mHistoryData.getPayload().getUserSingles());
+
+            // 通知数据回调
+            handleDataCallback(data == null ? 0 : data.size());
+
+            return data;
         }
 
         return new ArrayList<UserSingle>();
@@ -168,5 +175,15 @@ public class MyInfoVideoListView extends CommonListFragment {
 
     public void delete() {
 
+    }
+
+    public void setDataListener(IDataListener listener) {
+        mDataListener = listener;
+    }
+
+    private void handleDataCallback(int count) {
+        if (mDataListener != null) {
+            mDataListener.onLoadDataSuccess(count);
+        }
     }
 }

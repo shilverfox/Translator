@@ -24,6 +24,7 @@ import com.jbsx.view.main.entity.Single;
 import com.jbsx.view.main.entity.UserSingle;
 import com.jbsx.view.myinfo.contact.MyViewHistoryContact;
 import com.jbsx.view.myinfo.presenter.MyViewHistoryPresenter;
+import com.jbsx.view.myinfo.view.video.IDataListener;
 import com.jbsx.view.myinfo.view.video.MyInfoVideoListView;
 
 import java.util.ArrayList;
@@ -223,6 +224,17 @@ public class MyViewHistoryFragment extends BaseFragment implements MyViewHistory
         mRepertoryList.setFunctionId(getSearchFunctionId());
         transaction.add(R.id.layout_my_history_container, mRepertoryList);
         transaction.commitAllowingStateLoss();
+
+        // 列表为空时则退出编辑状态
+        mRepertoryList.setDataListener(new IDataListener() {
+            @Override
+            public void onLoadDataSuccess(int count) {
+                if (count == 0) {
+                    mCanSelectItem = false;
+                    handleSelectorUI();
+                }
+            }
+        });
     }
 
     /**
