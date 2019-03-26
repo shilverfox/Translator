@@ -133,7 +133,7 @@ public class SettingsActivity extends BaseFragmentActivity {
                 handleUpdateCheck();
                 break;
             case SettingConst.SETTING_TYPE_CREW:
-                WebHelper.openWeb(mContext, "http://jbsx.china1896.com/jbsx/src/forapp/teamGp.html", "制作团队");
+                WebHelper.openWeb(mContext, "http://jbsx.hy.china1904.com/jbsx/src/forapp/teamGp.html", "制作团队");
                 break;
         }
     }

@@ -19,7 +19,7 @@ public class LoginConstData {
     public final static String RETURN_URL_VALUE = "openmyapp.care";
 
     /** 用户协议url */
-    public final static String LINK_USER_AGREEMENT = "http://jbsx.china1896.com/jbsx/src/forapp/agment.html";
+    public final static String LINK_USER_AGREEMENT = "http://jbsx.hy.china1904.com/jbsx/src/forapp/agment.html";
 
     /** 无效页面来源 */
     public final static int TYPE_HTML_REQUEST_INVALID = -1;
