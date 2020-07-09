@@ -20,6 +20,10 @@ public class ConstData {
 
     public final static String HOST = "http://121.40.218.200:9000";
 
+    public final static String DEVICE_ID = "aaaa-aaaa-111";
+
+    public final static String ORG_CODE = "00000001";
+
     /** 登录模块获取短信验证码接口，注册 */
     public final static int REQUEST_SMS_TYPE_REGISTER = 1;
 

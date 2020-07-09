@@ -27,4 +27,9 @@ public class MainViewUserCase extends UserCase {
         BaseRequestEntity entity = HttpRequestPool.getTestEntity();// getTranslateResult(content, src, dest);
         handleSendRequest(entity, callback);
     }
+
+    public void requestNavigation(BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getNavigationEntity();
+        handleSendRequest(entity, callback);
+    }
 }

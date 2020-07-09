@@ -64,6 +64,24 @@ public class HttpRequestPool {
     }
 
     /**
+     * 获取首页导航数据
+     *
+     * @return
+     */
+    public static BaseRequestEntity getNavigationEntity() {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/app/getNav");
+        baseRequest.setMethod(RequestConst.REQUEST_GET);
+
+        BaseBody body = new BaseBody();
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, "");
+
+        return baseRequest;
+    }
+
+    /**
      * Download the patch
      *
      * @return
