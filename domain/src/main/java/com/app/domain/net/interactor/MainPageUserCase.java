@@ -14,7 +14,7 @@ public class MainPageUserCase extends UserCase {
         super(dataSource, threadExecutor);
     }
 
-    public void requestBannerInfo(BaseRequestCallback callback) {
+    public void requestMainPageInfo(BaseRequestCallback callback) {
         BaseRequestEntity entity = HttpRequestPool.getMainPageBannerInfoEntity();
         handleSendRequest(entity, callback);
     }

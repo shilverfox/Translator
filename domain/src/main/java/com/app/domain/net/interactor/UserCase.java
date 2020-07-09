@@ -70,7 +70,7 @@ public abstract class UserCase {
     }
 
     private boolean isResponseSuccessful(BaseDomainData baseDomainData) {
-        return baseDomainData != null && "0".equals(baseDomainData.getCode());
+        return baseDomainData != null && "200".equals(baseDomainData.getCode());
     }
 
     private void handleResponseSuccessful(String responseContent, BaseRequestCallback callback) {

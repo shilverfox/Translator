@@ -37,4 +37,31 @@ public class AppConstData {
 
     /** 剧组角色列表，主要角色，用于播放页面的人员显示 */
     public final static int[] CREW_MAIN = {CELEBRITY_TYPE_DAOYAN, CELEBRITY_TYPE_ZHUANGAO, CELEBRITY_TYPE_ZHUCHI};
+
+
+    /** 导航类型：首页 */
+    public final static int TYPE_NAVI_MAIN = 0;
+
+    /** 导航类型：专辑 */
+    public final static int TYPE_NAVI_ALBUM = 1;
+
+    /** 导航类型：视频 */
+    public final static int TYPE_NAVI_VIDEO = 2;
+
+    /** 导航类型：本地资源 */
+    public final static int TYPE_NAVI_LOCAL = 3;
+
+
+    /** 资源类型 专辑 */
+    public final static int TYPE_RESOURCE_ALBUM = 1;
+
+    /** 资源类型 视频 */
+    public final static int TYPE_RESOURCE_VIDEO = 2;
+
+
+    /** 发布状态 保存 */
+    public final static int STATUS_PUBLISH_SAVE = 0;
+
+    /** 发布状态 发布 */
+    public final static int STATUS_PUBLISH_PUBLIC = 1;
 }

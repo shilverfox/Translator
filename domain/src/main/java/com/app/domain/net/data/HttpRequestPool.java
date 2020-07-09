@@ -64,6 +64,24 @@ public class HttpRequestPool {
     }
 
     /**
+     * 获取首页导航数据
+     *
+     * @return
+     */
+    public static BaseRequestEntity getNavigationEntity() {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/app/getNav");
+        baseRequest.setMethod(RequestConst.REQUEST_GET);
+
+        BaseBody body = new BaseBody();
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, "");
+
+        return baseRequest;
+    }
+
+    /**
      * Download the patch
      *
      * @return
@@ -330,13 +348,12 @@ public class HttpRequestPool {
     public static BaseRequestEntity getMainPageBannerInfoEntity() {
         BaseRequestEntity baseRequest = new BaseRequestEntity();
         baseRequest.setUrl(ConstData.HOST);
-        baseRequest.setFunctionId("/Special/Special/bananer");
-        baseRequest.setMethod(RequestConst.REQUEST_POST);
+        baseRequest.setFunctionId("/app/index");
+        baseRequest.setMethod(RequestConst.REQUEST_GET);
 
         BaseBody body = new BaseBody();
-        body.add("specialCode", "JBSX");
-
         baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, "");
 
         return baseRequest;
     }

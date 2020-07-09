@@ -2,21 +2,14 @@ package com.jbsx.view.main.presenter;
 
 import com.app.domain.net.BaseRequestCallback;
 import com.app.domain.net.interactor.MainPageUserCase;
-import com.app.domain.net.interactor.MainViewUserCase;
 import com.app.domain.net.model.BaseDomainData;
 import com.app.domain.util.ParseUtil;
-import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
-import com.jbsx.view.main.contact.MainContact;
 import com.jbsx.view.main.contact.MainPageContact;
-import com.jbsx.view.main.entity.BannerData;
-import com.jbsx.view.main.entity.Celebrities;
 import com.jbsx.view.main.entity.CelebrityData;
 import com.jbsx.view.main.entity.HostData;
+import com.jbsx.view.main.entity.MainPageData;
 import com.jbsx.view.main.entity.SpecialAlbumData;
-import com.youth.banner.Banner;
-
-import org.xml.sax.ErrorHandler;
 
 /**
  * 首页
@@ -39,17 +32,17 @@ public class MainPagePresenter implements MainPageContact.Presenter {
     }
 
     @Override
-    public void requestBannerInfo() {
+    public void requestMainPageInfo() {
         if (mMainPageUserCase != null) {
-            mMainPageUserCase.requestBannerInfo(new BaseRequestCallback() {
+            mMainPageUserCase.requestMainPageInfo(new BaseRequestCallback() {
                 @Override
                 public void onRequestFailed(BaseDomainData data) {
-                    handleLoadBannerFailed(data);
+                    handleLoadDataFailed(data);
                 }
 
                 @Override
                 public void onRequestSuccessful(String data) {
-                    handleLoadBannerSuccessful(data);
+                    handleLoadDataSuccessful(data);
                 }
 
                 @Override
@@ -60,14 +53,14 @@ public class MainPagePresenter implements MainPageContact.Presenter {
         }
     }
 
-    private void handleLoadBannerSuccessful(String data) {
-        BannerData bannerData = ParseUtil.parseData(data, BannerData.class);
+    private void handleLoadDataSuccessful(String data) {
+        MainPageData bannerData = ParseUtil.parseData(data, MainPageData.class);
         if (mView != null) {
             mView.drawBannerInfo(bannerData);
         }
     }
 
-    private void handleLoadBannerFailed(BaseDomainData data) {
+    private void handleLoadDataFailed(BaseDomainData data) {
         MessageTools.showErrorMessage(data);
         if (mView != null) {
             mView.drawEmptyBanner(MessageTools.getMessage(data));

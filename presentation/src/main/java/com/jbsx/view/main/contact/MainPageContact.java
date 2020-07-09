@@ -3,6 +3,7 @@ package com.jbsx.view.main.contact;
 import com.jbsx.view.main.entity.BannerData;
 import com.jbsx.view.main.entity.CelebrityData;
 import com.jbsx.view.main.entity.HostData;
+import com.jbsx.view.main.entity.MainPageData;
 import com.jbsx.view.main.entity.SpecialAlbumData;
 import com.youth.banner.Banner;
 
@@ -13,7 +14,7 @@ import com.youth.banner.Banner;
 public class MainPageContact {
     public interface View {
         void createPresenter();
-        void drawBannerInfo(BannerData bannerData);
+        void drawBannerInfo(MainPageData data);
         void drawHostInfo(HostData hostData);
         void drawSpecialAlbumInfo(SpecialAlbumData albumsData);
         void drawCelebritiesInfo(CelebrityData celebrityData);
@@ -29,7 +30,7 @@ public class MainPageContact {
 
     public interface Presenter {
         void start();
-        void requestBannerInfo();
+        void requestMainPageInfo();
 
         /**
          * 获取主讲嘉宾列表

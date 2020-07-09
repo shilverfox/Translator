@@ -7,10 +7,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 
+import com.app.data.net.repository.TaskManager;
+import com.app.domain.net.BaseRequestCallback;
 import com.app.domain.net.event.BadSessionEvent;
+import com.app.domain.net.interactor.MainViewUserCase;
+import com.app.domain.net.model.BaseDomainData;
+import com.app.domain.util.ParseUtil;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -20,24 +26,27 @@ import com.jbsx.R;
 import com.jbsx.app.BaseFragmentActivity;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.TitleBar;
+import com.jbsx.data.AppConstData;
+import com.jbsx.utils.ErroBarHelper;
+import com.jbsx.utils.MessageTools;
+import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.utils.Router;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.view.login.callback.ILoginResultListener;
 import com.jbsx.view.login.callback.IOnLoginListener;
 import com.jbsx.view.login.data.LoginResultEvent;
 import com.jbsx.view.login.util.LoginHelper;
+import com.jbsx.view.main.entity.NavigationData;
 import com.jbsx.view.main.entity.TabEntity;
 import com.jbsx.view.main.fragment.MainPageFragment;
-import com.jbsx.view.main.fragment.RepertoryFragment;
-import com.jbsx.view.main.fragment.SpecialAlbumFragment;
 import com.jbsx.view.myinfo.activity.MyViewHistoryActivity;
-import com.jbsx.view.myinfo.fragment.MyInfoFragment;
 import com.jbsx.view.search.SearchActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends BaseFragmentActivity implements ILoginResultListener {
 
@@ -52,22 +61,89 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
 
     private long mExitTime = 0;
 
+    private MainViewUserCase mMainPageUserCase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
+        init();
         findViews();
         initTitleBar();
-        initMainTab();
-        registEvents();
         handlePermissions();
+        loadNavigation();
+    }
+
+    private void init() {
+        mMainPageUserCase = new MainViewUserCase(TaskManager.getTaskManager(),
+                MainApplicationLike.getUiThread());
+    }
+
+    private void loadNavigation() {
+        if (mMainPageUserCase != null) {
+            mMainPageUserCase.requestNavigation(new BaseRequestCallback() {
+                @Override
+                public void onRequestFailed(BaseDomainData data) {
+                    handleLoadNaviFailed(data);
+                }
+
+                @Override
+                public void onRequestSuccessful(String data) {
+                    handleLoadNaviSuccessful(data);
+                }
+
+                @Override
+                public void onNetError() {
+                    handlePageNetError();
+                }
+            });
+        }
+    }
+
+    private boolean isNavigationNotEmpty(NavigationData navData) {
+        return (navData != null && navData.getBody() != null
+                && navData.getBody().getClassifyList() != null
+                && navData.getBody().getClassifyList().size() > 0);
+    }
+
+    private void handleLoadNaviSuccessful(String data) {
+        NavigationData navData = ParseUtil.parseData(data, NavigationData.class);
+        if (isNavigationNotEmpty(navData)) {
+            initMainTab(navData.getBody().getClassifyList());
+            registEvents();
+        } else {
+            handleEmptyNaviData("导航数据为空");
+        }
+
+    }
+
+    private void handleLoadNaviFailed(BaseDomainData data) {
+        MessageTools.showErrorMessage(data);
+        handleEmptyNaviData(data.getMsg());
+    }
+
+    private void handlePageNetError() {
+        handleEmptyNaviData(ErroBarHelper.ERRO_TYPE_NET_INTERNET);
+    }
+
+    private void handleEmptyNaviData(String errorMessage) {
+        if (TextUtils.isEmpty(errorMessage)) {
+            errorMessage = ErroBarHelper.ERRO_TYPE_NET_NAME;
+        }
+
+        ReloadBarHelper.addReloadBar(mViewPager, errorMessage, new Runnable() {
+            @Override
+            public void run() {
+                loadNavigation();
+            }
+        });
     }
 
     private void findViews() {
         mTabLayout = findViewById(R.id.tab_main);
-        mTopBarLayout = (TitleBar) findViewById(R.id.layout_title_bar_container);
         mViewPager = findViewById(R.id.vp_container);
+        mTopBarLayout = findViewById(R.id.layout_title_bar_container);
     }
 
     /**
@@ -95,15 +171,39 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
-    private void initMainTab() {
-        mFragmentList.add(MainPageFragment.newInstance());
-        mFragmentList.add(RepertoryFragment.newInstance());
-        mFragmentList.add(SpecialAlbumFragment.newInstance());
-        mFragmentList.add(MyInfoFragment.newInstance());
-
-        for (int i = 0; i < mTitles.length; i++) {
-            mTabEntities.add(new TabEntity(mTitles[i], 0, 0));
+    private Fragment getFragmentByType(int type) {
+        switch (type) {
+            case AppConstData.TYPE_NAVI_ALBUM:
+                return MainPageFragment.newInstance();
+            case AppConstData.TYPE_NAVI_VIDEO:
+                return MainPageFragment.newInstance();
+            case AppConstData.TYPE_NAVI_LOCAL:
+                return MainPageFragment.newInstance();
+            case AppConstData.TYPE_NAVI_MAIN:
+            default:
+                return MainPageFragment.newInstance();
         }
+    }
+
+    private void initMainTab(List<NavigationData.ClassifyEntity> allNavigation) {
+        for (NavigationData.ClassifyEntity entity : allNavigation) {
+            if (entity != null && !TextUtils.isEmpty(entity.getClassifyName())) {
+                mTabEntities.add(new TabEntity(entity.getClassifyName(), 0, 0));
+                mFragmentList.add(getFragmentByType(entity.getClassifyType()));
+            }
+        }
+
+
+
+
+//        mFragmentList.add(MainPageFragment.newInstance());
+//        mFragmentList.add(RepertoryFragment.newInstance());
+//        mFragmentList.add(SpecialAlbumFragment.newInstance());
+//        mFragmentList.add(MyInfoFragment.newInstance());
+//
+//        for (int i = 0; i < mTitles.length; i++) {
+//            mTabEntities.add(new TabEntity(mTitles[i], 0, 0));
+//        }
 
         // 不支持滑动切换
 //        mTabLayout.setTabData(mTabEntities, this, R.id.fl_container, mFragmentList);

@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.data.ConstData;
@@ -21,7 +20,6 @@ import com.app.domain.net.interactor.MainPageUserCase;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
-import com.jbsx.customview.recyclerview.CenterLayoutManager;
 import com.jbsx.customview.recyclerview.LoadingFooter;
 import com.jbsx.player.util.PlayerHelper;
 import com.jbsx.utils.ErroBarHelper;
@@ -38,6 +36,7 @@ import com.jbsx.view.main.entity.BannerData;
 import com.jbsx.view.main.entity.Celebrities;
 import com.jbsx.view.main.entity.CelebrityData;
 import com.jbsx.view.main.entity.HostData;
+import com.jbsx.view.main.entity.MainPageData;
 import com.jbsx.view.main.entity.SpecialAlbumData;
 import com.jbsx.view.main.entity.SpecialAlbums;
 import com.jbsx.view.main.presenter.MainPagePresenter;
@@ -81,7 +80,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
 
     private MainPageContact.Presenter mPresenter;
 
-    private BannerData mBannerData;
+    private MainPageData mData;
 
     /** 当前页码 */
     private int mCurrentPage = 1;
@@ -122,7 +121,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         MainApplicationLike.getInstance().getHanlder().post(new Runnable() {
             @Override
             public void run() {
-                loadBannerInfo();
+                loadMainPageInfo();
                 loadCelebrities();
                 loadSpecialAlbum(mCurrentPage);
             }
@@ -130,23 +129,15 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     }
 
     /**
-     * Banner点击，如果有专辑id去播放，否则去url
+     * Banner点击
      *
      * @param bannerInfo
      */
-    private void handleBannerClick(BannerData.Banner bannerInfo) {
+    private void handleBannerClick(MainPageData.HomeNewsEntity bannerInfo) {
         if (bannerInfo != null) {
-            boolean hasAlbumId = !TextUtils.isEmpty(bannerInfo.getSpecialAlbumId());
-            boolean hasAdId = !TextUtils.isEmpty(bannerInfo.getUrl());
-
-            if (hasAlbumId) {
-                PlayerHelper.gotoPlayer(getActivity(), PlayerHelper.makePlayerData(
-                        bannerInfo.getSpecialAlbumId(), "", ConstData.VIDEO_DEFINITION_TYPE_STAND));
-            } else if (hasAdId) {
-                String title = bannerInfo.getName();
-                title = (TextUtils.isEmpty(title) ? "详情" : title);
-                WebHelper.openWeb(mContext, bannerInfo.getUrl(), title);
-            }
+            String title = bannerInfo.getNewsTitle();
+            title = (TextUtils.isEmpty(title) ? "详情" : title);
+            WebHelper.openWeb(mContext, bannerInfo.getSource(), title);
         }
     }
 
@@ -154,9 +145,9 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         mViewBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                if (mBannerData != null && mBannerData.getPayload() != null
-                        && mBannerData.getPayload().getBananers() != null) {
-                    handleBannerClick(mBannerData.getPayload().getBananers().get(position));
+                if (mData != null && mData.getBody() != null
+                        && mData.getBody().getNewsList() != null) {
+                    handleBannerClick(mData.getBody().getNewsList().get(position));
                 }
             }
         });
@@ -322,11 +313,16 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         }
     }
 
-    private void initBanner(List images) {
-        if (images != null && !images.isEmpty()) {
-            mViewBanner.setImages(images)
-                    .setImageLoader(new BannerImageLoader())
-                    .start();
+    private void initBanner(List<MainPageData.HomeNewsEntity> newsEntities) {
+        if (newsEntities != null) {
+            List<String> images = new ArrayList<>(newsEntities.size());
+            for (MainPageData.HomeNewsEntity entity : newsEntities) {
+                if (entity != null && entity.getNewsBanner() != null) {
+                    images.add(entity.getNewsBanner());
+                }
+            }
+
+            mViewBanner.setImages(images).setImageLoader(new BannerImageLoader()).start();
         }
     }
 
@@ -353,7 +349,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
      * Banner 楼层进度条
      * @param add
      */
-    private void toggleBannerProgress(boolean add) {
+    private void toggleMainPageProgress(boolean add) {
         if (add) {
             ProgressBarHelper.addProgressBar(mViewBanner);
         } else {
@@ -387,38 +383,38 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         }
     }
 
-    private void loadBannerInfo() {
-        toggleBannerProgress(true);
-        mPresenter.requestBannerInfo();
+    private void loadMainPageInfo() {
+        toggleMainPageProgress(true);
+        mPresenter.requestMainPageInfo();
     }
 
     private void loadSpecialAlbum(int page) {
-        toggleSpecialAlbumProgress(true);
-        mPresenter.requestSpecialAlbumList(page);
+//        toggleSpecialAlbumProgress(true);
+//        mPresenter.requestSpecialAlbumList(page);
     }
 
     private void loadCelebrities() {
-        toggleCelebrityProgress(true);
-        mPresenter.requestCelebrities();
+//        toggleCelebrityProgress(true);
+//        mPresenter.requestCelebrities();
     }
 
     @Override
-    public void drawBannerInfo(BannerData bannerData) {
-        if (bannerData != null && bannerData.getPayload() != null) {
-            mBannerData = bannerData;
-            initBanner(bannerData.getPayload().getBananers());
+    public void drawBannerInfo(MainPageData data) {
+        if (data != null && data.getBody() != null) {
+            mData = data;
+            initBanner(data.getBody().getNewsList());
         }
 
-        toggleBannerProgress(false);
+        toggleMainPageProgress(false);
     }
 
     @Override
     public void drawEmptyBanner(String errorMessage) {
-        toggleBannerProgress(false);
+        toggleMainPageProgress(false);
         ReloadBarHelper.addReloadBar(mViewBanner, errorMessage, new Runnable() {
             @Override
             public void run() {
-                loadBannerInfo();
+                loadMainPageInfo();
             }
         });
     }
