@@ -50,7 +50,6 @@ public class SingleVideoData {
         private String isCollect;
         private String playUrl;
         private long second;
-        private BaseDomainData.ResultStatus resultStatus;
         private List<Param> param;
 
         public String getIsCollect() {
@@ -75,14 +74,6 @@ public class SingleVideoData {
 
         public void setSecond(long second) {
             this.second = second;
-        }
-
-        public BaseDomainData.ResultStatus getResultStatus() {
-            return resultStatus;
-        }
-
-        public void setResultStatus(BaseDomainData.ResultStatus resultStatus) {
-            this.resultStatus = resultStatus;
         }
 
         public List<Param> getParam() {

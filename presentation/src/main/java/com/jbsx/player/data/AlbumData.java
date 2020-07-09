@@ -48,7 +48,6 @@ public class AlbumData {
 
     public class Payload {
         private List<Single> singles;
-        private BaseDomainData.ResultStatus resultStatus;
         private List<Param> param;
 
         public List<Single> getSingles() {
@@ -57,14 +56,6 @@ public class AlbumData {
 
         public void setSingles(List<Single> singles) {
             this.singles = singles;
-        }
-
-        public BaseDomainData.ResultStatus getResultStatus() {
-            return resultStatus;
-        }
-
-        public void setResultStatus(BaseDomainData.ResultStatus resultStatus) {
-            this.resultStatus = resultStatus;
         }
 
         public List<Param> getParam() {

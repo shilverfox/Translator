@@ -55,7 +55,6 @@ public class SpecialAlbumData {
         private List<SpecialAlbums> specialAlbums;
         private int totalPages;
         private int totalElements;
-        private BaseDomainData.ResultStatus resultStatus;
         private List<Param> param;
 
         public List<SpecialAlbums> getSpecialAlbums() {
@@ -80,14 +79,6 @@ public class SpecialAlbumData {
 
         public void setTotalElements(int totalElements) {
             this.totalElements = totalElements;
-        }
-
-        public BaseDomainData.ResultStatus getResultStatus() {
-            return resultStatus;
-        }
-
-        public void setResultStatus(BaseDomainData.ResultStatus resultStatus) {
-            this.resultStatus = resultStatus;
         }
 
         public List<Param> getParam() {

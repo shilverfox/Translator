@@ -49,7 +49,6 @@ public class AboutData {
 
     public class Payload {
         private List<AboutItem> about;
-        private BaseDomainData.ResultStatus resultStatus;
 
         public List<AboutItem> getAbout() {
             return about;
@@ -57,14 +56,6 @@ public class AboutData {
 
         public void setAbout(List<AboutItem> about) {
             this.about = about;
-        }
-
-        public BaseDomainData.ResultStatus getResultStatus() {
-            return resultStatus;
-        }
-
-        public void setResultStatus(BaseDomainData.ResultStatus resultStatus) {
-            this.resultStatus = resultStatus;
         }
     }
 

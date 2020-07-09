@@ -56,7 +56,6 @@ public class LoginData {
         private String token;
         private int state;
         private UserInfo userInfo;
-        private BaseDomainData.ResultStatus resultStatus;
         private List<Param> param;
 
         public String getId() {
@@ -153,14 +152,6 @@ public class LoginData {
 
         public void setUserInfo(UserInfo userInfo) {
             this.userInfo = userInfo;
-        }
-
-        public BaseDomainData.ResultStatus getResultStatus() {
-            return resultStatus;
-        }
-
-        public void setResultStatus(BaseDomainData.ResultStatus resultStatus) {
-            this.resultStatus = resultStatus;
         }
 
         public List<Param> getParam() {

@@ -51,7 +51,6 @@ public class RepertoryData {
         private List<SpecialSingles> specialSingles;
         private int totalPages;
         private int totalElements;
-        private BaseDomainData.ResultStatus resultStatus;
         private List<Param> param;
 
         public List<SpecialSingles> getSpecialSingles() {
@@ -76,14 +75,6 @@ public class RepertoryData {
 
         public void setTotalElements(int totalElements) {
             this.totalElements = totalElements;
-        }
-
-        public BaseDomainData.ResultStatus getResultStatus() {
-            return resultStatus;
-        }
-
-        public void setResultStatus(BaseDomainData.ResultStatus resultStatus) {
-            this.resultStatus = resultStatus;
         }
 
         public List<Param> getParam() {

@@ -46,7 +46,6 @@ public class MyCommentData {
         private List<UserComments> userComments;
         private int totalPages;
         private int totalElements;
-        private BaseDomainData.ResultStatus resultStatus;
         private List<Param> param;
 
         public List<UserComments> getUserComments() {
@@ -71,14 +70,6 @@ public class MyCommentData {
 
         public void setTotalElements(int totalElements) {
             this.totalElements = totalElements;
-        }
-
-        public BaseDomainData.ResultStatus getResultStatus() {
-            return resultStatus;
-        }
-
-        public void setResultStatus(BaseDomainData.ResultStatus resultStatus) {
-            this.resultStatus = resultStatus;
         }
 
         public List<Param> getParam() {

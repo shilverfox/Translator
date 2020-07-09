@@ -51,7 +51,6 @@ public class RequestTokenData {
         private String token;
         private String key;
         private String imagePreUrl;
-        private BaseDomainData.ResultStatus resultStatus;
         private List<Param> param;
 
         public String getToken() {
@@ -76,14 +75,6 @@ public class RequestTokenData {
 
         public void setImagePreUrl(String imagePreUrl) {
             this.imagePreUrl = imagePreUrl;
-        }
-
-        public BaseDomainData.ResultStatus getResultStatus() {
-            return resultStatus;
-        }
-
-        public void setResultStatus(BaseDomainData.ResultStatus resultStatus) {
-            this.resultStatus = resultStatus;
         }
 
         public List<Param> getParam() {

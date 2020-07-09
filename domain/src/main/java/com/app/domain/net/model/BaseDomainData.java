@@ -5,33 +5,33 @@ package com.app.domain.net.model;
  */
 
 public class BaseDomainData {
-    private String code;
-    private String msg;
+    private String resCode;
+    private String resMsg;
     private boolean status;
-    private Result payload;
+    private Result body;
 
     public Result getPayload() {
-        return payload;
+        return body;
     }
 
     public void setPayload(Result payload) {
-        this.payload = payload;
+        this.body = payload;
     }
 
     public String getCode() {
-        return code;
+        return resCode;
     }
 
     public void setCode(String code) {
-        this.code = code;
+        this.resCode = code;
     }
 
     public String getMsg() {
-        return msg;
+        return resMsg;
     }
 
     public void setMsg(String msg) {
-        this.msg = msg;
+        this.resMsg = msg;
     }
 
     public boolean isSuccess() {
@@ -43,36 +43,6 @@ public class BaseDomainData {
     }
 
     public class Result {
-        private ResultStatus resultStatus;
-
-        public ResultStatus getResultStatus() {
-            return resultStatus;
-        }
-
-        public void setResultStatus(ResultStatus resultStatus) {
-            this.resultStatus = resultStatus;
-        }
-    }
-
-    public class ResultStatus {
-        private String status;
-        private String message;
-
-        public String getStatus() {
-            return status;
-        }
-
-        public void setStatus(String status) {
-            this.status = status;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
     }
 
     public class BasePage {

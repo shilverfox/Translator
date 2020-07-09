@@ -50,7 +50,6 @@ public class ViewHistoryData {
         private List<UserSingle> userSingles;
         private int totalPages;
         private int totalElements;
-        private BaseDomainData.ResultStatus resultStatus;
         private List<Param> param;
 
         public List<UserSingle> getUserSingles() {
@@ -75,14 +74,6 @@ public class ViewHistoryData {
 
         public void setTotalElements(int totalElements) {
             this.totalElements = totalElements;
-        }
-
-        public BaseDomainData.ResultStatus getResultStatus() {
-            return resultStatus;
-        }
-
-        public void setResultStatus(BaseDomainData.ResultStatus resultStatus) {
-            this.resultStatus = resultStatus;
         }
 
         public List<Param> getParam() {

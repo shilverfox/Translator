@@ -50,7 +50,6 @@ public class HostData {
 
     public class Payload {
         private List<Celebrities> celebrities;
-        private BaseDomainData.ResultStatus resultStatus;
 
         public List<Celebrities> getCelebrities() {
             return celebrities;
@@ -58,14 +57,6 @@ public class HostData {
 
         public void setCelebrities(List<Celebrities> celebrities) {
             this.celebrities = celebrities;
-        }
-
-        public BaseDomainData.ResultStatus getResultStatus() {
-            return resultStatus;
-        }
-
-        public void setResultStatus(BaseDomainData.ResultStatus resultStatus) {
-            this.resultStatus = resultStatus;
         }
     }
 }

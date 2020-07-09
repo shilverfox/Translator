@@ -43,8 +43,6 @@ public class BannerData {
     }
 
     public class Payload {
-//        private List<SpecialAlbums> specialAlbums;
-        private BaseDomainData.ResultStatus resultStatus;
         private List<Param> param;
         private List<Banner> bananers;
 
@@ -54,22 +52,6 @@ public class BannerData {
 
         public void setBananers(List<Banner> bananers) {
             this.bananers = bananers;
-        }
-
-//        public List<SpecialAlbums> getSpecialAlbums() {
-//            return specialAlbums;
-//        }
-
-//        public void setSpecialAlbums(List<SpecialAlbums> specialAlbums) {
-//            this.specialAlbums = specialAlbums;
-//        }
-
-        public BaseDomainData.ResultStatus getResultStatus() {
-            return resultStatus;
-        }
-
-        public void setResultStatus(BaseDomainData.ResultStatus resultStatus) {
-            this.resultStatus = resultStatus;
         }
 
         public List<Param> getParam() {

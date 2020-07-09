@@ -46,7 +46,6 @@ public class MyMessageData {
         private List<MessageList> messageList;
         private int totalPages;
         private int totalElements;
-        private BaseDomainData.ResultStatus resultStatus;
         private List<Param> param;
 
         public List<MessageList> getMessageList() {
@@ -71,14 +70,6 @@ public class MyMessageData {
 
         public void setTotalElements(int totalElements) {
             this.totalElements = totalElements;
-        }
-
-        public BaseDomainData.ResultStatus getResultStatus() {
-            return resultStatus;
-        }
-
-        public void setResultStatus(BaseDomainData.ResultStatus resultStatus) {
-            this.resultStatus = resultStatus;
         }
 
         public List<Param> getParam() {

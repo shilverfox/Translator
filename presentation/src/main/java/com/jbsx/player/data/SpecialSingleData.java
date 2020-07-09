@@ -51,7 +51,6 @@ public class SpecialSingleData {
     public class Payload {
 
         private SpecialSingles specialSingle;
-        private BaseDomainData.ResultStatus resultStatus;
         private List<Param> param;
 
         public SpecialSingles getSpecialSingle() {
@@ -60,14 +59,6 @@ public class SpecialSingleData {
 
         public void setSpecialSingle(SpecialSingles specialSingle) {
             this.specialSingle = specialSingle;
-        }
-
-        public BaseDomainData.ResultStatus getResultStatus() {
-            return resultStatus;
-        }
-
-        public void setResultStatus(BaseDomainData.ResultStatus resultStatus) {
-            this.resultStatus = resultStatus;
         }
 
         public List<Param> getParam() {

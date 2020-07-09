@@ -47,7 +47,6 @@ public class CelebrityData {
 
     public class Payload {
         private List<Celebrities> celebrities;
-        private BaseDomainData.ResultStatus resultStatus;
         private List<Param> param;
 
         public List<Celebrities> getCelebrities() {
@@ -56,14 +55,6 @@ public class CelebrityData {
 
         public void setCelebrities(List<Celebrities> celebrities) {
             this.celebrities = celebrities;
-        }
-
-        public BaseDomainData.ResultStatus getResultStatus() {
-            return resultStatus;
-        }
-
-        public void setResultStatus(BaseDomainData.ResultStatus resultStatus) {
-            this.resultStatus = resultStatus;
         }
 
         public List<Param> getParam() {

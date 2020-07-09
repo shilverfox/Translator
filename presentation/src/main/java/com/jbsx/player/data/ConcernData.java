@@ -45,7 +45,6 @@ public class ConcernData {
 
     public class Payload {
         private String status;
-        private BaseDomainData.ResultStatus resultStatus;
 
         public String getStatus() {
             return status;
@@ -53,14 +52,6 @@ public class ConcernData {
 
         public void setStatus(String status) {
             this.status = status;
-        }
-
-        public BaseDomainData.ResultStatus getResultStatus() {
-            return resultStatus;
-        }
-
-        public void setResultStatus(BaseDomainData.ResultStatus resultStatus) {
-            this.resultStatus = resultStatus;
         }
     }
 }

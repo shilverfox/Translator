@@ -9,7 +9,7 @@ public class MessageTools {
 
     public static void showErrorMessage(BaseDomainData data) {
         if (hasErrorMessage(data)) {
-            String error = data.getPayload().getResultStatus().getMessage();
+            String error = data.getMsg();
             ShowTools.toast(error);
         }
     }
@@ -22,13 +22,12 @@ public class MessageTools {
     }
 
     public static boolean hasErrorMessage(BaseDomainData data) {
-        return data != null && data.getPayload() != null && data.getPayload().getResultStatus() != null
-                && !TextUtils.isEmpty(data.getPayload().getResultStatus().getMessage());
+        return data != null && !TextUtils.isEmpty(data.getMsg());
     }
 
     public static String getMessage(BaseDomainData data) {
         if (hasErrorMessage(data)) {
-            return data.getPayload().getResultStatus().getMessage();
+            return data.getMsg();
         } else {
             return "";
         }

@@ -70,9 +70,7 @@ public abstract class UserCase {
     }
 
     private boolean isResponseSuccessful(BaseDomainData baseDomainData) {
-        return baseDomainData != null && baseDomainData.getPayload() != null
-                && baseDomainData.getPayload().getResultStatus() != null
-                && "0".equals(baseDomainData.getPayload().getResultStatus().getStatus());
+        return baseDomainData != null && "0".equals(baseDomainData.getCode());
     }
 
     private void handleResponseSuccessful(String responseContent, BaseRequestCallback callback) {
@@ -108,10 +106,7 @@ public abstract class UserCase {
      * @return
      */
     private boolean isLoginInvalid(BaseDomainData baseDomainData) {
-        boolean isOk = (baseDomainData != null && baseDomainData.getPayload() != null
-                && baseDomainData.getPayload().getResultStatus() != null
-                && !ServerCode.SERVER_ERROR_TYPE_NO_SESSION.equals(baseDomainData.getPayload().getResultStatus().getStatus()));
-        return !isOk;
+        return false;
     }
 
     private void handleSessionInvalid() {
