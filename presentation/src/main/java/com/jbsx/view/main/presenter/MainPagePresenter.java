@@ -56,14 +56,14 @@ public class MainPagePresenter implements MainPageContact.Presenter {
     private void handleLoadDataSuccessful(String data) {
         MainPageData bannerData = ParseUtil.parseData(data, MainPageData.class);
         if (mView != null) {
-            mView.drawBannerInfo(bannerData);
+            mView.drawMainPageInfo(bannerData);
         }
     }
 
     private void handleLoadDataFailed(BaseDomainData data) {
         MessageTools.showErrorMessage(data);
         if (mView != null) {
-            mView.drawEmptyBanner(MessageTools.getMessage(data));
+            mView.drawEmptyData(MessageTools.getMessage(data));
         }
     }
 
@@ -162,7 +162,7 @@ public class MainPagePresenter implements MainPageContact.Presenter {
     private void handleLoadCelebritiesSuccessful(String data) {
         CelebrityData parseData = ParseUtil.parseData(data, CelebrityData.class);
         if (mView != null) {
-            mView.drawCelebritiesInfo(parseData);
+//            mView.drawCelebritiesInfo(parseData);
         }
     }
 

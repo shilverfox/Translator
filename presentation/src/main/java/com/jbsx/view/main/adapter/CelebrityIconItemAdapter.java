@@ -10,12 +10,13 @@ import com.jbsx.adapter.UniversalAdapter2;
 import com.jbsx.adapter.UniversalViewHolder2;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.main.entity.Celebrities;
+import com.jbsx.view.main.entity.MainPageData;
 
 /**
  * 名家头像列表项
  * 用于首页名家列表楼层
  */
-public class CelebrityIconItemAdapter extends UniversalAdapter2<Celebrities> {
+public class CelebrityIconItemAdapter extends UniversalAdapter2<MainPageData.HomeRecommendEntity> {
     private OnMyItemClickListener onMyItemClickListener;
     private int mFocusedPosition;
     private int mCurrentPosition;
@@ -29,7 +30,7 @@ public class CelebrityIconItemAdapter extends UniversalAdapter2<Celebrities> {
     }
 
     @Override
-    public void convert(final UniversalViewHolder2 holder, final Celebrities celebrityData, final int position) {
+    public void convert(final UniversalViewHolder2 holder, final MainPageData.HomeRecommendEntity celebrityData, final int position) {
         if (celebrityData == null) {
             return;
         }
@@ -37,10 +38,10 @@ public class CelebrityIconItemAdapter extends UniversalAdapter2<Celebrities> {
         mCurrentPosition = position;
 
         ImageView icon = (ImageView) holder.getViewById(R.id.tv_celebrity_icon_item_head);
-        ImageLoader.displayImage(celebrityData.getImageUrl(), icon);
+        ImageLoader.displayImage(celebrityData.getPreview(), icon);
 
         TextView name = (TextView) holder.getViewById(R.id.tv_celebrity_icon_item_name);
-        name.setText(celebrityData.getName());
+        name.setText(celebrityData.getResourceName());
 //        name.setTextColor(getTextColor());
 //        name.setBackgroundResource(getBackgroundColor());
 

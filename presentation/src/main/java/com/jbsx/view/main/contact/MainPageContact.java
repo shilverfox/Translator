@@ -14,13 +14,12 @@ import com.youth.banner.Banner;
 public class MainPageContact {
     public interface View {
         void createPresenter();
-        void drawBannerInfo(MainPageData data);
+        void drawMainPageInfo(MainPageData data);
         void drawHostInfo(HostData hostData);
         void drawSpecialAlbumInfo(SpecialAlbumData albumsData);
-        void drawCelebritiesInfo(CelebrityData celebrityData);
 
         /** 获取banner数据为空，每个模块单独处理 */
-        void drawEmptyBanner(String errorMessage);
+        void drawEmptyData(String errorMessage);
         void drawEmptyCelebrities(String errorMessage);
         void drawEmptySpecialAlbum(String errorMessage);
 

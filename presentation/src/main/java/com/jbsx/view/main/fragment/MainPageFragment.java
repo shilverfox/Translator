@@ -76,7 +76,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
 
     /** 名家列表 */
     private CelebrityIconItemAdapter mAdapterCelebrity;
-    private List<Celebrities> mListCelebrity = new ArrayList<>();
+    private List<MainPageData.HomeRecommendEntity> mListCelebrity = new ArrayList<>();
 
     private MainPageContact.Presenter mPresenter;
 
@@ -245,12 +245,12 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     private void handleCelebritySelect(int position) {
         if (mListCelebrity != null && mListCelebrity.size() > 0
                 && position >= 0 && position < mListCelebrity.size()) {
-            Celebrities celebrity = mListCelebrity.get(position);
+            MainPageData.HomeRecommendEntity celebrity = mListCelebrity.get(position);
 
             if (celebrity != null) {
                 // 首页进入的搜索结果默认切刀第二个tab——主讲人，不保存搜索历史
                 SearchHelper searchHelper = new SearchHelper();
-                searchHelper.doSearch(celebrity.getName(), 1, false);
+                searchHelper.doSearch(celebrity.getResourceName(), 1, false);
                 Router.getInstance().open(SearchResultActivity.class, getActivity());
             }
         }
@@ -399,17 +399,18 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     }
 
     @Override
-    public void drawBannerInfo(MainPageData data) {
+    public void drawMainPageInfo(MainPageData data) {
         if (data != null && data.getBody() != null) {
             mData = data;
             initBanner(data.getBody().getNewsList());
+            drawCelebritiesInfo(data.getBody().getRecommends());
         }
 
         toggleMainPageProgress(false);
     }
 
     @Override
-    public void drawEmptyBanner(String errorMessage) {
+    public void drawEmptyData(String errorMessage) {
         toggleMainPageProgress(false);
         ReloadBarHelper.addReloadBar(mViewBanner, errorMessage, new Runnable() {
             @Override
@@ -471,15 +472,11 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
      *
      * @param celebrityData
      */
-    @Override
-    public void drawCelebritiesInfo(CelebrityData celebrityData) {
-        if (celebrityData != null && celebrityData.getPayload() != null) {
-            List<Celebrities> data = celebrityData.getPayload().getCelebrities();
-            if (data != null && !data.isEmpty()) {
-                mAdapterCelebrity.clear();
-                mAdapterCelebrity.addList(data);
-                mListCelebrity = mAdapterCelebrity.getDatas();
-            }
+    public void drawCelebritiesInfo(List<MainPageData.HomeRecommendEntity> celebrityData) {
+        if (celebrityData != null && !celebrityData.isEmpty()) {
+            mAdapterCelebrity.clear();
+            mAdapterCelebrity.addList(celebrityData);
+            mListCelebrity = mAdapterCelebrity.getDatas();
         }
 
         toggleCelebrityProgress(false);
