@@ -32,6 +32,7 @@ import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.utils.Router;
 import com.jbsx.utils.ShowTools;
+import com.jbsx.view.data.AppConst;
 import com.jbsx.view.login.callback.ILoginResultListener;
 import com.jbsx.view.login.callback.IOnLoginListener;
 import com.jbsx.view.login.data.LoginResultEvent;
