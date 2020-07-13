@@ -38,7 +38,9 @@ import com.jbsx.view.login.data.LoginResultEvent;
 import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.main.entity.NavigationData;
 import com.jbsx.view.main.entity.TabEntity;
+import com.jbsx.view.main.fragment.FeedFragment;
 import com.jbsx.view.main.fragment.MainPageFragment;
+import com.jbsx.view.main.fragment.VideoFeedFragment;
 import com.jbsx.view.myinfo.activity.MyViewHistoryActivity;
 import com.jbsx.view.search.SearchActivity;
 
@@ -51,8 +53,6 @@ import java.util.List;
 public class MainActivity extends BaseFragmentActivity implements ILoginResultListener {
 
     private ArrayList<Fragment> mFragmentList = new ArrayList<>();
-
-    private String[] mTitles = {"精选", "片库", "专题", "我的"};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     private CommonTabLayout mTabLayout;
@@ -181,7 +181,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
                 return MainPageFragment.newInstance();
             case AppConstData.TYPE_NAVI_MAIN:
             default:
-                return MainPageFragment.newInstance();
+                return VideoFeedFragment.newInstance(null);
         }
     }
 
@@ -298,7 +298,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return mTitles[position];
+            return "";
         }
 
         @Override

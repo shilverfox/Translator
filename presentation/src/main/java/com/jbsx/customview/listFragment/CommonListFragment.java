@@ -131,7 +131,7 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
 
     private void setListAdapter() {
         mAdapter = getAdapter(mContext);
-        mListView.setLayoutManager(new LinearLayoutManager(mContext));
+        mListView.setLayoutManager(getLayoutManager());
         mListView.addItemDecoration(RecyclerViewHelper.getDivider(mContext));
         mListView.setNestedScrollingEnabled(mEnableNestedScroll);
 
@@ -424,6 +424,10 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
      * 填充数据后刷新UI，有的页面需要根据数据来处理一些控件的显示
      */
     public void handleUiByData() {
+    }
+
+    public RecyclerView.LayoutManager getLayoutManager() {
+        return new LinearLayoutManager(mContext);
     }
 
     /** 创建对应的Adapter */

@@ -484,25 +484,25 @@ public class HttpRequestPool {
     }
 
     /**
-     * 查看观看历史，我的收藏
+     * 获得专辑下的视频列表
      *
-     * @param token
+     * @param classifyCode
      * @param page
      * @return
      */
-    public static BaseRequestEntity getMyVideoHistoryEntity(String token, int page) {
+    public static BaseRequestEntity getMyVideoHistoryEntity(String classifyCode, int page) {
         BaseRequestEntity baseRequest = new BaseRequestEntity();
         baseRequest.setUrl(ConstData.HOST);
-        baseRequest.setFunctionId("/Special/Special/getUserHistory");
+        baseRequest.setFunctionId("/app/video");
         baseRequest.setMethod(RequestConst.REQUEST_POST);
 
         BaseBody body = new BaseBody();
-        body.add("specialCode", "JBSX");
-        body.add("no", page + "");
-        body.add("size", ConstData.DEFAULT_PAGE_SIZE + "");
+        body.add("classifyCode", classifyCode);
+        body.add("pageNum", page + "");
+        body.add("pageSize", ConstData.DEFAULT_PAGE_SIZE + "");
 
         baseRequest.setBaseBody(body);
-        HttpRequestUtil.getHeader(baseRequest, token);
+        HttpRequestUtil.getHeader(baseRequest, "");
 
         return baseRequest;
     }
