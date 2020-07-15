@@ -39,6 +39,7 @@ import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.main.entity.NavigationData;
 import com.jbsx.view.main.entity.TabEntity;
 import com.jbsx.view.main.fragment.FeedFragment;
+import com.jbsx.view.main.fragment.GalleryFragment;
 import com.jbsx.view.main.fragment.MainPageFragment;
 import com.jbsx.view.main.fragment.VideoFeedFragment;
 import com.jbsx.view.myinfo.activity.MyViewHistoryActivity;
@@ -181,7 +182,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
                 return MainPageFragment.newInstance();
             case AppConstData.TYPE_NAVI_MAIN:
             default:
-                return VideoFeedFragment.newInstance(null);
+                return GalleryFragment.newInstance(null);
         }
     }
 

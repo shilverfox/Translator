@@ -55,4 +55,14 @@ public class MainPageUserCase extends UserCase {
         BaseRequestEntity entity = HttpRequestPool.getMainPageSpecialAlbumEntity(page, true);
         handleSendRequest(entity, callback);
     }
+
+    /**
+     * 获取一级分类列表（专辑、视频）
+     *
+     * @param callback
+     */
+    public void requestGalleryInfo(String code, BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getMainPageGalleryEntity(code);
+        handleSendRequest(entity, callback);
+    }
 }

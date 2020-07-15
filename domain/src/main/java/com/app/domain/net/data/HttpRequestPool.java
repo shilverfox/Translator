@@ -401,6 +401,24 @@ public class HttpRequestPool {
     }
 
     /**
+     * 一级分类数据
+     */
+    public static BaseRequestEntity getMainPageGalleryEntity(String classifyCode) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+
+        baseRequest.setFunctionId("/app/classify");
+        baseRequest.setMethod(RequestConst.REQUEST_GET);
+        BaseBody body = new BaseBody();
+        body.add("classifyCode", classifyCode);
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, "");
+
+        return baseRequest;
+    }
+
+    /**
      * 获取首页的名家列表
      *
      * @return

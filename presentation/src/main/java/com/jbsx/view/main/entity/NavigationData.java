@@ -96,6 +96,15 @@ public class NavigationData {
         private String classifyPCode;
         private String classifyPreview;
         private int classifyType;
+        private boolean hasChildren;
+
+        public boolean isHasChildren() {
+            return hasChildren;
+        }
+
+        public void setHasChildren(boolean hasChildren) {
+            this.hasChildren = hasChildren;
+        }
 
         public String getClassifyCode() {
             return classifyCode;
