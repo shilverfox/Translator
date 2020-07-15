@@ -8,15 +8,6 @@ public class BaseDomainData {
     private String resCode;
     private String resMsg;
     private boolean status;
-    private Result body;
-
-    public Result getPayload() {
-        return body;
-    }
-
-    public void setPayload(Result payload) {
-        this.body = payload;
-    }
 
     public String getCode() {
         return resCode;
@@ -40,9 +31,6 @@ public class BaseDomainData {
 
     public void setSuccess(boolean success) {
         this.status = success;
-    }
-
-    public class Result {
     }
 
     public class BasePage {

@@ -165,7 +165,7 @@ public class HttpRequestHandler {
 
         if (!TextUtils.isEmpty(baseUrl)) {
             if (baseBody != null) {
-                builder.url(baseUrl + baseBody.getStringBody());
+                builder.url(baseUrl + "?" + baseBody.getStringBody());
             } else {
                 builder.url(baseUrl);
             }
