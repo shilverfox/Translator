@@ -37,7 +37,7 @@ public class BaseBody {
     }
 
     public void add(String key, Object value) {
-        if (mData != null && !TextUtils.isEmpty(key)) {
+        if (mData != null && !TextUtils.isEmpty(key) && value != null) {
             mData.put(key, value);
         }
     }

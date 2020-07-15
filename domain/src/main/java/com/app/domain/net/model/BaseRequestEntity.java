@@ -8,7 +8,7 @@ package com.app.domain.net.model;
 
 public class BaseRequestEntity {
     private String mUrl;
-    private int mMethod;
+    private int mMethod = RequestConst.REQUEST_GET;
     private String functionId;
     private BaseBody mBaseBody;
     private BaseHeader mBaseHeader;

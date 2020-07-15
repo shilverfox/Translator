@@ -74,7 +74,7 @@ public class BaseDomainData {
             this.message = message;
         }
     }
-
+    
     public class BasePage {
 
         private int size;
