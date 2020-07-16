@@ -1,19 +1,26 @@
 package com.jbsx.view.main.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
 import com.app.domain.net.interactor.MainPageUserCase;
 import com.app.domain.net.model.BaseDomainData;
 import com.app.domain.util.ParseUtil;
+import com.bumptech.glide.Glide;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
+import com.jbsx.customview.gallery.CoverFlowLayoutManger;
+import com.jbsx.customview.gallery.RecyclerCoverFlow;
 import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ReloadBarHelper;
@@ -25,6 +32,7 @@ import com.jbsx.view.main.entity.SpecialAlbumData;
 public class GalleryFragment extends BaseFragment {
     private View mRootView;
     private ViewGroup mContainerView;
+    private RecyclerCoverFlow mList;
 
     private String mClassifyCode;
     private MainPageUserCase mUserCase;
@@ -120,6 +128,18 @@ public class GalleryFragment extends BaseFragment {
 
     private void initViews() {
         mContainerView = mRootView.findViewById(R.id.view_gallery_root);
+        mList = mRootView.findViewById(R.id.tv_gallery_info);
+//        mList.setFlatFlow(true); //平面滚动
+        mList.setGreyItem(true); //设置灰度渐变
+//        mList.setAlphaItem(true); //设置半透渐变
+        mList.setLoop(); //循环滚动，注：循环滚动模式暂不支持平滑滚动
+        mList.setAdapter(new Adapter(mContext));
+        mList.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
+            @Override
+            public void onItemSelected(int position) {
+                ((TextView)mRootView.findViewById(R.id.tv_gallery_indicator)).setText((position+1)+"/"+mList.getLayoutManager().getItemCount());
+            }
+        });
     }
 
     private void initEvents() {
@@ -131,6 +151,53 @@ public class GalleryFragment extends BaseFragment {
         super.onHiddenChanged(hidden);
         if (!hidden) {
             loadData();
+        }
+    }
+
+    public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+
+        private Context mContext;
+        private int[] mColors = {R.mipmap.item1,R.mipmap.item2,R.mipmap.item3,R.mipmap.item4,
+                R.mipmap.item5,R.mipmap.item6};
+
+        public Adapter(Context c) {
+            mContext = c;
+        }
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(mContext).inflate(R.layout.gallery_layout_item, parent, false);
+            return new ViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(final ViewHolder holder, final int position) {
+            Glide.with(mContext).load(mColors[position]).into(holder.img);
+//        Glide.with(mContext).load(mColors[position]).asBitmap().into(new SimpleTarget<Bitmap>() {
+//            @Override
+//            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+//                holder.img.setImageBitmap(BitmapUtil.createReflectedBitmap(resource));
+//            }
+//        });
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                Toast.makeText(mContext, "点击了："+position, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return mColors.length;
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder {
+            ImageView img;
+            public ViewHolder(View itemView) {
+                super(itemView);
+                img = itemView.findViewById(R.id.img);
+            }
         }
     }
 }

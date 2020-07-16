@@ -207,15 +207,17 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
 //        }
 
         // 不支持滑动切换
-//        mTabLayout.setTabData(mTabEntities, this, R.id.fl_container, mFragmentList);
-//        mTabLayout.setCurrentTab(0);
+        mTabLayout.setTabData(mTabEntities, this, R.id.fl_container, mFragmentList);
+        mTabLayout.setCurrentTab(0);
+        mViewPager.setVisibility(View.GONE);
+        findViewById(R.id.fl_container).setVisibility(View.VISIBLE);
 
 
         // 滑动切换
-        mTabLayout.setTabData(mTabEntities);
-        mViewPager.setOffscreenPageLimit(5);
-        mViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
-        mViewPager.setCurrentItem(0);
+//        mTabLayout.setTabData(mTabEntities);
+//        mViewPager.setOffscreenPageLimit(5);
+//        mViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+//        mViewPager.setCurrentItem(0);
     }
 
     private void registEvents() {
