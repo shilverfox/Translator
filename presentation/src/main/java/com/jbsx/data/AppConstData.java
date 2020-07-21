@@ -64,4 +64,20 @@ public class AppConstData {
 
     /** 发布状态 发布 */
     public final static int STATUS_PUBLISH_PUBLIC = 1;
+
+
+    /** 页面类型 首页 */
+    public final static String PAGE_TYPE_MAIN = "main";
+
+    /** 页面类型 专辑一级页面 */
+    public final static String PAGE_TYPE_ALBUM_1 = "album_1";
+
+    /** 页面类型 专辑二级页面 */
+    public final static String PAGE_TYPE_ALBUM_2 = "album_2";
+
+    /** 页面类型 视频一级页面 */
+    public final static String PAGE_TYPE_VIDEO_1 = "video_1";
+
+    /** 页面类型 专辑二级页面 */
+    public final static String PAGE_TYPE_VIDEO_2 = "video_2";
 }

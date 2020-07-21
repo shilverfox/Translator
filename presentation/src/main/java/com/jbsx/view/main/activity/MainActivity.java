@@ -197,7 +197,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
 
                 String tabType = Integer.toString(entity.getClassifyType());
                 mPageMager.addTab(tabType);
-                mPageMager.addPage(tabType, frameLayout);
+                mPageMager.addPage(tabType, mPageMager.getPageTypeByTab(tabType), frameLayout);
             }
         }
 

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 
 import com.jbsx.view.data.PageChangeEvent;
+import com.jbsx.view.main.fragment.GalleryFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ import java.util.Map;
  */
 public class PageManager {
     /** 每个tab对应一个map的数据 */
-    private Map<String, List<Fragment>> mAllPages;
+    private Map<String, Map<String, Fragment>> mAllPages;
 
     private FragmentManager mFragmentManager;
 
@@ -36,7 +37,7 @@ public class PageManager {
      */
     public void addTab(String key) {
         if (!TextUtils.isEmpty(key)) {
-            mAllPages.put(key, new ArrayList<Fragment>());
+            mAllPages.put(key, new HashMap<String, Fragment>());
         }
     }
 
@@ -52,20 +53,20 @@ public class PageManager {
      * @param parentKey
      * @param fragment
      */
-    public void addPage(String parentKey, Fragment fragment) {
+    public void addPage(String parentKey, String pageType, Fragment fragment) {
         if (!TextUtils.isEmpty(parentKey) && fragment != null) {
-            List<Fragment> pageList = mAllPages.get(parentKey);
+            Map<String, Fragment> pageList = mAllPages.get(parentKey);
             if (pageList != null) {
-                pageList.add(fragment);
+                pageList.put(pageType, fragment);
             }
         }
     }
 
-    public void removePage(String parentKey, Fragment fragment) {
+    public void removePage(String parentKey, String pageType, Fragment fragment) {
         if (!TextUtils.isEmpty(parentKey) && fragment != null) {
-            List<Fragment> pageList = mAllPages.get(parentKey);
+            Map<String, Fragment> pageList = mAllPages.get(parentKey);
             if (pageList != null) {
-                pageList.remove(fragment);
+                pageList.remove(pageType);
             }
         }
     }
@@ -77,9 +78,18 @@ public class PageManager {
      */
     public void handlePageChange(PageChangeEvent changeEvent) {
         if (changeEvent != null) {
-            String tabType = changeEvent.mTabType;
-            String requestParam = changeEvent.mRequestParam;
+            dispatchPage(changeEvent.mTabType, changeEvent.mRequestParam, changeEvent.mCurrentPageType);
         }
+    }
+
+    /**
+     * tab容器里
+     *
+     * @param tabType
+     * @return
+     */
+    public String getPageTypeByTab(String tabType) {
+        return "";
     }
 
     /**
@@ -92,16 +102,32 @@ public class PageManager {
         return 0;
     }
 
-    private void getPage(String tabType, String currentPageType) {
-//        FragmentManager manager = getChildFragmentManager();
-//        FragmentTransaction transaction = manager.beginTransaction();
-//        transaction.add(R.id.dddddddd, FeedFragment.newInstance());
-//        transaction.commitAllowingStateLoss();
-
-        if (!TextUtils.isEmpty(tabType)) {
-            List<Fragment> pageList = mAllPages.get(tabType);
+    /**
+     * 调度某个fragment显示
+     *
+     * @param tabType
+     * @param pageType
+     */
+    private void dispatchPage(String tabType, String params, String pageType) {
+        if (!TextUtils.isEmpty(tabType) && !TextUtils.isEmpty(pageType)) {
+            Map<String, Fragment> pageList = mAllPages.get(tabType);
             if (pageList != null) {
+                Fragment page = pageList.get(pageType);
+                if (page == null) {
+                    // 创建一个新的
+                    page = createPage(pageType, params);
+                }
+
+                if (mFragmentManager != null) {
+                    FragmentTransaction transaction = mFragmentManager.beginTransaction();
+                    transaction.add(getPageContainerId(tabType), page);
+                    transaction.commitAllowingStateLoss();
+                }
             }
         }
+    }
+
+    private Fragment createPage(String pageType, String params) {
+        return GalleryFragment.newInstance("");
     }
 }
