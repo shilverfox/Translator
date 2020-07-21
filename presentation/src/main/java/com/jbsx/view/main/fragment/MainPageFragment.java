@@ -28,6 +28,7 @@ import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.utils.Router;
 import com.jbsx.utils.StatisticsReportUtil;
+import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.adapter.CelebrityIconItemAdapter;
 import com.jbsx.view.main.adapter.VideoItemAdapter;
 import com.jbsx.view.main.contact.MainPageContact;
@@ -48,6 +49,8 @@ import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 import com.zhouyou.recyclerview.XRecyclerView;
 import com.zhouyou.recyclerview.refresh.ProgressStyle;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,19 +89,31 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     private int mCurrentPage = 1;
     private boolean mHasNextPage = true;
 
+    /** 所在首页的tab类型 */
+    private String mTabType;
+
     public MainPageFragment() {
         // Required empty public constructor
     }
 
-    public static MainPageFragment newInstance() {
-        return new MainPageFragment();
+    public static MainPageFragment newInstance(String tabType) {
+        Bundle bundle = new Bundle();
+        bundle.putString("tabType", tabType);
+
+        MainPageFragment contentFragment = new MainPageFragment();
+        contentFragment.setArguments(bundle);
+
+        return contentFragment;
     }
 
     @Override
-    public void createPresenter() {
-        MainPageUserCase userCase = new MainPageUserCase(TaskManager.getTaskManager(),
-                MainApplicationLike.getUiThread());
-        mPresenter = new MainPagePresenter(this, userCase);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            mTabType = bundle.getString("tabType");
+        }
     }
 
     @Override
@@ -112,6 +127,13 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         calculateBannerHeight();
 
         return mRootView;
+    }
+
+    @Override
+    public void createPresenter() {
+        MainPageUserCase userCase = new MainPageUserCase(TaskManager.getTaskManager(),
+                MainApplicationLike.getUiThread());
+        mPresenter = new MainPagePresenter(this, userCase);
     }
 
     /**

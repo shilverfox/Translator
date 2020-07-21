@@ -32,16 +32,15 @@ import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.utils.Router;
 import com.jbsx.utils.ShowTools;
+import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.login.callback.ILoginResultListener;
 import com.jbsx.view.login.callback.IOnLoginListener;
 import com.jbsx.view.login.data.LoginResultEvent;
 import com.jbsx.view.login.util.LoginHelper;
+import com.jbsx.view.main.PageManager;
 import com.jbsx.view.main.entity.NavigationData;
 import com.jbsx.view.main.entity.TabEntity;
-import com.jbsx.view.main.fragment.FeedFragment;
-import com.jbsx.view.main.fragment.GalleryFragment;
 import com.jbsx.view.main.fragment.MainPageFragment;
-import com.jbsx.view.main.fragment.VideoFeedFragment;
 import com.jbsx.view.myinfo.activity.MyViewHistoryActivity;
 import com.jbsx.view.search.SearchActivity;
 
@@ -64,6 +63,8 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
 
     private MainViewUserCase mMainPageUserCase;
 
+    private PageManager mPageMager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +80,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     private void init() {
         mMainPageUserCase = new MainViewUserCase(TaskManager.getTaskManager(),
                 MainApplicationLike.getUiThread());
+        mPageMager = new PageManager();
     }
 
     private void loadNavigation() {
@@ -175,14 +177,14 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     private Fragment getFragmentByType(int type) {
         switch (type) {
             case AppConstData.TYPE_NAVI_ALBUM:
-                return MainPageFragment.newInstance();
+                return MainPageFragment.newInstance(type + "");
             case AppConstData.TYPE_NAVI_VIDEO:
-                return MainPageFragment.newInstance();
+                return MainPageFragment.newInstance(type + "");
             case AppConstData.TYPE_NAVI_LOCAL:
-                return MainPageFragment.newInstance();
+                return MainPageFragment.newInstance(type + "");
             case AppConstData.TYPE_NAVI_MAIN:
             default:
-                return GalleryFragment.newInstance(null);
+                return MainPageFragment.newInstance(type + "");
         }
     }
 
@@ -190,7 +192,12 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         for (NavigationData.ClassifyEntity entity : allNavigation) {
             if (entity != null && !TextUtils.isEmpty(entity.getClassifyName())) {
                 mTabEntities.add(new TabEntity(entity.getClassifyName(), 0, 0));
-                mFragmentList.add(getFragmentByType(entity.getClassifyType()));
+                Fragment frameLayout = getFragmentByType(entity.getClassifyType());
+                mFragmentList.add(frameLayout);
+
+                String tabType = Integer.toString(entity.getClassifyType());
+                mPageMager.addTab(tabType);
+                mPageMager.addPage(tabType, frameLayout);
             }
         }
 
@@ -331,6 +338,18 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     private void handleExit() {
         finish();
         System.exit(0);
+    }
+
+    /**
+     * page 切换事件
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(PageChangeEvent event) {
+        if (mPageMager != null) {
+            mPageMager.handlePageChange(event);
+        }
     }
 
     @Override
