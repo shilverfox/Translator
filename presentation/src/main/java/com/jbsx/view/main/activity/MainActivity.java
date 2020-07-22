@@ -28,6 +28,7 @@ import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.TitleBar;
 import com.jbsx.data.AppConstData;
 import com.jbsx.utils.ErroBarHelper;
+import com.jbsx.utils.LogTools;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.utils.Router;
@@ -40,6 +41,7 @@ import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.main.PageManager;
 import com.jbsx.view.main.entity.NavigationData;
 import com.jbsx.view.main.entity.TabEntity;
+import com.jbsx.view.main.fragment.GalleryFragment;
 import com.jbsx.view.main.fragment.MainPageFragment;
 import com.jbsx.view.myinfo.activity.MyViewHistoryActivity;
 import com.jbsx.view.search.SearchActivity;
@@ -174,10 +176,12 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
-    private Fragment getFragmentByType(int type) {
+    private Fragment getFragmentByType(String naviId, int type, String params) {
+        LogTools.e("MainActivity", type + "");
         switch (type) {
             case AppConstData.TYPE_NAVI_ALBUM:
-                return MainPageFragment.newInstance(type + "");
+                return GalleryFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_ALBUM_1,
+                        params);
             case AppConstData.TYPE_NAVI_VIDEO:
                 return MainPageFragment.newInstance(type + "");
             case AppConstData.TYPE_NAVI_LOCAL:
@@ -188,16 +192,39 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         }
     }
 
+    private String getPageTypeByTab(String tabType) {
+        int type = AppConstData.TYPE_NAVI_MAIN;
+        try {
+            type = Integer.parseInt(tabType);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        switch (type) {
+            case AppConstData.TYPE_NAVI_ALBUM:
+                return AppConstData.PAGE_TYPE_ALBUM_1;
+            case AppConstData.TYPE_NAVI_VIDEO:
+                return AppConstData.PAGE_TYPE_VIDEO_1;
+            case AppConstData.TYPE_NAVI_LOCAL:
+                return AppConstData.PAGE_TYPE_LOCAL_1;
+            default:
+                return AppConstData.PAGE_TYPE_MAIN;
+        }
+    }
+
     private void initMainTab(List<NavigationData.ClassifyEntity> allNavigation) {
         for (NavigationData.ClassifyEntity entity : allNavigation) {
             if (entity != null && !TextUtils.isEmpty(entity.getClassifyName())) {
                 mTabEntities.add(new TabEntity(entity.getClassifyName(), 0, 0));
-                Fragment frameLayout = getFragmentByType(entity.getClassifyType());
+
+                String navId = entity.getClassifyName();
+                Fragment frameLayout = getFragmentByType(navId, entity.getClassifyType(),
+                        entity.getClassifyCode());
                 mFragmentList.add(frameLayout);
 
                 String tabType = Integer.toString(entity.getClassifyType());
-                mPageMager.addTab(tabType);
-                mPageMager.addPage(tabType, mPageMager.getPageTypeByTab(tabType), frameLayout);
+                mPageMager.addTab(navId);
+                mPageMager.addPage(navId, getPageTypeByTab(tabType), frameLayout);
             }
         }
 

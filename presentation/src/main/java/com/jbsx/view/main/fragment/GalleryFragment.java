@@ -21,6 +21,7 @@ import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.gallery.CoverFlowLayoutManger;
 import com.jbsx.customview.gallery.RecyclerCoverFlow;
+import com.jbsx.data.AppConstData;
 import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ReloadBarHelper;
@@ -34,16 +35,24 @@ public class GalleryFragment extends BaseFragment {
     private ViewGroup mContainerView;
     private RecyclerCoverFlow mList;
 
-    private String mClassifyCode;
+    private String mRequestParams;
+    private String mNaviType;
+    private String mPageType;
+    private String mNaviId;
+
     private MainPageUserCase mUserCase;
 
     public GalleryFragment() {
         // Required empty public constructor
     }
 
-    public static GalleryFragment newInstance(String classifyCode) {
+    public static GalleryFragment newInstance(String naviId, String naviType, String pageType,
+                                              String requestParams) {
         Bundle bundle = new Bundle();
-        bundle.putString("classifyCode", classifyCode);
+        bundle.putString(AppConstData.INTENT_KEY_NAVI_ID, naviId);
+        bundle.putString(AppConstData.INTENT_KEY_NAVI_TYPE, naviType);
+        bundle.putString(AppConstData.INTENT_KEY_PAGE_TYPE, pageType);
+        bundle.putString(AppConstData.INTENT_KEY_REQUEST_PARAMS, requestParams);
 
         GalleryFragment contentFragment = new GalleryFragment();
         contentFragment.setArguments(bundle);
@@ -57,7 +66,10 @@ public class GalleryFragment extends BaseFragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            mClassifyCode = bundle.getString("classifyCode");
+            mNaviId = bundle.getString(AppConstData.INTENT_KEY_NAVI_ID);
+            mNaviType = bundle.getString(AppConstData.INTENT_KEY_NAVI_TYPE);
+            mPageType = bundle.getString(AppConstData.INTENT_KEY_PAGE_TYPE);
+            mRequestParams = bundle.getString(AppConstData.INTENT_KEY_REQUEST_PARAMS);
         }
     }
 
@@ -78,7 +90,7 @@ public class GalleryFragment extends BaseFragment {
     }
 
     private void loadData() {
-        mUserCase.requestGalleryInfo(mClassifyCode, new BaseRequestCallback() {
+        mUserCase.requestGalleryInfo(mRequestParams, new BaseRequestCallback() {
             @Override
             public void onRequestFailed(BaseDomainData data) {
                 handleLoadFailed(data);

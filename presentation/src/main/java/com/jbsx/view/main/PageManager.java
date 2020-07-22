@@ -5,12 +5,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 
+import com.jbsx.utils.LogTools;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.fragment.GalleryFragment;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -60,6 +59,9 @@ public class PageManager {
                 pageList.put(pageType, fragment);
             }
         }
+
+
+        LogTools.e("MainActivity", mAllPages.toString());
     }
 
     public void removePage(String parentKey, String pageType, Fragment fragment) {
@@ -78,7 +80,7 @@ public class PageManager {
      */
     public void handlePageChange(PageChangeEvent changeEvent) {
         if (changeEvent != null) {
-            dispatchPage(changeEvent.mTabType, changeEvent.mRequestParam, changeEvent.mCurrentPageType);
+            dispatchPage(changeEvent);
         }
     }
 
@@ -104,18 +106,18 @@ public class PageManager {
 
     /**
      * 调度某个fragment显示
-     *
-     * @param tabType
-     * @param pageType
      */
-    private void dispatchPage(String tabType, String params, String pageType) {
+    private void dispatchPage(PageChangeEvent pageChangeData) {
+        String tabType = pageChangeData.mTabType;
+        String pageType = pageChangeData.mCurrentPageType;
+
         if (!TextUtils.isEmpty(tabType) && !TextUtils.isEmpty(pageType)) {
             Map<String, Fragment> pageList = mAllPages.get(tabType);
             if (pageList != null) {
                 Fragment page = pageList.get(pageType);
                 if (page == null) {
                     // 创建一个新的
-                    page = createPage(pageType, params);
+                    page = createPage(pageChangeData);
                 }
 
                 if (mFragmentManager != null) {
@@ -127,7 +129,8 @@ public class PageManager {
         }
     }
 
-    private Fragment createPage(String pageType, String params) {
-        return GalleryFragment.newInstance("");
+    private Fragment createPage(PageChangeEvent pageChangeData) {
+        return GalleryFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
+                pageChangeData.mCurrentPageType, pageChangeData.mRequestParam);
     }
 }

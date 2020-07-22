@@ -1,6 +1,7 @@
 package com.jbsx.view.data;
 
 public class PageChangeEvent {
+    public String mNaviId;
     public String mTabType;
     public String mRequestParam;
 
@@ -12,7 +13,8 @@ public class PageChangeEvent {
         mRequestParam = requestParam;
     }
 
-    public PageChangeEvent(String tabType, String curType, String requestParam) {
+    public PageChangeEvent(String naviId, String tabType, String curType, String requestParam) {
+        mNaviId = naviId;
         mTabType = tabType;
         mCurrentPageType = curType;
         mRequestParam = requestParam;

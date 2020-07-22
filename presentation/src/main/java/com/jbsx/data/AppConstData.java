@@ -80,4 +80,20 @@ public class AppConstData {
 
     /** 页面类型 专辑二级页面 */
     public final static String PAGE_TYPE_VIDEO_2 = "video_2";
+
+    /** 页面类型 本地页面 */
+    public final static String PAGE_TYPE_LOCAL_1 = "local_1";
+
+
+    /** intent key  */
+    public final static String INTENT_KEY_NAVI_ID = "bundle_navi_id";
+
+    /** intent key  */
+    public final static String INTENT_KEY_NAVI_TYPE = "bundle_navi_type";
+
+    /** intent key: 请求参数 */
+    public final static String INTENT_KEY_REQUEST_PARAMS = "bundle_req_params";
+
+    /**  */
+    public final static String INTENT_KEY_PAGE_TYPE = "bundle_page_type";
 }
