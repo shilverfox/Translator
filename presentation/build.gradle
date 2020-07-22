@@ -101,6 +101,15 @@ android {
         targetCompatibility javaVersion
     }
 
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'armeabi-v7a','x86_64'
+            universalApk true
+        }
+    }
+
     // =============== For Tinker ==========================
     dexOptions {
         jumboMode = true
