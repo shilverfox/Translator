@@ -21,6 +21,7 @@ import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.recyclerview.LoadingFooter;
+import com.jbsx.data.AppConstData;
 import com.jbsx.player.util.PlayerHelper;
 import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.LogTools;
@@ -89,16 +90,22 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     private int mCurrentPage = 1;
     private boolean mHasNextPage = true;
 
-    /** 所在首页的tab类型 */
-    private String mTabType;
+    private String mRequestParams;
+    private String mNaviType;
+    private String mPageType;
+    private String mNaviId;
 
     public MainPageFragment() {
         // Required empty public constructor
     }
 
-    public static MainPageFragment newInstance(String tabType) {
+    public static MainPageFragment newInstance(String naviId, String naviType, String pageType,
+                                               String requestParams) {
         Bundle bundle = new Bundle();
-        bundle.putString("tabType", tabType);
+        bundle.putString(AppConstData.INTENT_KEY_NAVI_ID, naviId);
+        bundle.putString(AppConstData.INTENT_KEY_NAVI_TYPE, naviType);
+        bundle.putString(AppConstData.INTENT_KEY_PAGE_TYPE, pageType);
+        bundle.putString(AppConstData.INTENT_KEY_REQUEST_PARAMS, requestParams);
 
         MainPageFragment contentFragment = new MainPageFragment();
         contentFragment.setArguments(bundle);
@@ -112,7 +119,10 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            mTabType = bundle.getString("tabType");
+            mNaviId = bundle.getString(AppConstData.INTENT_KEY_NAVI_ID);
+            mNaviType = bundle.getString(AppConstData.INTENT_KEY_NAVI_TYPE);
+            mPageType = bundle.getString(AppConstData.INTENT_KEY_PAGE_TYPE);
+            mRequestParams = bundle.getString(AppConstData.INTENT_KEY_REQUEST_PARAMS);
         }
     }
 
@@ -265,17 +275,19 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
      * @param position
      */
     private void handleCelebritySelect(int position) {
-        if (mListCelebrity != null && mListCelebrity.size() > 0
-                && position >= 0 && position < mListCelebrity.size()) {
-            MainPageData.HomeRecommendEntity celebrity = mListCelebrity.get(position);
+//        if (mListCelebrity != null && mListCelebrity.size() > 0
+//                && position >= 0 && position < mListCelebrity.size()) {
+//            MainPageData.HomeRecommendEntity celebrity = mListCelebrity.get(position);
+//
+//            if (celebrity != null) {
+//                // 首页进入的搜索结果默认切刀第二个tab——主讲人，不保存搜索历史
+//                SearchHelper searchHelper = new SearchHelper();
+//                searchHelper.doSearch(celebrity.getResourceName(), 1, false);
+//                Router.getInstance().open(SearchResultActivity.class, getActivity());
+//            }
+//        }
 
-            if (celebrity != null) {
-                // 首页进入的搜索结果默认切刀第二个tab——主讲人，不保存搜索历史
-                SearchHelper searchHelper = new SearchHelper();
-                searchHelper.doSearch(celebrity.getResourceName(), 1, false);
-                Router.getInstance().open(SearchResultActivity.class, getActivity());
-            }
-        }
+        EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType, mRequestParams));
     }
 
     /**

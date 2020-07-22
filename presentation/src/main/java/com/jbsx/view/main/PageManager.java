@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 
+import com.jbsx.R;
+import com.jbsx.data.AppConstData;
 import com.jbsx.utils.LogTools;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.fragment.GalleryFragment;
@@ -101,22 +103,32 @@ public class PageManager {
      * @return
      */
     private int getPageContainerId(String tabType) {
-        return 0;
+        return R.id.fl_container;
+    }
+
+    private String getNextPage(String currentPage) {
+        if (AppConstData.PAGE_TYPE_MAIN.equals(currentPage)) {
+            return AppConstData.PAGE_TYPE_VIDEO_1;
+        }
+
+        return "";
     }
 
     /**
      * 调度某个fragment显示
      */
     private void dispatchPage(PageChangeEvent pageChangeData) {
+        String naviId = pageChangeData.mNaviId;
         String tabType = pageChangeData.mTabType;
-        String pageType = pageChangeData.mCurrentPageType;
+        String pageType = getNextPage(pageChangeData.mCurrentPageType);
 
-        if (!TextUtils.isEmpty(tabType) && !TextUtils.isEmpty(pageType)) {
-            Map<String, Fragment> pageList = mAllPages.get(tabType);
+        if (!TextUtils.isEmpty(naviId) && !TextUtils.isEmpty(pageType)) {
+            Map<String, Fragment> pageList = mAllPages.get(naviId);
             if (pageList != null) {
                 Fragment page = pageList.get(pageType);
                 if (page == null) {
                     // 创建一个新的
+                    pageChangeData.mCurrentPageType = pageType;
                     page = createPage(pageChangeData);
                 }
 

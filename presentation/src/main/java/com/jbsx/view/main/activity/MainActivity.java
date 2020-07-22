@@ -43,6 +43,7 @@ import com.jbsx.view.main.entity.NavigationData;
 import com.jbsx.view.main.entity.TabEntity;
 import com.jbsx.view.main.fragment.GalleryFragment;
 import com.jbsx.view.main.fragment.MainPageFragment;
+import com.jbsx.view.main.util.PageUtils;
 import com.jbsx.view.myinfo.activity.MyViewHistoryActivity;
 import com.jbsx.view.search.SearchActivity;
 
@@ -83,6 +84,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         mMainPageUserCase = new MainViewUserCase(TaskManager.getTaskManager(),
                 MainApplicationLike.getUiThread());
         mPageMager = new PageManager();
+        mPageMager.setFragmentManager(getSupportFragmentManager());
     }
 
     private void loadNavigation() {
@@ -183,22 +185,17 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
                 return GalleryFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_ALBUM_1,
                         params);
             case AppConstData.TYPE_NAVI_VIDEO:
-                return MainPageFragment.newInstance(type + "");
+                return MainPageFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_MAIN, params);
             case AppConstData.TYPE_NAVI_LOCAL:
-                return MainPageFragment.newInstance(type + "");
+                return MainPageFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_MAIN, params);
             case AppConstData.TYPE_NAVI_MAIN:
             default:
-                return MainPageFragment.newInstance(type + "");
+                return MainPageFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_MAIN, params);
         }
     }
 
     private String getPageTypeByTab(String tabType) {
-        int type = AppConstData.TYPE_NAVI_MAIN;
-        try {
-            type = Integer.parseInt(tabType);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
+        int type = PageUtils.parseTabType(tabType);
 
         switch (type) {
             case AppConstData.TYPE_NAVI_ALBUM:
