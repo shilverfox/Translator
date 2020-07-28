@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,20 +17,14 @@ import com.jbsx.R;
 import com.jbsx.customview.listFragment.CommonListFragment;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
+import com.jbsx.data.AppConstData;
 import com.jbsx.player.util.PlayerHelper;
-import com.jbsx.player.util.SingleVideoUtil;
-import com.jbsx.utils.DateUtil;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.main.entity.RepertoryData;
 import com.jbsx.view.main.entity.Single;
 import com.jbsx.view.main.entity.SpecialSingles;
 import com.jbsx.view.main.entity.UserSingle;
-import com.jbsx.view.myinfo.fragment.MyViewHistoryFragment;
-import com.jbsx.view.myinfo.util.SortListUtil;
-import com.jbsx.view.myinfo.view.video.MyInfoVideoViewHolder;
-import com.jbsx.view.search.entity.SearchEvent;
-import com.jbsx.view.search.view.SearchResultAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,23 +38,40 @@ public class VideoFeedFragment extends CommonListFragment {
     private VideoFeedAdapter mAdapter;
     private RepertoryData mRepertoryData;
 
+    private String mRequestParams;
+    private String mNaviType;
+    private String mPageType;
+    private String mNaviId;
+
+    public VideoFeedFragment() {
+        // Required empty public constructor
+    }
+
+    public static VideoFeedFragment newInstance(String naviId, String naviType, String pageType,
+                                              String requestParams) {
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstData.INTENT_KEY_NAVI_ID, naviId);
+        bundle.putString(AppConstData.INTENT_KEY_NAVI_TYPE, naviType);
+        bundle.putString(AppConstData.INTENT_KEY_PAGE_TYPE, pageType);
+        bundle.putString(AppConstData.INTENT_KEY_REQUEST_PARAMS, requestParams);
+
+        VideoFeedFragment contentFragment = new VideoFeedFragment();
+        contentFragment.setArguments(bundle);
+
+        return contentFragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Bundle bundle = getArguments();
         if (bundle != null) {
+            mNaviId = bundle.getString(AppConstData.INTENT_KEY_NAVI_ID);
+            mNaviType = bundle.getString(AppConstData.INTENT_KEY_NAVI_TYPE);
+            mPageType = bundle.getString(AppConstData.INTENT_KEY_PAGE_TYPE);
+            mRequestParams = bundle.getString(AppConstData.INTENT_KEY_REQUEST_PARAMS);
         }
-    }
-
-    public static VideoFeedFragment newInstance(SearchEvent argument) {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(ARGUMENT, argument);
-
-        VideoFeedFragment contentFragment = new VideoFeedFragment();
-        contentFragment.setArguments(bundle);
-
-        return contentFragment;
     }
 
     /**
@@ -79,9 +89,7 @@ public class VideoFeedFragment extends CommonListFragment {
 
     @Override
     public BaseRequestEntity getRequestEntity(int pageIndex) {
-        BaseRequestEntity entity = HttpRequestPool.getMyVideoHistoryEntity(LoginHelper.getInstance().getUserToken(), pageIndex);
-        entity.setFunctionId("");
-
+        BaseRequestEntity entity = HttpRequestPool.getVideoFeedEntity("00000011", pageIndex);
         return entity;
     }
 
@@ -95,8 +103,9 @@ public class VideoFeedFragment extends CommonListFragment {
         Gson gson = new Gson();
         mRepertoryData = gson.fromJson(result, RepertoryData.class);
 
-        if (mRepertoryData != null && mRepertoryData.getPayload() != null) {
-            return mRepertoryData.getPayload().getSpecialSingles();
+        if (mRepertoryData != null && mRepertoryData.getBody() != null
+                && mRepertoryData.getBody().getList() != null) {
+            return mRepertoryData.getBody().getList();
         }
 
         return new ArrayList<SpecialSingles>();
@@ -114,7 +123,7 @@ public class VideoFeedFragment extends CommonListFragment {
 
     @Override
     public RecyclerView.LayoutManager getLayoutManager() {
-        return new GridLayoutManager(mContext, 2);
+        return new GridLayoutManager(mContext, 4);
     }
 
     public class VideoFeedAdapter extends CommonListFragmentAdapter {

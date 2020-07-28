@@ -1,12 +1,10 @@
 package com.jbsx.view.main.entity;
 
-import java.util.List;
-
-public class GalleryData {
+public class VideoDetailData {
     private boolean status;
     private int code;
     private String msg;
-    private List<NavigationData.ClassifyEntity> body;
+    private RepertoryData.FeedItem body;
 
     public boolean isStatus() {
         return status;
@@ -32,11 +30,11 @@ public class GalleryData {
         this.msg = msg;
     }
 
-    public List<NavigationData.ClassifyEntity> getBody() {
+    public RepertoryData.FeedItem getBody() {
         return body;
     }
 
-    public void setBody(List<NavigationData.ClassifyEntity> body) {
+    public void setBody(RepertoryData.FeedItem body) {
         this.body = body;
     }
 }

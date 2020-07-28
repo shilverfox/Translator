@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
@@ -25,7 +26,11 @@ import com.jbsx.data.AppConstData;
 import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ReloadBarHelper;
+import com.jbsx.view.main.entity.GalleryData;
+import com.jbsx.view.main.entity.NavigationData;
 import com.jbsx.view.main.entity.SpecialAlbumData;
+
+import java.util.List;
 
 /**
  * 画廊样式
@@ -41,6 +46,8 @@ public class GalleryFragment extends BaseFragment {
     private String mNaviId;
 
     private MainPageUserCase mUserCase;
+    private List<NavigationData.ClassifyEntity> mGalleryData;
+    private Adapter mAdapter;
 
     public GalleryFragment() {
         // Required empty public constructor
@@ -109,8 +116,9 @@ public class GalleryFragment extends BaseFragment {
     }
 
     private void handleLoadSuccessful(String data) {
-        SpecialAlbumData parseData = ParseUtil.parseData(data, SpecialAlbumData.class);
-//        drawSpecialAlbumInfo(parseData);
+        GalleryData parseData = ParseUtil.parseData(data, GalleryData.class);
+        mGalleryData = parseData.getBody();
+        mAdapter.notifyDataSetChanged();
     }
 
     private void handleLoadFailed(BaseDomainData data) {
@@ -144,8 +152,9 @@ public class GalleryFragment extends BaseFragment {
 //        mList.setFlatFlow(true); //平面滚动
         mList.setGreyItem(true); //设置灰度渐变
 //        mList.setAlphaItem(true); //设置半透渐变
-        mList.setLoop(); //循环滚动，注：循环滚动模式暂不支持平滑滚动
-        mList.setAdapter(new Adapter(mContext));
+//        mList.setLoop(); //循环滚动，注：循环滚动模式暂不支持平滑滚动
+        mAdapter = new Adapter(mContext);
+        mList.setAdapter(mAdapter);
         mList.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
@@ -169,8 +178,8 @@ public class GalleryFragment extends BaseFragment {
     public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         private Context mContext;
-        private int[] mColors = {R.mipmap.item1,R.mipmap.item2,R.mipmap.item3,R.mipmap.item4,
-                R.mipmap.item5,R.mipmap.item6};
+//        private int[] mColors = {R.mipmap.item1,R.mipmap.item2,R.mipmap.item3,R.mipmap.item4,
+//                R.mipmap.item5,R.mipmap.item6};
 
         public Adapter(Context c) {
             mContext = c;
@@ -184,7 +193,13 @@ public class GalleryFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, final int position) {
-            Glide.with(mContext).load(mColors[position]).into(holder.img);
+            if (mGalleryData == null || mGalleryData.isEmpty()) {
+                return;
+            }
+
+            NavigationData.ClassifyEntity entity = mGalleryData.get(position);
+            holder.mTvLabel.setText(entity.getClassifyName());
+            Glide.with(mContext).load(entity.getClassifyPreview()).into(holder.img);
 //        Glide.with(mContext).load(mColors[position]).asBitmap().into(new SimpleTarget<Bitmap>() {
 //            @Override
 //            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
@@ -194,21 +209,23 @@ public class GalleryFragment extends BaseFragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                Toast.makeText(mContext, "点击了："+position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "点击了："+position, Toast.LENGTH_SHORT).show();
                 }
             });
         }
 
         @Override
         public int getItemCount() {
-            return mColors.length;
+            return mGalleryData == null ? 0 : mGalleryData.size();
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
             ImageView img;
+            TextView mTvLabel;
             public ViewHolder(View itemView) {
                 super(itemView);
                 img = itemView.findViewById(R.id.img);
+                mTvLabel = itemView.findViewById(R.id.tv_gallery_label);
             }
         }
     }

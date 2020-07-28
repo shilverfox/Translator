@@ -101,9 +101,9 @@ public class SearchResultView extends CommonListFragment {
         Gson gson = new Gson();
         mRepertoryData = gson.fromJson(result, RepertoryData.class);
 
-        if (mRepertoryData != null && mRepertoryData.getPayload() != null) {
-            return mRepertoryData.getPayload().getSpecialSingles();
-        }
+//        if (mRepertoryData != null && mRepertoryData.getPayload() != null) {
+//            return mRepertoryData.getPayload().getSpecialSingles();
+//        }
 
         return new ArrayList<SpecialSingles>();
     }

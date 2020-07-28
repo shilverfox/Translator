@@ -15,6 +15,7 @@
             android:scaleType="centerCrop"/>
 
         <TextView
+            android:id="@+id/tv_gallery_label"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="aljdflja"

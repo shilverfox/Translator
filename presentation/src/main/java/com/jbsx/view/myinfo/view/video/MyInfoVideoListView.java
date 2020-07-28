@@ -84,7 +84,7 @@ public class MyInfoVideoListView extends CommonListFragment {
 
     @Override
     public BaseRequestEntity getRequestEntity(int pageIndex) {
-        BaseRequestEntity entity = HttpRequestPool.getMyVideoHistoryEntity(LoginHelper.getInstance().getUserToken(), pageIndex);
+        BaseRequestEntity entity = HttpRequestPool.getVideoFeedEntity(LoginHelper.getInstance().getUserToken(), pageIndex);
         entity.setFunctionId(mFunctionId);
 
         return entity;

@@ -32,7 +32,8 @@
         <activity
             android:name=".view.main.activity.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:hardwareAccelerated="true"/>
         <activity
             android:name=".view.web.WebActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

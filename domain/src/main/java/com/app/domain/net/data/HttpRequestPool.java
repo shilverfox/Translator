@@ -419,6 +419,24 @@ public class HttpRequestPool {
     }
 
     /**
+     * 获取视频详情
+     */
+    public static BaseRequestEntity getVideoDetailEntity(String classifyCode) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+
+        baseRequest.setFunctionId("/app/videoDetail");
+        baseRequest.setMethod(RequestConst.REQUEST_GET);
+        BaseBody body = new BaseBody();
+        body.add("videoCode", classifyCode);
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, "");
+
+        return baseRequest;
+    }
+
+    /**
      * 获取首页的名家列表
      *
      * @return
@@ -508,11 +526,10 @@ public class HttpRequestPool {
      * @param page
      * @return
      */
-    public static BaseRequestEntity getMyVideoHistoryEntity(String classifyCode, int page) {
+    public static BaseRequestEntity getVideoFeedEntity(String classifyCode, int page) {
         BaseRequestEntity baseRequest = new BaseRequestEntity();
         baseRequest.setUrl(ConstData.HOST);
         baseRequest.setFunctionId("/app/video");
-        baseRequest.setMethod(RequestConst.REQUEST_POST);
 
         BaseBody body = new BaseBody();
         body.add("classifyCode", classifyCode);

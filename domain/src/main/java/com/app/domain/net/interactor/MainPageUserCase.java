@@ -65,4 +65,15 @@ public class MainPageUserCase extends UserCase {
         BaseRequestEntity entity = HttpRequestPool.getMainPageGalleryEntity(code);
         handleSendRequest(entity, callback);
     }
+
+    /**
+     * 获取视频详情
+     *
+     * @param code
+     * @param callback
+     */
+    public void requestVideoDetailInfo(String code, BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getVideoDetailEntity(code);
+        handleSendRequest(entity, callback);
+    }
 }

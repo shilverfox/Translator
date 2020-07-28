@@ -1,18 +1,12 @@
 package com.jbsx.view.main.entity;
 
-import com.app.domain.net.model.BaseDomainData;
-
 import java.util.List;
 
-/**
- * 片库列表项
- * 首页片库
- */
 public class RepertoryData {
     private boolean status;
     private int code;
     private String msg;
-    private Payload payload;
+    private Result body;
 
     public boolean isStatus() {
         return status;
@@ -38,126 +32,164 @@ public class RepertoryData {
         this.msg = msg;
     }
 
-    public Payload getPayload() {
-        return payload;
+    public Result getBody() {
+        return body;
     }
 
-    public void setPayload(Payload payload) {
-        this.payload = payload;
+    public void setBody(Result body) {
+        this.body = body;
     }
 
+    public class Result {
+        private List<FeedItem> list;
+        private int pageNum;
+        private int pageSize;
+        private int total;
 
-    public class Payload {
-        private List<SpecialSingles> specialSingles;
-        private int totalPages;
-        private int totalElements;
-        private List<Param> param;
-
-        public List<SpecialSingles> getSpecialSingles() {
-            return specialSingles;
+        public List<FeedItem> getList() {
+            return list;
         }
 
-        public void setSpecialSingles(List<SpecialSingles> specialSingles) {
-            this.specialSingles = specialSingles;
+        public void setList(List<FeedItem> list) {
+            this.list = list;
         }
 
-        public int getTotalPages() {
-            return totalPages;
+        public int getPageNum() {
+            return pageNum;
         }
 
-        public void setTotalPages(int totalPages) {
-            this.totalPages = totalPages;
+        public void setPageNum(int pageNum) {
+            this.pageNum = pageNum;
         }
 
-        public int getTotalElements() {
-            return totalElements;
+        public int getPageSize() {
+            return pageSize;
         }
 
-        public void setTotalElements(int totalElements) {
-            this.totalElements = totalElements;
+        public void setPageSize(int pageSize) {
+            this.pageSize = pageSize;
         }
 
-        public List<Param> getParam() {
-            return param;
+        public int getTotal() {
+            return total;
         }
 
-        public void setParam(List<Param> param) {
-            this.param = param;
+        public void setTotal(int total) {
+            this.total = total;
         }
     }
 
-    public class Param {
-        private List<String> celebrityIds;
-        private String where;
-        private String specialCode;
-        private int type;
-        private String initial;
-        private int sort;
-        private BaseDomainData.BasePage basePage;
-        private BaseDomainData.Parameter parameter;
+    public class FeedItem {
+        private String classifyName;
+        private String videoCode;
+        private String videoFilePath;
+        private String videoName;
+        private String videoPreview;
+        private MetaData metadata;
 
-        public List<String> getCelebrityIds() {
-            return celebrityIds;
+        public String getClassifyName() {
+            return classifyName;
         }
 
-        public void setCelebrityIds(List<String> celebrityIds) {
-            this.celebrityIds = celebrityIds;
+        public void setClassifyName(String classifyName) {
+            this.classifyName = classifyName;
         }
 
-        public String getWhere() {
-            return where;
+        public String getVideoCode() {
+            return videoCode;
         }
 
-        public void setWhere(String where) {
-            this.where = where;
+        public void setVideoCode(String videoCode) {
+            this.videoCode = videoCode;
         }
 
-        public String getSpecialCode() {
-            return specialCode;
+        public String getVideoFilePath() {
+            return videoFilePath;
         }
 
-        public void setSpecialCode(String specialCode) {
-            this.specialCode = specialCode;
+        public void setVideoFilePath(String videoFilePath) {
+            this.videoFilePath = videoFilePath;
         }
 
-        public int getType() {
-            return type;
+        public String getVideoName() {
+            return videoName;
         }
 
-        public void setType(int type) {
-            this.type = type;
+        public void setVideoName(String videoName) {
+            this.videoName = videoName;
         }
 
-        public String getInitial() {
-            return initial;
+        public String getVideoPreview() {
+            return videoPreview;
         }
 
-        public void setInitial(String initial) {
-            this.initial = initial;
+        public void setVideoPreview(String videoPreview) {
+            this.videoPreview = videoPreview;
         }
 
-        public int getSort() {
-            return sort;
+        public MetaData getMetadata() {
+            return metadata;
         }
 
-        public void setSort(int sort) {
-            this.sort = sort;
+        public void setMetadata(MetaData metadata) {
+            this.metadata = metadata;
+        }
+    }
+
+    public class MetaData {
+        private String actor;
+        private String albumType;
+        private String director;
+        private String intro;
+        private String playDate;
+        private String videoTime;
+
+        public String getActor() {
+            return actor;
         }
 
-        public BaseDomainData.BasePage getBasePage() {
-            return basePage;
+        public void setActor(String actor) {
+            this.actor = actor;
         }
 
-        public void setBasePage(BaseDomainData.BasePage basePage) {
-            this.basePage = basePage;
+        public String getAlbumType() {
+            return albumType;
         }
 
-        public BaseDomainData.Parameter getParameter() {
-            return parameter;
+        public void setAlbumType(String albumType) {
+            this.albumType = albumType;
         }
 
-        public void setParameter(BaseDomainData.Parameter parameter) {
-            this.parameter = parameter;
+        public String getDirector() {
+            return director;
+        }
+
+        public void setDirector(String director) {
+            this.director = director;
+        }
+
+        public String getIntro() {
+            return intro;
+        }
+
+        public void setIntro(String intro) {
+            this.intro = intro;
+        }
+
+        public String getPlayDate() {
+            return playDate;
+        }
+
+        public void setPlayDate(String playDate) {
+            this.playDate = playDate;
+        }
+
+        public String getVideoTime() {
+            return videoTime;
+        }
+
+        public void setVideoTime(String videoTime) {
+            this.videoTime = videoTime;
         }
     }
 }
