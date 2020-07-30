@@ -419,6 +419,23 @@ public class HttpRequestPool {
     }
 
     /**
+     * 获取专辑详情
+     */
+    public static BaseRequestEntity getAlbumDetailEntity(String classifyCode) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+
+        baseRequest.setFunctionId("/app/albumDetail");
+        BaseBody body = new BaseBody();
+        body.add("albumCode", classifyCode);
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, "");
+
+        return baseRequest;
+    }
+
+    /**
      * 获取视频详情
      */
     public static BaseRequestEntity getVideoDetailEntity(String classifyCode) {

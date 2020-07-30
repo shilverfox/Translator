@@ -67,6 +67,16 @@ public class MainPageUserCase extends UserCase {
     }
 
     /**
+     * 获取专辑详情
+     *
+     * @param callback
+     */
+    public void requestAlbumDetailInfo(String code, BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getAlbumDetailEntity(code);
+        handleSendRequest(entity, callback);
+    }
+
+    /**
      * 获取视频详情
      *
      * @param code
