@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/root_bg_color"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/widget_title_bar" />
+
+    <com.jbsx.customview.ClearableEditText
+        android:id="@+id/et_modify_user_info"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="@dimen/common_padding_horizontal"
+        android:paddingRight="@dimen/common_padding_horizontal"
+        android:background="@drawable/line_rect_bg"/>
+
+</LinearLayout>

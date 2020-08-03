@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/root_bg_color"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/login_input_margin"
+        android:layout_marginBottom="@dimen/login_input_margin"
+        android:layout_marginRight="@dimen/login_input_margin"
+        android:layout_marginTop="@dimen/login_page_top_margin"
+        android:background="@drawable/login_input_view_bg">
+
+        <EditText
+            android:id="@+id/edt_login_ps_mobile"
+            android:layout_width="match_parent"
+            style="@style/login_input_text_style"
+            android:drawableLeft="@drawable/login_mobile_icon"
+            android:background="@null"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:hint="请输入您的手机号" >
+
+            <requestFocus />
+        </EditText>
+
+        <ImageView
+            android:id="@+id/btn_delete_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:padding="10dp"
+            android:layout_gravity="right|center_vertical"
+            android:visibility="visible"
+            android:src="@drawable/login_del_icon"/>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/login_input_margin"
+        android:layout_marginRight="@dimen/login_input_margin">
+        <EditText
+            android:id="@+id/edt_login_ps_sms"
+            android:layout_width="match_parent"
+            style="@style/login_input_text_style"
+            android:drawableLeft="@drawable/login_code_icon"
+            android:background="@drawable/login_input_view_bg"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/edt_login_ps_get_sms"
+            android:inputType="number"
+            android:maxLength="8"
+            android:hint="请输入收到的验证码" >
+        </EditText>
+
+        <TextView
+            android:id="@+id/edt_login_ps_get_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:gravity="center"
+            android:layout_marginRight="8dp"
+            android:padding="8dp"
+            android:textSize="12sp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="获取验证码"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/login_jd_password_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/login_input_height"
+        android:layout_marginLeft="@dimen/login_input_margin"
+        android:layout_marginRight="@dimen/login_input_margin"
+        android:layout_marginTop="@dimen/login_input_margin"
+        android:background="@drawable/login_input_view_bg"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/login_jd_password"
+            style="@style/login_input_text_style"
+            android:layout_width="0dp"
+            android:background="@null"
+            android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="@string/login_password_hint"
+            android:inputType="textPassword"
+            android:drawableLeft="@drawable/login_psw_icon"
+            android:maxLength="30"
+            android:singleLine="true"
+            android:layout_weight="4"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_weight="2"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/delete_password"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginLeft="5dp"
+                android:background="@null"
+                android:padding="5dp"
+                android:src="@drawable/login_del_icon"
+                android:visibility="invisible"/>
+            <ImageView
+                android:id="@+id/hide_password"
+                android:layout_width="32dp"
+                android:layout_height="24dp"
+                android:layout_marginRight="5dp"
+                android:background="@null"
+                android:padding="5dp"
+                android:src="@drawable/login_hide_password_bg"
+                android:visibility="visible"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/login_button_margin_horizontal"
+        android:paddingLeft="@dimen/login_button_margin_horizontal">
+        <com.jbsx.customview.MaterialRippleLayout
+            style="@style/login_button_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="89dp">
+
+            <Button
+                android:id="@+id/edt_login_ps_submit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_button_height"
+                android:background="@drawable/longin_button_bg"
+                android:padding="10dp"
+                android:text="立即注册"
+                android:textColor="@color/login_button_text_color"
+                android:textSize="18sp"/>
+        </com.jbsx.customview.MaterialRippleLayout>
+    </FrameLayout>
+
+    <!-- 用户协议 -->
+    <com.jbsx.view.login.customview.LoginUserAgreementView
+        android:id="@+id/viewUserAgreement"
+        style="@style/UserAgreementStyle"
+        android:layout_marginTop="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

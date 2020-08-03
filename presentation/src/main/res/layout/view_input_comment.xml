@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/input_comment_dialog_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/input_comment_dialog_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="#888888" />
+
+    <LinearLayout
+        android:id="@+id/input_comment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#efefef"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="10dp"
+        android:visibility="visible">
+
+        <EditText
+            android:id="@+id/input_comment"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_input_comment"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:hint="评论"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="#000000"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/btn_publish_comment"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:background="@drawable/bg_input_comment"
+            android:gravity="center"
+            android:text="发表"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/black_333"
+            android:textSize="13dp" />
+    </LinearLayout>
+</LinearLayout>

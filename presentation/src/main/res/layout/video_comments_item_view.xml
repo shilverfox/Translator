@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 视频评论列表Item -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/common_padding_horizontal"
+    android:paddingRight="@dimen/common_padding_horizontal"
+    android:paddingTop="@dimen/common_padding_vertical"
+    android:paddingBottom="@dimen/common_padding_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/img_sd_civ_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_welcome_photo_16"/>
+
+    <TextView
+        android:id="@+id/img_sd_civ_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/img_sd_civ_icon"
+        android:textSize="15sp"
+        android:layout_marginLeft="8dp"
+        android:text="评论用户名"/>
+
+    <ImageView
+        android:id="@+id/iv_video_bad_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="20dp"
+        android:layout_marginRight="-8dp"
+        android:paddingRight="10dp"
+        android:src="@drawable/bad_comment_icon"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/img_sd_civ_icon"
+        android:layout_alignBottom="@id/img_sd_civ_icon"/>
+
+    <TextView
+        android:id="@+id/img_sd_civ_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_sd_civ_name"
+        android:layout_alignLeft="@id/img_sd_civ_name"
+        android:layout_alignBottom="@id/img_sd_civ_icon"
+        android:gravity="bottom"
+        android:textSize="12sp"
+        android:text="14天前"/>
+
+    <TextView
+        android:id="@+id/img_sd_civ_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_sd_civ_icon"
+        android:layout_marginTop="8dp"
+        android:text="评论内容"/>
+
+    <TextView
+        android:id="@+id/tv_nb_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/img_sd_civ_content"
+        android:drawableLeft="@drawable/thumb_small"
+        android:gravity="center"
+        android:text="赞20"
+        android:drawablePadding="6dp"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tv_comment_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/tv_nb_count"
+        android:drawableLeft="@drawable/comment_icon_small"
+        android:layout_below="@+id/img_sd_civ_content"
+        android:gravity="center"
+        android:text="评论20"
+        android:drawablePadding="6dp"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tv_message_response"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_sd_civ_content"
+        android:layout_marginTop="2dp"
+        android:background="@color/divider_line"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:visibility="gone"
+        android:text="回复内容"/>
+
+</RelativeLayout>

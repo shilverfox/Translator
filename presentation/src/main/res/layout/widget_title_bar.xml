@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/title_root_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- status bar -->
+        <com.jbsx.customview.TitleStatusHeightLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/statusheight"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/top_bar_title_height"
+                android:alpha="1"
+                android:background="@color/title_bar_end"
+                android:visibility="visible" />
+        </com.jbsx.customview.TitleStatusHeightLayout>
+
+        <com.jbsx.customview.TitleBar
+            android:id="@+id/layout_title_bar_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/cell_top_title_bar_height"
+            android:background="@drawable/title_bar_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/cell_top_title_bar_padding_top">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- 左侧icon区 -->
+                <LinearLayout
+                    android:id="@+id/layout_title_bar_left_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintLeft_toLeftOf="parent">
+
+                    <ImageView
+                        android:id="@+id/iv_title_bar_back"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:padding="15dp"
+                        android:src="@drawable/back" />
+
+                    <View
+                        android:id="@+id/view_title_bar_separator"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginBottom="14dp"
+                        android:background="@color/black_333" />
+
+                    <ImageView
+                        android:id="@+id/iv_title_bar_close"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:padding="15dp"
+                        android:src="@drawable/close" />
+
+                    <ImageView
+                        android:id="@+id/tv_title_bar_left_image"
+                        android:layout_width="66dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:gravity="left|center_vertical"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="14dp"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+
+                <!-- 居中标题 -->
+                <TextView
+                    android:id="@+id/tv_title_bar_middle_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxWidth="250dp"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <!-- 居左标题 -->
+                <TextView
+                    android:id="@+id/tv_title_bar_left_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="left|center_vertical"
+                    android:ellipsize="end"
+                    android:gravity="left|center_vertical"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintLeft_toRightOf="@+id/layout_title_bar_left_container"
+                    app:layout_constraintRight_toLeftOf="@+id/layout_title_bar_right_container"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- 居左输入框 -->
+                <com.jbsx.customview.ClearableEditText
+                    android:id="@+id/et_title_bar_left_input"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:background="@drawable/search_bar"
+                    android:drawablePadding="6dp"
+                    android:ellipsize="end"
+                    android:gravity="left|center_vertical"
+                    android:maxLength="200"
+                    android:maxLines="1"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    android:textColorHint="@color/divider_line"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintLeft_toRightOf="@+id/layout_title_bar_left_container"
+                    app:layout_constraintRight_toLeftOf="@+id/layout_title_bar_right_container"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- 右侧icon及文字按钮 -->
+                <FrameLayout
+                    android:id="@+id/layout_title_bar_right_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <!-- 右侧文字按钮 -->
+                    <TextView
+                        android:id="@+id/layout_title_bar_right_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        android:text="" />
+
+                    <!-- 右侧单独图片按键 -->
+                    <ImageView
+                        android:id="@+id/iv_title_bar_right_single_icon"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="right|center_vertical"
+                        android:padding="15dp"
+                        android:src="@drawable/back" />
+
+                </FrameLayout>
+            </android.support.constraint.ConstraintLayout>
+        </com.jbsx.customview.TitleBar>
+    </LinearLayout>
+
+</merge>

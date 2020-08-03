@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_search_word"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:background="@drawable/search_word_item"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:gravity="center"
+        android:text="hdhd"
+        android:maxLines="1"
+        android:textSize="14dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:includeFontPadding="false"/>
+
+</LinearLayout>

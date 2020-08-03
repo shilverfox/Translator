@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#ececec">
+
+    <LinearLayout
+        android:id="@+id/login_phone_parentll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/login_top_line"/>
+
+        <EditText
+            android:id="@+id/login_phone_num"
+            style="@style/style_14_666666"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:ems="10"
+            android:hint="请输入手机号"
+            android:inputType="number"
+            android:maxLength="11"
+            android:padding="@dimen/shadow_width"
+            android:singleLine="true"
+            android:textColorHint="#bbbbbb">
+
+            <requestFocus/>
+        </EditText>
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/login_top_line"/>
+
+        <LinearLayout
+            android:id="@+id/picture_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/login_phone_picture_password"
+                    style="@style/style_14_666666"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:background="#ffffff"
+                    android:hint="请输入图片验证码"
+                    android:maxLength="11"
+                    android:padding="@dimen/shadow_width"
+                    android:singleLine="true"
+                    android:textColorHint="#bbbbbb"/>
+
+                <ImageView
+                    android:id="@+id/login_phone_picture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"
+                    android:layout_weight="1"/>
+
+                <ProgressBar
+                    android:id="@+id/regist_progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:visibility="gone">
+                </ProgressBar>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/login_top_line"/>
+
+        </LinearLayout>
+
+        <com.jbsx.customview.MaterialRippleLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dip"
+            app:mrl_rippleAlpha="0.2"
+            app:mrl_rippleColor="#585858"
+            app:mrl_rippleDelayClick="false"
+            app:mrl_rippleHover="true"
+            app:mrl_rippleOverlay="true">
+
+            <Button
+                android:id="@+id/login_phone_login"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/regist_button_disable_bg"
+                android:padding="@dimen/list_padding"
+                android:text="获取短信验证码"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+        </com.jbsx.customview.MaterialRippleLayout>
+
+        <!-- 用户协议 -->
+        <com.jbsx.view.login.customview.LoginUserAgreementView
+            android:id="@+id/viewUserAgreement"
+            style="@style/UserAgreementStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</ScrollView>

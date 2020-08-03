@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nsv_main_page_root"
+    android:background="@color/root_bg_color"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/view_main_page_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:indicator_height="10dp"
+            app:indicator_margin="6dp"
+            app:indicator_width="10dp"/>
+
+        <LinearLayout
+            android:id="@+id/layout_host"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/common_padding_horizontal"
+            android:paddingRight="@dimen/common_padding_horizontal"
+            android:visibility="visible"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_host_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/red_bar"
+                android:gravity="center_vertical"
+                android:drawablePadding="7dp"
+                android:paddingTop="21dp"
+                android:paddingBottom="14.5dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:text="主讲嘉宾" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_floor_host"
+                android:layout_width="match_parent"
+                android:layout_height="117dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_album"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/common_padding_horizontal"
+            android:paddingRight="@dimen/common_padding_horizontal"
+            android:visibility="visible"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_album_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/red_bar"
+                android:gravity="center_vertical"
+                android:drawablePadding="7dp"
+                android:paddingTop="21dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:text="推荐专题" />
+
+            <com.zhouyou.recyclerview.XRecyclerView
+                android:id="@+id/rv_floor_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:layout_marginTop="-11dp"
+                android:layout_marginLeft="-4dp"
+                android:layout_marginRight="-4dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

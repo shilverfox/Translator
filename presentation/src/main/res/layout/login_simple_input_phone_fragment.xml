@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 手机号 + 短信验证码登录，输入手机号 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/root_bg_color"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edt_login_ps_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:drawableLeft="@drawable/login_mobile_icon"
+            android:background="@color/white"
+            android:padding="15dp"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:textSize="12sp"
+            android:drawablePadding="6dp"
+            android:textColorHint="@color/gray_999"
+            android:textColor="@color/gray_666"
+            android:hint="请输入手机号" >
+
+            <requestFocus />
+         </EditText>
+
+        <ImageView
+            android:id="@+id/btn_delete_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:padding="10dp"
+            android:layout_gravity="right|center_vertical"
+            android:visibility="visible"
+            android:src="@drawable/login_del_icon"/>
+    </FrameLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#D9D9D9"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/edt_login_ps_sms"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:drawableLeft="@drawable/login_code_icon"
+            android:drawablePadding="6dp"
+            android:background="@color/white"
+            android:textColorHint="@color/gray_999"
+            android:textColor="@color/gray_666"
+            android:padding="15dp"
+            android:textSize="12sp"
+            android:hint="请输入收到的验证码" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/edt_login_ps_get_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:layout_marginRight="8dp"
+            android:text="获取验证码"/>
+    </FrameLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#D9D9D9"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+    <LinearLayout
+        android:id="@+id/login_jd_password_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/login_input_view_bottom_bg"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/login_jd_password"
+            style="@style/login_input_text_style"
+            android:layout_width="0dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="请输入登录密码"
+            android:inputType="textPassword"
+            android:drawablePadding="6dp"
+            android:drawableLeft="@drawable/login_psw_icon"
+            android:maxLength="30"
+            android:padding="15dp"
+            android:textSize="12sp"
+            android:singleLine="true"
+            android:textColorHint="@color/gray_999"
+            android:textColor="@color/gray_666"
+            android:layout_weight="4"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_weight="2"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/delete_password"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginLeft="5dp"
+                android:background="@null"
+                android:padding="5dp"
+                android:src="@drawable/login_del_icon"
+                android:visibility="invisible"/>
+            <ImageView
+                android:id="@+id/hide_password"
+                android:layout_width="32dp"
+                android:layout_height="24dp"
+                android:layout_marginRight="5dp"
+                android:background="@null"
+                android:padding="5dp"
+                android:src="@drawable/login_hide_password_bg"
+                android:visibility="visible"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.jbsx.customview.MaterialRippleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/login_button_margin_horizontal"
+        android:layout_marginRight="@dimen/login_button_margin_horizontal"
+        android:layout_marginTop="40dp"
+        app:mrl_rippleAlpha="0.2"
+        app:mrl_rippleColor="#585858"
+        app:mrl_rippleDelayClick="false"
+        app:mrl_rippleHover="true"
+        app:mrl_rippleOverlay="true">
+
+        <Button
+            android:id="@+id/edt_login_ps_submit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_button_height"
+            android:background="@drawable/longin_button_bg"
+            android:padding="10dp"
+            android:layout_below="@id/edt_login_ps_sms"
+            android:text="获取手机验证码"
+            android:textColor="@color/login_button_text_color"
+            android:textSize="17sp"/>
+    </com.jbsx.customview.MaterialRippleLayout>
+
+    <!-- 用户协议 -->
+    <com.jbsx.view.login.customview.LoginUserAgreementView
+        android:id="@+id/viewUserAgreement"
+        style="@style/UserAgreementStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:minWidth="@dimen/dialog_width"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/ll_dialog_universal_operate"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:id="@+id/tv_dialog_universal_first"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_dialog_top_operate_select"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/tv_dialog_universal_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/tv_dialog_universal_second"
+            android:layout_toRightOf="@+id/tv_dialog_universal_first"
+            android:gravity="center"
+            android:text="提示"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tv_dialog_universal_second"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_dialog_top_operate_select"
+            android:gravity="center"
+            android:text="确认"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_dialog_universal_msg"
+        android:layout_width="@dimen/dialog_width"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center_vertical"
+        android:text="内容"
+        android:textSize="18sp"/>
+
+    <LinearLayout
+        android:id="@+id/ll_dialog_universal_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"/>
+
+
+</LinearLayout>

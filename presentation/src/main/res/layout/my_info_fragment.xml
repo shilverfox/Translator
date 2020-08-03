@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/root_bg_color"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/view_my_info_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:background="@color/divider_line">
+        <TextView
+            android:id="@+id/tv_my_info_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"
+            android:textColor="#cc000000"
+            android:text="用户名"/>
+
+        <TextView
+            android:id="@+id/tv_my_info_business_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_my_info_user_name"
+            android:layout_alignLeft="@id/tv_my_info_user_name"
+            android:textColor="#99000000"
+            android:textSize="12sp"
+            android:text="机构"/>
+
+        <TextView
+            android:id="@+id/tv_my_info_valid_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_my_info_business_name"
+            android:layout_alignLeft="@id/tv_my_info_user_name"
+            android:textColor="#99000000"
+            android:textSize="12sp"
+            android:text="有效期"/>
+
+        <TextView
+            android:id="@+id/tv_my_info_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="立即登录"/>
+
+        <ImageView
+            android:id="@+id/iv_my_info_user_head"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/my_icon_default"/>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_my_info_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/view_my_info_user"
+        android:paddingBottom="@dimen/login_button_height"
+        android:layout_marginBottom="@dimen/my_info_bottom_height"/>
+
+    <com.jbsx.customview.MaterialRippleLayout
+        style="@style/login_button_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/my_info_bottom_height">
+
+        <Button
+            android:id="@+id/btn_log_out"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_button_height"
+            android:background="@drawable/longin_button_bg"
+            android:padding="10dp"
+            android:text="退出登录"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+
+    </com.jbsx.customview.MaterialRippleLayout>
+
+</RelativeLayout>

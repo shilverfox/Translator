@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 用户协议 3.3增加 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dip"
+    android:layout_marginRight="20dip"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <CheckBox
+        android:id="@+id/chxAgree"
+        style="@style/style_11_666666"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:button="@null"
+        android:checked="true"
+        android:drawableLeft="@drawable/login_icon_check"
+        android:drawablePadding="5dp"
+        android:text=""/>
+
+    <TextView
+        android:id="@+id/txtUserAgreement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="用户协议"
+        android:textColor="@color/gray_999"
+        android:textSize="11sp"/>
+</LinearLayout>

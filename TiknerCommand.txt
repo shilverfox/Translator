@@ -1,0 +1,30 @@
+How to use tinker:
+http://blog.csdn.net/xiejc01/article/details/52735920
+
+
+Some commands can be used in android terminal:
+set  JAVA_HOME=C:\Program Files\Java\jdk1.8.0_31
+set  PATH=%JAVA_HOME%\bin;%PATH%
+
+set ANDROID_HOME=F:\sdk
+set PATH=%ANDROID_HOME%\platform-tools;%PATH%
+
+.\gradlew tinkerPatchDebug
+.\gradlew tinkerPatchRelease
+
+
+adb push F:\workshop\Translator\app\build\outputs\tinkerPatch\debug\patch_signed_7zip.apk /storage/emulated/0/patch_signed_7zip.apk
+
+
+adb push F:\srouce\tinker-master\tinker-sample-android\app\build\outputs\tinkerPatch\debug\patch_signed_7zip.apk 
+
+/storage/emulated/0/patch_signed_7zip.apk
+
+
+adb install F:\workshop\Translator\app\app-debug.apk
+
+
+在android7.0版本的模拟器调了半天总是提示失败，最后发现是权限设置的问题，应该是运行时权限导致的，麻痹
+
+
+http://babysong.qiniudn.com/patch_signed_7zip.apk

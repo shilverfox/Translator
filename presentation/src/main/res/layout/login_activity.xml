@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/root_bg_color"
+    android:orientation="vertical" >
+
+    <include layout="@layout/widget_title_bar" />
+
+    <include
+        android:id="@+id/tabGroupView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/login_navigation_tab_2_item" />
+
+    <FrameLayout
+        android:id="@+id/main_pane"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <FrameLayout
+        android:id="@+id/third_party_pane"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2.5"/>
+
+</LinearLayout>
