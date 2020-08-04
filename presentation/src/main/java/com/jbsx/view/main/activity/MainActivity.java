@@ -41,6 +41,7 @@ import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.main.PageManager;
 import com.jbsx.view.main.entity.NavigationData;
 import com.jbsx.view.main.entity.TabEntity;
+import com.jbsx.view.main.fragment.AlbumPlayerFragment;
 import com.jbsx.view.main.fragment.GalleryFragment;
 import com.jbsx.view.main.fragment.MainPageFragment;
 import com.jbsx.view.main.fragment.VideoDetailFragment;
@@ -193,7 +194,10 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
                 return MainPageFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_MAIN, params);
             case AppConstData.TYPE_NAVI_MAIN:
             default:
-                return MainPageFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_MAIN, params);
+//                return MainPageFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_MAIN, params);
+//                return AlbumPlayerFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_MAIN, "40289c81697f7b5e01697fd20d28012c");
+//                return VideoFeedFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_MAIN, "00000011");
+            return VideoFeedFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_ALBUM_2, "00000011");
         }
     }
 

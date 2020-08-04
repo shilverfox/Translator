@@ -89,6 +89,7 @@ public class AlbumPlayerFragment extends BaseFragment {
         createPresenter();
         initViews();
         initEvents();
+        loadData();
 
         return mRootView;
     }

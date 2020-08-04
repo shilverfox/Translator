@@ -560,6 +560,29 @@ public class HttpRequestPool {
     }
 
     /**
+     * 获得专辑列表
+     *
+     * @param classifyCode
+     * @param page
+     * @return
+     */
+    public static BaseRequestEntity getAlbumFeedEntity(String classifyCode, int page) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/app/album");
+
+        BaseBody body = new BaseBody();
+        body.add("classifyCode", classifyCode);
+        body.add("pageNum", page + "");
+        body.add("pageSize", ConstData.DEFAULT_PAGE_SIZE + "");
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, "");
+
+        return baseRequest;
+    }
+
+    /**
      * 删除我的收藏、观看历史数据
      *
      * @param token

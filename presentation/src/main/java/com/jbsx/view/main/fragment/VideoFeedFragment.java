@@ -1,6 +1,5 @@
 package com.jbsx.view.main.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -18,13 +17,9 @@ import com.jbsx.customview.listFragment.CommonListFragment;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
 import com.jbsx.data.AppConstData;
-import com.jbsx.player.util.PlayerHelper;
 import com.jbsx.utils.image.ImageLoader;
-import com.jbsx.view.login.util.LoginHelper;
+import com.jbsx.view.main.entity.AlbumFeedData;
 import com.jbsx.view.main.entity.RepertoryData;
-import com.jbsx.view.main.entity.Single;
-import com.jbsx.view.main.entity.SpecialSingles;
-import com.jbsx.view.main.entity.UserSingle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,8 +84,13 @@ public class VideoFeedFragment extends CommonListFragment {
 
     @Override
     public BaseRequestEntity getRequestEntity(int pageIndex) {
-        BaseRequestEntity entity = HttpRequestPool.getVideoFeedEntity("00000011", pageIndex);
-        return entity;
+        if (isAlbumType()) {
+            // 根据type确定是否为专辑列表
+            return HttpRequestPool.getAlbumFeedEntity(mRequestParams, pageIndex);
+        } else {
+            // 默认是视频列表
+            return HttpRequestPool.getVideoFeedEntity(mRequestParams, pageIndex);
+        }
     }
 
     @Override
@@ -98,17 +98,29 @@ public class VideoFeedFragment extends CommonListFragment {
         super.onResume();
     }
 
+    /** 是否为专辑类型 */
+    private boolean isAlbumType() {
+        return AppConstData.PAGE_TYPE_ALBUM_2.equals(mPageType);
+    }
+
     @Override
     public List parseList(String result) {
         Gson gson = new Gson();
-        mRepertoryData = gson.fromJson(result, RepertoryData.class);
-
-        if (mRepertoryData != null && mRepertoryData.getBody() != null
-                && mRepertoryData.getBody().getList() != null) {
-            return mRepertoryData.getBody().getList();
+        if (isAlbumType()) {
+            AlbumFeedData albumData = gson.fromJson(result, AlbumFeedData.class);
+            if (albumData != null && albumData.getBody() != null
+                    && albumData.getBody().getList() != null) {
+                return albumData.getBody().getList();
+            }
+        } else {
+            RepertoryData videoData = gson.fromJson(result, RepertoryData.class);
+            if (videoData != null && videoData.getBody() != null
+                    && videoData.getBody().getList() != null) {
+                return videoData.getBody().getList();
+            }
         }
 
-        return new ArrayList<SpecialSingles>();
+        return new ArrayList();
     }
 
     @Override
@@ -134,19 +146,24 @@ public class VideoFeedFragment extends CommonListFragment {
 
         @Override
         public int getViewId() {
-            return R.layout.my_info_videl_item;
+            return isAlbumType() ? R.layout.album_feed_item_view : R.layout.video_feed_item_view;
         }
 
         @Override
         public CommonListFragmentViewHolder getViewHolder(View rootView) {
-            VideoFeedHolder holder =  new VideoFeedHolder(getContext(), rootView);
-            holder.setAdapter(this);
-
-            return holder;
+            if (isAlbumType()) {
+                AlbumFeedHolder holder =  new AlbumFeedHolder(getContext(), rootView);
+                holder.setAdapter(this);
+                return holder;
+            } else {
+                VideoFeedHolder holder =  new VideoFeedHolder(getContext(), rootView);
+                holder.setAdapter(this);
+                return holder;
+            }
         }
     }
 
-    public class VideoFeedHolder extends CommonListFragmentViewHolder<UserSingle> {
+    public class VideoFeedHolder extends CommonListFragmentViewHolder<RepertoryData.FeedItem> {
         private Context mContext;
 
         private View mRootView;
@@ -157,7 +174,7 @@ public class VideoFeedFragment extends CommonListFragment {
         private ImageView mIvImageUrl;
         private ImageView mIvCheck;
 
-        private UserSingle mData;
+        private RepertoryData.FeedItem mData;
         private int mCurrentPosition;
 
         private CommonListFragmentAdapter mAdapter;
@@ -193,15 +210,72 @@ public class VideoFeedFragment extends CommonListFragment {
 
 
         @Override
-        public void drawViews(UserSingle data, final int position) {
+        public void drawViews(RepertoryData.FeedItem data, final int position) {
             mData = data;
             mCurrentPosition = position;
 
-            if (data != null && data.getSingle() != null) {
-                final Single single = data.getSingle();
-
+            if (data != null) {
                 // 图片
-                String imgUrl = single.getAppImageUrl();
+//                String imgUrl = data.get.getAppImageUrl();
+//                ImageLoader.displayImage(imgUrl, mIvImageUrl);
+            }
+        }
+
+        public void setAdapter(CommonListFragmentAdapter adapter) {
+            mAdapter = adapter;
+        }
+
+        @Override
+        public void isTheLastLine(boolean theLastLine) {
+        }
+
+        private void handleRootViewClick(int position) {
+        }
+    }
+
+    public class AlbumFeedHolder extends CommonListFragmentViewHolder<AlbumFeedData.AlbumFeedItem> {
+        private Context mContext;
+
+        private View mRootView;
+        private ImageView mIvImageUrl;
+
+        private AlbumFeedData.AlbumFeedItem mData;
+        private int mCurrentPosition;
+
+        private CommonListFragmentAdapter mAdapter;
+
+        public AlbumFeedHolder(Context context, View view) {
+            super(view);
+            mContext = context;
+        }
+
+        @Override
+        public void findViews(View rootView) {
+            if (rootView != null) {
+                mRootView = rootView;
+                mIvImageUrl = mRootView.findViewById(R.id.iv_album_item_image);
+            }
+        }
+
+        @Override
+        public void registerEvent() {
+            mRootView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    handleRootViewClick(mCurrentPosition);
+                }
+            });
+        }
+
+
+        @Override
+        public void drawViews(AlbumFeedData.AlbumFeedItem data, final int position) {
+            mData = data;
+            mCurrentPosition = position;
+
+            if (data != null) {
+                // 图片
+                String imgUrl = data.getAlbumPreview();
                 ImageLoader.displayImage(imgUrl, mIvImageUrl);
             }
         }
@@ -215,9 +289,6 @@ public class VideoFeedFragment extends CommonListFragment {
         }
 
         private void handleRootViewClick(int position) {
-            PlayerHelper.gotoPlayer((Activity)mContext, PlayerHelper.makePlayerData(
-                    mData.getSingle().getSpecialAlbumId(),
-                    mData.getSingle().getId(), ConstData.VIDEO_DEFINITION_TYPE_STAND));
         }
     }
 }

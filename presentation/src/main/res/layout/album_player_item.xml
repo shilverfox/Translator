@@ -3,32 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/root_bg_color"
-    android:gravity="center_horizontal"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingRight="20dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
 
     <TextView
         android:id="@+id/tv_album_play_item_name"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="ffffffffffffffff"/>
 
     <TextView
         android:id="@+id/tv_album_play_item_duration"
         android:layout_width="200dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="22"/>
 
     <ImageView
         android:id="@+id/iv_album_play_item_play"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:src="@drawable/dkplayer_ic_action_play_arrow"/>
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/daoyan_icon"/>
 
     <ImageView
         android:id="@+id/iv_album_play_item_like"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:src="@drawable/dkplayer_ic_action_battery"/>
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/default_head"/>
 
 </LinearLayout>

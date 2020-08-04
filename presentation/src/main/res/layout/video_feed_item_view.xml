@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_video_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="4dp">
+
+    <TextView
+        android:id="@+id/iv_my_info_video_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:background="@drawable/line_rect_bg"
+        android:padding="@dimen/common_padding_horizontal"
+        android:textSize="14sp"
+        android:textColor="@color/alpha_e6_0"
+        android:text="jintian"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_my_info_video_group">
+
+        <ImageView
+            android:id="@+id/iv_my_info_video_check"
+            android:layout_width="@dimen/check_icon_width_height"
+            android:layout_height="@dimen/check_icon_width_height"
+            android:padding="8dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/red_rect_check"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_my_info_video_check">
+            <include layout="@layout/album_grid_1_item" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
