@@ -38,15 +38,12 @@ import com.jbsx.view.login.callback.ILoginResultListener;
 import com.jbsx.view.login.callback.IOnLoginListener;
 import com.jbsx.view.login.data.LoginResultEvent;
 import com.jbsx.view.login.util.LoginHelper;
+import com.jbsx.view.main.AudioPlayer;
 import com.jbsx.view.main.PageManager;
 import com.jbsx.view.main.entity.NavigationData;
 import com.jbsx.view.main.entity.TabEntity;
-import com.jbsx.view.main.fragment.AlbumPlayerFragment;
 import com.jbsx.view.main.fragment.GalleryFragment;
 import com.jbsx.view.main.fragment.MainPageFragment;
-import com.jbsx.view.main.fragment.VideoDetailFragment;
-import com.jbsx.view.main.fragment.VideoFeedFragment;
-import com.jbsx.view.main.fragment.VideoPlayerFragment;
 import com.jbsx.view.main.util.PageUtils;
 import com.jbsx.view.myinfo.activity.MyViewHistoryActivity;
 import com.jbsx.view.search.SearchActivity;
@@ -65,12 +62,14 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     private CommonTabLayout mTabLayout;
     private TitleBar mTopBarLayout;
     private ViewPager mViewPager;
+    private View mBtnBack;
 
     private long mExitTime = 0;
 
     private MainViewUserCase mMainPageUserCase;
 
     private PageManager mPageMager;
+    private String mCurrentTabId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +153,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     private void findViews() {
         mTabLayout = findViewById(R.id.tab_main);
         mViewPager = findViewById(R.id.vp_container);
+        mBtnBack = findViewById(R.id.btn_main_back);
         mTopBarLayout = findViewById(R.id.layout_title_bar_container);
     }
 
@@ -194,10 +194,10 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
                 return MainPageFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_MAIN, params);
             case AppConstData.TYPE_NAVI_MAIN:
             default:
-//                return MainPageFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_MAIN, params);
+                return MainPageFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_MAIN, params);
 //                return AlbumPlayerFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_MAIN, "40289c81697f7b5e01697fd20d28012c");
 //                return VideoFeedFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_MAIN, "00000011");
-            return VideoFeedFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_ALBUM_2, "00000011");
+//            return VideoFeedFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_ALBUM_2, "00000011");
         }
     }
 
@@ -263,6 +263,9 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
             @Override
             public void onTabSelect(int position) {
                 mViewPager.setCurrentItem(position);
+                mCurrentTabId = mTabEntities.get(position).getTabTitle();
+                mPageMager.handleTabChange(mCurrentTabId);
+                AudioPlayer.getInstance().stopPlayer();
             }
 
             @Override
@@ -285,6 +288,14 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+
+        mBtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPageMager.handleBackEvent(mCurrentTabId);
+                AudioPlayer.getInstance().stopPlayer();
             }
         });
     }

@@ -9,14 +9,15 @@
 
     <ImageView
         android:id="@+id/iv_album_play_cover"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scaleType="fitXY"
         android:layout_weight="1"
         android:src="@drawable/album_cover"/>
 
     <LinearLayout
         android:id="@+id/iv_album_play_list"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_gravity="center"
@@ -30,7 +31,7 @@
                 android:id="@+id/tv_album_play_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="名字"/>
+                android:text="名字名字"/>
 
             <TextView
                 android:id="@+id/tv_album_play_company"

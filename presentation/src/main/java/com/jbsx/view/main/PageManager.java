@@ -9,9 +9,14 @@ import com.jbsx.R;
 import com.jbsx.data.AppConstData;
 import com.jbsx.utils.LogTools;
 import com.jbsx.view.data.PageChangeEvent;
+import com.jbsx.view.main.fragment.AlbumPlayerFragment;
 import com.jbsx.view.main.fragment.GalleryFragment;
+import com.jbsx.view.main.fragment.MainPageFragment;
+import com.jbsx.view.main.fragment.VideoFeedFragment;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -38,7 +43,7 @@ public class PageManager {
      */
     public void addTab(String key) {
         if (!TextUtils.isEmpty(key)) {
-            mAllPages.put(key, new HashMap<String, Fragment>());
+            mAllPages.put(key, new LinkedHashMap<String, Fragment>());
         }
     }
 
@@ -87,6 +92,87 @@ public class PageManager {
     }
 
     /**
+     * 响应返回按键事件，从tabId对应的map中移除当前头部的fragment，然后设置新的头部fragment为当前
+     *
+     * @param naviId
+     */
+    public void handleBackEvent(String naviId) {
+        if (!TextUtils.isEmpty(naviId)) {
+            LinkedHashMap<String, Fragment> pageList = (LinkedHashMap<String, Fragment>) mAllPages.get(naviId);
+            if (pageList != null) {
+                // 找到最后一个（最新添加的），删除
+                Map.Entry currentPage = getTail(pageList);
+                if (currentPage != null) {
+                    pageList.remove(currentPage.getKey());
+
+                    if (mFragmentManager != null) {
+                        // 设置当前最新的显示到屏幕上
+                        Map.Entry prevPage = getTail(pageList);
+                        if (prevPage != null) {
+                            FragmentTransaction transaction = mFragmentManager.beginTransaction();
+                            // 隐藏当前的fragment 同时 设置前一个page显示
+                            transaction.hide((Fragment) currentPage.getValue());
+                            transaction.show((Fragment) prevPage.getValue());
+                            transaction.commitAllowingStateLoss();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * tab切换，隐藏所有当前存在的fragment, 显示当前的
+     *
+     * @param naviId
+     */
+    public void handleTabChange(String naviId) {
+        if (!TextUtils.isEmpty(naviId)) {
+            LinkedHashMap<String, Fragment> pageList = (LinkedHashMap<String, Fragment>) mAllPages.get(naviId);
+            if (pageList != null) {
+                // 找到最后一个（最新添加的）
+                Map.Entry currentPage = getTail(pageList);
+
+                // 遍历所有的fragment
+                for (String key : mAllPages.keySet()) {
+                    Map<String, Fragment> pages = mAllPages.get(key);
+                    for (String innerKey : pages.keySet()) {
+                        Fragment page = pages.get(innerKey);
+                        // 显示目标fragment，否则隐藏
+                        boolean needShow = (page == currentPage.getValue());
+                        if (mFragmentManager != null) {
+                            FragmentTransaction transaction = mFragmentManager.beginTransaction();
+                            if (needShow) {
+                                transaction.show(page);
+                            } else {
+                                transaction.hide(page);
+                            }
+                            transaction.commitAllowingStateLoss();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 获取linkedMap的最后一个元素
+     *
+     * @param map
+     * @param <K>
+     * @param <V>
+     * @return
+     */
+    public <K, V> Map.Entry<K, V> getTail(LinkedHashMap<K, V> map) {
+        Iterator<Map.Entry<K, V>> iterator = map.entrySet().iterator();
+        Map.Entry<K, V> tail = null;
+        while (iterator.hasNext()) {
+            tail = iterator.next();
+        }
+        return tail;
+    }
+
+    /**
      * tab容器里
      *
      * @param tabType
@@ -109,6 +195,12 @@ public class PageManager {
     private String getNextPage(String currentPage) {
         if (AppConstData.PAGE_TYPE_MAIN.equals(currentPage)) {
             return AppConstData.PAGE_TYPE_VIDEO_1;
+        } else if (AppConstData.PAGE_TYPE_ALBUM_1.equals(currentPage)) {
+            // 专辑分类 to 专辑feed
+            return AppConstData.PAGE_TYPE_ALBUM_2;
+        } else if (AppConstData.PAGE_TYPE_ALBUM_2.equals(currentPage)) {
+            // 专辑列表 to 专辑详情
+            return AppConstData.PAGE_TYPE_ALBUM_DETAIL;
         }
 
         return "";
@@ -130,9 +222,11 @@ public class PageManager {
                     // 创建一个新的
                     pageChangeData.mCurrentPageType = pageType;
                     page = createPage(pageChangeData);
+                    // 加到page列表中
+                    addPage(naviId, pageType, page);
                 }
 
-                if (mFragmentManager != null) {
+                if (mFragmentManager != null && !page.isAdded()) {
                     FragmentTransaction transaction = mFragmentManager.beginTransaction();
                     transaction.add(getPageContainerId(tabType), page);
                     transaction.commitAllowingStateLoss();
@@ -142,7 +236,22 @@ public class PageManager {
     }
 
     private Fragment createPage(PageChangeEvent pageChangeData) {
-        return GalleryFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
-                pageChangeData.mCurrentPageType, pageChangeData.mRequestParam);
+        if (AppConstData.PAGE_TYPE_MAIN.equals(pageChangeData.mCurrentPageType)) {
+            return MainPageFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
+                    AppConstData.PAGE_TYPE_MAIN, pageChangeData.mRequestParam);
+        } else if (AppConstData.PAGE_TYPE_ALBUM_1.equals(pageChangeData.mCurrentPageType)) {
+            return GalleryFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
+                    AppConstData.PAGE_TYPE_ALBUM_1, pageChangeData.mRequestParam);
+        } else if (AppConstData.PAGE_TYPE_ALBUM_2.equals(pageChangeData.mCurrentPageType)) {
+            return VideoFeedFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
+                    AppConstData.PAGE_TYPE_ALBUM_2, pageChangeData.mRequestParam);
+        } else if (AppConstData.PAGE_TYPE_ALBUM_DETAIL.equals(pageChangeData.mCurrentPageType)) {
+            return AlbumPlayerFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
+                    AppConstData.PAGE_TYPE_ALBUM_DETAIL, pageChangeData.mRequestParam);
+        } else {
+            // 默认显示首页
+            return MainPageFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
+                    AppConstData.PAGE_TYPE_MAIN, pageChangeData.mRequestParam);
+        }
     }
 }

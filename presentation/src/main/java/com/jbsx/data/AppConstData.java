@@ -75,6 +75,9 @@ public class AppConstData {
     /** 页面类型 专辑二级页面 */
     public final static String PAGE_TYPE_ALBUM_2 = "album_2";
 
+    /** 页面类型 专辑详情 */
+    public final static String PAGE_TYPE_ALBUM_DETAIL = "album_detail";
+
     /** 页面类型 视频一级页面 */
     public final static String PAGE_TYPE_VIDEO_1 = "video_1";
 

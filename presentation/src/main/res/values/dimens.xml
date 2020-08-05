@@ -36,4 +36,6 @@
     <dimen name="dkplayer_controller_seekbar_max_size">1dp</dimen>
     <dimen name="dkplayer_play_btn_size">50dp</dimen>
     <dimen name="dkplayer_controller_time_text_size">14sp</dimen>
+
+    <dimen name="main_bottom_margin">50dp</dimen>
 </resources>

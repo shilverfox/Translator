@@ -27,7 +27,6 @@ import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.LogTools;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
-import com.jbsx.utils.Router;
 import com.jbsx.utils.StatisticsReportUtil;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.adapter.CelebrityIconItemAdapter;
@@ -35,15 +34,11 @@ import com.jbsx.view.main.adapter.VideoItemAdapter;
 import com.jbsx.view.main.contact.MainPageContact;
 import com.jbsx.view.main.entity.Album;
 import com.jbsx.view.main.entity.BannerData;
-import com.jbsx.view.main.entity.Celebrities;
-import com.jbsx.view.main.entity.CelebrityData;
 import com.jbsx.view.main.entity.HostData;
 import com.jbsx.view.main.entity.MainPageData;
 import com.jbsx.view.main.entity.SpecialAlbumData;
 import com.jbsx.view.main.entity.SpecialAlbums;
 import com.jbsx.view.main.presenter.MainPagePresenter;
-import com.jbsx.view.search.SearchResultActivity;
-import com.jbsx.view.search.util.SearchHelper;
 import com.jbsx.view.web.WebHelper;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -369,12 +364,9 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     private static class BannerImageLoader extends ImageLoader {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
-            if (path != null && path instanceof BannerData.Banner) {
-                BannerData.Banner albums = (BannerData.Banner)path;
-                if (albums != null && albums.getImage() != null) {
-                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    com.jbsx.utils.image.ImageLoader.displayImage(albums.getImage(), imageView);
-                }
+            if (path != null && path instanceof String) {
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                com.jbsx.utils.image.ImageLoader.displayImage((String)path, imageView);
             }
         }
     }

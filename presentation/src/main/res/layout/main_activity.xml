@@ -1,42 +1,75 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tl="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/widget_title_bar" />
-
-    <com.flyco.tablayout.CommonTabLayout
-        android:id="@+id/tab_main"
+    <LinearLayout
+        android:id="@+id/view_main_title_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/title_bar_start"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        tl:tl_indicator_color="@color/white"
-        tl:tl_indicator_width="40dp"
-        tl:tl_textSelectColor="@color/white"
-        tl:tl_textUnselectColor="@color/white"
-        tl:tl_underline_color="@color/title_bar_start"
-        tl:tl_underline_height="4dp"
-        tl:tl_indicator_corner_radius="4dp"
-        tl:tl_textsize="18sp"/>
+        android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:background="@color/title_bar_start"/>
+        <include layout="@layout/widget_title_bar" />
+
+        <com.flyco.tablayout.CommonTabLayout
+            android:id="@+id/tab_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/title_bar_start"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            tl:tl_indicator_color="@color/white"
+            tl:tl_indicator_width="40dp"
+            tl:tl_textSelectColor="@color/white"
+            tl:tl_textUnselectColor="@color/white"
+            tl:tl_underline_color="@color/title_bar_start"
+            tl:tl_underline_height="4dp"
+            tl:tl_indicator_corner_radius="4dp"
+            tl:tl_textsize="18sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/title_bar_start"/>
+    </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/fl_container"
+        android:id="@+id/view_main_content_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_below="@+id/view_main_title_container"
+        android:paddingBottom="@dimen/main_bottom_margin">
+
+        <FrameLayout
+            android:id="@+id/fl_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </FrameLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_container"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</LinearLayout>
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/title_bar_start"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:id="@+id/btn_main_back"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:text="返回"/>
+
+        </FrameLayout>
+    </RelativeLayout>
+</RelativeLayout>

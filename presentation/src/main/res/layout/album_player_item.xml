@@ -21,11 +21,22 @@
         android:layout_height="wrap_content"
         android:text="22"/>
 
-    <ImageView
-        android:id="@+id/iv_album_play_item_play"
+    <FrameLayout
         android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/daoyan_icon"/>
+        android:layout_height="20dp">
+        <ImageView
+            android:id="@+id/iv_album_play_item_play"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/daoyan_icon"/>
+
+        <com.jbsx.customview.JDProgressBar
+            android:id="@+id/pb_album_play_item_play"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+    </FrameLayout>
+
 
     <ImageView
         android:id="@+id/iv_album_play_item_like"

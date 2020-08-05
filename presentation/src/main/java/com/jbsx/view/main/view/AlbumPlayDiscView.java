@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -63,7 +62,7 @@ public class AlbumPlayDiscView extends FrameLayout {
     }
 
     private View createSongItemView(AlbumDetailData.SongInfo songInfo) {
-        AlbumPlayItem itemView = new AlbumPlayItem(getContext());
+        AlbumPlayItemView itemView = new AlbumPlayItemView(getContext());
         itemView.setData(songInfo);
         return itemView;
     }

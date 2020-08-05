@@ -17,9 +17,13 @@ import com.jbsx.customview.listFragment.CommonListFragment;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
 import com.jbsx.data.AppConstData;
+import com.jbsx.utils.ShowTools;
 import com.jbsx.utils.image.ImageLoader;
+import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.entity.AlbumFeedData;
 import com.jbsx.view.main.entity.RepertoryData;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -138,6 +142,10 @@ public class VideoFeedFragment extends CommonListFragment {
         return new GridLayoutManager(mContext, 4);
     }
 
+    private void handleItemClick(String requestParams) {
+        EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType, requestParams));
+    }
+
     public class VideoFeedAdapter extends CommonListFragmentAdapter {
 
         public VideoFeedAdapter(Context context) {
@@ -230,6 +238,7 @@ public class VideoFeedFragment extends CommonListFragment {
         }
 
         private void handleRootViewClick(int position) {
+            handleItemClick(mData.getVideoCode());
         }
     }
 
@@ -289,6 +298,7 @@ public class VideoFeedFragment extends CommonListFragment {
         }
 
         private void handleRootViewClick(int position) {
+            handleItemClick(mData.getAlbumCode());
         }
     }
 }

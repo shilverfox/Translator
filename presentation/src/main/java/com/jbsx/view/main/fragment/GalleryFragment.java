@@ -26,9 +26,12 @@ import com.jbsx.data.AppConstData;
 import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ReloadBarHelper;
+import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.entity.GalleryData;
 import com.jbsx.view.main.entity.NavigationData;
 import com.jbsx.view.main.entity.SpecialAlbumData;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -197,7 +200,7 @@ public class GalleryFragment extends BaseFragment {
                 return;
             }
 
-            NavigationData.ClassifyEntity entity = mGalleryData.get(position);
+            final NavigationData.ClassifyEntity entity = mGalleryData.get(position);
             holder.mTvLabel.setText(entity.getClassifyName());
             Glide.with(mContext).load(entity.getClassifyPreview()).into(holder.img);
 //        Glide.with(mContext).load(mColors[position]).asBitmap().into(new SimpleTarget<Bitmap>() {
@@ -209,7 +212,7 @@ public class GalleryFragment extends BaseFragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                Toast.makeText(mContext, "点击了："+position, Toast.LENGTH_SHORT).show();
+                    EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType, entity.getClassifyCode()));
                 }
             });
         }
