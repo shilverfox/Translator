@@ -200,18 +200,24 @@ public class PageManager {
     private String getNextPage(String currentPage) {
         if (AppConstData.PAGE_TYPE_MAIN.equals(currentPage)) {
             return AppConstData.PAGE_TYPE_VIDEO_1;
+
         } else if (AppConstData.PAGE_TYPE_ALBUM_1.equals(currentPage)) {
             // 专辑分类 to 专辑feed
             return AppConstData.PAGE_TYPE_ALBUM_2;
+
         } else if (AppConstData.PAGE_TYPE_ALBUM_2.equals(currentPage)) {
             // 专辑列表 to 专辑详情
             return AppConstData.PAGE_TYPE_ALBUM_DETAIL;
+
         } else if (AppConstData.PAGE_TYPE_VIDEO_1.equals(currentPage)) {
             return AppConstData.PAGE_TYPE_VIDEO_2;
+
         } else if (AppConstData.PAGE_TYPE_VIDEO_2.equals(currentPage)) {
             return AppConstData.PAGE_TYPE_VIDEO_FEED;
+
         } else if (AppConstData.PAGE_TYPE_VIDEO_FEED.equals(currentPage)) {
             return AppConstData.PAGE_TYPE_VIDEO_DETAIL;
+
         } else if (AppConstData.PAGE_TYPE_VIDEO_DETAIL.equals(currentPage)) {
             return AppConstData.PAGE_TYPE_VIDEO_PLAYER;
         }
@@ -252,29 +258,38 @@ public class PageManager {
         if (AppConstData.PAGE_TYPE_MAIN.equals(pageChangeData.mCurrentPageType)) {
             return MainPageFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_MAIN, pageChangeData.mRequestParam);
+
         } else if (AppConstData.PAGE_TYPE_ALBUM_1.equals(pageChangeData.mCurrentPageType)) {
             return GalleryFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_ALBUM_1, pageChangeData.mRequestParam);
+
         } else if (AppConstData.PAGE_TYPE_ALBUM_2.equals(pageChangeData.mCurrentPageType)) {
             return VideoFeedFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_ALBUM_2, pageChangeData.mRequestParam);
+
         } else if (AppConstData.PAGE_TYPE_ALBUM_DETAIL.equals(pageChangeData.mCurrentPageType)) {
             return AlbumPlayerFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_ALBUM_DETAIL, pageChangeData.mRequestParam);
+
         } else if (AppConstData.PAGE_TYPE_VIDEO_1.equals(pageChangeData.mCurrentPageType)) {
             return GalleryFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_VIDEO_1, pageChangeData.mRequestParam);
+
         } else if (AppConstData.PAGE_TYPE_VIDEO_2.equals(pageChangeData.mCurrentPageType)) {
             return GalleryFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_VIDEO_2, pageChangeData.mRequestParam);
+
         } else if (AppConstData.PAGE_TYPE_VIDEO_FEED.equals(pageChangeData.mCurrentPageType)) {
             return VideoFeedFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_VIDEO_FEED, pageChangeData.mRequestParam);
+
         } else if (AppConstData.PAGE_TYPE_VIDEO_DETAIL.equals(pageChangeData.mCurrentPageType)) {
             return VideoDetailFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_VIDEO_DETAIL, pageChangeData.mRequestParam);
+
         } else if (AppConstData.PAGE_TYPE_VIDEO_PLAYER.equals(pageChangeData.mCurrentPageType)) {
             return VideoPlayerFragment.newInstance();
+
         } else {
             // 默认显示首页
             return MainPageFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
