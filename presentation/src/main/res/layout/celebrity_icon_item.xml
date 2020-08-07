@@ -1,37 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 首页名家列表，头像 item -->
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_celebrity_icon_item"
-    android:paddingRight="6.5dp"
+    android:paddingRight="20dp"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="83dp"
-        android:layout_height="117dp"
-        android:background="@drawable/head_bg">
-        <ImageView
-            android:id="@+id/tv_celebrity_icon_item_head"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:scaleType="fitXY"
-            android:layout_marginTop="12dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/timg"/>
 
-        <TextView
-            android:id="@+id/tv_celebrity_icon_item_name"
-            android:layout_width="wrap_content"
-            android:layout_height="17dp"
-            android:gravity="center"
-            android:text="name"
-            android:textColor="#010000"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="19dp"
-            android:textSize="14sp"/>
-    </RelativeLayout>
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/tv_celebrity_icon_item_head"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/timg"
+        android:padding="4dp"
+        android:background="@drawable/shape_round_ffffff"/>
+
+    <TextView
+        android:id="@+id/tv_celebrity_icon_item_name"
+        android:layout_width="100dp"
+        android:layout_height="17dp"
+        android:gravity="center"
+        android:text="name"
+        android:textColor="#ffffff"
+        android:maxLines="2"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="14sp"/>
+</LinearLayout>

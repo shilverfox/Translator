@@ -28,6 +28,7 @@ import com.jbsx.utils.LogTools;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.utils.StatisticsReportUtil;
+import com.jbsx.utils.UiTools;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.adapter.CelebrityIconItemAdapter;
 import com.jbsx.view.main.adapter.VideoItemAdapter;
@@ -362,7 +363,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
 
     private void calculateBannerHeight() {
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mViewBanner.getLayoutParams();
-        params.height = StatisticsReportUtil.getScreenWidth() * 182 / 375;
+        params.height = UiTools.dip2px(200);//StatisticsReportUtil.getScreenWidth() * 182 / 375;
         mViewBanner.setLayoutParams(params);
     }
 

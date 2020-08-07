@@ -18,6 +18,7 @@ import com.app.domain.net.interactor.MainViewUserCase;
 import com.app.domain.net.model.BaseDomainData;
 import com.app.domain.util.ParseUtil;
 import com.flyco.tablayout.CommonTabLayout;
+import com.flyco.tablayout.SlidingCommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.github.dfqin.grantor.PermissionListener;
@@ -59,7 +60,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     private ArrayList<Fragment> mFragmentList = new ArrayList<>();
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
-    private CommonTabLayout mTabLayout;
+    private SlidingCommonTabLayout mTabLayout;
     private TitleBar mTopBarLayout;
     private ViewPager mViewPager;
     private View mBtnBack;
@@ -189,7 +190,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
                 return GalleryFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_ALBUM_1,
                         params);
             case AppConstData.TYPE_NAVI_VIDEO:
-                return MainPageFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_MAIN, params);
+                return GalleryFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_VIDEO_1, params);
             case AppConstData.TYPE_NAVI_LOCAL:
                 return MainPageFragment.newInstance(naviId, type + "", AppConstData.PAGE_TYPE_MAIN, params);
             case AppConstData.TYPE_NAVI_MAIN:

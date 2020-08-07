@@ -9,30 +9,34 @@
         android:id="@+id/view_main_title_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/title_bar_end"
         android:orientation="vertical">
 
-        <include layout="@layout/widget_title_bar" />
-
-        <com.flyco.tablayout.CommonTabLayout
-            android:id="@+id/tab_main"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/title_bar_start"
+            android:visibility="gone">
+            <include layout="@layout/widget_title_bar" />
+        </FrameLayout>
+
+        <com.flyco.tablayout.SlidingCommonTabLayout
+            android:id="@+id/tab_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/title_bar_end"
+            android:layout_gravity="right"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            tl:tl_indicator_color="@color/white"
-            tl:tl_indicator_width="40dp"
-            tl:tl_textSelectColor="@color/white"
-            tl:tl_textUnselectColor="@color/white"
-            tl:tl_underline_color="@color/title_bar_start"
-            tl:tl_underline_height="4dp"
-            tl:tl_indicator_corner_radius="4dp"
-            tl:tl_textsize="18sp"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:background="@color/title_bar_start"/>
+            tl:tl_textSelectColor="@color/title_bar_end"
+            tl:tl_textUnselectColor="#ffffff"
+            tl:tl_underline_color="#DDDDDD"
+            tl:tl_tab_padding="15dp"
+            tl:tl_textBold="SELECT"
+            tl:tl_show_tab_background="true"
+            tl:tl_tab_background_color="#ffffff"
+            tl:tl_indicator_width_equal_title="true"
+            tl:tl_tab_space_equal="false"
+            tl:tl_underline_height="0dp"/>
     </LinearLayout>
 
     <FrameLayout
@@ -40,7 +44,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/view_main_title_container"
-        android:paddingBottom="@dimen/main_bottom_margin">
+        android:paddingBottom="@dimen/main_bottom_margin"
+        android:layout_marginBottom="1dp">
 
         <FrameLayout
             android:id="@+id/fl_container"
@@ -60,7 +65,7 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/main_bottom_margin"
             android:background="@color/title_bar_start"
             android:layout_alignParentBottom="true">
 
