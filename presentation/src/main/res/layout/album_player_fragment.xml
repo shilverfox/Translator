@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:layout_weight="1"
-        android:src="@drawable/album_cover"/>
+        android:layout_weight="1"/>
 
     <LinearLayout
         android:id="@+id/iv_album_play_list"

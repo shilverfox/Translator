@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.utils.ViewUtils;
+import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.main.entity.AlbumDetailData;
 import com.jbsx.view.main.entity.GalleryData;
 import com.jbsx.view.main.entity.RepertoryData;
@@ -42,6 +44,7 @@ public class AlbumPlayerFragment extends BaseFragment {
     private TextView mTvAlbumCompany;
     private TextView mTvAlbumType;
     private TextView mTvAlbumActor;
+    private ImageView mIvAlbumCover;
     private LinearLayout mDiscContainer;
 
     private String mRequestParams;
@@ -101,6 +104,7 @@ public class AlbumPlayerFragment extends BaseFragment {
 
     private void initViews() {
         mContainerView = mRootView.findViewById(R.id.view_album_player_root);
+        mIvAlbumCover = mRootView.findViewById(R.id.iv_album_play_cover);
         mTvAlbumName = mRootView.findViewById(R.id.tv_album_play_name);
         mTvAlbumCompany = mRootView.findViewById(R.id.tv_album_play_company);
         mTvAlbumType = mRootView.findViewById(R.id.tv_album_play_type);
@@ -146,6 +150,7 @@ public class AlbumPlayerFragment extends BaseFragment {
     private void handleAlbumInfo(AlbumDetailData parseData) {
         ViewUtils.setTextToView(mTvAlbumName, parseData.getBody().getAlbumName());
         RepertoryData.MetaData metaData = parseData.getBody().getMetadata();
+        ImageLoader.displayImage(parseData.getBody().getPreview(), mIvAlbumCover);
         if (metaData != null) {
             ViewUtils.setTextToView(mTvAlbumCompany, metaData.getDirector());
             ViewUtils.setTextToView(mTvAlbumType, metaData.getAlbumType());
