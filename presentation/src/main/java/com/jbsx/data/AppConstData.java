@@ -87,6 +87,12 @@ public class AppConstData {
     /** 页面类型 视频列表 */
     public final static String PAGE_TYPE_VIDEO_FEED = "video_feed";
 
+    /** 页面类型 视频详情 */
+    public final static String PAGE_TYPE_VIDEO_DETAIL = "video_detail";
+
+    /** 页面类型 视频播放页 */
+    public final static String PAGE_TYPE_VIDEO_PLAYER = "video_player";
+
     /** 页面类型 本地页面 */
     public final static String PAGE_TYPE_LOCAL_1 = "local_1";
 

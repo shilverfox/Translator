@@ -12,7 +12,9 @@ import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.fragment.AlbumPlayerFragment;
 import com.jbsx.view.main.fragment.GalleryFragment;
 import com.jbsx.view.main.fragment.MainPageFragment;
+import com.jbsx.view.main.fragment.VideoDetailFragment;
 import com.jbsx.view.main.fragment.VideoFeedFragment;
+import com.jbsx.view.main.fragment.VideoPlayerFragment;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -99,7 +101,9 @@ public class PageManager {
     public void handleBackEvent(String naviId) {
         if (!TextUtils.isEmpty(naviId)) {
             LinkedHashMap<String, Fragment> pageList = (LinkedHashMap<String, Fragment>) mAllPages.get(naviId);
-            if (pageList != null) {
+
+            // 多余一个才可以响应返回事件
+            if (pageList != null && pageList.entrySet().size() > 1) {
                 // 找到最后一个（最新添加的），删除
                 Map.Entry currentPage = getTail(pageList);
                 if (currentPage != null) {
@@ -132,22 +136,23 @@ public class PageManager {
             if (pageList != null) {
                 // 找到最后一个（最新添加的）
                 Map.Entry currentPage = getTail(pageList);
-
-                // 遍历所有的fragment
-                for (String key : mAllPages.keySet()) {
-                    Map<String, Fragment> pages = mAllPages.get(key);
-                    for (String innerKey : pages.keySet()) {
-                        Fragment page = pages.get(innerKey);
-                        // 显示目标fragment，否则隐藏
-                        boolean needShow = (page == currentPage.getValue());
-                        if (mFragmentManager != null) {
-                            FragmentTransaction transaction = mFragmentManager.beginTransaction();
-                            if (needShow) {
-                                transaction.show(page);
-                            } else {
-                                transaction.hide(page);
+                if (currentPage != null) {
+                    // 遍历所有的fragment
+                    for (String key : mAllPages.keySet()) {
+                        Map<String, Fragment> pages = mAllPages.get(key);
+                        for (String innerKey : pages.keySet()) {
+                            Fragment page = pages.get(innerKey);
+                            // 显示目标fragment，否则隐藏
+                            boolean needShow = (page == currentPage.getValue());
+                            if (mFragmentManager != null) {
+                                FragmentTransaction transaction = mFragmentManager.beginTransaction();
+                                if (needShow) {
+                                    transaction.show(page);
+                                } else {
+                                    transaction.hide(page);
+                                }
+                                transaction.commitAllowingStateLoss();
                             }
-                            transaction.commitAllowingStateLoss();
                         }
                     }
                 }
@@ -201,6 +206,14 @@ public class PageManager {
         } else if (AppConstData.PAGE_TYPE_ALBUM_2.equals(currentPage)) {
             // 专辑列表 to 专辑详情
             return AppConstData.PAGE_TYPE_ALBUM_DETAIL;
+        } else if (AppConstData.PAGE_TYPE_VIDEO_1.equals(currentPage)) {
+            return AppConstData.PAGE_TYPE_VIDEO_2;
+        } else if (AppConstData.PAGE_TYPE_VIDEO_2.equals(currentPage)) {
+            return AppConstData.PAGE_TYPE_VIDEO_FEED;
+        } else if (AppConstData.PAGE_TYPE_VIDEO_FEED.equals(currentPage)) {
+            return AppConstData.PAGE_TYPE_VIDEO_DETAIL;
+        } else if (AppConstData.PAGE_TYPE_VIDEO_DETAIL.equals(currentPage)) {
+            return AppConstData.PAGE_TYPE_VIDEO_PLAYER;
         }
 
         return "";
@@ -248,6 +261,20 @@ public class PageManager {
         } else if (AppConstData.PAGE_TYPE_ALBUM_DETAIL.equals(pageChangeData.mCurrentPageType)) {
             return AlbumPlayerFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_ALBUM_DETAIL, pageChangeData.mRequestParam);
+        } else if (AppConstData.PAGE_TYPE_VIDEO_1.equals(pageChangeData.mCurrentPageType)) {
+            return GalleryFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
+                    AppConstData.PAGE_TYPE_VIDEO_1, pageChangeData.mRequestParam);
+        } else if (AppConstData.PAGE_TYPE_VIDEO_2.equals(pageChangeData.mCurrentPageType)) {
+            return GalleryFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
+                    AppConstData.PAGE_TYPE_VIDEO_2, pageChangeData.mRequestParam);
+        } else if (AppConstData.PAGE_TYPE_VIDEO_FEED.equals(pageChangeData.mCurrentPageType)) {
+            return VideoFeedFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
+                    AppConstData.PAGE_TYPE_VIDEO_FEED, pageChangeData.mRequestParam);
+        } else if (AppConstData.PAGE_TYPE_VIDEO_DETAIL.equals(pageChangeData.mCurrentPageType)) {
+            return VideoDetailFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
+                    AppConstData.PAGE_TYPE_VIDEO_DETAIL, pageChangeData.mRequestParam);
+        } else if (AppConstData.PAGE_TYPE_VIDEO_PLAYER.equals(pageChangeData.mCurrentPageType)) {
+            return VideoPlayerFragment.newInstance();
         } else {
             // 默认显示首页
             return MainPageFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,

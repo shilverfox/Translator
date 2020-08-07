@@ -39,6 +39,7 @@ import com.jbsx.view.main.entity.MainPageData;
 import com.jbsx.view.main.entity.SpecialAlbumData;
 import com.jbsx.view.main.entity.SpecialAlbums;
 import com.jbsx.view.main.presenter.MainPagePresenter;
+import com.jbsx.view.main.util.PageUtils;
 import com.jbsx.view.web.WebHelper;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -282,7 +283,11 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
 //            }
 //        }
 
-        EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType, mRequestParams));
+        MainPageData.HomeRecommendEntity entity = mListCelebrity.get(position);
+        if (entity != null) {
+            EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType,
+                    PageUtils.getPageType(entity.getResourceType()), entity.getResourceCode()));
+        }
     }
 
     /**

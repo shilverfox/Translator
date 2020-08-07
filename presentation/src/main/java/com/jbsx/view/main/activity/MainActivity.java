@@ -246,8 +246,11 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
 
         // 不支持滑动切换
         mTabLayout.setTabData(mTabEntities, this, R.id.fl_container, mFragmentList);
-        mTabLayout.setCurrentTab(0);
         mViewPager.setVisibility(View.GONE);
+
+        int defaultTab = 0;
+        mTabLayout.setCurrentTab(0);
+        mCurrentTabId = mTabEntities.get(defaultTab).getTabTitle();
         findViewById(R.id.fl_container).setVisibility(View.VISIBLE);
 
 
