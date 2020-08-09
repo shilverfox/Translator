@@ -73,6 +73,7 @@
                 android:id="@+id/btn_main_back"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
                 android:text="返回"/>
 
         </FrameLayout>

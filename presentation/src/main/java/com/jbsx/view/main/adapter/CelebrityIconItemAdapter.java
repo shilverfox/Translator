@@ -1,6 +1,7 @@
 package com.jbsx.view.main.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import com.jbsx.R;
 import com.jbsx.adapter.UniversalAdapter2;
 import com.jbsx.adapter.UniversalViewHolder2;
+import com.jbsx.utils.image.IImageLoadListener;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.main.entity.Celebrities;
 import com.jbsx.view.main.entity.MainPageData;
@@ -37,8 +39,19 @@ public class CelebrityIconItemAdapter extends UniversalAdapter2<MainPageData.Hom
 
         mCurrentPosition = position;
 
-        ImageView icon = (ImageView) holder.getViewById(R.id.tv_celebrity_icon_item_head);
+        final ImageView icon = (ImageView) holder.getViewById(R.id.tv_celebrity_icon_item_head);
         ImageLoader.displayImage(celebrityData.getPreview(), icon);
+
+        final ImageView iconBg = (ImageView) holder.getViewById(R.id.iv_celebrity_icon_item_bg);
+        ImageLoader.displayImage(celebrityData.getPreview(), iconBg);
+
+//        ImageLoader.loadImage(celebrityData.getPreview(), new IImageLoadListener() {
+//            @Override
+//            public void onLoadingComplete(Drawable drawable) {
+//                icon.setImageDrawable(drawable);
+//                iconBg.setImageDrawable(drawable);
+//            }
+//        });
 
         TextView name = (TextView) holder.getViewById(R.id.tv_celebrity_icon_item_name);
         name.setText(celebrityData.getResourceName());

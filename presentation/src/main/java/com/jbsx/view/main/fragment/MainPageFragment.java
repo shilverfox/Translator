@@ -41,6 +41,7 @@ import com.jbsx.view.main.entity.SpecialAlbumData;
 import com.jbsx.view.main.entity.SpecialAlbums;
 import com.jbsx.view.main.presenter.MainPagePresenter;
 import com.jbsx.view.main.util.PageUtils;
+import com.jbsx.view.main.view.TabItemDecoration;
 import com.jbsx.view.web.WebHelper;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -253,6 +254,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
      */
     private void initCelebrityView() {
         mRvHostList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        mRvHostList.addItemDecoration(new TabItemDecoration(UiTools.dip2px(20)));
 
         mAdapterCelebrity = new CelebrityIconItemAdapter(mContext, R.layout.celebrity_icon_item);
         mAdapterCelebrity.setDatas(mListCelebrity);

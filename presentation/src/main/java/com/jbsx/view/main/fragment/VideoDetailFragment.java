@@ -1,10 +1,13 @@
 package com.jbsx.view.main.fragment;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
@@ -19,8 +22,16 @@ import com.jbsx.data.AppConstData;
 import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ReloadBarHelper;
+import com.jbsx.utils.UiTools;
+import com.jbsx.utils.ViewUtils;
+import com.jbsx.utils.image.ImageLoader;
+import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.entity.GalleryData;
+import com.jbsx.view.main.entity.RepertoryData;
 import com.jbsx.view.main.entity.VideoDetailData;
+import com.jbsx.view.main.util.PageUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 视频详情介绍
@@ -28,6 +39,14 @@ import com.jbsx.view.main.entity.VideoDetailData;
 public class VideoDetailFragment extends BaseFragment {
     private View mRootView;
     private View mViewLayout;
+    private ImageView mIvIcon;
+    private TextView mTvName;
+    private TextView mTvDirector;
+    private TextView mTvActor;
+    private TextView mTvDuration;
+    private TextView mTvPublishDate;
+    private TextView mTvSummary;
+    private TextView mBtnPlay;
 
     private String mRequestParams;
     private String mNaviType;
@@ -73,6 +92,7 @@ public class VideoDetailFragment extends BaseFragment {
         createPresenter();
         initViews();
         initEvents();
+        loadData();
 
         return mRootView;
     }
@@ -84,10 +104,23 @@ public class VideoDetailFragment extends BaseFragment {
 
     private void initViews() {
         mViewLayout = mRootView.findViewById(R.id.layout_video_detail_root);
+        mIvIcon = mRootView.findViewById(R.id.iv_video_detail_icon);
+        mTvName = mRootView.findViewById(R.id.iv_video_detail_name);
+        mTvDirector = mRootView.findViewById(R.id.iv_video_detail_director);
+        mTvActor = mRootView.findViewById(R.id.iv_video_detail_actor);
+        mTvDuration = mRootView.findViewById(R.id.iv_video_detail_video_time);
+        mTvPublishDate = mRootView.findViewById(R.id.iv_video_detail_play_date);
+        mTvSummary = mRootView.findViewById(R.id.iv_video_detail_summary);
+        mBtnPlay = mRootView.findViewById(R.id.btn_video_detail_play);
     }
 
     private void initEvents() {
-
+        mBtnPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType, ""));
+            }
+        });
     }
 
     private void loadData() {
@@ -111,6 +144,23 @@ public class VideoDetailFragment extends BaseFragment {
 
     private void handleLoadSuccessful(String data) {
         VideoDetailData parseData = ParseUtil.parseData(data, VideoDetailData.class);
+        drawVideoDetail(parseData.getBody());
+    }
+
+    private void drawVideoDetail(RepertoryData.FeedItem detail) {
+        if (detail != null && detail.getMetadata() != null) {
+            ImageLoader.displayImage(detail.getVideoPreview(), mIvIcon);
+            ViewUtils.drawText(mTvName, detail.getVideoName());
+            ViewUtils.drawText(mTvDirector, ViewUtils.getBoldText("导演："
+                    + detail.getMetadata().getDirector(), 0, 3));
+            ViewUtils.drawText(mTvActor, ViewUtils.getBoldText("演员："
+                    + detail.getMetadata().getActor(), 0, 3));
+            ViewUtils.drawText(mTvDuration, ViewUtils.getBoldText("片长："
+                    + detail.getMetadata().getVideoTime(), 0, 3));
+            ViewUtils.drawText(mTvPublishDate, ViewUtils.getBoldText("上映时间："
+                    + detail.getMetadata().getPlayDate(), 0, 5));
+            ViewUtils.drawText(mTvSummary, Html.fromHtml(detail.getMetadata().getIntro()));
+        }
     }
 
     private void handleLoadFailed(BaseDomainData data) {

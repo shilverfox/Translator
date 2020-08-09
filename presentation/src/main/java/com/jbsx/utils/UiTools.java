@@ -2,7 +2,12 @@ package com.jbsx.utils;
 
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import com.jbsx.app.MainApplicationLike;
 
