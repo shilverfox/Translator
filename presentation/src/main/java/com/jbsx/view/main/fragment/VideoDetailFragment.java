@@ -21,6 +21,7 @@ import com.jbsx.app.MainApplicationLike;
 import com.jbsx.data.AppConstData;
 import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
+import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.utils.UiTools;
 import com.jbsx.utils.ViewUtils;
@@ -124,6 +125,7 @@ public class VideoDetailFragment extends BaseFragment {
     }
 
     private void loadData() {
+        ProgressBarHelper.addProgressBar(mViewLayout);
         mUserCase.requestVideoDetailInfo(mRequestParams, new BaseRequestCallback() {
             @Override
             public void onRequestFailed(BaseDomainData data) {
@@ -143,6 +145,7 @@ public class VideoDetailFragment extends BaseFragment {
     }
 
     private void handleLoadSuccessful(String data) {
+        ProgressBarHelper.removeProgressBar(mViewLayout);
         VideoDetailData parseData = ParseUtil.parseData(data, VideoDetailData.class);
         drawVideoDetail(parseData.getBody());
     }
@@ -164,6 +167,7 @@ public class VideoDetailFragment extends BaseFragment {
     }
 
     private void handleLoadFailed(BaseDomainData data) {
+        ProgressBarHelper.removeProgressBar(mViewLayout);
         MessageTools.showErrorMessage(data);
         String errorMessage = data.getMsg();
         if (TextUtils.isEmpty(errorMessage)) {
@@ -179,6 +183,7 @@ public class VideoDetailFragment extends BaseFragment {
     }
 
     public void drawNetError() {
+        ProgressBarHelper.removeProgressBar(mViewLayout);
         ErroBarHelper.addErroBar(mViewLayout, ErroBarHelper.ERRO_TYPE_NET_INTERNET, new Runnable() {
             @Override
             public void run() {

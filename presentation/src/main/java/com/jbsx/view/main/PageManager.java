@@ -197,7 +197,7 @@ public class PageManager {
         return R.id.fl_container;
     }
 
-    private String getNextPage(String currentPage) {
+    private String getNextPage(String currentPage, boolean hasChildren) {
         if (AppConstData.PAGE_TYPE_MAIN.equals(currentPage)) {
             return AppConstData.PAGE_TYPE_VIDEO_1;
 
@@ -210,7 +210,7 @@ public class PageManager {
             return AppConstData.PAGE_TYPE_ALBUM_DETAIL;
 
         } else if (AppConstData.PAGE_TYPE_VIDEO_1.equals(currentPage)) {
-            return AppConstData.PAGE_TYPE_VIDEO_2;
+            return hasChildren ? AppConstData.PAGE_TYPE_VIDEO_2 : AppConstData.PAGE_TYPE_VIDEO_FEED;
 
         } else if (AppConstData.PAGE_TYPE_VIDEO_2.equals(currentPage)) {
             return AppConstData.PAGE_TYPE_VIDEO_FEED;
@@ -231,7 +231,7 @@ public class PageManager {
     private void dispatchPage(PageChangeEvent pageChangeData) {
         String naviId = pageChangeData.mNaviId;
         String tabType = pageChangeData.mTabType;
-        String pageType = getNextPage(pageChangeData.mCurrentPageType);
+        String pageType = getNextPage(pageChangeData.mCurrentPageType, pageChangeData.mHasChildren);
 
         if (!TextUtils.isEmpty(naviId) && !TextUtils.isEmpty(pageType)) {
             Map<String, Fragment> pageList = mAllPages.get(naviId);

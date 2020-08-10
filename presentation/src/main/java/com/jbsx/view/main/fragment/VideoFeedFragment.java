@@ -175,12 +175,8 @@ public class VideoFeedFragment extends CommonListFragment {
         private Context mContext;
 
         private View mRootView;
-        private TextView mTvGroup;
-        private TextView mTvAmount;
         private TextView mTvTitle;
-        private TextView mTvCelebrity;
         private ImageView mIvImageUrl;
-        private ImageView mIvCheck;
 
         private RepertoryData.FeedItem mData;
         private int mCurrentPosition;
@@ -196,13 +192,8 @@ public class VideoFeedFragment extends CommonListFragment {
         public void findViews(View rootView) {
             if (rootView != null) {
                 mRootView = rootView;
-
-                mTvGroup  = mRootView.findViewById(R.id.iv_my_info_video_group);
-                mTvAmount = mRootView.findViewById(R.id.iv_video_item_amount);
-                mTvTitle = mRootView.findViewById(R.id.iv_video_item_description);
-                mTvCelebrity = mRootView.findViewById(R.id.iv_video_item_host);
                 mIvImageUrl = mRootView.findViewById(R.id.iv_video_item_image);
-                mIvCheck = mRootView.findViewById(R.id.iv_my_info_video_check);
+                mTvTitle = mRootView.findViewById(R.id.iv_video_item_name);
             }
         }
 
@@ -216,7 +207,6 @@ public class VideoFeedFragment extends CommonListFragment {
             });
         }
 
-
         @Override
         public void drawViews(RepertoryData.FeedItem data, final int position) {
             mData = data;
@@ -224,8 +214,9 @@ public class VideoFeedFragment extends CommonListFragment {
 
             if (data != null) {
                 // 图片
-//                String imgUrl = data.get.getAppImageUrl();
-//                ImageLoader.displayImage(imgUrl, mIvImageUrl);
+                String imgUrl = data.getVideoPreview();
+                ImageLoader.displayImage(imgUrl, mIvImageUrl);
+                mTvTitle.setText(data.getVideoName());
             }
         }
 
@@ -275,7 +266,6 @@ public class VideoFeedFragment extends CommonListFragment {
                 }
             });
         }
-
 
         @Override
         public void drawViews(AlbumFeedData.AlbumFeedItem data, final int position) {

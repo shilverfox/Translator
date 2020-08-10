@@ -6,27 +6,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/view_gallery_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_gallery_indicator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_marginTop="20dp"
-            android:text="0"
-            android:textColor="@android:color/black" />
-
         <com.jbsx.customview.gallery.RecyclerCoverFlow
             android:id="@+id/tv_gallery_info"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp">
+            android:layout_height="match_parent"/>
 
-        </com.jbsx.customview.gallery.RecyclerCoverFlow>
-    </LinearLayout>
+        <com.jbsx.customview.DotImageIndicator
+            android:id="@+id/tv_gallery_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"/>
+    </RelativeLayout>
 </RelativeLayout>

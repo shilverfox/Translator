@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
@@ -20,31 +19,28 @@ import com.bumptech.glide.Glide;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
-import com.jbsx.customview.DotImageIndicator;
 import com.jbsx.customview.gallery.CoverFlowLayoutManger;
 import com.jbsx.customview.gallery.RecyclerCoverFlow;
 import com.jbsx.data.AppConstData;
 import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
-import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.entity.GalleryData;
 import com.jbsx.view.main.entity.NavigationData;
-import com.jbsx.view.main.entity.SpecialAlbumData;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 画廊样式
+ * 本地资源
  */
-public class GalleryFragment extends BaseFragment {
+public class LocalResourceFragment extends BaseFragment {
     private View mRootView;
     private ViewGroup mContainerView;
     private RecyclerCoverFlow mList;
-    private DotImageIndicator mImageIndicator;
 
     private String mRequestParams;
     private String mNaviType;
@@ -52,22 +48,22 @@ public class GalleryFragment extends BaseFragment {
     private String mNaviId;
 
     private MainPageUserCase mUserCase;
-    private List<NavigationData.ClassifyEntity> mGalleryData;
+    private List<NavigationData.ClassifyEntity> mGalleryData = new ArrayList<>();;
     private Adapter mAdapter;
 
-    public GalleryFragment() {
+    public LocalResourceFragment() {
         // Required empty public constructor
     }
 
-    public static GalleryFragment newInstance(String naviId, String naviType, String pageType,
-                                              String requestParams) {
+    public static LocalResourceFragment newInstance(String naviId, String naviType, String pageType,
+                                                    String requestParams) {
         Bundle bundle = new Bundle();
         bundle.putString(AppConstData.INTENT_KEY_NAVI_ID, naviId);
         bundle.putString(AppConstData.INTENT_KEY_NAVI_TYPE, naviType);
         bundle.putString(AppConstData.INTENT_KEY_PAGE_TYPE, pageType);
         bundle.putString(AppConstData.INTENT_KEY_REQUEST_PARAMS, requestParams);
 
-        GalleryFragment contentFragment = new GalleryFragment();
+        LocalResourceFragment contentFragment = new LocalResourceFragment();
         contentFragment.setArguments(bundle);
 
         return contentFragment;
@@ -88,7 +84,7 @@ public class GalleryFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
-        mRootView = inflater.inflate(R.layout.gallery_fragment, null, false);
+        mRootView = inflater.inflate(R.layout.local_resource_fragment, null, false);
         createPresenter();
         initViews();
         initEvents();
@@ -103,35 +99,26 @@ public class GalleryFragment extends BaseFragment {
     }
 
     private void loadData() {
-        ProgressBarHelper.addProgressBar(mContainerView);
-        mUserCase.requestGalleryInfo(mRequestParams, new BaseRequestCallback() {
-            @Override
-            public void onRequestFailed(BaseDomainData data) {
-                handleLoadFailed(data);
-            }
+        handleLoadSuccessful("");
+    }
 
-            @Override
-            public void onRequestSuccessful(String data) {
-                handleLoadSuccessful(data);
-            }
-
-            @Override
-            public void onNetError() {
-                drawNetError();
-            }
-        });
+    private NavigationData.ClassifyEntity createLocalData(String url, String name, String key) {
+        NavigationData navigationData = new NavigationData();
+        NavigationData.ClassifyEntity entity = navigationData.new ClassifyEntity();
+        entity.setClassifyCode(key);
+        entity.setClassifyPreview(url);
+        entity.setClassifyName(name);
+        return entity;
     }
 
     private void handleLoadSuccessful(String data) {
-        ProgressBarHelper.removeProgressBar(mContainerView);
-        GalleryData parseData = ParseUtil.parseData(data, GalleryData.class);
-        mGalleryData = parseData.getBody();
-        mImageIndicator.initImageDot(mGalleryData.size());
+        mGalleryData.add(createLocalData("", "本地图集", "0"));
+        mGalleryData.add(createLocalData("", "本地资源", "1"));
+        mGalleryData.add(createLocalData("", "新闻资讯", "2"));
         mAdapter.notifyDataSetChanged();
     }
 
     private void handleLoadFailed(BaseDomainData data) {
-        ProgressBarHelper.removeProgressBar(mContainerView);
         MessageTools.showErrorMessage(data);
         String errorMessage = data.getMsg();
         if (TextUtils.isEmpty(errorMessage)) {
@@ -147,7 +134,6 @@ public class GalleryFragment extends BaseFragment {
     }
 
     public void drawNetError() {
-        ProgressBarHelper.removeProgressBar(mContainerView);
         ErroBarHelper.addErroBar(mContainerView, ErroBarHelper.ERRO_TYPE_NET_INTERNET, new Runnable() {
             @Override
             public void run() {
@@ -158,19 +144,18 @@ public class GalleryFragment extends BaseFragment {
     }
 
     private void initViews() {
-        mContainerView = mRootView.findViewById(R.id.view_gallery_root);
-        mList = mRootView.findViewById(R.id.tv_gallery_info);
+        mContainerView = mRootView.findViewById(R.id.view_local_root);
+        mList = mRootView.findViewById(R.id.tv_local_info);
 //        mList.setFlatFlow(true); //平面滚动
         mList.setGreyItem(true); //设置灰度渐变
 //        mList.setAlphaItem(true); //设置半透渐变
 //        mList.setLoop(); //循环滚动，注：循环滚动模式暂不支持平滑滚动
-        mImageIndicator = mRootView.findViewById(R.id.tv_gallery_indicator);
         mAdapter = new Adapter(mContext);
         mList.setAdapter(mAdapter);
         mList.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
-                mImageIndicator.updateImageDotStatus(position);
+                ((TextView)mRootView.findViewById(R.id.tv_local_indicator)).setText((position+1)+"/"+mList.getLayoutManager().getItemCount());
             }
         });
     }
@@ -182,17 +167,11 @@ public class GalleryFragment extends BaseFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (!hidden) {
-            loadData();
-        }
     }
 
     public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         private Context mContext;
-//        private int[] mColors = {R.mipmap.item1,R.mipmap.item2,R.mipmap.item3,R.mipmap.item4,
-//                R.mipmap.item5,R.mipmap.item6};
-
         public Adapter(Context c) {
             mContext = c;
         }
@@ -221,8 +200,7 @@ public class GalleryFragment extends BaseFragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType,
-                            entity.getClassifyCode(), entity.isHasChildren()));
+                    EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType, entity.getClassifyCode()));
                 }
             });
         }

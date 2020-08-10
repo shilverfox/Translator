@@ -19,6 +19,20 @@
             <include layout="@layout/widget_title_bar" />
         </FrameLayout>
 
+        <!-- status bar -->
+        <com.jbsx.customview.TitleStatusHeightLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/statusheight"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/top_bar_title_height"
+                android:alpha="1"
+                android:background="@color/title_bar_end"
+                android:visibility="visible" />
+        </com.jbsx.customview.TitleStatusHeightLayout>
+
         <com.flyco.tablayout.SlidingCommonTabLayout
             android:id="@+id/tab_main"
             android:layout_width="wrap_content"

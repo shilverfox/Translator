@@ -24,6 +24,7 @@ import com.jbsx.app.MainApplicationLike;
 import com.jbsx.data.AppConstData;
 import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
+import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.utils.ViewUtils;
 import com.jbsx.utils.image.ImageLoader;
@@ -117,6 +118,7 @@ public class AlbumPlayerFragment extends BaseFragment {
     }
 
     private void loadData() {
+        ProgressBarHelper.addProgressBar(mContainerView);
         mUserCase.requestAlbumDetailInfo(mRequestParams, new BaseRequestCallback() {
             @Override
             public void onRequestFailed(BaseDomainData data) {
@@ -136,6 +138,7 @@ public class AlbumPlayerFragment extends BaseFragment {
     }
 
     private void handleLoadSuccessful(String data) {
+        ProgressBarHelper.removeProgressBar(mContainerView);
         AlbumDetailData parseData = ParseUtil.parseData(data, AlbumDetailData.class);
         if (parseData != null && parseData.getBody() != null) {
             handleAlbumInfo(parseData);
@@ -186,6 +189,7 @@ public class AlbumPlayerFragment extends BaseFragment {
     }
 
     private void handleLoadFailed(BaseDomainData data) {
+        ProgressBarHelper.removeProgressBar(mContainerView);
         MessageTools.showErrorMessage(data);
         String errorMessage = data.getMsg();
         if (TextUtils.isEmpty(errorMessage)) {
@@ -201,6 +205,7 @@ public class AlbumPlayerFragment extends BaseFragment {
     }
 
     public void drawNetError() {
+        ProgressBarHelper.removeProgressBar(mContainerView);
         ErroBarHelper.addErroBar(mContainerView, ErroBarHelper.ERRO_TYPE_NET_INTERNET, new Runnable() {
             @Override
             public void run() {
