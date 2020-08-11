@@ -85,8 +85,13 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
 
         findViews(mRootView);
         setListAdapter();
+        initViews();
 
         return mRootView;
+    }
+
+    public void initViews() {
+
     }
 
     /**
@@ -428,6 +433,10 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
 
     public RecyclerView.LayoutManager getLayoutManager() {
         return new LinearLayoutManager(mContext);
+    }
+
+    public View getRootView() {
+        return mRootView.findViewById(R.id.view_common_list_root);
     }
 
     /** 创建对应的Adapter */

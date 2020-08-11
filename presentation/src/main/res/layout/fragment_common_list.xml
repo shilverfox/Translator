@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_common_list_root"
     android:orientation="vertical"
     android:background="@color/root_bg_color"
     android:layout_width="match_parent"

@@ -1,10 +1,14 @@
 package com.jbsx.view.start;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.jbsx.R;
 import com.jbsx.app.BaseActivity;
+import com.jbsx.utils.UiTools;
 import com.jbsx.view.main.activity.MainActivity;
 
 import gr.net.maroulis.library.EasySplashScreen;
@@ -21,14 +25,23 @@ public class SplashActivity extends BaseActivity {
                 .withFullScreen()
                 .withTargetActivity(MainActivity.class)
                 .withSplashTimeOut(4000)
-                .withBackgroundResource(R.drawable.splash)
+                .withBackgroundResource(R.drawable.logo)
 //                .withHeaderText("Header")
 //                .withFooterText("Copyright 2016")
 //                .withBeforeLogoText("My cool company")
-//                .withLogo(R.mipmap.ic_launcher)
+                .withLogo(R.drawable.wave)
 //                .withAfterLogoText("Some more details")
                 .create();
 
-        setContentView(easySplashScreenView);
+        FrameLayout layout = new FrameLayout(mContext);
+        layout.addView(easySplashScreenView);
+        ImageView image = new ImageView(mContext);
+        image.setImageResource(R.drawable.hello);
+
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(UiTools.dip2px(200), UiTools.dip2px(200));
+        params.gravity = Gravity.CENTER;
+        layout.addView(image, params);
+
+        setContentView(layout);
     }
 }

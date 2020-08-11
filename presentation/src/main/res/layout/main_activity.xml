@@ -9,7 +9,7 @@
         android:id="@+id/view_main_title_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/title_bar_end"
+        android:background="@drawable/top_bar_bg"
         android:orientation="vertical">
 
         <FrameLayout
@@ -80,7 +80,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_bottom_margin"
-            android:background="@color/title_bar_start"
+            android:background="@drawable/bottom_bg"
             android:layout_alignParentBottom="true">
 
             <Button

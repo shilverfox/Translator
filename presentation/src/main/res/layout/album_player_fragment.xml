@@ -3,7 +3,7 @@
     android:id="@+id/view_album_player_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/root_bg_color"
+    android:background="@drawable/background"
     android:gravity="center_horizontal"
     android:orientation="horizontal">
 
@@ -20,6 +20,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_gravity="center"
+        android:background="#ffffff"
         android:layout_weight="1">
 
         <LinearLayout

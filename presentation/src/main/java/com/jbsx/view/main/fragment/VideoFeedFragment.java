@@ -1,6 +1,7 @@
 package com.jbsx.view.main.fragment;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -84,6 +85,14 @@ public class VideoFeedFragment extends CommonListFragment {
     public CommonListFragmentAdapter getAdapter(Context context) {
         mAdapter = new VideoFeedAdapter(mContext);
         return mAdapter;
+    }
+
+    @Override
+    public void initViews() {
+        View rootView = getRootView();
+        if (rootView != null) {
+            rootView.setBackgroundResource(R.drawable.background);
+        }
     }
 
     @Override
