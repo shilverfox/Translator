@@ -39,6 +39,7 @@
                 android:id="@+id/tv_album_play_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:textSize="24sp"
                 android:text="名字名字"/>
 
@@ -61,12 +62,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:text="艺术家"/>
         </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
 
             <LinearLayout
                 android:id="@+id/view_album_play_fragment_disc_container"

@@ -19,7 +19,7 @@
             android:scaleType="fitXY"
             android:layout_marginTop="40dp"
             android:layout_marginLeft="110dp"
-            android:src="@drawable/album_cover"/>
+            android:src="@drawable/default_image"/>
 
         <TextView
             android:id="@+id/iv_video_detail_name"

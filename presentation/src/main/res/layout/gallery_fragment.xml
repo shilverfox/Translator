@@ -15,7 +15,9 @@
         <com.jbsx.customview.gallery.RecyclerCoverFlow
             android:id="@+id/tv_gallery_info"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"/>
 
         <com.jbsx.customview.DotImageIndicator
             android:id="@+id/tv_gallery_indicator"

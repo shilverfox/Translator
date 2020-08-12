@@ -151,13 +151,13 @@ public class AlbumPlayerFragment extends BaseFragment {
      * @param parseData
      */
     private void handleAlbumInfo(AlbumDetailData parseData) {
-        ViewUtils.setTextToView(mTvAlbumName, parseData.getBody().getAlbumName());
+        ViewUtils.drawText(mTvAlbumName, parseData.getBody().getAlbumName());
         RepertoryData.MetaData metaData = parseData.getBody().getMetadata();
         ImageLoader.displayImage(parseData.getBody().getPreview(), mIvAlbumCover);
         if (metaData != null) {
-            ViewUtils.setTextToView(mTvAlbumCompany, metaData.getDirector());
-            ViewUtils.setTextToView(mTvAlbumType, metaData.getAlbumType());
-            ViewUtils.setTextToView(mTvAlbumActor, metaData.getActor());
+            ViewUtils.drawText(mTvAlbumCompany, metaData.getDirector());
+            ViewUtils.drawText(mTvAlbumType, metaData.getAlbumType());
+            ViewUtils.drawText(mTvAlbumActor, metaData.getActor());
         }
     }
 

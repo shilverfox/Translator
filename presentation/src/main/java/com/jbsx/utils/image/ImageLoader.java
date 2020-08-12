@@ -10,6 +10,7 @@ import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.jbsx.R;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.utils.ColorTools;
 import com.jbsx.utils.UiTools;
@@ -34,6 +35,7 @@ public class ImageLoader {
 
         Glide.with(MainApplicationLike.getAppContext())
                 .load(url)
+                .placeholder(R.drawable.default_image)
                 .into(imgView);
     }
 

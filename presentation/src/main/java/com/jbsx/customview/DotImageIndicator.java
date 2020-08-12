@@ -24,7 +24,7 @@ public class DotImageIndicator extends LinearLayout {
 	
 	private Context mContext;
 
-    private int mType = DOT_INDICATOR_TYPE_GREE;
+    private int mType = DOT_INDICATOR_TYPE_GREY;
 	
 	public DotImageIndicator(Context context) {
 		super(context);
