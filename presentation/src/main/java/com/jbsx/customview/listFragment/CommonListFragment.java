@@ -2,6 +2,7 @@ package com.jbsx.customview.listFragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -137,7 +138,10 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
     private void setListAdapter() {
         mAdapter = getAdapter(mContext);
         mListView.setLayoutManager(getLayoutManager());
-        mListView.addItemDecoration(RecyclerViewHelper.getDivider(mContext));
+        if (!(mListView.getLayoutManager() instanceof GridLayoutManager)) {
+            mListView.addItemDecoration(RecyclerViewHelper.getDivider(mContext));
+        }
+
         mListView.setNestedScrollingEnabled(mEnableNestedScroll);
 
         if (needLoadByPage()) {

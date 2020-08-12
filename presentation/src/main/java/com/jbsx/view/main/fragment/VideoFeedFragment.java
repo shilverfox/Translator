@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.domain.net.data.ConstData;
@@ -19,6 +20,9 @@ import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
 import com.jbsx.data.AppConstData;
 import com.jbsx.utils.ShowTools;
+import com.jbsx.utils.StatisticsReportUtil;
+import com.jbsx.utils.UiTools;
+import com.jbsx.utils.ViewUtils;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.entity.AlbumFeedData;
@@ -33,6 +37,8 @@ import java.util.List;
  * 视频列表页
  */
 public class VideoFeedFragment extends CommonListFragment {
+    public static final int GRID_COLUM = 5;
+
     public static final String ARGUMENT = "argument";
 
     private VideoFeedAdapter mAdapter;
@@ -116,6 +122,19 @@ public class VideoFeedFragment extends CommonListFragment {
         return AppConstData.PAGE_TYPE_ALBUM_2 == mPageType;
     }
 
+    /**
+     * 根据屏幕宽度和宽高比计算高度
+     * @param imageView
+     */
+    private void calculateImageHeight(ImageView imageView) {
+        if (imageView != null) {
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
+            float width = (StatisticsReportUtil.getScreenWidth() - (GRID_COLUM - 1)*UiTools.dip2px(4)) / GRID_COLUM;
+            params.height = (int) width;
+            imageView.setLayoutParams(params);
+        }
+    }
+
     @Override
     public List parseList(String result) {
         Gson gson = new Gson();
@@ -148,7 +167,7 @@ public class VideoFeedFragment extends CommonListFragment {
 
     @Override
     public RecyclerView.LayoutManager getLayoutManager() {
-        return new GridLayoutManager(mContext, 4);
+        return new GridLayoutManager(mContext, GRID_COLUM);
     }
 
     private void handleItemClick(String requestParams) {
@@ -223,6 +242,7 @@ public class VideoFeedFragment extends CommonListFragment {
 
             if (data != null) {
                 // 图片
+                calculateImageHeight(mIvImageUrl);
                 String imgUrl = data.getVideoPreview();
                 ImageLoader.displayImage(imgUrl, mIvImageUrl);
                 mTvTitle.setText(data.getVideoName());
@@ -247,6 +267,7 @@ public class VideoFeedFragment extends CommonListFragment {
 
         private View mRootView;
         private ImageView mIvImageUrl;
+        private TextView mTvName;
 
         private AlbumFeedData.AlbumFeedItem mData;
         private int mCurrentPosition;
@@ -263,6 +284,7 @@ public class VideoFeedFragment extends CommonListFragment {
             if (rootView != null) {
                 mRootView = rootView;
                 mIvImageUrl = mRootView.findViewById(R.id.iv_album_item_image);
+                mTvName = mRootView.findViewById(R.id.iv_album_item_name);
             }
         }
 
@@ -283,8 +305,10 @@ public class VideoFeedFragment extends CommonListFragment {
 
             if (data != null) {
                 // 图片
+                calculateImageHeight(mIvImageUrl);
                 String imgUrl = data.getAlbumPreview();
                 ImageLoader.displayImage(imgUrl, mIvImageUrl);
+                ViewUtils.drawText(mTvName, data.getAlbumName());
             }
         }
 

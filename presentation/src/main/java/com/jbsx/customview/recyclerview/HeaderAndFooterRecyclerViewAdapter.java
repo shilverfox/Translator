@@ -1,5 +1,6 @@
 package com.jbsx.customview.recyclerview;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -199,6 +200,23 @@ public class HeaderAndFooterRecyclerViewAdapter extends RecyclerView.Adapter<Rec
             return innerItemViewType + Integer.MAX_VALUE / 2;
         } else {
             return TYPE_FOOTER_VIEW + position - headerViewsCountCount - innerCount;
+        }
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+        if(manager instanceof GridLayoutManager) {
+            // 布局是GridLayoutManager所管理
+            final GridLayoutManager gridLayoutManager = (GridLayoutManager) manager;
+            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    // 如果是Header、Footer的对象则占据spanCount的位置，否则就只占用1个位置
+                    return (isHeader(position) || isFooter(position)) ? gridLayoutManager.getSpanCount() : 1;
+                }
+            });
         }
     }
 

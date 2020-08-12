@@ -12,4 +12,18 @@
         android:scaleType="fitXY"
         android:src="@drawable/timg" />
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_below="@+id/iv_album_item_image"
+        android:layout_alignRight="@+id/iv_album_item_image"
+        android:layout_alignLeft="@+id/iv_album_item_image"
+        android:background="#ffffff">
+
+        <TextView
+            android:id="@+id/iv_album_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
 </RelativeLayout>
