@@ -200,7 +200,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         }
     }
 
-    private String getPageTypeByTab(String tabType) {
+    private Integer getPageTypeByTab(String tabType) {
         int type = PageUtils.parseTabType(tabType);
 
         switch (type) {

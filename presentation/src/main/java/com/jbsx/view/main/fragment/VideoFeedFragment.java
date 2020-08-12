@@ -40,19 +40,19 @@ public class VideoFeedFragment extends CommonListFragment {
 
     private String mRequestParams;
     private String mNaviType;
-    private String mPageType;
+    private Integer mPageType;
     private String mNaviId;
 
     public VideoFeedFragment() {
         // Required empty public constructor
     }
 
-    public static VideoFeedFragment newInstance(String naviId, String naviType, String pageType,
+    public static VideoFeedFragment newInstance(String naviId, String naviType, Integer pageType,
                                               String requestParams) {
         Bundle bundle = new Bundle();
         bundle.putString(AppConstData.INTENT_KEY_NAVI_ID, naviId);
         bundle.putString(AppConstData.INTENT_KEY_NAVI_TYPE, naviType);
-        bundle.putString(AppConstData.INTENT_KEY_PAGE_TYPE, pageType);
+        bundle.putInt(AppConstData.INTENT_KEY_PAGE_TYPE, pageType);
         bundle.putString(AppConstData.INTENT_KEY_REQUEST_PARAMS, requestParams);
 
         VideoFeedFragment contentFragment = new VideoFeedFragment();
@@ -69,7 +69,7 @@ public class VideoFeedFragment extends CommonListFragment {
         if (bundle != null) {
             mNaviId = bundle.getString(AppConstData.INTENT_KEY_NAVI_ID);
             mNaviType = bundle.getString(AppConstData.INTENT_KEY_NAVI_TYPE);
-            mPageType = bundle.getString(AppConstData.INTENT_KEY_PAGE_TYPE);
+            mPageType = bundle.getInt(AppConstData.INTENT_KEY_PAGE_TYPE);
             mRequestParams = bundle.getString(AppConstData.INTENT_KEY_REQUEST_PARAMS);
         }
     }
@@ -113,7 +113,7 @@ public class VideoFeedFragment extends CommonListFragment {
 
     /** 是否为专辑类型 */
     private boolean isAlbumType() {
-        return AppConstData.PAGE_TYPE_ALBUM_2.equals(mPageType);
+        return AppConstData.PAGE_TYPE_ALBUM_2 == mPageType;
     }
 
     @Override

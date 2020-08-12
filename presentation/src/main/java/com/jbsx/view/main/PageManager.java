@@ -26,7 +26,7 @@ import java.util.Map;
  */
 public class PageManager {
     /** 每个tab对应一个map的数据 */
-    private Map<String, Map<String, Fragment>> mAllPages;
+    private Map<String, Map<Integer, Fragment>> mAllPages;
 
     private FragmentManager mFragmentManager;
 
@@ -45,7 +45,7 @@ public class PageManager {
      */
     public void addTab(String key) {
         if (!TextUtils.isEmpty(key)) {
-            mAllPages.put(key, new LinkedHashMap<String, Fragment>());
+            mAllPages.put(key, new LinkedHashMap<Integer, Fragment>());
         }
     }
 
@@ -61,9 +61,9 @@ public class PageManager {
      * @param parentKey
      * @param fragment
      */
-    public void addPage(String parentKey, String pageType, Fragment fragment) {
+    public void addPage(String parentKey, Integer pageType, Fragment fragment) {
         if (!TextUtils.isEmpty(parentKey) && fragment != null) {
-            Map<String, Fragment> pageList = mAllPages.get(parentKey);
+            Map<Integer, Fragment> pageList = mAllPages.get(parentKey);
             if (pageList != null) {
                 pageList.put(pageType, fragment);
             }
@@ -73,9 +73,9 @@ public class PageManager {
         LogTools.e("MainActivity", mAllPages.toString());
     }
 
-    public void removePage(String parentKey, String pageType, Fragment fragment) {
+    public void removePage(String parentKey, Integer pageType, Fragment fragment) {
         if (!TextUtils.isEmpty(parentKey) && fragment != null) {
-            Map<String, Fragment> pageList = mAllPages.get(parentKey);
+            Map<Integer, Fragment> pageList = mAllPages.get(parentKey);
             if (pageList != null) {
                 pageList.remove(pageType);
             }
@@ -100,7 +100,7 @@ public class PageManager {
      */
     public void handleBackEvent(String naviId) {
         if (!TextUtils.isEmpty(naviId)) {
-            LinkedHashMap<String, Fragment> pageList = (LinkedHashMap<String, Fragment>) mAllPages.get(naviId);
+            LinkedHashMap<Integer, Fragment> pageList = (LinkedHashMap<Integer, Fragment>) mAllPages.get(naviId);
 
             // 多余一个才可以响应返回事件
             if (pageList != null && pageList.entrySet().size() > 1) {
@@ -132,15 +132,15 @@ public class PageManager {
      */
     public void handleTabChange(String naviId) {
         if (!TextUtils.isEmpty(naviId)) {
-            LinkedHashMap<String, Fragment> pageList = (LinkedHashMap<String, Fragment>) mAllPages.get(naviId);
+            LinkedHashMap<Integer, Fragment> pageList = (LinkedHashMap<Integer, Fragment>) mAllPages.get(naviId);
             if (pageList != null) {
                 // 找到最后一个（最新添加的）
                 Map.Entry currentPage = getTail(pageList);
                 if (currentPage != null) {
                     // 遍历所有的fragment
                     for (String key : mAllPages.keySet()) {
-                        Map<String, Fragment> pages = mAllPages.get(key);
-                        for (String innerKey : pages.keySet()) {
+                        Map<Integer, Fragment> pages = mAllPages.get(key);
+                        for (Integer innerKey : pages.keySet()) {
                             Fragment page = pages.get(innerKey);
                             // 显示目标fragment，否则隐藏
                             boolean needShow = (page == currentPage.getValue());
@@ -197,32 +197,27 @@ public class PageManager {
         return R.id.fl_container;
     }
 
-    private String getNextPage(String currentPage, boolean hasChildren) {
-        if (AppConstData.PAGE_TYPE_MAIN.equals(currentPage)) {
+    private Integer getNextPage(Integer currentPage, boolean hasChildren) {
+        if (currentPage == AppConstData.PAGE_TYPE_MAIN) {
             return AppConstData.PAGE_TYPE_VIDEO_1;
 
-        } else if (AppConstData.PAGE_TYPE_ALBUM_1.equals(currentPage)) {
-            // 专辑分类 to 专辑feed
-            return AppConstData.PAGE_TYPE_ALBUM_2;
+        } else if (currentPage >= AppConstData.PAGE_TYPE_ALBUM_1 && currentPage < AppConstData.PAGE_TYPE_ALBUM_2) {
+            return hasChildren ? currentPage + 1 : AppConstData.PAGE_TYPE_ALBUM_2;
 
-        } else if (AppConstData.PAGE_TYPE_ALBUM_2.equals(currentPage)) {
-            // 专辑列表 to 专辑详情
+        } else if (currentPage == AppConstData.PAGE_TYPE_ALBUM_2) {
             return AppConstData.PAGE_TYPE_ALBUM_DETAIL;
 
-        } else if (AppConstData.PAGE_TYPE_VIDEO_1.equals(currentPage)) {
-            return hasChildren ? AppConstData.PAGE_TYPE_VIDEO_2 : AppConstData.PAGE_TYPE_VIDEO_FEED;
+        } else if (currentPage >= AppConstData.PAGE_TYPE_VIDEO_1 && currentPage < AppConstData.PAGE_TYPE_VIDEO_FEED) {
+            return hasChildren ? currentPage + 1 : AppConstData.PAGE_TYPE_VIDEO_FEED;
 
-        } else if (AppConstData.PAGE_TYPE_VIDEO_2.equals(currentPage)) {
-            return AppConstData.PAGE_TYPE_VIDEO_FEED;
-
-        } else if (AppConstData.PAGE_TYPE_VIDEO_FEED.equals(currentPage)) {
+        } else if (currentPage == AppConstData.PAGE_TYPE_VIDEO_FEED) {
             return AppConstData.PAGE_TYPE_VIDEO_DETAIL;
 
-        } else if (AppConstData.PAGE_TYPE_VIDEO_DETAIL.equals(currentPage)) {
+        } else if (currentPage == AppConstData.PAGE_TYPE_VIDEO_DETAIL) {
             return AppConstData.PAGE_TYPE_VIDEO_PLAYER;
         }
 
-        return "";
+        return AppConstData.PAGE_TYPE_MAIN;
     }
 
     /**
@@ -231,10 +226,10 @@ public class PageManager {
     private void dispatchPage(PageChangeEvent pageChangeData) {
         String naviId = pageChangeData.mNaviId;
         String tabType = pageChangeData.mTabType;
-        String pageType = getNextPage(pageChangeData.mCurrentPageType, pageChangeData.mHasChildren);
+        Integer pageType = getNextPage(pageChangeData.mCurrentPageType, pageChangeData.mHasChildren);
 
-        if (!TextUtils.isEmpty(naviId) && !TextUtils.isEmpty(pageType)) {
-            Map<String, Fragment> pageList = mAllPages.get(naviId);
+        if (!TextUtils.isEmpty(naviId) && pageType != null) {
+            Map<Integer, Fragment> pageList = mAllPages.get(naviId);
             if (pageList != null) {
                 Fragment page = pageList.get(pageType);
                 if (page == null) {
@@ -255,39 +250,37 @@ public class PageManager {
     }
 
     private Fragment createPage(PageChangeEvent pageChangeData) {
-        if (AppConstData.PAGE_TYPE_MAIN.equals(pageChangeData.mCurrentPageType)) {
+        if (AppConstData.PAGE_TYPE_MAIN == pageChangeData.mCurrentPageType) {
             return MainPageFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_MAIN, pageChangeData.mRequestParam);
 
-        } else if (AppConstData.PAGE_TYPE_ALBUM_1.equals(pageChangeData.mCurrentPageType)) {
+        } else if (pageChangeData.mCurrentPageType >= AppConstData.PAGE_TYPE_ALBUM_1
+                && pageChangeData.mCurrentPageType < AppConstData.PAGE_TYPE_ALBUM_2) {
             return GalleryFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
-                    AppConstData.PAGE_TYPE_ALBUM_1, pageChangeData.mRequestParam);
+                    pageChangeData.mCurrentPageType, pageChangeData.mRequestParam);
 
-        } else if (AppConstData.PAGE_TYPE_ALBUM_2.equals(pageChangeData.mCurrentPageType)) {
+        } else if (pageChangeData.mCurrentPageType == AppConstData.PAGE_TYPE_ALBUM_2) {
             return VideoFeedFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_ALBUM_2, pageChangeData.mRequestParam);
 
-        } else if (AppConstData.PAGE_TYPE_ALBUM_DETAIL.equals(pageChangeData.mCurrentPageType)) {
+        } else if (pageChangeData.mCurrentPageType == AppConstData.PAGE_TYPE_ALBUM_DETAIL) {
             return AlbumPlayerFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_ALBUM_DETAIL, pageChangeData.mRequestParam);
 
-        } else if (AppConstData.PAGE_TYPE_VIDEO_1.equals(pageChangeData.mCurrentPageType)) {
+        } else if (pageChangeData.mCurrentPageType >= AppConstData.PAGE_TYPE_VIDEO_1
+                && pageChangeData.mCurrentPageType < AppConstData.PAGE_TYPE_VIDEO_FEED) {
             return GalleryFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
-                    AppConstData.PAGE_TYPE_VIDEO_1, pageChangeData.mRequestParam);
+                    pageChangeData.mCurrentPageType, pageChangeData.mRequestParam);
 
-        } else if (AppConstData.PAGE_TYPE_VIDEO_2.equals(pageChangeData.mCurrentPageType)) {
-            return GalleryFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
-                    AppConstData.PAGE_TYPE_VIDEO_2, pageChangeData.mRequestParam);
-
-        } else if (AppConstData.PAGE_TYPE_VIDEO_FEED.equals(pageChangeData.mCurrentPageType)) {
+        } else if (pageChangeData.mCurrentPageType == AppConstData.PAGE_TYPE_VIDEO_FEED) {
             return VideoFeedFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_VIDEO_FEED, pageChangeData.mRequestParam);
 
-        } else if (AppConstData.PAGE_TYPE_VIDEO_DETAIL.equals(pageChangeData.mCurrentPageType)) {
+        } else if (pageChangeData.mCurrentPageType == AppConstData.PAGE_TYPE_VIDEO_DETAIL) {
             return VideoDetailFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_VIDEO_DETAIL, pageChangeData.mRequestParam);
 
-        } else if (AppConstData.PAGE_TYPE_VIDEO_PLAYER.equals(pageChangeData.mCurrentPageType)) {
+        } else if (pageChangeData.mCurrentPageType == AppConstData.PAGE_TYPE_VIDEO_PLAYER) {
             return VideoPlayerFragment.newInstance();
 
         } else {

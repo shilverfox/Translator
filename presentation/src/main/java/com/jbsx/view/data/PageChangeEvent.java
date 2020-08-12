@@ -6,7 +6,7 @@ public class PageChangeEvent {
     public String mRequestParam;
 
     /** 当前页面类型 */
-    public String mCurrentPageType;
+    public Integer mCurrentPageType;
 
     /** 是否有子页面 */
     public boolean mHasChildren;
@@ -16,14 +16,14 @@ public class PageChangeEvent {
         mRequestParam = requestParam;
     }
 
-    public PageChangeEvent(String naviId, String tabType, String curType, String requestParam) {
+    public PageChangeEvent(String naviId, String tabType, Integer curType, String requestParam) {
         mNaviId = naviId;
         mTabType = tabType;
         mCurrentPageType = curType;
         mRequestParam = requestParam;
     }
 
-    public PageChangeEvent(String naviId, String tabType, String curType, String requestParam, boolean hasChildren) {
+    public PageChangeEvent(String naviId, String tabType, Integer curType, String requestParam, boolean hasChildren) {
         this(naviId, tabType, curType, requestParam);
         mHasChildren = hasChildren;
     }

@@ -67,34 +67,31 @@ public class AppConstData {
 
 
     /** 页面类型 首页 */
-    public final static String PAGE_TYPE_MAIN = "main";
+    public final static int PAGE_TYPE_MAIN = 100;
 
     /** 页面类型 专辑一级页面 */
-    public final static String PAGE_TYPE_ALBUM_1 = "album_1";
+    public final static int PAGE_TYPE_ALBUM_1 = 200;
 
     /** 页面类型 专辑二级页面 */
-    public final static String PAGE_TYPE_ALBUM_2 = "album_2";
+    public final static int PAGE_TYPE_ALBUM_2 = 300;
 
     /** 页面类型 专辑详情 */
-    public final static String PAGE_TYPE_ALBUM_DETAIL = "album_detail";
+    public final static int PAGE_TYPE_ALBUM_DETAIL = 400;
 
     /** 页面类型 视频一级页面 */
-    public final static String PAGE_TYPE_VIDEO_1 = "video_1";
-
-    /** 页面类型 视频二级页面 */
-    public final static String PAGE_TYPE_VIDEO_2 = "video_2";
+    public final static int PAGE_TYPE_VIDEO_1 = 500;
 
     /** 页面类型 视频列表 */
-    public final static String PAGE_TYPE_VIDEO_FEED = "video_feed";
+    public final static int PAGE_TYPE_VIDEO_FEED = 600;
 
     /** 页面类型 视频详情 */
-    public final static String PAGE_TYPE_VIDEO_DETAIL = "video_detail";
+    public final static int PAGE_TYPE_VIDEO_DETAIL = 700;
 
     /** 页面类型 视频播放页 */
-    public final static String PAGE_TYPE_VIDEO_PLAYER = "video_player";
+    public final static int PAGE_TYPE_VIDEO_PLAYER = 800;
 
     /** 页面类型 本地页面 */
-    public final static String PAGE_TYPE_LOCAL_1 = "local_1";
+    public final static int PAGE_TYPE_LOCAL_1 = 900;
 
 
     /** intent key  */
