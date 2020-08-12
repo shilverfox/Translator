@@ -29,7 +29,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/top_bar_title_height"
                 android:alpha="1"
-                android:background="@color/title_bar_end"
                 android:visibility="visible" />
         </com.jbsx.customview.TitleStatusHeightLayout>
 
@@ -37,7 +36,6 @@
             android:id="@+id/tab_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/title_bar_end"
             android:layout_gravity="right"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"

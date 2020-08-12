@@ -14,9 +14,11 @@
 
         <ImageView
             android:id="@+id/iv_video_detail_icon"
-            android:layout_width="400dp"
-            android:layout_height="200dp"
+            android:layout_width="432dp"
+            android:layout_height="243dp"
             android:scaleType="fitXY"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="110dp"
             android:src="@drawable/album_cover"/>
 
         <TextView
@@ -25,8 +27,10 @@
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:text="建党伟业"
+            android:layout_marginLeft="42dp"
+            android:layout_marginTop="58dp"
             android:layout_toRightOf="@+id/iv_video_detail_icon"/>
 
         <TextView
@@ -36,6 +40,7 @@
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:text="导演"
+            android:layout_marginTop="20dp"
             android:layout_alignLeft="@+id/iv_video_detail_name"
             android:layout_below="@+id/iv_video_detail_name"/>
 
@@ -69,15 +74,37 @@
             android:layout_alignLeft="@+id/iv_video_detail_name"
             android:layout_below="@+id/iv_video_detail_video_time"/>
 
-        <TextView
-            android:id="@+id/btn_video_detail_play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:text="播放"
+        <RelativeLayout
+            android:layout_width="193dp"
+            android:layout_height="50dp"
             android:layout_alignLeft="@+id/iv_video_detail_name"
-            android:layout_below="@+id/iv_video_detail_play_date"/>
+            android:layout_below="@+id/iv_video_detail_play_date"
+            android:background="@drawable/button_bg"
+            android:layout_marginTop="47dp"
+            android:layout_marginLeft="-5dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:paddingBottom="10dp">
+                <TextView
+                    android:id="@+id/btn_video_detail_play"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp"
+                    android:text="播放"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/play_icon"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <TextView
@@ -86,20 +113,23 @@
         android:layout_height="wrap_content"
         android:textColor="#ffffff"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="12sp"
         android:text="剧情简介"
+        android:layout_marginLeft="110dp"
         android:layout_below="@+id/view_video_detail_content"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/iv_video_detail_summary_title"
         android:layout_below="@+id/iv_video_detail_summary_title">
         <TextView
             android:id="@+id/iv_video_detail_summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-            android:textSize="20sp"
+            android:layout_marginTop="14dp"
+            android:textSize="8sp"
             android:text="剧情简介剧情简介剧情简介剧情简介剧情简介剧情简介剧情简介"/>
     </ScrollView>
 </RelativeLayout>
