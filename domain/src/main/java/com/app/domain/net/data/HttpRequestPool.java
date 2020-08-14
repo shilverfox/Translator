@@ -578,6 +578,29 @@ public class HttpRequestPool {
     }
 
     /**
+     * 获得本地视频列表
+     *
+     * @param typeId
+     * @param page
+     * @return
+     */
+    public static BaseRequestEntity getLocalVideoFeedEntity(String typeId, int page) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/app/localVideoList");
+
+        BaseBody body = new BaseBody();
+        body.add("key", typeId);
+//        body.add("pageNum", page + "");
+//        body.add("pageSize", ConstData.DEFAULT_PAGE_SIZE + "");
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, "");
+
+        return baseRequest;
+    }
+
+    /**
      * 获得专辑列表
      *
      * @param classifyCode

@@ -17,9 +17,9 @@ import com.jbsx.app.MainApplicationLike;
 import com.jbsx.data.AppConstData;
 
 /**
- * 视频播放页
+ * 本地新闻页面
  */
-public class VideoPlayerFragment extends BaseFragment {
+public class LocalNewsFragment extends BaseFragment {
     private View mRootView;
     private WebView webView;
 
@@ -28,19 +28,19 @@ public class VideoPlayerFragment extends BaseFragment {
     private Integer mPageType;
     private String mNaviId;
 
-    public VideoPlayerFragment() {
+    public LocalNewsFragment() {
         // Required empty public constructor
     }
 
-    public static VideoPlayerFragment newInstance(String naviId, String naviType, Integer pageType,
-                                              String requestParams) {
+    public static LocalNewsFragment newInstance(String naviId, String naviType, Integer pageType,
+                                                String requestParams) {
         Bundle bundle = new Bundle();
         bundle.putString(AppConstData.INTENT_KEY_NAVI_ID, naviId);
         bundle.putString(AppConstData.INTENT_KEY_NAVI_TYPE, naviType);
         bundle.putInt(AppConstData.INTENT_KEY_PAGE_TYPE, pageType);
         bundle.putString(AppConstData.INTENT_KEY_REQUEST_PARAMS, requestParams);
 
-        VideoPlayerFragment contentFragment = new VideoPlayerFragment();
+        LocalNewsFragment contentFragment = new LocalNewsFragment();
         contentFragment.setArguments(bundle);
 
         return contentFragment;

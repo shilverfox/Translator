@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
+import com.app.domain.net.data.ConstData;
 import com.app.domain.net.interactor.MainPageUserCase;
 import com.app.domain.net.model.BaseDomainData;
 import com.app.domain.util.ParseUtil;
@@ -38,6 +39,15 @@ import java.util.List;
  * 本地资源
  */
 public class LocalResourceFragment extends BaseFragment {
+    /** 本地资源类型：图片 */
+    public final static String KEY_SOURCE_TYPE_PICTURE = "picture";
+
+    /** 本地资源类型：新闻 */
+    public final static String KEY_SOURCE_TYPE_NEWS = "news";
+
+    /** 本地资源类型：视频 */
+    public final static String KEY_SOURCE_TYPE_VIDEO = "video";
+
     private View mRootView;
     private ViewGroup mContainerView;
     private RecyclerCoverFlow mList;
@@ -112,9 +122,9 @@ public class LocalResourceFragment extends BaseFragment {
     }
 
     private void handleLoadSuccessful(String data) {
-        mGalleryData.add(createLocalData("", "本地图集", "0"));
-        mGalleryData.add(createLocalData("", "本地资源", "1"));
-        mGalleryData.add(createLocalData("", "新闻资讯", "2"));
+        mGalleryData.add(createLocalData("", "本地图集", KEY_SOURCE_TYPE_PICTURE));
+        mGalleryData.add(createLocalData("", "本地视频", KEY_SOURCE_TYPE_VIDEO));
+        mGalleryData.add(createLocalData("", "新闻资讯", KEY_SOURCE_TYPE_NEWS));
         mAdapter.notifyDataSetChanged();
     }
 
@@ -164,6 +174,22 @@ public class LocalResourceFragment extends BaseFragment {
 
     }
 
+    private void handleItemClick(String key) {
+        String params = "";
+        Integer pageType = AppConstData.PAGE_TYPE_LOCAL_NEWS;
+        if (KEY_SOURCE_TYPE_NEWS.equals(key)) {
+            params = ConstData.HOST + "/terminal/views/news.html";
+            pageType = AppConstData.PAGE_TYPE_LOCAL_NEWS;
+        } else if (KEY_SOURCE_TYPE_VIDEO.equals(key)) {
+            params = key;
+            pageType = AppConstData.PAGE_TYPE_LOCAL_VIDEO_FEED;
+        } else if (KEY_SOURCE_TYPE_PICTURE.equals(key)) {
+            params = key;
+            pageType = AppConstData.PAGE_TYPE_LOCAL_PICTURE_FEED;
+        }
+        EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, pageType, params));
+    }
+
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
@@ -200,7 +226,7 @@ public class LocalResourceFragment extends BaseFragment {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType, entity.getClassifyCode()));
+                    handleItemClick(entity.getClassifyCode());
                 }
             });
         }

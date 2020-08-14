@@ -93,6 +93,15 @@ public class AppConstData {
     /** 页面类型 本地页面 */
     public final static int PAGE_TYPE_LOCAL_1 = 900;
 
+    /** 页面类型 本地新闻页面 */
+    public final static int PAGE_TYPE_LOCAL_NEWS = 1000;
+
+    /** 页面类型 本地视频列表页面 */
+    public final static int PAGE_TYPE_LOCAL_VIDEO_FEED = 1100;
+
+    /** 页面类型 本地图集列表页面 */
+    public final static int PAGE_TYPE_LOCAL_PICTURE_FEED = 1200;
+
 
     /** intent key  */
     public final static String INTENT_KEY_NAVI_ID = "bundle_navi_id";
