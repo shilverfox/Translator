@@ -8,7 +8,7 @@
     <View
         android:layout_width="35dp"
         android:layout_height="1px"
-        android:background="#999999"/>
+        android:background="@color/footer_color"/>
 
     <TextView
         android:id="@+id/loading_text"
@@ -16,11 +16,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:textColor="#999999"
+        android:textColor="@color/footer_color"
         android:textSize="12sp" />
 
     <View
         android:layout_width="35dp"
         android:layout_height="1px"
-        android:background="#999999"/>
+        android:background="@color/footer_color"/>
 </LinearLayout>

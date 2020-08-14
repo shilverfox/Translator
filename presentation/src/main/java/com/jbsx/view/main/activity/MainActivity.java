@@ -1,6 +1,7 @@
 package com.jbsx.view.main.activity;
 
 import android.Manifest;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -12,9 +13,12 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Chronometer;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
+import com.app.domain.net.data.ConstData;
 import com.app.domain.net.event.BadSessionEvent;
 import com.app.domain.net.interactor.MainViewUserCase;
 import com.app.domain.net.model.BaseDomainData;
@@ -35,6 +39,8 @@ import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.utils.Router;
 import com.jbsx.utils.ShowTools;
+import com.jbsx.utils.image.IImageLoadListener;
+import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.login.callback.ILoginResultListener;
 import com.jbsx.view.login.callback.IOnLoginListener;
@@ -66,6 +72,8 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     private TitleBar mTopBarLayout;
     private ViewPager mViewPager;
     private View mBtnBack;
+    private TextView mTvDeviceId;
+    private ImageView mIvOrgLogo;
 
     private long mExitTime = 0;
 
@@ -87,6 +95,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         handlePermissions();
         loadNavigation();
         initTimer();
+        drawDeviceInfo();
     }
 
     private void init() {
@@ -125,6 +134,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
 
     private void handleLoadNaviSuccessful(String data) {
         NavigationData navData = ParseUtil.parseData(data, NavigationData.class);
+        drawOrgLogo();
         if (isNavigationNotEmpty(navData)) {
             initMainTab(navData.getBody().getClassifyList());
             registEvents();
@@ -160,7 +170,32 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         mViewPager = findViewById(R.id.vp_container);
         mBtnBack = findViewById(R.id.btn_main_back);
         mTimerView = findViewById(R.id.chronometer);
+        mTvDeviceId = findViewById(R.id.tv_device_info);
+        mIvOrgLogo = findViewById(R.id.iv_org_logo);
         mTopBarLayout = findViewById(R.id.layout_title_bar_container);
+    }
+
+    private void drawDeviceInfo() {
+        mTvDeviceId.setText("终端编号：" + ConstData.DEVICE_ID);
+    }
+
+    /**
+     * 机构logo
+     */
+    private void drawOrgLogo() {
+        ImageLoader.loadImage("", new IImageLoadListener() {
+            @Override
+            public void onLoadingComplete(Drawable drawable) {
+                if (drawable != null) {
+                    mIvOrgLogo.setImageDrawable(drawable);
+                }
+            }
+
+            @Override
+            public void onLoadingFailed(Drawable errorDrawable) {
+                mIvOrgLogo.setImageResource(R.drawable.default_org_logo);
+            }
+        });
     }
 
     private void initTimer() {

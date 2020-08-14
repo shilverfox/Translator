@@ -5,6 +5,8 @@
     android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -15,11 +17,11 @@
         <ImageView
             android:id="@+id/iv_video_detail_icon"
             android:layout_width="432dp"
-            android:layout_height="243dp"
+            android:layout_height="270dp"
             android:scaleType="fitXY"
             android:layout_marginTop="40dp"
-            android:layout_marginLeft="110dp"
-            android:src="@drawable/default_image"/>
+            android:src="@drawable/default_image"
+            android:background="@drawable/coupon_shadow"/>
 
         <TextView
             android:id="@+id/iv_video_detail_name"
@@ -28,7 +30,7 @@
             android:textColor="#ffffff"
             android:textStyle="bold"
             android:textSize="24sp"
-            android:text="建党伟业"
+            android:text="《建党伟业"
             android:layout_marginLeft="42dp"
             android:layout_marginTop="58dp"
             android:layout_toRightOf="@+id/iv_video_detail_icon"/>
@@ -38,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:text="导演"
             android:layout_marginTop="20dp"
             android:layout_alignLeft="@+id/iv_video_detail_name"
@@ -49,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:text="主演"
             android:layout_alignLeft="@+id/iv_video_detail_name"
             android:layout_below="@+id/iv_video_detail_director"/>
@@ -59,7 +61,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-            android:textSize="20sp"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"
             android:text="片长"
             android:layout_alignLeft="@+id/iv_video_detail_name"
             android:layout_below="@+id/iv_video_detail_actor"/>
@@ -69,12 +72,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:text="上映时间"
             android:layout_alignLeft="@+id/iv_video_detail_name"
             android:layout_below="@+id/iv_video_detail_video_time"/>
 
         <RelativeLayout
+            android:id="@+id/btn_video_detail_play"
             android:layout_width="193dp"
             android:layout_height="50dp"
             android:layout_alignLeft="@+id/iv_video_detail_name"
@@ -90,7 +94,6 @@
                 android:gravity="center"
                 android:paddingBottom="10dp">
                 <TextView
-                    android:id="@+id/btn_video_detail_play"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#ffffff"
@@ -115,7 +118,6 @@
         android:textStyle="bold"
         android:textSize="12sp"
         android:text="剧情简介"
-        android:layout_marginLeft="110dp"
         android:layout_below="@+id/view_video_detail_content"/>
 
     <ScrollView

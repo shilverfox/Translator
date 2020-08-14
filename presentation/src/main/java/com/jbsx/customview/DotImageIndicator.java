@@ -65,7 +65,7 @@ public class DotImageIndicator extends LinearLayout {
         // 设置样式
         if (mType == DOT_INDICATOR_TYPE_GREY) {
             drawableId = R.drawable.commodity_dot;
-            marginRight = 5;
+            marginRight = 10;
         } else {
             drawableId = R.drawable.commodity_dot_1;
             marginRight = 14;

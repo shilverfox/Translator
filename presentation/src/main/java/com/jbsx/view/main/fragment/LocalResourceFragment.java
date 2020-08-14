@@ -1,25 +1,19 @@
 package com.jbsx.view.main.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.app.data.net.repository.TaskManager;
-import com.app.domain.net.BaseRequestCallback;
 import com.app.domain.net.data.ConstData;
 import com.app.domain.net.interactor.MainPageUserCase;
 import com.app.domain.net.model.BaseDomainData;
-import com.app.domain.util.ParseUtil;
-import com.bumptech.glide.Glide;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
+import com.jbsx.customview.DotImageIndicator;
 import com.jbsx.customview.gallery.CoverFlowLayoutManger;
 import com.jbsx.customview.gallery.RecyclerCoverFlow;
 import com.jbsx.data.AppConstData;
@@ -27,7 +21,7 @@ import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.view.data.PageChangeEvent;
-import com.jbsx.view.main.entity.GalleryData;
+import com.jbsx.view.main.adapter.GalleryAdapter;
 import com.jbsx.view.main.entity.NavigationData;
 
 import org.greenrobot.eventbus.EventBus;
@@ -51,6 +45,7 @@ public class LocalResourceFragment extends BaseFragment {
     private View mRootView;
     private ViewGroup mContainerView;
     private RecyclerCoverFlow mList;
+    private DotImageIndicator mImageIndicator;
 
     private String mRequestParams;
     private String mNaviType;
@@ -59,7 +54,7 @@ public class LocalResourceFragment extends BaseFragment {
 
     private MainPageUserCase mUserCase;
     private List<NavigationData.ClassifyEntity> mGalleryData = new ArrayList<>();;
-    private Adapter mAdapter;
+    private GalleryAdapter mAdapter;
 
     public LocalResourceFragment() {
         // Required empty public constructor
@@ -125,47 +120,36 @@ public class LocalResourceFragment extends BaseFragment {
         mGalleryData.add(createLocalData("", "本地图集", KEY_SOURCE_TYPE_PICTURE));
         mGalleryData.add(createLocalData("", "本地视频", KEY_SOURCE_TYPE_VIDEO));
         mGalleryData.add(createLocalData("", "新闻资讯", KEY_SOURCE_TYPE_NEWS));
+        mAdapter.setData(mGalleryData);
         mAdapter.notifyDataSetChanged();
+        handleGalleryAutoFocus();
     }
 
-    private void handleLoadFailed(BaseDomainData data) {
-        MessageTools.showErrorMessage(data);
-        String errorMessage = data.getMsg();
-        if (TextUtils.isEmpty(errorMessage)) {
-            errorMessage = ErroBarHelper.ERRO_TYPE_NET_NAME;
-        }
-
-        ReloadBarHelper.addReloadBar(mContainerView, errorMessage, new Runnable() {
-            @Override
-            public void run() {
-                loadData();
-            }
-        });
-    }
-
-    public void drawNetError() {
-        ErroBarHelper.addErroBar(mContainerView, ErroBarHelper.ERRO_TYPE_NET_INTERNET, new Runnable() {
-            @Override
-            public void run() {
-                ErroBarHelper.removeErroBar(mContainerView);
-                loadData();
-            }
-        });
+    /**
+     * 自动定位到某个item
+     */
+    private void handleGalleryAutoFocus() {
+        int selectPosition = mGalleryData.size() / 2;
+        mList.setSelect(selectPosition);
+        mImageIndicator.updateImageDotStatus(selectPosition);
     }
 
     private void initViews() {
         mContainerView = mRootView.findViewById(R.id.view_local_root);
+        mImageIndicator = mRootView.findViewById(R.id.tv_local_indicator);
         mList = mRootView.findViewById(R.id.tv_local_info);
-//        mList.setFlatFlow(true); //平面滚动
         mList.setGreyItem(true); //设置灰度渐变
-//        mList.setAlphaItem(true); //设置半透渐变
-//        mList.setLoop(); //循环滚动，注：循环滚动模式暂不支持平滑滚动
-        mAdapter = new Adapter(mContext);
+        mAdapter = new GalleryAdapter(mContext, new GalleryAdapter.OnGalleryItemClick() {
+            @Override
+            public void onItemClick(String classifyCode, boolean isHasChildren) {
+                handleItemClick(classifyCode);
+            }
+        });
         mList.setAdapter(mAdapter);
         mList.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
-                ((TextView)mRootView.findViewById(R.id.tv_local_indicator)).setText((position+1)+"/"+mList.getLayoutManager().getItemCount());
+                mImageIndicator.updateImageDotStatus(position);
             }
         });
     }
@@ -193,57 +177,5 @@ public class LocalResourceFragment extends BaseFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-    }
-
-    public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
-
-        private Context mContext;
-        public Adapter(Context c) {
-            mContext = c;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(mContext).inflate(R.layout.gallery_layout_item, parent, false);
-            return new ViewHolder(v);
-        }
-
-        @Override
-        public void onBindViewHolder(final ViewHolder holder, final int position) {
-            if (mGalleryData == null || mGalleryData.isEmpty()) {
-                return;
-            }
-
-            final NavigationData.ClassifyEntity entity = mGalleryData.get(position);
-            holder.mTvLabel.setText(entity.getClassifyName());
-            Glide.with(mContext).load(entity.getClassifyPreview()).into(holder.img);
-//        Glide.with(mContext).load(mColors[position]).asBitmap().into(new SimpleTarget<Bitmap>() {
-//            @Override
-//            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-//                holder.img.setImageBitmap(BitmapUtil.createReflectedBitmap(resource));
-//            }
-//        });
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    handleItemClick(entity.getClassifyCode());
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return mGalleryData == null ? 0 : mGalleryData.size();
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            ImageView img;
-            TextView mTvLabel;
-            public ViewHolder(View itemView) {
-                super(itemView);
-                img = itemView.findViewById(R.id.img);
-                mTvLabel = itemView.findViewById(R.id.tv_gallery_label);
-            }
-        }
     }
 }

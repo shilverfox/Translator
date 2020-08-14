@@ -7,8 +7,7 @@
 
     <ImageView
         android:layout_width="14dp"
-        android:layout_height="14dp"
-         />
+        android:layout_height="14dp"/>
 
     <TextView
         android:id="@+id/loading_text"
@@ -16,6 +15,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:text="@string/list_footer_network_error"
-        android:textColor="#999999"
+        android:textColor="@color/footer_color"
         android:textSize="12sp" />
 </LinearLayout>

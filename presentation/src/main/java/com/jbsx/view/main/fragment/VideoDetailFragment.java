@@ -47,7 +47,7 @@ public class VideoDetailFragment extends BaseFragment {
     private TextView mTvDuration;
     private TextView mTvPublishDate;
     private TextView mTvSummary;
-    private TextView mBtnPlay;
+    private View mBtnPlay;
 
     private String mRequestParams;
     private String mNaviType;

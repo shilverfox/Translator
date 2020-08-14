@@ -30,7 +30,9 @@ import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
+import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.data.PageChangeEvent;
+import com.jbsx.view.main.adapter.GalleryAdapter;
 import com.jbsx.view.main.entity.GalleryData;
 import com.jbsx.view.main.entity.NavigationData;
 import com.jbsx.view.main.entity.SpecialAlbumData;
@@ -55,7 +57,7 @@ public class GalleryFragment extends BaseFragment {
 
     private MainPageUserCase mUserCase;
     private List<NavigationData.ClassifyEntity> mGalleryData;
-    private Adapter mAdapter;
+    private GalleryAdapter mAdapter;
 
     public GalleryFragment() {
         // Required empty public constructor
@@ -129,6 +131,7 @@ public class GalleryFragment extends BaseFragment {
         GalleryData parseData = ParseUtil.parseData(data, GalleryData.class);
         mGalleryData = parseData.getBody();
         mImageIndicator.initImageDot(mGalleryData.size());
+        mAdapter.setData(mGalleryData);
         mAdapter.notifyDataSetChanged();
         handleGalleryAutoFocus();
     }
@@ -177,7 +180,13 @@ public class GalleryFragment extends BaseFragment {
 //        mList.setAlphaItem(true); //设置半透渐变
 //        mList.setLoop(); //循环滚动，注：循环滚动模式暂不支持平滑滚动
         mImageIndicator = mRootView.findViewById(R.id.tv_gallery_indicator);
-        mAdapter = new Adapter(mContext);
+        mAdapter = new GalleryAdapter(mContext, new GalleryAdapter.OnGalleryItemClick() {
+            @Override
+            public void onItemClick(String classifyCode, boolean isHasChildren) {
+                EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType,
+                        classifyCode, isHasChildren));
+            }
+        });
         mList.setAdapter(mAdapter);
         mList.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
@@ -196,59 +205,6 @@ public class GalleryFragment extends BaseFragment {
         super.onHiddenChanged(hidden);
         if (!hidden) {
             loadData();
-        }
-    }
-
-    public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
-        private Context mContext;
-
-        public Adapter(Context c) {
-            mContext = c;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(mContext).inflate(R.layout.gallery_layout_item, parent, false);
-            return new ViewHolder(v);
-        }
-
-        @Override
-        public void onBindViewHolder(final ViewHolder holder, final int position) {
-            if (mGalleryData == null || mGalleryData.isEmpty()) {
-                return;
-            }
-
-            final NavigationData.ClassifyEntity entity = mGalleryData.get(position);
-            holder.mTvLabel.setText(entity.getClassifyName());
-            Glide.with(mContext).load(entity.getClassifyPreview()).into(holder.img);
-//        Glide.with(mContext).load(mColors[position]).asBitmap().into(new SimpleTarget<Bitmap>() {
-//            @Override
-//            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-//                holder.img.setImageBitmap(BitmapUtil.createReflectedBitmap(resource));
-//            }
-//        });
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType,
-                            entity.getClassifyCode(), entity.isHasChildren()));
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return mGalleryData == null ? 0 : mGalleryData.size();
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            ImageView img;
-            TextView mTvLabel;
-            public ViewHolder(View itemView) {
-                super(itemView);
-                img = itemView.findViewById(R.id.img);
-                mTvLabel = itemView.findViewById(R.id.tv_gallery_label);
-            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.jbsx.utils.image;
 
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.text.TextUtils;
@@ -29,7 +30,7 @@ public class ImageLoader {
      * @param imgView
      */
     public static void displayImage(String url, ImageView imgView) {
-        if (TextUtils.isEmpty(url) || imgView == null) {
+        if (imgView == null) {
             return;
         }
 
@@ -58,7 +59,7 @@ public class ImageLoader {
      * @param roundRadius
      */
     public static void displayImage(String url, ImageView imgView, int roundRadius) {
-        if (TextUtils.isEmpty(url) || imgView == null) {
+        if (imgView == null) {
             return;
         }
 
@@ -125,10 +126,6 @@ public class ImageLoader {
      * @param listener
      */
     public static void loadImage(String url, final IImageLoadListener listener) {
-        if (TextUtils.isEmpty(url)) {
-            return;
-        }
-
         Glide.with(MainApplicationLike.getAppContext())
                 .load(url)
                 .into(new SimpleTarget<GlideDrawable>() {
@@ -136,6 +133,13 @@ public class ImageLoader {
                     public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
                         if (listener != null) {
                             listener.onLoadingComplete(resource);
+                        }
+                    }
+
+                    @Override
+                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                        if (listener != null) {
+                            listener.onLoadingFailed(errorDrawable);
                         }
                     }
                 });

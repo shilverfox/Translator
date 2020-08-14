@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.data.ConstData;
@@ -67,7 +68,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     private ViewGroup mViewContainer;
     private Banner mViewBanner;
     private RecyclerView mRvHostList;
-
+    private TextView mTvRecommendTitle;
     private ViewGroup mLayoutHost;
     private ViewGroup mLayoutRecomment;
     private XRecyclerView mRvRecommendList;
@@ -132,7 +133,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         initViews();
         initEvents();
         loadData();
-        calculateBannerHeight();
+//        calculateBannerHeight();
 
         return mRootView;
     }
@@ -244,6 +245,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
         mLayoutRecomment = mRootView.findViewById(R.id.layout_album);
         mNsvRoot = mRootView.findViewById(R.id.nsv_main_page_root);
         mViewContainer = mRootView.findViewById(R.id.view_main_page_root);
+        mTvRecommendTitle = mRootView.findViewById(R.id.tv_host_label);
 
         initSpecialAlbumView();
         initCelebrityView();
@@ -253,6 +255,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
      * 主讲嘉宾
      */
     private void initCelebrityView() {
+        mTvRecommendTitle.setVisibility(View.INVISIBLE);
         mRvHostList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         mRvHostList.addItemDecoration(new TabItemDecoration(UiTools.dip2px(20)));
 
@@ -438,6 +441,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
             mData = data;
             initBanner(data.getBody().getNewsList());
             drawCelebritiesInfo(data.getBody().getRecommends());
+            mTvRecommendTitle.setVisibility(View.VISIBLE);
         }
 
         toggleMainPageProgress(false);

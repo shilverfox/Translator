@@ -8,7 +8,7 @@
     <LinearLayout
         android:id="@+id/view_main_title_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:background="@drawable/top_bar_bg"
         android:orientation="vertical">
 
@@ -32,23 +32,35 @@
                 android:visibility="visible" />
         </com.jbsx.customview.TitleStatusHeightLayout>
 
-        <com.flyco.tablayout.SlidingCommonTabLayout
-            android:id="@+id/tab_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            tl:tl_textSelectColor="@color/title_bar_end"
-            tl:tl_textUnselectColor="#ffffff"
-            tl:tl_underline_color="#DDDDDD"
-            tl:tl_tab_padding="15dp"
-            tl:tl_textBold="SELECT"
-            tl:tl_show_tab_background="true"
-            tl:tl_tab_background_color="#ffffff"
-            tl:tl_indicator_width_equal_title="true"
-            tl:tl_tab_space_equal="false"
-            tl:tl_underline_height="0dp"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_org_logo"
+                android:layout_width="93dp"
+                android:layout_height="33dp"
+                android:layout_marginLeft="40dp"
+                android:layout_gravity="center_vertical"/>
+
+            <com.flyco.tablayout.SlidingCommonTabLayout
+                android:id="@+id/tab_main"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                tl:tl_textSelectColor="@color/title_bar_end"
+                tl:tl_textUnselectColor="#ffffff"
+                tl:tl_underline_color="#DDDDDD"
+                tl:tl_tab_padding="15dp"
+                tl:tl_textBold="SELECT"
+                tl:tl_show_tab_background="true"
+                tl:tl_tab_background_color="#ffffff"
+                tl:tl_indicator_width_equal_title="true"
+                tl:tl_tab_space_equal="false"
+                tl:tl_underline_height="0dp"/>
+        </FrameLayout>
     </LinearLayout>
 
     <FrameLayout
@@ -75,21 +87,40 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_bottom_margin"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:background="@drawable/bottom_bg"
             android:layout_alignParentBottom="true">
+
+            <TextView
+                android:id="@+id/tv_device_info"
+                android:textColor="#ffffff"
+                android:layout_centerVertical="true"
+                android:text="终端编号"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:id="@+id/btn_main_back"
                 android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_marginRight="10dp"
-                android:layout_gravity="center_vertical|right"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:background="@drawable/back_button"/>
 
-        </FrameLayout>
+            <TextClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:paddingRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/btn_main_back"
+                android:format12Hour="yyyy/MM/dd EEEE HH:mm"/>
+
+        </RelativeLayout>
     </RelativeLayout>
 
     <Chronometer

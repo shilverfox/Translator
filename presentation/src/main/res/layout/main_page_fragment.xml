@@ -17,7 +17,7 @@
         <com.youth.banner.Banner
             android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="160dp"
             app:indicator_height="10dp"
             app:indicator_margin="6dp"
             app:indicator_width="10dp"/>
@@ -37,14 +37,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:drawablePadding="7dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:background="@drawable/main_recommend_title"
                 android:textSize="16sp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
                 android:layout_marginTop="20dp"
                 android:text="经典推荐" />
 
@@ -52,7 +52,7 @@
                 android:id="@+id/rv_floor_host"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:layout_gravity="center_horizontal"/>
         </LinearLayout>
