@@ -1,5 +1,6 @@
 package com.jbsx.view.main.fragment;
 
+import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import com.app.domain.util.ParseUtil;
 import com.bumptech.glide.Glide;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
+import com.jbsx.app.MainApplication;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.DotImageIndicator;
 import com.jbsx.customview.gallery.CoverFlowLayoutManger;
@@ -128,6 +130,16 @@ public class GalleryFragment extends BaseFragment {
         mGalleryData = parseData.getBody();
         mImageIndicator.initImageDot(mGalleryData.size());
         mAdapter.notifyDataSetChanged();
+        handleGalleryAutoFocus();
+    }
+
+    /**
+     * 自动定位到某个item
+     */
+    private void handleGalleryAutoFocus() {
+        int selectPosition = mGalleryData.size() / 2;
+        mList.setSelect(selectPosition);
+        mImageIndicator.updateImageDotStatus(selectPosition);
     }
 
     private void handleLoadFailed(BaseDomainData data) {
@@ -163,7 +175,7 @@ public class GalleryFragment extends BaseFragment {
 //        mList.setFlatFlow(true); //平面滚动
         mList.setGreyItem(true); //设置灰度渐变
 //        mList.setAlphaItem(true); //设置半透渐变
-        mList.setLoop(); //循环滚动，注：循环滚动模式暂不支持平滑滚动
+//        mList.setLoop(); //循环滚动，注：循环滚动模式暂不支持平滑滚动
         mImageIndicator = mRootView.findViewById(R.id.tv_gallery_indicator);
         mAdapter = new Adapter(mContext);
         mList.setAdapter(mAdapter);
@@ -188,10 +200,7 @@ public class GalleryFragment extends BaseFragment {
     }
 
     public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
-
         private Context mContext;
-//        private int[] mColors = {R.mipmap.item1,R.mipmap.item2,R.mipmap.item3,R.mipmap.item4,
-//                R.mipmap.item5,R.mipmap.item6};
 
         public Adapter(Context c) {
             mContext = c;

@@ -7,23 +7,25 @@
 
     <ImageView
         android:id="@+id/iv_album_item_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/timg" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="32dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/iv_album_item_image"
         android:layout_alignRight="@+id/iv_album_item_image"
         android:layout_alignLeft="@+id/iv_album_item_image"
+        android:padding="4dp"
         android:background="#ffffff">
 
         <TextView
             android:id="@+id/iv_album_item_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:lines="2"/>
     </RelativeLayout>
 
 </RelativeLayout>

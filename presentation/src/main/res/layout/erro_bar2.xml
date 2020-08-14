@@ -20,7 +20,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="请检查您的网络连接"
-        android:textColor="#666666"
+        android:textColor="#ffffff"
         android:textSize="15sp" />
     <TextView
         android:id="@+id/sub_title"

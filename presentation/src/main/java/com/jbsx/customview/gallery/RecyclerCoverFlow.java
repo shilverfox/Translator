@@ -146,6 +146,10 @@ public class RecyclerCoverFlow extends RecyclerView {
         return getCoverFlowLayout().getSelectedPos();
     }
 
+    public void setSelect(int position) {
+        scrollToPosition(position);
+    }
+
     /**
      * 设置选中监听
      * @param l 监听接口

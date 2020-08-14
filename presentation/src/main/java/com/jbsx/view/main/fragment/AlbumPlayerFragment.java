@@ -47,6 +47,7 @@ public class AlbumPlayerFragment extends BaseFragment {
     private TextView mTvAlbumActor;
     private ImageView mIvAlbumCover;
     private LinearLayout mDiscContainer;
+    private View mDiscParent;
 
     private String mRequestParams;
     private String mNaviType;
@@ -110,6 +111,8 @@ public class AlbumPlayerFragment extends BaseFragment {
         mTvAlbumCompany = mRootView.findViewById(R.id.tv_album_play_company);
         mTvAlbumType = mRootView.findViewById(R.id.tv_album_play_type);
         mTvAlbumActor = mRootView.findViewById(R.id.tv_album_play_actor);
+        mDiscParent = mRootView.findViewById(R.id.iv_album_play_list);
+        mDiscParent.setVisibility(View.INVISIBLE);
         mDiscContainer = mRootView.findViewById(R.id.view_album_play_fragment_disc_container);
     }
 
@@ -139,6 +142,7 @@ public class AlbumPlayerFragment extends BaseFragment {
 
     private void handleLoadSuccessful(String data) {
         ProgressBarHelper.removeProgressBar(mContainerView);
+        mDiscParent.setVisibility(View.VISIBLE);
         AlbumDetailData parseData = ParseUtil.parseData(data, AlbumDetailData.class);
         if (parseData != null && parseData.getBody() != null) {
             handleAlbumInfo(parseData);

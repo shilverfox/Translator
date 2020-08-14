@@ -25,7 +25,7 @@
         android:paddingTop="25dp"
         android:paddingBottom="25dp"
         android:paddingLeft="30dp"
-        android:paddingRight="30dp"
+        android:paddingRight="20dp"
         android:layout_marginLeft="6dp"
         android:layout_toRightOf="@+id/iv_album_play_cover"
         android:layout_alignTop="@+id/iv_album_play_cover"
@@ -70,7 +70,11 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:paddingRight="8dp"
+            android:scrollbarTrackVertical="@drawable/scrollbar_vertical_track"
+            android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb"
+            android:scrollbarStyle="outsideOverlay">
 
             <LinearLayout
                 android:id="@+id/view_album_play_fragment_disc_container"
