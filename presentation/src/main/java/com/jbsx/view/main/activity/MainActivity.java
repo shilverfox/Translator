@@ -168,9 +168,10 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         mTimerView.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
             public void onChronometerTick(Chronometer chronometer) {
-                long timeDifference = SystemClock.elapsedRealtime() - chronometer.getBase();
                 // 每分钟发送一次心跳
-                if (timeDifference % (1000*60) <= 1000) {
+                int interval = 1000*60;
+                long timeDifference = SystemClock.elapsedRealtime() - chronometer.getBase();
+                if ((timeDifference > interval) && (timeDifference % interval <= 1000)) {
                     sentHeartBeatInfo();
                 }
             }
