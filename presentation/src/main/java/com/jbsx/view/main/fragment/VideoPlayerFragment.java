@@ -13,6 +13,7 @@ import com.app.domain.net.interactor.MyInfoUserCase;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
+import com.jbsx.data.AppConstData;
 
 /**
  * 视频播放页
@@ -21,17 +22,40 @@ public class VideoPlayerFragment extends BaseFragment {
     private View mRootView;
     private WebView webView;
 
+    private String mRequestParams;
+    private String mNaviType;
+    private Integer mPageType;
+    private String mNaviId;
+
     public VideoPlayerFragment() {
         // Required empty public constructor
     }
 
-    public static VideoPlayerFragment newInstance() {
-        return new VideoPlayerFragment();
+    public static VideoPlayerFragment newInstance(String naviId, String naviType, Integer pageType,
+                                              String requestParams) {
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstData.INTENT_KEY_NAVI_ID, naviId);
+        bundle.putString(AppConstData.INTENT_KEY_NAVI_TYPE, naviType);
+        bundle.putInt(AppConstData.INTENT_KEY_PAGE_TYPE, pageType);
+        bundle.putString(AppConstData.INTENT_KEY_REQUEST_PARAMS, requestParams);
+
+        VideoPlayerFragment contentFragment = new VideoPlayerFragment();
+        contentFragment.setArguments(bundle);
+
+        return contentFragment;
     }
 
-    public void createPresenter() {
-        MyInfoUserCase userCase = new MyInfoUserCase(TaskManager.getTaskManager(),
-                MainApplicationLike.getUiThread());
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            mNaviId = bundle.getString(AppConstData.INTENT_KEY_NAVI_ID);
+            mNaviType = bundle.getString(AppConstData.INTENT_KEY_NAVI_TYPE);
+            mPageType = bundle.getInt(AppConstData.INTENT_KEY_PAGE_TYPE);
+            mRequestParams = bundle.getString(AppConstData.INTENT_KEY_REQUEST_PARAMS);
+        }
     }
 
     @Override
@@ -43,6 +67,11 @@ public class VideoPlayerFragment extends BaseFragment {
         playVideo("https://haokan.baidu.com/?sfrom=baidu-top");//https://daojia.jd.com/activity/new/activityHtml/douguoFoods/detail.html?tabType=recommend&resourceId=21");
 
         return mRootView;
+    }
+
+    public void createPresenter() {
+        MyInfoUserCase userCase = new MyInfoUserCase(TaskManager.getTaskManager(),
+                MainApplicationLike.getUiThread());
     }
 
     private void initViews() {

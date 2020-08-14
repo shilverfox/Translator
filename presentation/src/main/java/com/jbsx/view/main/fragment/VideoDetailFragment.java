@@ -119,7 +119,7 @@ public class VideoDetailFragment extends BaseFragment {
         mBtnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType, ""));
+                EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType, mRequestParams));
             }
         });
     }

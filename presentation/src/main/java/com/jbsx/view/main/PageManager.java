@@ -281,7 +281,8 @@ public class PageManager {
                     AppConstData.PAGE_TYPE_VIDEO_DETAIL, pageChangeData.mRequestParam);
 
         } else if (pageChangeData.mCurrentPageType == AppConstData.PAGE_TYPE_VIDEO_PLAYER) {
-            return VideoPlayerFragment.newInstance();
+            return VideoPlayerFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
+                    AppConstData.PAGE_TYPE_VIDEO_PLAYER, pageChangeData.mRequestParam);
 
         } else {
             // 默认显示首页
