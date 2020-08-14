@@ -32,4 +32,9 @@ public class MainViewUserCase extends UserCase {
         BaseRequestEntity entity = HttpRequestPool.getNavigationEntity();
         handleSendRequest(entity, callback);
     }
+
+    public void sendHearBeatInfo(BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getHeartBeatEntity();
+        handleSendRequest(entity, callback);
+    }
 }

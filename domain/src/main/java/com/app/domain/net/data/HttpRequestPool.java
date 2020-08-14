@@ -64,6 +64,24 @@ public class HttpRequestPool {
     }
 
     /**
+     * 心跳数据
+     *
+     * @return
+     */
+    public static BaseRequestEntity getHeartBeatEntity() {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/app/deviceHeartbeat");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+
+        BaseBody body = new BaseBody();
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, "");
+
+        return baseRequest;
+    }
+
+    /**
      * 获取首页导航数据
      *
      * @return

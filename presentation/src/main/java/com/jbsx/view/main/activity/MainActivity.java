@@ -2,6 +2,7 @@ package com.jbsx.view.main.activity;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Chronometer;
 
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
@@ -17,7 +19,6 @@ import com.app.domain.net.event.BadSessionEvent;
 import com.app.domain.net.interactor.MainViewUserCase;
 import com.app.domain.net.model.BaseDomainData;
 import com.app.domain.util.ParseUtil;
-import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.SlidingCommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -73,6 +74,8 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     private PageManager mPageMager;
     private String mCurrentTabId;
 
+    private Chronometer mTimerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +86,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         initTitleBar();
         handlePermissions();
         loadNavigation();
+        initTimer();
     }
 
     private void init() {
@@ -127,7 +131,6 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         } else {
             handleEmptyNaviData("导航数据为空");
         }
-
     }
 
     private void handleLoadNaviFailed(BaseDomainData data) {
@@ -156,7 +159,52 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         mTabLayout = findViewById(R.id.tab_main);
         mViewPager = findViewById(R.id.vp_container);
         mBtnBack = findViewById(R.id.btn_main_back);
+        mTimerView = findViewById(R.id.chronometer);
         mTopBarLayout = findViewById(R.id.layout_title_bar_container);
+    }
+
+    private void initTimer() {
+        startTimer();
+        mTimerView.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                long timeDifference = SystemClock.elapsedRealtime() - chronometer.getBase();
+                // 每分钟发送一次心跳
+                if (timeDifference % (1000*60) <= 1000) {
+                    sentHeartBeatInfo();
+                }
+            }
+        });
+    }
+
+    /**
+     * 发送心跳包
+     */
+    private void sentHeartBeatInfo() {
+        if (mMainPageUserCase != null) {
+            mMainPageUserCase.sendHearBeatInfo(new BaseRequestCallback() {
+                @Override
+                public void onRequestFailed(BaseDomainData data) {
+                }
+
+                @Override
+                public void onRequestSuccessful(String data) {
+                }
+
+                @Override
+                public void onNetError() {
+                }
+            });
+        }
+    }
+
+    public void startTimer() {
+        mTimerView.setBase(SystemClock.elapsedRealtime());
+        mTimerView.start();
+    }
+
+    public void stopTimer() {
+        mTimerView.stop();
     }
 
     /**
@@ -432,5 +480,16 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
                 }
             });
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopTimer();
     }
 }
