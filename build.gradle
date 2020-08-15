@@ -9,7 +9,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.3.0'
 
         // This is a third lib named "tinker", which can fix the bug without republic a apk.
         classpath 'com.tencent.tinker:tinker-patch-gradle-plugin:1.7.7'

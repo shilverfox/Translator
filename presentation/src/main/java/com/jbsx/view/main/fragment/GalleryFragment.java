@@ -1,26 +1,18 @@
 package com.jbsx.view.main.fragment;
 
-import android.app.Application;
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
 import com.app.domain.net.interactor.MainPageUserCase;
 import com.app.domain.net.model.BaseDomainData;
 import com.app.domain.util.ParseUtil;
-import com.bumptech.glide.Glide;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
-import com.jbsx.app.MainApplication;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.DotImageIndicator;
 import com.jbsx.customview.gallery.CoverFlowLayoutManger;
@@ -30,12 +22,10 @@ import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
-import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.adapter.GalleryAdapter;
 import com.jbsx.view.main.entity.GalleryData;
 import com.jbsx.view.main.entity.NavigationData;
-import com.jbsx.view.main.entity.SpecialAlbumData;
 
 import org.greenrobot.eventbus.EventBus;
 

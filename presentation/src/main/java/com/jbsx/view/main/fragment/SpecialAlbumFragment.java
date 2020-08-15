@@ -10,7 +10,6 @@ import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
 import com.app.domain.net.data.ConstData;
 import com.app.domain.net.interactor.MainPageUserCase;
-import com.app.domain.net.interactor.MyInfoUserCase;
 import com.app.domain.net.model.BaseDomainData;
 import com.app.domain.util.ParseUtil;
 import com.jbsx.R;
@@ -25,22 +24,13 @@ import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.view.main.adapter.VideoItemAdapter;
-import com.jbsx.view.main.contact.MainPageContact;
 import com.jbsx.view.main.entity.Album;
-import com.jbsx.view.main.entity.BannerData;
-import com.jbsx.view.main.entity.CelebrityData;
-import com.jbsx.view.main.entity.HostData;
 import com.jbsx.view.main.entity.SpecialAlbumData;
 import com.jbsx.view.main.entity.SpecialAlbums;
-import com.jbsx.view.main.presenter.MainPagePresenter;
 import com.zhouyou.recyclerview.XRecyclerView;
-import com.zhouyou.recyclerview.refresh.IMoreFooter;
-import com.zhouyou.recyclerview.refresh.ProgressStyle;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.ButterKnife;
 
 /**
  * 首页专题
@@ -74,7 +64,6 @@ public class SpecialAlbumFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         mRootView = inflater.inflate(R.layout.special_album_page_fragment, null, false);
-        ButterKnife.bind(this, mRootView);
 
         initUserCase();
         initViews();

@@ -28,14 +28,12 @@ import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.LogTools;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
-import com.jbsx.utils.StatisticsReportUtil;
 import com.jbsx.utils.UiTools;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.adapter.CelebrityIconItemAdapter;
 import com.jbsx.view.main.adapter.VideoItemAdapter;
 import com.jbsx.view.main.contact.MainPageContact;
 import com.jbsx.view.main.entity.Album;
-import com.jbsx.view.main.entity.BannerData;
 import com.jbsx.view.main.entity.HostData;
 import com.jbsx.view.main.entity.MainPageData;
 import com.jbsx.view.main.entity.SpecialAlbumData;
@@ -54,8 +52,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.ButterKnife;
 
 /**
  * Created by Li Jian
@@ -128,7 +124,6 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         mRootView = inflater.inflate(R.layout.main_page_fragment, null, false);
-        ButterKnife.bind(this, mRootView);
         createPresenter();
         initViews();
         initEvents();

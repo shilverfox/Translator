@@ -3,10 +3,8 @@ package com.jbsx.app;
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
-import android.support.multidex.MultiDex;
 
 import com.jbsx.utils.SharedPreferencesProvider;
 import com.jbsx.utils.UiTools;
@@ -16,24 +14,15 @@ import com.mob.MobSDK;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.tencent.tinker.anno.DefaultLifeCycle;
-import com.tencent.tinker.lib.tinker.TinkerInstaller;
-import com.tencent.tinker.loader.app.DefaultApplicationLike;
-import com.tencent.tinker.loader.shareutil.ShareConstants;
 
 /**
  * Created by lijian15 on 2016/12/13.
  */
 
-// For tinke
-@DefaultLifeCycle(
-        application = "com.jbsx.app.MainApplication",
-        flags = ShareConstants.TINKER_ENABLE_ALL)
-
-public class MainApplicationLike extends DefaultApplicationLike {
-    private static Context mContext;
+public class MainApplicationLike extends Application {
     private static UIThread mUiThread;
     private static MainApplicationLike sInstance;
+    private static Context mContext;
     public static int statusBarHeight;
     private Handler mHanlder;
 
@@ -43,32 +32,28 @@ public class MainApplicationLike extends DefaultApplicationLike {
     // 微信的key，此key为线上版本的key，开发版不可用，发正式版本要用这个key
     public final static String APP_ID = "";
 
-    public MainApplicationLike(Application application, int tinkerFlags, boolean tinkerLoadVerifyFlag,
-                               long applicationStartElapsedTime, long applicationStartMillisTime,
-                               Intent tinkerResultIntent) {
-        super(application, tinkerFlags, tinkerLoadVerifyFlag, applicationStartElapsedTime,
-                applicationStartMillisTime, tinkerResultIntent);
-    }
-
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     public void registerActivityLifecycleCallbacks(Application.ActivityLifecycleCallbacks callback) {
-        getApplication().registerActivityLifecycleCallbacks(callback);
+        registerActivityLifecycleCallbacks(callback);
     }
 
     @Override
-    public void onBaseContextAttached(Context base) {
-        super.onBaseContextAttached(base);
+    public void onCreate() {
+        super.onCreate();
         sInstance = this;
         mHanlder = new Handler();
-        mContext = base;
         mUiThread = new UIThread();
+    }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        mContext = base;
         SharedPreferencesProvider.init(UtilConstant.PreferencesCP.SHARED_NAME, UtilConstant.PreferencesCP.AUTHORITY);
         LoginHelper.getInstance().readData();
+//        MobSDK.init(base);
         getWXApi();
-        initHotFix(base);
         getStatusHeight();
-        handleInitDelay();
     }
 
     /**
@@ -90,14 +75,6 @@ public class MainApplicationLike extends DefaultApplicationLike {
     }
 
     /**
-     * For tinker
-      */
-    private void initHotFix(Context base) {
-        MultiDex.install(base);
-        TinkerInstaller.install(this);
-    }
-
-    /**
      * For memory leakage checking.
      *
      * @param base
@@ -108,7 +85,7 @@ public class MainApplicationLike extends DefaultApplicationLike {
             // You should not init your app in this process.
             return;
         }
-        LeakCanary.install(getApplication());
+        LeakCanary.install(this);
     }
 
     public static Context getAppContext() {
@@ -123,10 +100,10 @@ public class MainApplicationLike extends DefaultApplicationLike {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             int statusBarHeight1 = -1;
             try {
-                int resourceId = getAppContext().getResources().getIdentifier("status_bar_height", "dimen", "android");
+                int resourceId = mContext.getResources().getIdentifier("status_bar_height", "dimen", "android");
                 if (resourceId > 0) {
                     //根据资源ID获取响应的尺寸值
-                    statusBarHeight1 = getAppContext().getResources().getDimensionPixelSize(resourceId);
+                    statusBarHeight1 = mContext.getResources().getDimensionPixelSize(resourceId);
                 }
             } catch (Exception e) {
                 statusBarHeight1 = UiTools.dip2px(24);
@@ -143,7 +120,7 @@ public class MainApplicationLike extends DefaultApplicationLike {
 
     public IWXAPI getWXApi() {
         if (api == null) {
-            api = WXAPIFactory.createWXAPI(getAppContext(), APP_ID);
+            api = WXAPIFactory.createWXAPI(mContext, APP_ID);
             api.registerApp(APP_ID);
         }
 
