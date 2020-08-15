@@ -171,12 +171,12 @@ public class AlbumPlayerFragment extends BaseFragment {
      * @param parseData
      */
     private void handleAlbumDisc(AlbumDetailData parseData) {
-        View sideA = createDiscSideView(parseData.getBody().getSideA(), "sideA");
+        View sideA = createDiscSideView(parseData.getBody().getSideA(), "A-曲目列表");
         if (sideA != null) {
             mDiscContainer.addView(sideA);
         }
 
-        View sideB = createDiscSideView(parseData.getBody().getSideB(), "sideB");
+        View sideB = createDiscSideView(parseData.getBody().getSideB(), "B-曲目列表");
         if (sideB != null) {
             mDiscContainer.addView(sideB);
         }

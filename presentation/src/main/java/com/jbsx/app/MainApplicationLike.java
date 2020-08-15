@@ -32,11 +32,6 @@ public class MainApplicationLike extends Application {
     // 微信的key，此key为线上版本的key，开发版不可用，发正式版本要用这个key
     public final static String APP_ID = "";
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    public void registerActivityLifecycleCallbacks(Application.ActivityLifecycleCallbacks callback) {
-        registerActivityLifecycleCallbacks(callback);
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
