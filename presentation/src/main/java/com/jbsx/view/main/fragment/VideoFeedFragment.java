@@ -5,6 +5,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -38,11 +39,13 @@ import java.util.List;
  */
 public class VideoFeedFragment extends CommonListFragment {
     public static final int GRID_COLUM = 5;
+    public static final int PADDING_HORIZONTAL = UiTools.dip2px(60);
 
     public static final String ARGUMENT = "argument";
 
     private VideoFeedAdapter mAdapter;
     private RepertoryData mRepertoryData;
+    private TextView mTvTitle;
 
     private String mRequestParams;
     private String mNaviType;
@@ -95,9 +98,11 @@ public class VideoFeedFragment extends CommonListFragment {
 
     @Override
     public void initViews() {
+        mTvTitle = getTitleView();
         View rootView = getRootView();
         if (rootView != null) {
             rootView.setBackgroundResource(R.drawable.background);
+            rootView.setPadding(PADDING_HORIZONTAL, UiTools.dip2px(20),PADDING_HORIZONTAL, UiTools.dip2px(20));
         }
     }
 
@@ -128,8 +133,9 @@ public class VideoFeedFragment extends CommonListFragment {
      */
     private void calculateImageHeight(ImageView imageView) {
         if (imageView != null) {
+            int itemPadding = (int)mContext.getResources().getDimension(R.dimen.video_feed_item_padding);
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
-            float width = (StatisticsReportUtil.getScreenWidth() - (GRID_COLUM - 1)*UiTools.dip2px(4)) / GRID_COLUM;
+            float width = (StatisticsReportUtil.getScreenWidth() - (GRID_COLUM - 1)*UiTools.dip2px(itemPadding) - 2*PADDING_HORIZONTAL) / GRID_COLUM;
             params.height = (int) width;
             imageView.setLayoutParams(params);
         }
@@ -141,18 +147,30 @@ public class VideoFeedFragment extends CommonListFragment {
         if (isAlbumType()) {
             AlbumFeedData albumData = gson.fromJson(result, AlbumFeedData.class);
             if (albumData != null && albumData.getBody() != null
-                    && albumData.getBody().getList() != null) {
+                    && albumData.getBody().getList() != null
+                    && albumData.getBody().getList().size() > 0) {
+                setTitle(albumData.getBody().getList().get(0).getClassifyName());
                 return albumData.getBody().getList();
             }
         } else {
             RepertoryData videoData = gson.fromJson(result, RepertoryData.class);
             if (videoData != null && videoData.getBody() != null
-                    && videoData.getBody().getList() != null) {
+                    && videoData.getBody().getList() != null
+                    && videoData.getBody().getList().size() > 0) {
+                setTitle(videoData.getBody().getList().get(0).getClassifyNames());
                 return videoData.getBody().getList();
             }
         }
 
         return new ArrayList();
+    }
+
+    private void setTitle(String titleName) {
+        boolean isEmpty = TextUtils.isEmpty(titleName);
+        mTvTitle.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+        if (!isEmpty) {
+            mTvTitle.setText(titleName);
+        }
     }
 
     @Override
@@ -268,6 +286,7 @@ public class VideoFeedFragment extends CommonListFragment {
         private View mRootView;
         private ImageView mIvImageUrl;
         private TextView mTvName;
+        private TextView mTvDescription;
 
         private AlbumFeedData.AlbumFeedItem mData;
         private int mCurrentPosition;
@@ -285,6 +304,7 @@ public class VideoFeedFragment extends CommonListFragment {
                 mRootView = rootView;
                 mIvImageUrl = mRootView.findViewById(R.id.iv_album_item_image);
                 mTvName = mRootView.findViewById(R.id.iv_album_item_name);
+                mTvDescription = mRootView.findViewById(R.id.iv_album_item_desc);
             }
         }
 
@@ -309,6 +329,9 @@ public class VideoFeedFragment extends CommonListFragment {
                 String imgUrl = data.getAlbumPreview();
                 ImageLoader.displayImage(imgUrl, mIvImageUrl);
                 ViewUtils.drawText(mTvName, data.getAlbumName());
+                if (data.getMetadata() != null) {
+                    ViewUtils.drawText(mTvDescription, data.getMetadata().getActor());
+                }
             }
         }
 

@@ -3,7 +3,10 @@
     android:id="@+id/layout_video_item"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="4dp">
+    android:paddingLeft="@dimen/video_feed_item_padding"
+    android:paddingRight="@dimen/video_feed_item_padding"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
     <ImageView
         android:id="@+id/iv_video_item_image"

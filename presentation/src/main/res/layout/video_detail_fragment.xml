@@ -30,7 +30,7 @@
             android:textColor="#ffffff"
             android:textStyle="bold"
             android:textSize="24sp"
-            android:text="《建党伟业"
+            android:text="片名"
             android:layout_marginLeft="42dp"
             android:layout_marginTop="58dp"
             android:layout_toRightOf="@+id/iv_video_detail_icon"/>
@@ -134,4 +134,9 @@
             android:textSize="8sp"
             android:text="剧情简介剧情简介剧情简介剧情简介剧情简介剧情简介剧情简介"/>
     </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/view_video_detail_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </RelativeLayout>

@@ -3,7 +3,10 @@
     android:id="@+id/layout_video_item"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="4dp">
+    android:paddingLeft="@dimen/video_feed_item_padding"
+    android:paddingRight="@dimen/video_feed_item_padding"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
     <ImageView
         android:id="@+id/iv_album_item_image"
@@ -25,7 +28,16 @@
             android:id="@+id/iv_album_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:lines="2"/>
+            android:singleLine="true"/>
+
+        <TextView
+            android:id="@+id/iv_album_item_desc"
+            android:layout_below="@+id/iv_album_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            android:singleLine="true"/>
     </RelativeLayout>
 
 </RelativeLayout>

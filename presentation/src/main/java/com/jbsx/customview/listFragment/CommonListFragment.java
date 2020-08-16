@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
@@ -73,12 +74,12 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
 
     private View mRootView;
     protected RecyclerView mListView;
+    private TextView mTvTitle;
     private CommonListFragmentAdapter mAdapter;
     private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter = null;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         mRootView = inflater.inflate(R.layout.fragment_common_list, null, false);
         mPageSize = getPageSize();
         mUserCase = new CommonListFragmentUserCase(TaskManager.getTaskManager(),
@@ -92,7 +93,7 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
     }
 
     public void initViews() {
-
+        mTvTitle.setVisibility(View.GONE);
     }
 
     /**
@@ -131,7 +132,8 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
      */
     private void findViews(View rootView) {
         if (rootView != null) {
-            mListView = (RecyclerView) rootView.findViewById(R.id.recycler_list);
+            mListView = rootView.findViewById(R.id.recycler_list);
+            mTvTitle = rootView.findViewById(R.id.tv_common_list_title);
         }
     }
 
@@ -441,6 +443,10 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
 
     public View getRootView() {
         return mRootView.findViewById(R.id.view_common_list_root);
+    }
+
+    public TextView getTitleView() {
+        return mTvTitle;
     }
 
     /** 创建对应的Adapter */

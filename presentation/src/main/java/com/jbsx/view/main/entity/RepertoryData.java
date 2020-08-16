@@ -81,11 +81,20 @@ public class RepertoryData {
 
     public class FeedItem {
         private String classifyName;
+        private String classifyNames;
         private String videoCode;
         private String videoFilePath;
         private String videoName;
         private String videoPreview;
         private MetaData metadata;
+
+        public String getClassifyNames() {
+            return classifyNames;
+        }
+
+        public void setClassifyNames(String classifyNames) {
+            this.classifyNames = classifyNames;
+        }
 
         public String getClassifyName() {
             return classifyName;

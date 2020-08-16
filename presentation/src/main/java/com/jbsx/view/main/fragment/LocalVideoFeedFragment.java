@@ -97,6 +97,7 @@ public class LocalVideoFeedFragment extends CommonListFragment {
         View rootView = getRootView();
         if (rootView != null) {
             rootView.setBackgroundResource(R.drawable.background);
+            rootView.setPadding(UiTools.dip2px(20), UiTools.dip2px(20), UiTools.dip2px(20), UiTools.dip2px(20));
         }
     }
 

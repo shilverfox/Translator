@@ -15,6 +15,7 @@ import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.data.AppConstData;
+import com.jbsx.utils.ProgressBarHelper;
 
 /**
  * 通用web页，视频播放，新闻
@@ -90,11 +91,17 @@ public class CommonWebFragment extends BaseFragment {
         webView.setVisibility(View.VISIBLE);
         webView.getSettings().setUseWideViewPort(true);
         webView.loadUrl(url);
+        ProgressBarHelper.addProgressBar(webView);
 
         webView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                ProgressBarHelper.removeProgressBar(webView);
             }
         });
     }

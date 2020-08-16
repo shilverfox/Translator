@@ -79,7 +79,7 @@ public class AudioPlayer {
     public void stopPlayer() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
-            mCurrentSrc = null;
+            handlePlayerIcon(mPrePlayerIcon, false);
         }
     }
 

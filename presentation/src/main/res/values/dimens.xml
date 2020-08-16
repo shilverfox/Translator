@@ -38,4 +38,5 @@
     <dimen name="dkplayer_controller_time_text_size">14sp</dimen>
 
     <dimen name="main_bottom_margin">40dp</dimen>
+    <dimen name="video_feed_item_padding">16dp</dimen>
 </resources>

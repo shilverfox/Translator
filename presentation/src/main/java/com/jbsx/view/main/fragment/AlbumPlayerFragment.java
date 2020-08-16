@@ -41,6 +41,7 @@ import java.util.List;
 public class AlbumPlayerFragment extends BaseFragment {
     private View mRootView;
     private View mContainerView;
+    private View mViewLoading;
     private TextView mTvAlbumName;
     private TextView mTvAlbumCompany;
     private TextView mTvAlbumType;
@@ -106,6 +107,7 @@ public class AlbumPlayerFragment extends BaseFragment {
 
     private void initViews() {
         mContainerView = mRootView.findViewById(R.id.view_album_player_root);
+        mViewLoading = mRootView.findViewById(R.id.view_album_player_loading);
         mIvAlbumCover = mRootView.findViewById(R.id.iv_album_play_cover);
         mTvAlbumName = mRootView.findViewById(R.id.tv_album_play_name);
         mTvAlbumCompany = mRootView.findViewById(R.id.tv_album_play_company);
@@ -121,7 +123,7 @@ public class AlbumPlayerFragment extends BaseFragment {
     }
 
     private void loadData() {
-        ProgressBarHelper.addProgressBar(mContainerView);
+        ProgressBarHelper.addProgressBar(mViewLoading);
         mUserCase.requestAlbumDetailInfo(mRequestParams, new BaseRequestCallback() {
             @Override
             public void onRequestFailed(BaseDomainData data) {
@@ -141,7 +143,7 @@ public class AlbumPlayerFragment extends BaseFragment {
     }
 
     private void handleLoadSuccessful(String data) {
-        ProgressBarHelper.removeProgressBar(mContainerView);
+        ProgressBarHelper.removeProgressBar(mViewLoading);
         mDiscParent.setVisibility(View.VISIBLE);
         AlbumDetailData parseData = ParseUtil.parseData(data, AlbumDetailData.class);
         if (parseData != null && parseData.getBody() != null) {
@@ -193,7 +195,7 @@ public class AlbumPlayerFragment extends BaseFragment {
     }
 
     private void handleLoadFailed(BaseDomainData data) {
-        ProgressBarHelper.removeProgressBar(mContainerView);
+        ProgressBarHelper.removeProgressBar(mViewLoading);
         MessageTools.showErrorMessage(data);
         String errorMessage = data.getMsg();
         if (TextUtils.isEmpty(errorMessage)) {
@@ -209,7 +211,7 @@ public class AlbumPlayerFragment extends BaseFragment {
     }
 
     public void drawNetError() {
-        ProgressBarHelper.removeProgressBar(mContainerView);
+        ProgressBarHelper.removeProgressBar(mViewLoading);
         ErroBarHelper.addErroBar(mContainerView, ErroBarHelper.ERRO_TYPE_NET_INTERNET, new Runnable() {
             @Override
             public void run() {

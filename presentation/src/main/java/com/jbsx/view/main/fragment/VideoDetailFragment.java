@@ -41,6 +41,7 @@ import org.greenrobot.eventbus.EventBus;
 public class VideoDetailFragment extends BaseFragment {
     private View mRootView;
     private View mViewLayout;
+    private View mViewLoading;
     private ImageView mIvIcon;
     private TextView mTvName;
     private TextView mTvDirector;
@@ -106,6 +107,7 @@ public class VideoDetailFragment extends BaseFragment {
 
     private void initViews() {
         mViewLayout = mRootView.findViewById(R.id.layout_video_detail_root);
+        mViewLoading = mRootView.findViewById(R.id.view_video_detail_loading);
         mIvIcon = mRootView.findViewById(R.id.iv_video_detail_icon);
         mTvName = mRootView.findViewById(R.id.iv_video_detail_name);
         mTvDirector = mRootView.findViewById(R.id.iv_video_detail_director);
@@ -131,7 +133,7 @@ public class VideoDetailFragment extends BaseFragment {
     }
 
     private void loadData() {
-        ProgressBarHelper.addProgressBar(mViewLayout);
+        ProgressBarHelper.addProgressBar(mViewLoading);
         mUserCase.requestVideoDetailInfo(mRequestParams, new BaseRequestCallback() {
             @Override
             public void onRequestFailed(BaseDomainData data) {
@@ -151,7 +153,7 @@ public class VideoDetailFragment extends BaseFragment {
     }
 
     private void handleLoadSuccessful(String data) {
-        ProgressBarHelper.removeProgressBar(mViewLayout);
+        ProgressBarHelper.removeProgressBar(mViewLoading);
         VideoDetailData parseData = ParseUtil.parseData(data, VideoDetailData.class);
         drawVideoDetail(parseData.getBody());
     }
@@ -174,7 +176,7 @@ public class VideoDetailFragment extends BaseFragment {
     }
 
     private void handleLoadFailed(BaseDomainData data) {
-        ProgressBarHelper.removeProgressBar(mViewLayout);
+        ProgressBarHelper.removeProgressBar(mViewLoading);
         MessageTools.showErrorMessage(data);
         String errorMessage = data.getMsg();
         if (TextUtils.isEmpty(errorMessage)) {
@@ -190,7 +192,7 @@ public class VideoDetailFragment extends BaseFragment {
     }
 
     public void drawNetError() {
-        ProgressBarHelper.removeProgressBar(mViewLayout);
+        ProgressBarHelper.removeProgressBar(mViewLoading);
         ErroBarHelper.addErroBar(mViewLayout, ErroBarHelper.ERRO_TYPE_NET_INTERNET, new Runnable() {
             @Override
             public void run() {
