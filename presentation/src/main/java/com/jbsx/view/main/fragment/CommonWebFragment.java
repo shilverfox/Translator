@@ -17,9 +17,9 @@ import com.jbsx.app.MainApplicationLike;
 import com.jbsx.data.AppConstData;
 
 /**
- * 本地新闻页面
+ * 通用web页，视频播放，新闻
  */
-public class LocalNewsFragment extends BaseFragment {
+public class CommonWebFragment extends BaseFragment {
     private View mRootView;
     private WebView webView;
 
@@ -28,11 +28,11 @@ public class LocalNewsFragment extends BaseFragment {
     private Integer mPageType;
     private String mNaviId;
 
-    public LocalNewsFragment() {
+    public CommonWebFragment() {
         // Required empty public constructor
     }
 
-    public static LocalNewsFragment newInstance(String naviId, String naviType, Integer pageType,
+    public static CommonWebFragment newInstance(String naviId, String naviType, Integer pageType,
                                                 String requestParams) {
         Bundle bundle = new Bundle();
         bundle.putString(AppConstData.INTENT_KEY_NAVI_ID, naviId);
@@ -40,7 +40,7 @@ public class LocalNewsFragment extends BaseFragment {
         bundle.putInt(AppConstData.INTENT_KEY_PAGE_TYPE, pageType);
         bundle.putString(AppConstData.INTENT_KEY_REQUEST_PARAMS, requestParams);
 
-        LocalNewsFragment contentFragment = new LocalNewsFragment();
+        CommonWebFragment contentFragment = new CommonWebFragment();
         contentFragment.setArguments(bundle);
 
         return contentFragment;
@@ -65,13 +65,9 @@ public class LocalNewsFragment extends BaseFragment {
         createPresenter();
         initViews();
         initEvents();
-        playVideo(getNewsUrl());
+        openUrl(mRequestParams);
 
         return mRootView;
-    }
-
-    private String getNewsUrl() {
-        return ConstData.VIDEO_HOST + "/terminal/views/news.html";
     }
 
     public void createPresenter() {
@@ -87,7 +83,7 @@ public class LocalNewsFragment extends BaseFragment {
 
     }
 
-    private void playVideo(String url) {
+    private void openUrl(String url) {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setAllowFileAccess(true);
         webView.getSettings().setPluginState(WebSettings.PluginState.ON);

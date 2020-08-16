@@ -23,6 +23,7 @@ import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.adapter.GalleryAdapter;
 import com.jbsx.view.main.entity.NavigationData;
+import com.jbsx.view.main.util.PageUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -162,7 +163,7 @@ public class LocalResourceFragment extends BaseFragment {
         String params = "";
         Integer pageType = AppConstData.PAGE_TYPE_LOCAL_NEWS;
         if (KEY_SOURCE_TYPE_NEWS.equals(key)) {
-            params = ConstData.HOST + "/terminal/views/news.html";
+            params = PageUtils.getNewsUrl();
             pageType = AppConstData.PAGE_TYPE_LOCAL_NEWS;
         } else if (KEY_SOURCE_TYPE_VIDEO.equals(key)) {
             params = key;

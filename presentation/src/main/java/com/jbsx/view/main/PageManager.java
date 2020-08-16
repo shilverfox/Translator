@@ -5,21 +5,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 
-import com.app.domain.net.data.ConstData;
 import com.jbsx.R;
 import com.jbsx.data.AppConstData;
 import com.jbsx.utils.LogTools;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.fragment.AlbumPlayerFragment;
+import com.jbsx.view.main.fragment.CommonWebFragment;
 import com.jbsx.view.main.fragment.GalleryFragment;
-import com.jbsx.view.main.fragment.LocalNewsFragment;
-import com.jbsx.view.main.fragment.LocalResourceFragment;
 import com.jbsx.view.main.fragment.LocalVideoFeedFragment;
 import com.jbsx.view.main.fragment.MainPageFragment;
 import com.jbsx.view.main.fragment.VideoDetailFragment;
 import com.jbsx.view.main.fragment.VideoFeedFragment;
-import com.jbsx.view.main.fragment.VideoPlayerFragment;
-import com.jbsx.view.web.WebFragment;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -295,11 +291,11 @@ public class PageManager {
                     AppConstData.PAGE_TYPE_VIDEO_DETAIL, pageChangeData.mRequestParam);
 
         } else if (pageChangeData.mCurrentPageType == AppConstData.PAGE_TYPE_VIDEO_PLAYER) {
-            return VideoPlayerFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
+            return CommonWebFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_VIDEO_PLAYER, pageChangeData.mRequestParam);
 
         } else if (pageChangeData.mCurrentPageType == AppConstData.PAGE_TYPE_LOCAL_NEWS) {
-            return LocalNewsFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
+            return CommonWebFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_LOCAL_NEWS, pageChangeData.mRequestParam);
 
         } else if (pageChangeData.mCurrentPageType == AppConstData.PAGE_TYPE_LOCAL_VIDEO_FEED) {

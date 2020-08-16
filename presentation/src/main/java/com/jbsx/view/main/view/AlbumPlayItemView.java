@@ -75,9 +75,9 @@ public class AlbumPlayItemView extends FrameLayout {
 
     private void handlePlay() {
         if (mIsPlaying) {
-            AudioPlayer.getInstance().pauseMusic();
+            AudioPlayer.getInstance().pauseMusic(mIvPlay);
         } else {
-            AudioPlayer.getInstance().playMusic(mSongInfo.getSongFilePath(), mPbBar);
+            AudioPlayer.getInstance().playMusic(mSongInfo.getSongFilePath(), mPbBar, mIvPlay);
         }
         mIsPlaying = !mIsPlaying;
     }

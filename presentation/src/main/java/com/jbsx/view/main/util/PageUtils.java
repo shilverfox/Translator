@@ -1,5 +1,6 @@
 package com.jbsx.view.main.util;
 
+import com.app.domain.net.data.ConstData;
 import com.jbsx.data.AppConstData;
 
 public class PageUtils {
@@ -29,5 +30,9 @@ public class PageUtils {
             default:
                 return hasChild ? AppConstData.PAGE_TYPE_ALBUM_1 : AppConstData.PAGE_TYPE_ALBUM_2;
         }
+    }
+
+    public static String getNewsUrl() {
+        return ConstData.VIDEO_HOST + "/terminal/views/news.html";
     }
 }

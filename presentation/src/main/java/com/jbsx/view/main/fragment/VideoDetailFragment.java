@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
+import com.app.domain.net.data.ConstData;
 import com.app.domain.net.interactor.MainPageUserCase;
 import com.app.domain.net.interactor.MyInfoUserCase;
 import com.app.domain.net.model.BaseDomainData;
@@ -119,9 +120,14 @@ public class VideoDetailFragment extends BaseFragment {
         mBtnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType, mRequestParams));
+                EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType, getVideoUrl()));
             }
         });
+    }
+
+    private String getVideoUrl() {
+        return ConstData.VIDEO_HOST + "/terminal/views/videos.html?" + "deviceId=" + ConstData.DEVICE_ID
+                + "&orgCode=" + ConstData.ORG_CODE + "&videoCode=" + mRequestParams;
     }
 
     private void loadData() {
@@ -151,6 +157,7 @@ public class VideoDetailFragment extends BaseFragment {
     }
 
     private void drawVideoDetail(RepertoryData.FeedItem detail) {
+        mRequestParams = (detail != null ? detail.getVideoCode() : "");
         if (detail != null && detail.getMetadata() != null) {
             ImageLoader.displayImage(detail.getVideoPreview(), mIvIcon);
             ViewUtils.drawText(mTvName, detail.getVideoName());

@@ -3,6 +3,9 @@ package com.jbsx.view.main;
 import android.media.MediaPlayer;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
+
+import com.jbsx.R;
 
 import java.io.IOException;
 
@@ -13,6 +16,9 @@ public class AudioPlayer {
 
     /** 当前播放的url */
     private String mCurrentSrc;
+
+    /** 上一个播放的view */
+    private ImageView mPrePlayerIcon;
 
     private AudioPlayer() {
         initPlayer();
@@ -39,10 +45,10 @@ public class AudioPlayer {
         return !TextUtils.isEmpty(url) && !TextUtils.isEmpty(mCurrentSrc) && mCurrentSrc.equals(url);
     }
 
-    public void playMusic(String url, final View loadingView) {
+    public void playMusic(String url, final View loadingView, final ImageView playerIcon) {
         if (isTheSameUrl(url)) {
             // 相同的url，内容一致，直接播放
-            mediaPlayer.start();
+            startPlayer(playerIcon);
         } else {
             try {
                 loadingView.setVisibility(View.VISIBLE);
@@ -52,7 +58,7 @@ public class AudioPlayer {
                 mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     @Override
                     public void onPrepared(MediaPlayer mediaPlayer) {
-                        mediaPlayer.start();
+                        startPlayer(playerIcon);
                         loadingView.setVisibility(View.GONE);
                     }
                 });
@@ -63,9 +69,10 @@ public class AudioPlayer {
         mCurrentSrc = url;
     }
 
-    public void pauseMusic() {
+    public void pauseMusic(ImageView playerIcon) {
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
+            handlePlayerIcon(playerIcon, false);
         }
     }
 
@@ -73,6 +80,23 @@ public class AudioPlayer {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
             mCurrentSrc = null;
+        }
+    }
+
+    private void startPlayer(ImageView playerIcon) {
+        if (playerIcon != null && mediaPlayer != null) {
+            mediaPlayer.start();
+
+            // 停止上一个，播放当前的
+            handlePlayerIcon(mPrePlayerIcon, false);
+            handlePlayerIcon(playerIcon, true);
+            mPrePlayerIcon = playerIcon;
+        }
+    }
+
+    private void handlePlayerIcon(ImageView playerIcon, boolean isPlaying) {
+        if (playerIcon != null) {
+            playerIcon.setImageResource(isPlaying ? R.drawable.album_pause_icon : R.drawable.album_play_icon);
         }
     }
 }
