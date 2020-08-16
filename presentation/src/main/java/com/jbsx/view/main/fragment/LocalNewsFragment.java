@@ -65,14 +65,13 @@ public class LocalNewsFragment extends BaseFragment {
         createPresenter();
         initViews();
         initEvents();
-        playVideo(getVideoUrl());
+        playVideo(getNewsUrl());
 
         return mRootView;
     }
 
-    private String getVideoUrl() {
-        return ConstData.HOST + "/terminal/views/videos.html?" + "deviceId=" + ConstData.DEVICE_ID
-                + "&orgCode=" + ConstData.ORG_CODE + "&videoCode=" + mRequestParams;
+    private String getNewsUrl() {
+        return ConstData.VIDEO_HOST + "/terminal/views/news.html";
     }
 
     public void createPresenter() {

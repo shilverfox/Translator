@@ -20,6 +20,8 @@ public class ConstData {
 
     public final static String HOST = "http://121.40.218.200:9000";
 
+    public final static String VIDEO_HOST = "http://121.40.218.200:9003";
+
     public final static String DEVICE_ID = "aaaa-aaaa-111";
 
     public final static String ORG_CODE = "00000001";
