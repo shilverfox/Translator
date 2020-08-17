@@ -103,13 +103,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <Button
+            <FrameLayout
                 android:id="@+id/btn_main_back"
                 android:layout_width="100dp"
                 android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/back_button"/>
+                android:background="@drawable/back_button">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="#ffffff"
+                    android:paddingBottom="8dp"
+                    android:text="返回"/>
+            </FrameLayout>
 
             <TextClock
                 android:layout_width="wrap_content"
