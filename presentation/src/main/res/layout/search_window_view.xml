@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:background="#bbff0000"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <RadioGroup
+        android:id="@+id/rv_search_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_search_album"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:text="专辑"
+            android:checked="true"
+            android:button="@null"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/radio_button_green_grey"/>
+
+        <Space
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/rb_search_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:text="视频"
+            android:button="@null"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/radio_button_green_grey"/>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tv_search_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="关键词："
+        android:layout_below="@+id/rv_search_radio_group"
+        android:paddingTop="40dp"
+        android:paddingBottom="40dp"
+        android:textColor="#ffffff"/>
+
+    <EditText
+        android:id="@+id/tv_search_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:imeOptions="flagNoExtractUi"
+        android:layout_alignBaseline="@+id/tv_search_label"
+        android:layout_toRightOf="@+id/tv_search_label"/>
+
+    <FrameLayout
+        android:id="@+id/btn_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_search_label"
+        android:layout_centerHorizontal="true">
+
+        <include layout="@layout/common_button_view"/>
+    </FrameLayout>
+
+</RelativeLayout>

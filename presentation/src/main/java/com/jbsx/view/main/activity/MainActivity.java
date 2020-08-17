@@ -54,6 +54,7 @@ import com.jbsx.view.main.fragment.GalleryFragment;
 import com.jbsx.view.main.fragment.LocalResourceFragment;
 import com.jbsx.view.main.fragment.MainPageFragment;
 import com.jbsx.view.main.util.PageUtils;
+import com.jbsx.view.main.view.SearchWindow;
 import com.jbsx.view.myinfo.activity.MyViewHistoryActivity;
 import com.jbsx.view.search.SearchActivity;
 
@@ -74,6 +75,8 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     private View mBtnBack;
     private TextView mTvDeviceId;
     private ImageView mIvOrgLogo;
+    private TextView mBtnLabel;
+    private View mBtnSearch;
 
     private long mExitTime = 0;
 
@@ -84,6 +87,8 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
 
     private Chronometer mTimerView;
 
+    private SearchWindow mSearchWindow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +96,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
 
         init();
         findViews();
+        initEvent();
         initTitleBar();
         handlePermissions();
         loadNavigation();
@@ -103,6 +109,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
                 MainApplicationLike.getUiThread());
         mPageMager = new PageManager();
         mPageMager.setFragmentManager(getSupportFragmentManager());
+        mSearchWindow = new SearchWindow();
     }
 
     private void loadNavigation() {
@@ -173,6 +180,18 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         mTvDeviceId = findViewById(R.id.tv_device_info);
         mIvOrgLogo = findViewById(R.id.iv_org_logo);
         mTopBarLayout = findViewById(R.id.layout_title_bar_container);
+        mBtnLabel = findViewById(R.id.btn_common_label);
+        mBtnLabel.setText("检索");
+        mBtnSearch = findViewById(R.id.btn_main_search);
+    }
+
+    private void initEvent() {
+        mBtnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSearchWindow.showSearchDialog(mBtnSearch);
+            }
+        });
     }
 
     private void drawDeviceInfo() {

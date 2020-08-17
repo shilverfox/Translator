@@ -32,7 +32,7 @@
                 android:visibility="visible" />
         </com.jbsx.customview.TitleStatusHeightLayout>
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp">
 
@@ -41,13 +41,13 @@
                 android:layout_width="93dp"
                 android:layout_height="33dp"
                 android:layout_marginLeft="40dp"
-                android:layout_gravity="center_vertical"/>
+                android:layout_centerVertical="true"/>
 
             <com.flyco.tablayout.SlidingCommonTabLayout
                 android:id="@+id/tab_main"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="right"
+                android:layout_toLeftOf="@+id/btn_main_search"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 tl:tl_textSelectColor="@color/title_bar_end"
@@ -60,7 +60,20 @@
                 tl:tl_indicator_width_equal_title="true"
                 tl:tl_tab_space_equal="false"
                 tl:tl_underline_height="0dp"/>
-        </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/btn_main_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true">
+
+                <include layout="@layout/common_button_view"/>
+            </FrameLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <FrameLayout
@@ -105,19 +118,12 @@
 
             <FrameLayout
                 android:id="@+id/btn_main_back"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/back_button">
+                android:layout_centerVertical="true">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="#ffffff"
-                    android:paddingBottom="8dp"
-                    android:text="返回"/>
+                <include layout="@layout/common_button_view"/>
             </FrameLayout>
 
             <TextClock
