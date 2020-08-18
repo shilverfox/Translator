@@ -9,13 +9,17 @@ import com.jbsx.R;
 import com.jbsx.data.AppConstData;
 import com.jbsx.utils.LogTools;
 import com.jbsx.view.data.PageChangeEvent;
+import com.jbsx.view.data.SearchEvent;
 import com.jbsx.view.main.fragment.AlbumPlayerFragment;
 import com.jbsx.view.main.fragment.CommonWebFragment;
 import com.jbsx.view.main.fragment.GalleryFragment;
 import com.jbsx.view.main.fragment.LocalVideoFeedFragment;
 import com.jbsx.view.main.fragment.MainPageFragment;
+import com.jbsx.view.main.fragment.SearchResultFragment;
 import com.jbsx.view.main.fragment.VideoDetailFragment;
 import com.jbsx.view.main.fragment.VideoFeedFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -225,6 +229,9 @@ public class PageManager {
 
         } else if (currentPage == AppConstData.PAGE_TYPE_LOCAL_NEWS) {
             return AppConstData.PAGE_TYPE_LOCAL_NEWS;
+
+        } else if (currentPage == AppConstData.PAGE_TYPE_SEARCH_RESULT) {
+            return AppConstData.PAGE_TYPE_SEARCH_RESULT;
         }
 
         return AppConstData.PAGE_TYPE_MAIN;
@@ -254,9 +261,19 @@ public class PageManager {
                     FragmentTransaction transaction = mFragmentManager.beginTransaction();
                     transaction.add(getPageContainerId(tabType), page);
                     transaction.commitAllowingStateLoss();
+                } else if (page.isAdded() && AppConstData.PAGE_TYPE_SEARCH_RESULT == pageType) {
+                    handleSearchResult(pageChangeData);
                 }
             }
         }
+    }
+
+    /**
+     * 检索结果页可能会存在当前已经存在的情况
+     */
+    private void handleSearchResult(PageChangeEvent pageChangeData) {
+        EventBus.getDefault().post(new SearchEvent(pageChangeData.mNaviId, pageChangeData.mTabType,
+                AppConstData.PAGE_TYPE_SEARCH_RESULT, pageChangeData.mRequestParam));
     }
 
     private Fragment createPage(PageChangeEvent pageChangeData) {
@@ -305,6 +322,10 @@ public class PageManager {
         } else if (pageChangeData.mCurrentPageType == AppConstData.PAGE_TYPE_LOCAL_PICTURE_FEED) {
             return VideoFeedFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_LOCAL_PICTURE_FEED, pageChangeData.mRequestParam);
+
+        }  else if (pageChangeData.mCurrentPageType == AppConstData.PAGE_TYPE_SEARCH_RESULT) {
+            return SearchResultFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
+                    AppConstData.PAGE_TYPE_SEARCH_RESULT, pageChangeData.mRequestParam);
 
         } else {
             // 默认显示首页

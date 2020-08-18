@@ -189,9 +189,13 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         mBtnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSearchWindow.showSearchDialog(mBtnSearch);
+                handleSearchBtnClick();
             }
         });
+    }
+
+    private void handleSearchBtnClick() {
+        mSearchWindow.showSearchDialog(mBtnSearch, mCurrentTabId, "");
     }
 
     private void drawDeviceInfo() {

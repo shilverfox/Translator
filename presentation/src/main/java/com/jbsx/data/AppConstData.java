@@ -117,4 +117,10 @@ public class AppConstData {
 
     /**  */
     public final static String INTENT_KEY_PAGE_TYPE = "bundle_page_type";
+
+    /** 检索类型 专辑 */
+    public final static int SEARCH_TYPE_ALBUM = 1;
+
+    /** 检索类型 视频 */
+    public final static int SEARCH_TYPE_VIDEO = 2;
 }

@@ -445,6 +445,10 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
         return mRootView.findViewById(R.id.view_common_list_root);
     }
 
+    public RecyclerView getRv() {
+        return mListView;
+    }
+
     public TextView getTitleView() {
         return mTvTitle;
     }

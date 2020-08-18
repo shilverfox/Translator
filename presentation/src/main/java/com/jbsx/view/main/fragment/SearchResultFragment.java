@@ -19,16 +19,30 @@ import com.jbsx.customview.listFragment.CommonListFragment;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
 import com.jbsx.data.AppConstData;
+import com.jbsx.utils.JsonUtils;
+import com.jbsx.utils.ShowTools;
 import com.jbsx.utils.StatisticsReportUtil;
 import com.jbsx.utils.UiTools;
 import com.jbsx.utils.ViewUtils;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.data.PageChangeEvent;
+import com.jbsx.view.data.SearchEvent;
+import com.jbsx.view.main.adapter.AlbumFeedAdapter;
+import com.jbsx.view.main.adapter.CommonFeedAdapter;
+import com.jbsx.view.main.adapter.SearchResultAdapter;
+import com.jbsx.view.main.adapter.VideoFeedAdapter;
+import com.jbsx.view.main.callback.OnFeedItemClick;
 import com.jbsx.view.main.entity.AlbumFeedData;
 import com.jbsx.view.main.entity.RepertoryData;
+import com.jbsx.view.main.entity.SearchResultData;
+import com.jbsx.view.main.util.MainViewUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,8 +55,7 @@ public class SearchResultFragment extends CommonListFragment {
 
     public static final String ARGUMENT = "argument";
 
-    private VideoFeedAdapter mAdapter;
-    private RepertoryData mRepertoryData;
+    private CommonListFragmentAdapter mAdapter;
     private TextView mTvTitle;
 
     private String mRequestParams;
@@ -81,6 +94,21 @@ public class SearchResultFragment extends CommonListFragment {
             mNaviType = bundle.getString(AppConstData.INTENT_KEY_NAVI_TYPE);
             mPageType = bundle.getInt(AppConstData.INTENT_KEY_PAGE_TYPE);
             mRequestParams = bundle.getString(AppConstData.INTENT_KEY_REQUEST_PARAMS);
+            parseParams();
+        }
+    }
+
+    private void parseParams() {
+        JSONObject json = null;
+        try {
+            json = new JSONObject(mRequestParams);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (json != null) {
+            mKeyWord = JsonUtils.parseString(json, "search_key");
+            mSearchType = JsonUtils.parseInt(json, "search_type");
         }
     }
 
@@ -93,8 +121,22 @@ public class SearchResultFragment extends CommonListFragment {
 
     @Override
     public CommonListFragmentAdapter getAdapter(Context context) {
-        mAdapter = new VideoFeedAdapter(mContext);
+        mAdapter = new SearchResultAdapter(mContext, getImageWidth(), new OnFeedItemClick() {
+            @Override
+            public void onItemClick(String code) {
+                handleItemClick(code);
+            }
+        });
         return mAdapter;
+    }
+
+    /**
+     * 查询类型
+     *
+     * @return
+     */
+    private boolean isAlbumType() {
+        return mSearchType == AppConstData.SEARCH_TYPE_ALBUM;
     }
 
     @Override
@@ -119,27 +161,20 @@ public class SearchResultFragment extends CommonListFragment {
 
     /**
      * 根据屏幕宽度和宽高比计算高度
-     * @param imageView
      */
-    private void calculateImageHeight(ImageView imageView) {
-        if (imageView != null) {
-            int itemPadding = (int)mContext.getResources().getDimension(R.dimen.video_feed_item_padding);
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
-            float width = (StatisticsReportUtil.getScreenWidth() - (GRID_COLUM - 1)*UiTools.dip2px(itemPadding) - 2*PADDING_HORIZONTAL) / GRID_COLUM;
-            params.height = (int) width;
-            imageView.setLayoutParams(params);
-        }
+    private int getImageWidth() {
+        return MainViewUtil.calculateFeedImageHeight(GRID_COLUM, PADDING_HORIZONTAL);
     }
 
     @Override
     public List parseList(String result) {
         Gson gson = new Gson();
-        AlbumFeedData albumData = gson.fromJson(result, AlbumFeedData.class);
-        if (albumData != null && albumData.getBody() != null
-                && albumData.getBody().getList() != null
-                && albumData.getBody().getList().size() > 0) {
-            setTitle(albumData.getBody().getList().get(0).getClassifyName());
-            return albumData.getBody().getList();
+        SearchResultData searchResultData = gson.fromJson(result, SearchResultData.class);
+        if (searchResultData != null && searchResultData.getBody() != null
+                && searchResultData.getBody().getList() != null
+                && searchResultData.getBody().getList().size() > 0) {
+            setTitle("检索结果");
+            return searchResultData.getBody().getList();
         }
 
         return new ArrayList();
@@ -169,156 +204,22 @@ public class SearchResultFragment extends CommonListFragment {
     }
 
     private void handleItemClick(String requestParams) {
-        EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType, requestParams));
+        // 使用视频或专辑feed的页面类型
+        Integer pageType = (isAlbumType()) ? AppConstData.PAGE_TYPE_ALBUM_2 : AppConstData.PAGE_TYPE_VIDEO_FEED;
+        EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, pageType, requestParams));
     }
 
-    public class VideoFeedAdapter extends CommonListFragmentAdapter {
-
-        public VideoFeedAdapter(Context context) {
-            super(context);
-        }
-
-        @Override
-        public int getViewId() {
-            return R.layout.album_feed_item_view;
-        }
-
-        @Override
-        public CommonListFragmentViewHolder getViewHolder(View rootView) {
-            AlbumFeedHolder holder =  new AlbumFeedHolder(getContext(), rootView);
-            holder.setAdapter(this);
-            return holder;
-        }
-    }
-
-    public class VideoFeedHolder extends CommonListFragmentViewHolder<RepertoryData.FeedItem> {
-        private Context mContext;
-
-        private View mRootView;
-        private TextView mTvTitle;
-        private ImageView mIvImageUrl;
-
-        private RepertoryData.FeedItem mData;
-        private int mCurrentPosition;
-
-        private CommonListFragmentAdapter mAdapter;
-
-        public VideoFeedHolder(Context context, View view) {
-            super(view);
-            mContext = context;
-        }
-
-        @Override
-        public void findViews(View rootView) {
-            if (rootView != null) {
-                mRootView = rootView;
-                mIvImageUrl = mRootView.findViewById(R.id.iv_video_item_image);
-                mTvTitle = mRootView.findViewById(R.id.iv_video_item_name);
-            }
-        }
-
-        @Override
-        public void registerEvent() {
-            mRootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    handleRootViewClick(mCurrentPosition);
-                }
-            });
-        }
-
-        @Override
-        public void drawViews(RepertoryData.FeedItem data, final int position) {
-            mData = data;
-            mCurrentPosition = position;
-
-            if (data != null) {
-                // 图片
-                calculateImageHeight(mIvImageUrl);
-                String imgUrl = data.getVideoPreview();
-                ImageLoader.displayImage(imgUrl, mIvImageUrl);
-                mTvTitle.setText(data.getVideoName());
-            }
-        }
-
-        public void setAdapter(CommonListFragmentAdapter adapter) {
-            mAdapter = adapter;
-        }
-
-        @Override
-        public void isTheLastLine(boolean theLastLine) {
-        }
-
-        private void handleRootViewClick(int position) {
-            handleItemClick(mData.getVideoCode());
-        }
-    }
-
-    public class AlbumFeedHolder extends CommonListFragmentViewHolder<AlbumFeedData.AlbumFeedItem> {
-        private Context mContext;
-
-        private View mRootView;
-        private ImageView mIvImageUrl;
-        private TextView mTvName;
-        private TextView mTvDescription;
-
-        private AlbumFeedData.AlbumFeedItem mData;
-        private int mCurrentPosition;
-
-        private CommonListFragmentAdapter mAdapter;
-
-        public AlbumFeedHolder(Context context, View view) {
-            super(view);
-            mContext = context;
-        }
-
-        @Override
-        public void findViews(View rootView) {
-            if (rootView != null) {
-                mRootView = rootView;
-                mIvImageUrl = mRootView.findViewById(R.id.iv_album_item_image);
-                mTvName = mRootView.findViewById(R.id.iv_album_item_name);
-                mTvDescription = mRootView.findViewById(R.id.iv_album_item_desc);
-            }
-        }
-
-        @Override
-        public void registerEvent() {
-            mRootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    handleRootViewClick(mCurrentPosition);
-                }
-            });
-        }
-
-        @Override
-        public void drawViews(AlbumFeedData.AlbumFeedItem data, final int position) {
-            mData = data;
-            mCurrentPosition = position;
-
-            if (data != null) {
-                // 图片
-                calculateImageHeight(mIvImageUrl);
-                String imgUrl = data.getAlbumPreview();
-                ImageLoader.displayImage(imgUrl, mIvImageUrl);
-                ViewUtils.drawText(mTvName, data.getAlbumName());
-                if (data.getMetadata() != null) {
-                    ViewUtils.drawText(mTvDescription, data.getMetadata().getActor());
-                }
-            }
-        }
-
-        public void setAdapter(CommonListFragmentAdapter adapter) {
-            mAdapter = adapter;
-        }
-
-        @Override
-        public void isTheLastLine(boolean theLastLine) {
-        }
-
-        private void handleRootViewClick(int position) {
-            handleItemClick(mData.getAlbumCode());
+    /**
+     * page 切换事件
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(SearchEvent event) {
+        if (event != null && mNaviId != null && mNaviId.equals(event.mNaviId)) {
+            mRequestParams = event.mRequestParam;
+            parseParams();
+            clearAndFresh();
         }
     }
 }

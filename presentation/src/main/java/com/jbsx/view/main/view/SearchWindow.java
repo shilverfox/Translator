@@ -2,6 +2,7 @@ package com.jbsx.view.main.view;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -11,10 +12,15 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
 import com.jbsx.R;
 import com.jbsx.app.MainApplicationLike;
+import com.jbsx.data.AppConstData;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.utils.UiTools;
+import com.jbsx.view.data.PageChangeEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class SearchWindow {
     private View mRootView;
@@ -25,6 +31,11 @@ public class SearchWindow {
 
     private PopupWindow mPopWindow;
     private View mParentView;
+
+    private String mNaviType;
+    private String mNaviId;
+
+    private int mSearchType = AppConstData.SEARCH_TYPE_ALBUM;
 
     public SearchWindow() {
         initPopWindow();
@@ -54,14 +65,14 @@ public class SearchWindow {
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                RadioButton button = radioGroup.findViewById(radioGroup.getCheckedRadioButtonId());
-                ShowTools.toast(button.getText().toString());
+                handleTypeCheck(radioGroup, i);
             }
         });
 
         mBtnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                closeSearchDialog();
                 handleSearch();
             }
         });
@@ -73,8 +84,15 @@ public class SearchWindow {
         });
     }
 
-    public void showSearchDialog(View parentView) {
+    private void handleTypeCheck(RadioGroup radioGroup, int i) {
+        mSearchType = (radioGroup.getCheckedRadioButtonId() == R.id.rb_search_album)
+                ? AppConstData.SEARCH_TYPE_ALBUM : AppConstData.SEARCH_TYPE_VIDEO;
+    }
+
+    public void showSearchDialog(View parentView, String naviId, String naviType) {
         mParentView = parentView;
+        mNaviId = naviId;
+        mNaviType = naviType;
         if (mParentView != null) {
             mPopWindow.showAsDropDown(mParentView, 0, 0);
         }
@@ -87,6 +105,23 @@ public class SearchWindow {
     }
 
     private void handleSearch() {
-        ShowTools.toast("search");
+        String keyWord = null;
+        try {
+            keyWord = mEditSearchInput.getText().toString();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+        if (TextUtils.isEmpty(keyWord)) {
+            ShowTools.toast("请输入要查询的关键字");
+            return;
+        }
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("search_key", keyWord);
+        jsonObject.addProperty("search_type", mSearchType);
+        String requestParams = jsonObject.toString();
+        EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType,
+                AppConstData.PAGE_TYPE_SEARCH_RESULT, requestParams));
     }
 }
