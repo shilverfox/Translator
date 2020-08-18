@@ -67,6 +67,17 @@ public class MainPageUserCase extends UserCase {
     }
 
     /**
+     * 本地图集图片列表
+     *
+     * @param code
+     * @param callback
+     */
+    public void requestLocalGalleryInfo(String code, BaseRequestCallback callback) {
+        BaseRequestEntity entity = HttpRequestPool.getLocalGalleryEntity(code);
+        handleSendRequest(entity, callback);
+    }
+
+    /**
      * 获取专辑详情
      *
      * @param callback

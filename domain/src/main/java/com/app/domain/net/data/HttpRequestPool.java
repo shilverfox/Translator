@@ -437,6 +437,24 @@ public class HttpRequestPool {
     }
 
     /**
+     * 本地图集图片列表
+     */
+    public static BaseRequestEntity getLocalGalleryEntity(String atlasCode) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+
+        baseRequest.setFunctionId("/app/atlasPicture");
+        baseRequest.setMethod(RequestConst.REQUEST_GET);
+        BaseBody body = new BaseBody();
+        body.add("atlasCode", atlasCode);
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, "");
+
+        return baseRequest;
+    }
+
+    /**
      * 获取专辑详情
      */
     public static BaseRequestEntity getAlbumDetailEntity(String classifyCode) {
@@ -588,6 +606,32 @@ public class HttpRequestPool {
         BaseRequestEntity baseRequest = new BaseRequestEntity();
         baseRequest.setUrl(ConstData.HOST);
         baseRequest.setFunctionId("/app/localVideoList");
+
+        BaseBody body = new BaseBody();
+        if (!TextUtils.isEmpty(typeId)) {
+            body.add("key", typeId);
+        }
+
+//        body.add("pageNum", page + "");
+//        body.add("pageSize", ConstData.DEFAULT_PAGE_SIZE + "");
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, "");
+
+        return baseRequest;
+    }
+
+    /**
+     * 获得本地图集列表
+     *
+     * @param typeId
+     * @param page
+     * @return
+     */
+    public static BaseRequestEntity getLocalImageFeedEntity(String typeId, int page) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/app/atlas");
 
         BaseBody body = new BaseBody();
         if (!TextUtils.isEmpty(typeId)) {

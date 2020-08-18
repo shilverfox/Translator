@@ -13,6 +13,8 @@ import com.jbsx.view.data.SearchEvent;
 import com.jbsx.view.main.fragment.AlbumPlayerFragment;
 import com.jbsx.view.main.fragment.CommonWebFragment;
 import com.jbsx.view.main.fragment.GalleryFragment;
+import com.jbsx.view.main.fragment.LocalGalleryFragment;
+import com.jbsx.view.main.fragment.LocalImageFeedFragment;
 import com.jbsx.view.main.fragment.LocalVideoFeedFragment;
 import com.jbsx.view.main.fragment.MainPageFragment;
 import com.jbsx.view.main.fragment.SearchResultFragment;
@@ -232,6 +234,9 @@ public class PageManager {
 
         } else if (currentPage == AppConstData.PAGE_TYPE_SEARCH_RESULT) {
             return AppConstData.PAGE_TYPE_SEARCH_RESULT;
+
+        } else if (currentPage == AppConstData.PAGE_TYPE_LOCAL_PICTURE_GALLERY) {
+            return AppConstData.PAGE_TYPE_LOCAL_PICTURE_GALLERY;
         }
 
         return AppConstData.PAGE_TYPE_MAIN;
@@ -320,11 +325,15 @@ public class PageManager {
                     AppConstData.PAGE_TYPE_LOCAL_VIDEO_FEED, pageChangeData.mRequestParam);
 
         } else if (pageChangeData.mCurrentPageType == AppConstData.PAGE_TYPE_LOCAL_PICTURE_FEED) {
-            return VideoFeedFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
+            return LocalImageFeedFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_LOCAL_PICTURE_FEED, pageChangeData.mRequestParam);
 
-        }  else if (pageChangeData.mCurrentPageType == AppConstData.PAGE_TYPE_SEARCH_RESULT) {
+        } else if (pageChangeData.mCurrentPageType == AppConstData.PAGE_TYPE_SEARCH_RESULT) {
             return SearchResultFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
+                    AppConstData.PAGE_TYPE_SEARCH_RESULT, pageChangeData.mRequestParam);
+
+        } else if (pageChangeData.mCurrentPageType == AppConstData.PAGE_TYPE_LOCAL_PICTURE_GALLERY) {
+            return LocalGalleryFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
                     AppConstData.PAGE_TYPE_SEARCH_RESULT, pageChangeData.mRequestParam);
 
         } else {
