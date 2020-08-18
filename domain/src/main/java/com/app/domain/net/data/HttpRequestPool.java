@@ -624,6 +624,31 @@ public class HttpRequestPool {
     }
 
     /**
+     * 检索
+     *
+     * @param keyWord
+     * @param searchType searchType
+     * @param page
+     * @return
+     */
+    public static BaseRequestEntity getSearchResultEntity(String keyWord, int searchType, int page) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/app/search");
+
+        BaseBody body = new BaseBody();
+        body.add("key", keyWord);
+        body.add("type", searchType + "");
+        body.add("pageNum", page + "");
+        body.add("pageSize", ConstData.DEFAULT_PAGE_SIZE + "");
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, "");
+
+        return baseRequest;
+    }
+
+    /**
      * 删除我的收藏、观看历史数据
      *
      * @param token

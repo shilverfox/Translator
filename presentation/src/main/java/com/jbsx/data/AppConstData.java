@@ -102,6 +102,9 @@ public class AppConstData {
     /** 页面类型 本地图集列表页面 */
     public final static int PAGE_TYPE_LOCAL_PICTURE_FEED = 1200;
 
+    /** 页面类型 检索结果页 */
+    public final static int PAGE_TYPE_SEARCH_RESULT = 1300;
+
 
     /** intent key  */
     public final static String INTENT_KEY_NAVI_ID = "bundle_navi_id";
