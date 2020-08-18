@@ -40,6 +40,17 @@ public class ImageLoader {
                 .into(imgView);
     }
 
+    public static void displayImage(int drawableId, ImageView imgView) {
+        if (imgView == null) {
+            return;
+        }
+
+        Glide.with(MainApplicationLike.getAppContext())
+                .load(drawableId)
+                .placeholder(R.drawable.default_image)
+                .into(imgView);
+    }
+
     public static void displayImage(String url, int defaultImageId, ImageView imgView) {
         if (imgView == null) {
             return;

@@ -1,6 +1,8 @@
 package com.jbsx.view.main.fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.adapter.GalleryAdapter;
+import com.jbsx.view.main.adapter.LocalResourceAdapter;
 import com.jbsx.view.main.entity.NavigationData;
 import com.jbsx.view.main.util.PageUtils;
 
@@ -44,9 +47,7 @@ public class LocalResourceFragment extends BaseFragment {
     public final static String KEY_SOURCE_TYPE_VIDEO = "video";
 
     private View mRootView;
-    private ViewGroup mContainerView;
-    private RecyclerCoverFlow mList;
-    private DotImageIndicator mImageIndicator;
+    private RecyclerView mList;
 
     private String mRequestParams;
     private String mNaviType;
@@ -55,7 +56,7 @@ public class LocalResourceFragment extends BaseFragment {
 
     private MainPageUserCase mUserCase;
     private List<NavigationData.ClassifyEntity> mGalleryData = new ArrayList<>();;
-    private GalleryAdapter mAdapter;
+    private LocalResourceAdapter mAdapter;
 
     public LocalResourceFragment() {
         // Required empty public constructor
@@ -118,41 +119,23 @@ public class LocalResourceFragment extends BaseFragment {
     }
 
     private void handleLoadSuccessful(String data) {
-        mGalleryData.add(createLocalData("", "本地图集", KEY_SOURCE_TYPE_PICTURE));
-        mGalleryData.add(createLocalData("", "本地视频", KEY_SOURCE_TYPE_VIDEO));
-        mGalleryData.add(createLocalData("", "新闻资讯", KEY_SOURCE_TYPE_NEWS));
+        mGalleryData.add(createLocalData("" + R.drawable.local_images_icon, "本地图集", KEY_SOURCE_TYPE_PICTURE));
+        mGalleryData.add(createLocalData("" + R.drawable.local_video_icon, "本地视频", KEY_SOURCE_TYPE_VIDEO));
+        mGalleryData.add(createLocalData("" + R.drawable.local_news_icon, "新闻资讯", KEY_SOURCE_TYPE_NEWS));
         mAdapter.setData(mGalleryData);
         mAdapter.notifyDataSetChanged();
-        handleGalleryAutoFocus();
-    }
-
-    /**
-     * 自动定位到某个item
-     */
-    private void handleGalleryAutoFocus() {
-        int selectPosition = mGalleryData.size() / 2;
-        mList.setSelect(selectPosition);
-        mImageIndicator.updateImageDotStatus(selectPosition);
     }
 
     private void initViews() {
-        mContainerView = mRootView.findViewById(R.id.view_local_root);
-        mImageIndicator = mRootView.findViewById(R.id.tv_local_indicator);
         mList = mRootView.findViewById(R.id.tv_local_info);
-        mList.setGreyItem(true); //设置灰度渐变
-        mAdapter = new GalleryAdapter(mContext, new GalleryAdapter.OnGalleryItemClick() {
+        mList.setLayoutManager(new GridLayoutManager(mContext, 3));
+        mAdapter = new LocalResourceAdapter(mContext, new LocalResourceAdapter.OnLocalItemClick() {
             @Override
             public void onItemClick(String classifyCode, boolean isHasChildren) {
                 handleItemClick(classifyCode);
             }
         });
         mList.setAdapter(mAdapter);
-        mList.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
-            @Override
-            public void onItemSelected(int position) {
-                mImageIndicator.updateImageDotStatus(position);
-            }
-        });
     }
 
     private void initEvents() {
