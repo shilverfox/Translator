@@ -180,23 +180,24 @@ public class VideoDetailFragment extends BaseFragment {
         MessageTools.showErrorMessage(data);
         String errorMessage = data.getMsg();
         if (TextUtils.isEmpty(errorMessage)) {
-            errorMessage = ErroBarHelper.ERRO_TYPE_NET_NAME;
+            errorMessage = "没有查到对应的视频信息";
         }
 
-        ReloadBarHelper.addReloadBar(mViewLayout, errorMessage, new Runnable() {
+        ErroBarHelper.addErroBar(mViewLoading, errorMessage, R.drawable.errorbar_icon_nonetwork, new Runnable() {
             @Override
             public void run() {
+                ErroBarHelper.removeErroBar(mViewLoading);
                 loadData();
             }
-        });
+        }, "再试一次");
     }
 
     public void drawNetError() {
         ProgressBarHelper.removeProgressBar(mViewLoading);
-        ErroBarHelper.addErroBar(mViewLayout, ErroBarHelper.ERRO_TYPE_NET_INTERNET, new Runnable() {
+        ErroBarHelper.addErroBar(mViewLoading, ErroBarHelper.ERRO_TYPE_NET_INTERNET, new Runnable() {
             @Override
             public void run() {
-                ErroBarHelper.removeErroBar(mViewLayout);
+                ErroBarHelper.removeErroBar(mViewLoading);
                 loadData();
             }
         });

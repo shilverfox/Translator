@@ -41,18 +41,18 @@ public class LocalVideoFeedData {
     }
 
     public class Result {
-        private List<FeedItem> RepertoryData;
+        private List<FeedItem> localVideoList;
         private List<String> classifyList;
         private int pageNum;
         private int pageSize;
         private int total;
 
-        public List<FeedItem> getRepertoryData() {
-            return RepertoryData;
+        public List<FeedItem> getLocalVideoList() {
+            return localVideoList;
         }
 
-        public void setRepertoryData(List<FeedItem> repertoryData) {
-            RepertoryData = repertoryData;
+        public void setLocalVideoList(List<FeedItem> localVideoList) {
+            this.localVideoList = localVideoList;
         }
 
         public List<String> getClassifyList() {

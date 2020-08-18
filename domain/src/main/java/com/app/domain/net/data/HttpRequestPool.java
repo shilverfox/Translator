@@ -590,7 +590,10 @@ public class HttpRequestPool {
         baseRequest.setFunctionId("/app/localVideoList");
 
         BaseBody body = new BaseBody();
-        body.add("key", typeId);
+        if (!TextUtils.isEmpty(typeId)) {
+            body.add("key", typeId);
+        }
+
 //        body.add("pageNum", page + "");
 //        body.add("pageSize", ConstData.DEFAULT_PAGE_SIZE + "");
 

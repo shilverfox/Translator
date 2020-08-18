@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -47,6 +50,8 @@ public class LocalVideoFeedFragment extends CommonListFragment {
     private String mNaviType;
     private Integer mPageType;
     private String mNaviId;
+
+    private String mClassicName;
 
     public LocalVideoFeedFragment() {
         // Required empty public constructor
@@ -103,7 +108,7 @@ public class LocalVideoFeedFragment extends CommonListFragment {
 
     @Override
     public BaseRequestEntity getRequestEntity(int pageIndex) {
-        return HttpRequestPool.getLocalVideoFeedEntity("红色", pageIndex);
+        return HttpRequestPool.getLocalVideoFeedEntity(mClassicName, pageIndex);
     }
 
     @Override
@@ -127,13 +132,63 @@ public class LocalVideoFeedFragment extends CommonListFragment {
     @Override
     public List parseList(String result) {
         Gson gson = new Gson();
-        RepertoryData videoData = gson.fromJson(result, RepertoryData.class);
+        LocalVideoFeedData videoData = gson.fromJson(result, LocalVideoFeedData.class);
         if (videoData != null && videoData.getBody() != null
-                && videoData.getBody().getList() != null) {
-            return videoData.getBody().getList();
+                && videoData.getBody().getLocalVideoList() != null) {
+            handleHead(videoData.getBody().getClassifyList());
+            return videoData.getBody().getLocalVideoList();
         }
 
         return new ArrayList();
+    }
+
+    /**
+     * 是否已经增加了头部
+     *
+     * @return
+     */
+    private boolean hasHeadAdded() {
+        ViewGroup headView = getHeaderView();
+        return headView != null && headView.getChildCount() > 0;
+    }
+
+    /**
+     * 顶部选项
+     *
+     * @param classifyList
+     */
+    private void handleHead(List<String> classifyList) {
+        if (hasHeadAdded()) {
+            return;
+        }
+
+        boolean hasData = (classifyList != null && classifyList.size() > 0);
+        ViewGroup headView = getHeaderView();
+        headView.setVisibility(hasData ? View.VISIBLE : View.GONE);
+
+        if (hasData) {
+            RadioGroup group = new RadioGroup(mContext);
+            group.setOrientation(RadioGroup.HORIZONTAL);
+            for (int i = 0; i < classifyList.size(); i++) {
+                RadioButton button = new RadioButton(mContext);
+                button.setTextColor(0xffffffff);
+                button.setText(classifyList.get(i));
+                group.addView(button);
+            }
+            // 默认选中第一个，且在事件注册之前
+            group.check(group.getChildAt(0).getId());
+
+            group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                    mClassicName = ((RadioButton)radioGroup.findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString();
+                    clearAndFresh();
+                }
+            });
+
+            headView.removeAllViews();
+            headView.addView(group);
+        }
     }
 
     @Override
@@ -152,7 +207,8 @@ public class LocalVideoFeedFragment extends CommonListFragment {
     }
 
     private void handleItemClick(String requestParams) {
-        EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType, requestParams));
+        EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType,
+                AppConstData.PAGE_TYPE_VIDEO_FEED, requestParams));
     }
 
     public class VideoFeedAdapter extends CommonListFragmentAdapter {
@@ -163,7 +219,7 @@ public class LocalVideoFeedFragment extends CommonListFragment {
 
         @Override
         public int getViewId() {
-            return R.layout.album_feed_item_view;
+            return R.layout.video_feed_item_view;
         }
 
         @Override
@@ -174,14 +230,14 @@ public class LocalVideoFeedFragment extends CommonListFragment {
         }
     }
 
-    public class VideoFeedHolder extends CommonListFragmentViewHolder<RepertoryData.FeedItem> {
+    public class VideoFeedHolder extends CommonListFragmentViewHolder<LocalVideoFeedData.FeedItem> {
         private Context mContext;
 
         private View mRootView;
         private TextView mTvTitle;
         private ImageView mIvImageUrl;
 
-        private RepertoryData.FeedItem mData;
+        private LocalVideoFeedData.FeedItem mData;
         private int mCurrentPosition;
 
         private CommonListFragmentAdapter mAdapter;
@@ -211,16 +267,16 @@ public class LocalVideoFeedFragment extends CommonListFragment {
         }
 
         @Override
-        public void drawViews(RepertoryData.FeedItem data, final int position) {
+        public void drawViews(LocalVideoFeedData.FeedItem data, final int position) {
             mData = data;
             mCurrentPosition = position;
 
             if (data != null) {
                 // 图片
                 calculateImageHeight(mIvImageUrl);
-                String imgUrl = data.getVideoPreview();
+                String imgUrl = data.getLocalVideoPreview();
                 ImageLoader.displayImage(imgUrl, mIvImageUrl);
-                mTvTitle.setText(data.getVideoName());
+                mTvTitle.setText(data.getLocalVideoName());
             }
         }
 
@@ -233,7 +289,7 @@ public class LocalVideoFeedFragment extends CommonListFragment {
         }
 
         private void handleRootViewClick(int position) {
-            handleItemClick(mData.getVideoCode());
+            handleItemClick(mData.getLocalVideoCode());
         }
     }
 }
