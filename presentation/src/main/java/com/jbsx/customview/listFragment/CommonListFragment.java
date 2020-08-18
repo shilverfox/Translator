@@ -74,7 +74,7 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
 
     private View mRootView;
     protected RecyclerView mListView;
-    private TextView mTvTitle;
+    private ViewGroup mHeaderView;
     private CommonListFragmentAdapter mAdapter;
     private HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter = null;
 
@@ -93,7 +93,7 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
     }
 
     public void initViews() {
-        mTvTitle.setVisibility(View.GONE);
+        mHeaderView.setVisibility(View.GONE);
     }
 
     /**
@@ -133,7 +133,7 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
     private void findViews(View rootView) {
         if (rootView != null) {
             mListView = rootView.findViewById(R.id.recycler_list);
-            mTvTitle = rootView.findViewById(R.id.tv_common_list_title);
+            mHeaderView = rootView.findViewById(R.id.tv_common_list_title);
         }
     }
 
@@ -449,8 +449,8 @@ public abstract class CommonListFragment<T> extends BaseFragment implements IOnL
         return mListView;
     }
 
-    public TextView getTitleView() {
-        return mTvTitle;
+    public ViewGroup getHeaderView() {
+        return mHeaderView;
     }
 
     /** 创建对应的Adapter */

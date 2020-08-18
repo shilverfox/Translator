@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -49,7 +50,6 @@ public class VideoFeedFragment extends CommonListFragment {
 
     private CommonListFragmentAdapter mAdapter;
     private RepertoryData mRepertoryData;
-    private TextView mTvTitle;
 
     private String mRequestParams;
     private String mNaviType;
@@ -121,7 +121,6 @@ public class VideoFeedFragment extends CommonListFragment {
 
     @Override
     public void initViews() {
-        mTvTitle = getTitleView();
         View rootView = getRootView();
         if (rootView != null) {
             rootView.setBackgroundResource(R.drawable.background);
@@ -189,11 +188,20 @@ public class VideoFeedFragment extends CommonListFragment {
     }
 
     private void setTitle(String titleName) {
+        ViewGroup headView = getHeaderView();
         boolean isEmpty = TextUtils.isEmpty(titleName);
-        mTvTitle.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+        TextView textView = new TextView(mContext);
+        textView.setTextColor(0xffffffff);
+        textView.setTextSize(20);
+        headView.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
         if (!isEmpty) {
-            mTvTitle.setText(titleName);
+            textView.setText(titleName);
         }
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        headView.addView(textView, params);
     }
 
     @Override

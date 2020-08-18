@@ -61,6 +61,7 @@
         android:layout_height="wrap_content"
         android:imeOptions="flagNoExtractUi"
         android:textColor="#ffffff"
+        android:text="白毛女"
         android:layout_alignBaseline="@+id/tv_search_label"
         android:layout_toRightOf="@+id/tv_search_label"/>
 
