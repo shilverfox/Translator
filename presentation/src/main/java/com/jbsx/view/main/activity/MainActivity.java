@@ -47,6 +47,7 @@ import com.jbsx.view.login.callback.IOnLoginListener;
 import com.jbsx.view.login.data.LoginResultEvent;
 import com.jbsx.view.login.util.LoginHelper;
 import com.jbsx.view.main.AudioPlayer;
+import com.jbsx.view.main.DeviceInfoManager;
 import com.jbsx.view.main.PageManager;
 import com.jbsx.view.main.entity.NavigationData;
 import com.jbsx.view.main.entity.TabEntity;
@@ -112,6 +113,50 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         mSearchWindow = new SearchWindow();
     }
 
+    /**
+     * 检查机构状态
+     */
+    private void checkOrgState() {
+        if (mMainPageUserCase != null) {
+            mMainPageUserCase.requestOrgState(new BaseRequestCallback() {
+                @Override
+                public void onRequestFailed(BaseDomainData data) {
+                    handleLoadOrgStateFailed(data);
+                }
+
+                @Override
+                public void onRequestSuccessful(String data) {
+                    handleLoadOrgStateSuccessful(data);
+                }
+
+                @Override
+                public void onNetError() {
+                    handleOrgStateNetError();
+                }
+            });
+        }
+    }
+
+    private void handleLoadOrgStateSuccessful(String data) {
+        NavigationData navData = ParseUtil.parseData(data, NavigationData.class);
+        drawOrgLogo();
+        if (isNavigationNotEmpty(navData)) {
+            initMainTab(navData.getBody().getClassifyList());
+            registEvents();
+        } else {
+            handleEmptyNaviData("导航数据为空");
+        }
+    }
+
+    private void handleLoadOrgStateFailed(BaseDomainData data) {
+        MessageTools.showErrorMessage(data);
+        handleEmptyNaviData(data.getMsg());
+    }
+
+    private void handleOrgStateNetError() {
+        handleEmptyNaviData(ErroBarHelper.ERRO_TYPE_NET_INTERNET);
+    }
+
     private void loadNavigation() {
         if (mMainPageUserCase != null) {
             mMainPageUserCase.requestNavigation(new BaseRequestCallback() {
@@ -142,11 +187,21 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     private void handleLoadNaviSuccessful(String data) {
         NavigationData navData = ParseUtil.parseData(data, NavigationData.class);
         drawOrgLogo();
+        setDeviceInfo(navData);
         if (isNavigationNotEmpty(navData)) {
             initMainTab(navData.getBody().getClassifyList());
             registEvents();
         } else {
             handleEmptyNaviData("导航数据为空");
+        }
+    }
+
+    private void setDeviceInfo(NavigationData navData) {
+        if (navData != null && navData.getBody() != null) {
+            DeviceInfoManager.getInstance().setDeviceCode(navData.getBody().getDeviceCode());
+            DeviceInfoManager.getInstance().setOrgCode(navData.getBody().getOrgCode());
+            DeviceInfoManager.getInstance().setOrgLogo(navData.getBody().getOrgLogo());
+            DeviceInfoManager.getInstance().setOrgName(navData.getBody().getOrgName());
         }
     }
 

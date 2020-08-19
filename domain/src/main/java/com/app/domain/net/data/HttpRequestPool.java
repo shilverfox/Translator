@@ -100,6 +100,24 @@ public class HttpRequestPool {
     }
 
     /**
+     * 获取设备信息
+     *
+     * @return
+     */
+    public static BaseRequestEntity getOrgStateEntity() {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+        baseRequest.setFunctionId("/app/check");
+        baseRequest.setMethod(RequestConst.REQUEST_GET);
+
+        BaseBody body = new BaseBody();
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, "");
+
+        return baseRequest;
+    }
+
+    /**
      * Download the patch
      *
      * @return
