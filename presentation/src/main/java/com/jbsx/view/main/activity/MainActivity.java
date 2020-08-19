@@ -138,19 +138,13 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     }
 
     private void handleLoadOrgStateSuccessful(String data) {
-        NavigationData navData = ParseUtil.parseData(data, NavigationData.class);
-        drawOrgLogo();
-        if (isNavigationNotEmpty(navData)) {
-            initMainTab(navData.getBody().getClassifyList());
-            registEvents();
-        } else {
-            handleEmptyNaviData("导航数据为空");
-        }
+        loadNavigation();
     }
 
     private void handleLoadOrgStateFailed(BaseDomainData data) {
         MessageTools.showErrorMessage(data);
         handleEmptyNaviData(data.getMsg());
+        delayExit();
     }
 
     private void handleOrgStateNetError() {
@@ -335,15 +329,22 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
                 ShowTools.toast("您拒绝了程序运行所需要的必要权限");
 
                 // 没有权限就别用了
-                MainApplicationLike.getInstance().getHanlder().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        handleExit();
-                    }
-                }, 1000);
+                delayExit();
             }
         }, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    /**
+     * 退出app
+     */
+    private void delayExit() {
+        MainApplicationLike.getInstance().getHanlder().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                handleExit();
+            }
+        }, 10000);
     }
 
     private Fragment getFragmentByType(String naviId, int type, String params) {
