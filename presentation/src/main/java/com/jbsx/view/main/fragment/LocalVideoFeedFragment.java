@@ -29,6 +29,7 @@ import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.entity.AlbumFeedData;
 import com.jbsx.view.main.entity.LocalVideoFeedData;
 import com.jbsx.view.main.entity.RepertoryData;
+import com.jbsx.view.main.util.MainViewUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -162,33 +163,13 @@ public class LocalVideoFeedFragment extends CommonListFragment {
             return;
         }
 
-        boolean hasData = (classifyList != null && classifyList.size() > 0);
-        ViewGroup headView = getHeaderView();
-        headView.setVisibility(hasData ? View.VISIBLE : View.GONE);
-
-        if (hasData) {
-            RadioGroup group = new RadioGroup(mContext);
-            group.setOrientation(RadioGroup.HORIZONTAL);
-            for (int i = 0; i < classifyList.size(); i++) {
-                RadioButton button = new RadioButton(mContext);
-                button.setTextColor(0xffffffff);
-                button.setText(classifyList.get(i));
-                group.addView(button);
+        MainViewUtil.getLocalHeaderView(getHeaderView(), classifyList, new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                mClassicName = ((RadioButton)radioGroup.findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString();
+                clearAndFresh();
             }
-            // 默认选中第一个，且在事件注册之前
-            group.check(group.getChildAt(0).getId());
-
-            group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                    mClassicName = ((RadioButton)radioGroup.findViewById(radioGroup.getCheckedRadioButtonId())).getText().toString();
-                    clearAndFresh();
-                }
-            });
-
-            headView.removeAllViews();
-            headView.addView(group);
-        }
+        });
     }
 
     @Override

@@ -120,10 +120,17 @@ public class GalleryFragment extends BaseFragment {
         ProgressBarHelper.removeProgressBar(mContainerView);
         GalleryData parseData = ParseUtil.parseData(data, GalleryData.class);
         mGalleryData = parseData.getBody();
-        mImageIndicator.initImageDot(mGalleryData.size());
-        mAdapter.setData(mGalleryData);
-        mAdapter.notifyDataSetChanged();
-        handleGalleryAutoFocus();
+        if (mGalleryData == null || mGalleryData.size() == 0) {
+            // 数据列表为空
+            BaseDomainData emptyData = new BaseDomainData();
+            emptyData.setMsg("无数据");
+            handleLoadFailed(emptyData);
+        } else {
+            mImageIndicator.initImageDot(mGalleryData.size());
+            mAdapter.setData(mGalleryData);
+            mAdapter.notifyDataSetChanged();
+            handleGalleryAutoFocus();
+        }
     }
 
     /**

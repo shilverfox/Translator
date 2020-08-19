@@ -24,7 +24,9 @@ import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.adapter.GalleryAdapter;
+import com.jbsx.view.main.adapter.LocalPictureGalleryAdapter;
 import com.jbsx.view.main.entity.GalleryData;
+import com.jbsx.view.main.entity.LocalPictureGalleryData;
 import com.jbsx.view.main.entity.NavigationData;
 
 import org.greenrobot.eventbus.EventBus;
@@ -46,8 +48,8 @@ public class LocalGalleryFragment extends BaseFragment {
     private String mNaviId;
 
     private MainPageUserCase mUserCase;
-    private List<NavigationData.ClassifyEntity> mGalleryData;
-    private GalleryAdapter mAdapter;
+    private List<LocalPictureGalleryData.PictureItem> mGalleryData;
+    private LocalPictureGalleryAdapter mAdapter;
 
     public LocalGalleryFragment() {
         // Required empty public constructor
@@ -118,12 +120,19 @@ public class LocalGalleryFragment extends BaseFragment {
 
     private void handleLoadSuccessful(String data) {
         ProgressBarHelper.removeProgressBar(mContainerView);
-        GalleryData parseData = ParseUtil.parseData(data, GalleryData.class);
+        LocalPictureGalleryData parseData = ParseUtil.parseData(data, LocalPictureGalleryData.class);
         mGalleryData = parseData.getBody();
-        mImageIndicator.initImageDot(mGalleryData.size());
-        mAdapter.setData(mGalleryData);
-        mAdapter.notifyDataSetChanged();
-        handleGalleryAutoFocus();
+        if (mGalleryData == null || mGalleryData.size() == 0) {
+            // 数据列表为空
+            BaseDomainData emptyData = new BaseDomainData();
+            emptyData.setMsg("无数据");
+            handleLoadFailed(emptyData);
+        } else {
+            mImageIndicator.initImageDot(mGalleryData.size());
+            mAdapter.setData(mGalleryData);
+            mAdapter.notifyDataSetChanged();
+            handleGalleryAutoFocus();
+        }
     }
 
     /**
@@ -170,11 +179,11 @@ public class LocalGalleryFragment extends BaseFragment {
 //        mList.setAlphaItem(true); //设置半透渐变
 //        mList.setLoop(); //循环滚动，注：循环滚动模式暂不支持平滑滚动
         mImageIndicator = mRootView.findViewById(R.id.tv_gallery_indicator);
-        mAdapter = new GalleryAdapter(mContext, new GalleryAdapter.OnGalleryItemClick() {
+        mAdapter = new LocalPictureGalleryAdapter(mContext, new LocalPictureGalleryAdapter.OnGalleryItemClick() {
             @Override
             public void onItemClick(String classifyCode, boolean isHasChildren) {
-                EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType,
-                        classifyCode, isHasChildren));
+//                EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType,
+//                        classifyCode, isHasChildren));
             }
         });
         mList.setAdapter(mAdapter);
