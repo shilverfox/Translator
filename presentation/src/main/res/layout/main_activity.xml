@@ -144,4 +144,9 @@
         android:layout_height="0dp"
         android:format="%s"
         android:textSize="18sp"/>
+
+    <FrameLayout
+        android:id="@+id/view_main_activity_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </RelativeLayout>

@@ -36,6 +36,7 @@ import com.jbsx.data.AppConstData;
 import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.LogTools;
 import com.jbsx.utils.MessageTools;
+import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.utils.Router;
 import com.jbsx.utils.ShowTools;
@@ -78,6 +79,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     private ImageView mIvOrgLogo;
     private TextView mBtnLabel;
     private View mBtnSearch;
+    private View mViewLoading;
 
     private long mExitTime = 0;
 
@@ -118,6 +120,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
      */
     private void checkOrgState() {
         if (mMainPageUserCase != null) {
+            handleProgressBar(true);
             mMainPageUserCase.requestOrgState(new BaseRequestCallback() {
                 @Override
                 public void onRequestFailed(BaseDomainData data) {
@@ -142,12 +145,14 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     }
 
     private void handleLoadOrgStateFailed(BaseDomainData data) {
+        handleProgressBar(false);
         MessageTools.showErrorMessage(data);
         handleEmptyNaviData(data.getMsg());
         delayExit();
     }
 
     private void handleOrgStateNetError() {
+        handleProgressBar(false);
         handleEmptyNaviData(ErroBarHelper.ERRO_TYPE_NET_INTERNET);
     }
 
@@ -179,6 +184,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     }
 
     private void handleLoadNaviSuccessful(String data) {
+        handleProgressBar(false);
         NavigationData navData = ParseUtil.parseData(data, NavigationData.class);
         drawOrgLogo();
         setDeviceInfo(navData);
@@ -200,11 +206,13 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     }
 
     private void handleLoadNaviFailed(BaseDomainData data) {
+        handleProgressBar(false);
         MessageTools.showErrorMessage(data);
         handleEmptyNaviData(data.getMsg());
     }
 
     private void handlePageNetError() {
+        handleProgressBar(false);
         handleEmptyNaviData(ErroBarHelper.ERRO_TYPE_NET_INTERNET);
     }
 
@@ -221,6 +229,14 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         });
     }
 
+    private void handleProgressBar(boolean show) {
+        if (show) {
+            ProgressBarHelper.addProgressBar(mViewLoading);
+        } else {
+            ProgressBarHelper.removeProgressBar(mViewLoading);
+        }
+    }
+
     private void findViews() {
         mTabLayout = findViewById(R.id.tab_main);
         mViewPager = findViewById(R.id.vp_container);
@@ -232,6 +248,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         mBtnLabel = findViewById(R.id.btn_common_label);
         mBtnLabel.setText("检索");
         mBtnSearch = findViewById(R.id.btn_main_search);
+        mViewLoading = findViewById(R.id.view_main_activity_loading);
     }
 
     private void initEvent() {
