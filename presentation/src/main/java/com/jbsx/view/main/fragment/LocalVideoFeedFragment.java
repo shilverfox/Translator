@@ -43,6 +43,7 @@ public class LocalVideoFeedFragment extends CommonListFragment {
     public static final int GRID_COLUM = 4;
 
     public static final String ARGUMENT = "argument";
+    private final static int PADDING_HORIZONTAL = LocalImageFeedFragment.PADDING_HORIZONTAL;
 
     private VideoFeedAdapter mAdapter;
     private LocalVideoFeedData mLocalVideoData;
@@ -103,7 +104,7 @@ public class LocalVideoFeedFragment extends CommonListFragment {
         View rootView = getRootView();
         if (rootView != null) {
             rootView.setBackgroundResource(R.drawable.background);
-            rootView.setPadding(UiTools.dip2px(20), UiTools.dip2px(20), UiTools.dip2px(20), UiTools.dip2px(20));
+            rootView.setPadding(PADDING_HORIZONTAL, UiTools.dip2px(20), PADDING_HORIZONTAL, UiTools.dip2px(20));
         }
     }
 
@@ -124,7 +125,7 @@ public class LocalVideoFeedFragment extends CommonListFragment {
     private void calculateImageHeight(ImageView imageView) {
         if (imageView != null) {
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
-            float width = (StatisticsReportUtil.getScreenWidth() - (GRID_COLUM - 1)*UiTools.dip2px(4)) / GRID_COLUM;
+            float width = MainViewUtil.calculateFeedImageHeight(GRID_COLUM, PADDING_HORIZONTAL);
             params.height = (int) width;
             imageView.setLayoutParams(params);
         }

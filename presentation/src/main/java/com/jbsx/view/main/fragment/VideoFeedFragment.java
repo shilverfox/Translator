@@ -44,7 +44,7 @@ import java.util.List;
  */
 public class VideoFeedFragment extends CommonListFragment {
     public static final int GRID_COLUM = 5;
-    public static final int PADDING_HORIZONTAL = UiTools.dip2px(60);
+    public static final int PADDING_HORIZONTAL = UiTools.dip2px(117);
 
     public static final String ARGUMENT = "argument";
 

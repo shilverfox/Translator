@@ -5,8 +5,8 @@
     android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="50dp"
-    android:paddingRight="50dp"
+    android:paddingLeft="117dp"
+    android:paddingRight="117dp"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -19,7 +19,7 @@
             android:layout_width="432dp"
             android:layout_height="270dp"
             android:scaleType="fitXY"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="80dp"
             android:src="@drawable/default_image"
             android:background="@drawable/coupon_shadow"/>
 
@@ -30,9 +30,10 @@
             android:textColor="#ffffff"
             android:textStyle="bold"
             android:textSize="24sp"
+            android:paddingTop="10dp"
             android:text="片名"
             android:layout_marginLeft="42dp"
-            android:layout_marginTop="58dp"
+            android:layout_alignTop="@+id/iv_video_detail_icon"
             android:layout_toRightOf="@+id/iv_video_detail_icon"/>
 
         <TextView
@@ -117,6 +118,7 @@
         android:textColor="#ffffff"
         android:textStyle="bold"
         android:textSize="12sp"
+        android:layout_marginTop="20dp"
         android:text="剧情简介"
         android:layout_below="@+id/view_video_detail_content"/>
 

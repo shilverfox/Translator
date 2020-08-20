@@ -1,6 +1,8 @@
 package com.jbsx.view.main.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.bluetooth.BluetoothClass;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -33,6 +35,7 @@ import com.jbsx.app.BaseFragmentActivity;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.TitleBar;
 import com.jbsx.data.AppConstData;
+import com.jbsx.utils.DeviceUtil;
 import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.LogTools;
 import com.jbsx.utils.MessageTools;
@@ -107,6 +110,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         checkOrgState();
         initTimer();
         drawDeviceInfo();
+        showDeviceInfoDialog();
     }
 
     private void init() {
@@ -115,6 +119,13 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         mPageMager = new PageManager();
         mPageMager.setFragmentManager(getSupportFragmentManager());
         mSearchWindow = new SearchWindow();
+    }
+
+    private void showDeviceInfoDialog() {
+        AlertDialog dialog = new AlertDialog.Builder(mContext)
+                .setTitle("")
+                .setMessage(DeviceUtil.getDeviceInfo(this))
+                .show();
     }
 
     /**

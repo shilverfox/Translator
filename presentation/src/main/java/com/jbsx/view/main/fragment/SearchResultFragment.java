@@ -52,7 +52,7 @@ import java.util.List;
  */
 public class SearchResultFragment extends CommonListFragment {
     public static final int GRID_COLUM = 5;
-    public static final int PADDING_HORIZONTAL = UiTools.dip2px(60);
+    public static final int PADDING_HORIZONTAL = VideoFeedFragment.PADDING_HORIZONTAL;
 
     public static final String ARGUMENT = "argument";
 
