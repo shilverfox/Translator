@@ -100,7 +100,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         initEvent();
         initTitleBar();
         handlePermissions();
-        loadNavigation();
+        checkOrgState();
         initTimer();
         drawDeviceInfo();
     }
