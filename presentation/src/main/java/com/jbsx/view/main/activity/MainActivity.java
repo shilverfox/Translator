@@ -42,6 +42,7 @@ import com.jbsx.utils.Router;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.utils.image.IImageLoadListener;
 import com.jbsx.utils.image.ImageLoader;
+import com.jbsx.view.data.BackKeyEvent;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.login.callback.ILoginResultListener;
 import com.jbsx.view.login.callback.IOnLoginListener;
@@ -60,6 +61,7 @@ import com.jbsx.view.main.view.SearchWindow;
 import com.jbsx.view.myinfo.activity.MyViewHistoryActivity;
 import com.jbsx.view.search.SearchActivity;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -478,6 +480,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
             public void onClick(View view) {
                 mPageMager.handleBackEvent(mCurrentTabId);
                 AudioPlayer.getInstance().stopPlayer();
+                EventBus.getDefault().post(new BackKeyEvent());
             }
         });
     }
