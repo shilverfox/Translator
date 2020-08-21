@@ -101,7 +101,7 @@ public class LocalImageFeedFragment extends CommonListFragment {
         View rootView = getRootView();
         if (rootView != null) {
             rootView.setBackgroundResource(R.drawable.background);
-            rootView.setPadding(PADDING_HORIZONTAL, UiTools.dip2px(20), PADDING_HORIZONTAL, UiTools.dip2px(20));
+            getRv().setPadding(PADDING_HORIZONTAL, UiTools.dip2px(20), PADDING_HORIZONTAL, UiTools.dip2px(20));
         }
     }
 
@@ -168,6 +168,8 @@ public class LocalImageFeedFragment extends CommonListFragment {
                 clearAndFresh();
             }
         });
+        getHeaderView().setPadding(PADDING_HORIZONTAL, getHeaderView().getPaddingTop(),
+                PADDING_HORIZONTAL, getHeaderView().getPaddingBottom());
     }
 
     @Override

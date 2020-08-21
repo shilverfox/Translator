@@ -1,5 +1,6 @@
 package com.jbsx.view.main.util;
 
+import android.app.UiAutomation;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
@@ -55,6 +56,7 @@ public class MainViewUtil {
                 RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 params.rightMargin = UiTools.dip2px(20);
+                params.topMargin = UiTools.dip2px(10);
                 params.gravity = Gravity.CENTER;
                 group.addView(button, params);
             }

@@ -9,8 +9,7 @@
     <RelativeLayout
         android:id="@+id/tv_common_list_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"/>
+        android:layout_height="wrap_content"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_list"

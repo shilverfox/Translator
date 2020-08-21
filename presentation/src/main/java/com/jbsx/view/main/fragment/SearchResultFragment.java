@@ -144,7 +144,7 @@ public class SearchResultFragment extends CommonListFragment {
         View rootView = getRootView();
         if (rootView != null) {
             rootView.setBackgroundResource(R.drawable.background);
-            rootView.setPadding(PADDING_HORIZONTAL, UiTools.dip2px(20),PADDING_HORIZONTAL, UiTools.dip2px(20));
+            getRv().setPadding(PADDING_HORIZONTAL, UiTools.dip2px(20),PADDING_HORIZONTAL, UiTools.dip2px(20));
         }
     }
 
@@ -185,6 +185,8 @@ public class SearchResultFragment extends CommonListFragment {
         TextView textView = new TextView(mContext);
         textView.setTextColor(0xffffffff);
         textView.setTextSize(20);
+        int padding = UiTools.dip2px(10);
+        textView.setPadding(padding, padding, padding, padding);
         headView.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
         if (!isEmpty) {
             textView.setText(titleName);
