@@ -47,7 +47,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
         final NavigationData.ClassifyEntity entity = mGalleryData.get(position);
         holder.mTvLabel.setText(entity.getClassifyName());
-        ImageLoader.showReverseImage(entity.getClassifyPreview(), null, holder.img);
+        ImageLoader.displayImage(entity.getClassifyPreview(), holder.img);
+        ImageLoader.showReverseImage(entity.getClassifyPreview(), null, holder.imgReflection);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,10 +67,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
 
     class GalleryViewHolder extends RecyclerView.ViewHolder {
         ImageView img;
+        ImageView imgReflection;
         TextView mTvLabel;
         public GalleryViewHolder(View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.img);
+            imgReflection = itemView.findViewById(R.id.img_reflection);
             mTvLabel = itemView.findViewById(R.id.tv_gallery_label);
         }
     }

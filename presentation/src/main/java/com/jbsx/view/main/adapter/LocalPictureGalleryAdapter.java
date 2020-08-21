@@ -46,8 +46,8 @@ public class LocalPictureGalleryAdapter extends RecyclerView.Adapter<LocalPictur
 
         final LocalPictureGalleryData.PictureItem entity = mGalleryData.get(position);
         holder.mTvLabel.setText(entity.getPictureDesc());
-//        ImageLoader.displayImage(entity.getPictureFilePath(), holder.img);
-        ImageLoader.showReverseImage(entity.getPictureFilePath(), null, holder.img);
+        ImageLoader.displayImage(entity.getPictureFilePath(), holder.img);
+        ImageLoader.showReverseImage(entity.getPictureFilePath(), null, holder.imgReflection);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,10 +67,12 @@ public class LocalPictureGalleryAdapter extends RecyclerView.Adapter<LocalPictur
     class LocalPictureGalleryViewHolder extends RecyclerView.ViewHolder {
         ImageView img;
         TextView mTvLabel;
+        ImageView imgReflection;
         public LocalPictureGalleryViewHolder(View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.img);
             mTvLabel = itemView.findViewById(R.id.tv_gallery_label);
+            imgReflection = itemView.findViewById(R.id.img_reflection);
         }
     }
 

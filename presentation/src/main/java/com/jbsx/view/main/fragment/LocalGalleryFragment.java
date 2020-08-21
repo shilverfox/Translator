@@ -175,7 +175,7 @@ public class LocalGalleryFragment extends BaseFragment {
         mContainerView = mRootView.findViewById(R.id.view_gallery_root);
         mList = mRootView.findViewById(R.id.tv_gallery_info);
 //        mList.setFlatFlow(true); //平面滚动
-        mList.setGreyItem(true); //设置灰度渐变
+//        mList.setGreyItem(true); //设置灰度渐变
 //        mList.setAlphaItem(true); //设置半透渐变
 //        mList.setLoop(); //循环滚动，注：循环滚动模式暂不支持平滑滚动
         mImageIndicator = mRootView.findViewById(R.id.tv_gallery_indicator);

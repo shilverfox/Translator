@@ -47,6 +47,7 @@ public class AlbumPlayerFragment extends BaseFragment {
     private TextView mTvAlbumType;
     private TextView mTvAlbumActor;
     private ImageView mIvAlbumCover;
+    private ImageView mIvAlbumCoverReflection;
     private LinearLayout mDiscContainer;
     private View mDiscParent;
 
@@ -109,6 +110,7 @@ public class AlbumPlayerFragment extends BaseFragment {
         mContainerView = mRootView.findViewById(R.id.view_album_player_root);
         mViewLoading = mRootView.findViewById(R.id.view_album_player_loading);
         mIvAlbumCover = mRootView.findViewById(R.id.iv_album_play_cover);
+        mIvAlbumCoverReflection = mRootView.findViewById(R.id.iv_album_play_cover_refection);
         mTvAlbumName = mRootView.findViewById(R.id.tv_album_play_name);
         mTvAlbumCompany = mRootView.findViewById(R.id.tv_album_play_company);
         mTvAlbumType = mRootView.findViewById(R.id.tv_album_play_type);
@@ -160,6 +162,7 @@ public class AlbumPlayerFragment extends BaseFragment {
         ViewUtils.drawText(mTvAlbumName, parseData.getBody().getAlbumName());
         RepertoryData.MetaData metaData = parseData.getBody().getMetadata();
         ImageLoader.displayImage(parseData.getBody().getPreview(), mIvAlbumCover);
+        ImageLoader.showReverseImage(parseData.getBody().getPreview(), null, mIvAlbumCoverReflection);
         if (metaData != null) {
             ViewUtils.drawText(mTvAlbumCompany, metaData.getDirector());
             ViewUtils.drawText(mTvAlbumType, metaData.getAlbumType());

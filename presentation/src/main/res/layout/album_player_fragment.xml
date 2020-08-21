@@ -7,10 +7,20 @@
     android:paddingRight="130dp"
     android:background="@drawable/background">
 
+    <!-- 倒影图片 ，高度为原图*1.5 -->
+    <ImageView
+        android:id="@+id/iv_album_play_cover_refection"
+        android:layout_width="@dimen/album_detail_cover_width"
+        android:layout_height="390dp"
+        android:scaleType="fitXY"
+        android:layout_alignLeft="@+id/iv_album_play_cover"
+        android:layout_alignRight="@+id/iv_album_play_cover"
+        android:layout_alignTop="@+id/iv_album_play_cover"/>
+
     <ImageView
         android:id="@+id/iv_album_play_cover"
-        android:layout_width="260dp"
-        android:layout_height="260dp"
+        android:layout_width="@dimen/album_detail_cover_width"
+        android:layout_height="@dimen/album_detail_cover_width"
         android:layout_gravity="center_vertical|right"
         android:scaleType="fitXY"
         android:layout_centerVertical="true"/>
