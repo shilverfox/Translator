@@ -40,7 +40,7 @@ public class LocalImageFeedFragment extends CommonListFragment {
     public static final int GRID_COLUM = 4;
 
     public static final String ARGUMENT = "argument";
-    public final static int PADDING_HORIZONTAL = UiTools.dip2px(80);
+    public final static int PADDING_HORIZONTAL = UiTools.dip2px(180);
 
     private VideoFeedAdapter mAdapter;
     private LocalVideoFeedData mLocalVideoData;

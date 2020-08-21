@@ -7,9 +7,9 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/view_gallery_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="80dp"
         android:orientation="vertical">
 
         <com.jbsx.customview.gallery.RecyclerCoverFlow
@@ -27,4 +27,9 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="20dp"/>
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/view_gallery_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </RelativeLayout>

@@ -110,7 +110,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         checkOrgState();
         initTimer();
         drawDeviceInfo();
-        showDeviceInfoDialog();
+//        showDeviceInfoDialog();
     }
 
     private void init() {

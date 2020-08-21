@@ -8,6 +8,8 @@ import android.graphics.Paint;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Shader;
 
+import com.jbsx.utils.UiTools;
+
 /**
  * 制作倒影图片
  */
@@ -22,7 +24,7 @@ public class ReflectionBitmapUtil {
         if (null == srcBitmap) return null;
 
         // 原图和倒影之间的间距
-        final int GAP = 8;
+        final int GAP = UiTools.dip2px(8);
 
         int W1 = srcBitmap.getWidth(), H1 = srcBitmap.getHeight();
         int W2 = W1, H2 = H1 / 2;

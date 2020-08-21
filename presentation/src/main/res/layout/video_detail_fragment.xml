@@ -11,15 +11,15 @@
         android:id="@+id/view_video_detail_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="117dp"
-        android:layout_marginRight="117dp">
+        android:layout_marginLeft="134dp"
+        android:layout_marginRight="102dp">
 
         <ImageView
             android:id="@+id/iv_video_detail_icon"
             android:layout_width="432dp"
-            android:layout_height="270dp"
+            android:layout_height="243dp"
             android:scaleType="fitXY"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="50dp"
             android:src="@drawable/default_image"
             android:background="@drawable/coupon_shadow"/>
 

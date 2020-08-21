@@ -11,11 +11,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- 倒影图片 ，高度为原图*1.5 -->
+        <!-- 倒影图片 ，高度为原图*1.5 （整体图片高度/3 + 8dp的间隔高度），设置marginTop-->
         <ImageView
             android:id="@+id/img_reflection"
             android:layout_width="258dp"
-            android:layout_height="387dp"
+            android:layout_height="258dp"
+            android:layout_marginTop="94dp"
             android:scaleType="fitXY"/>
 
         <ImageView
@@ -27,11 +28,12 @@
         <TextView
             android:id="@+id/tv_gallery_label"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="80dp"
             android:layout_below="@+id/img"
             android:layout_alignRight="@+id/img"
             android:layout_alignLeft="@+id/img"
             android:text=""
+            android:textSize="18sp"
             android:textColor="#ffffff"
             android:gravity="center"/>
     </RelativeLayout>
