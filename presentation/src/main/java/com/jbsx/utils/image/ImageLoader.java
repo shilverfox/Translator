@@ -1,9 +1,10 @@
 package com.jbsx.utils.image;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
-import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -154,5 +155,34 @@ public class ImageLoader {
                         }
                     }
                 });
+    }
+
+    /**
+     * 显示带倒影的图片
+     *
+     * @param url
+     * @param imageView
+     */
+    public static void showReverseImage(String url, final Integer defaultResId, final ImageView imageView) {
+        Glide.with(MainApplicationLike.getAppContext())
+                .load(url)
+                .asBitmap()
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        Bitmap reverse = ReflectionBitmapUtil.getReverseBitmap(resource);
+                        imageView.setImageBitmap(resource == null ? createBitmap(defaultResId) : reverse);
+                    }
+
+                    @Override
+                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                        imageView.setImageBitmap(ReflectionBitmapUtil.getReverseBitmap(createBitmap(defaultResId)));
+                    }
+                });
+    }
+
+    private static Bitmap createBitmap(Integer resId) {
+        final int placeHolder = (resId == null) ? R.drawable.default_image : resId;
+        return BitmapFactory.decodeResource(MainApplicationLike.getAppContext().getResources(), placeHolder);
     }
 }

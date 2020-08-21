@@ -41,6 +41,7 @@
                 android:layout_width="93dp"
                 android:layout_height="33dp"
                 android:layout_marginLeft="40dp"
+                android:scaleType="fitXY"
                 android:layout_centerVertical="true"/>
 
             <com.flyco.tablayout.SlidingCommonTabLayout

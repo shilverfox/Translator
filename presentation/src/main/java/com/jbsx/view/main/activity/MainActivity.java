@@ -199,7 +199,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     private void handleLoadNaviSuccessful(String data) {
         handleProgressBar(false);
         NavigationData navData = ParseUtil.parseData(data, NavigationData.class);
-        drawOrgLogo();
+        drawOrgLogo(navData);
         setDeviceInfo(navData);
         if (isNavigationNotEmpty(navData)) {
             initMainTab(navData.getBody().getClassifyList());
@@ -284,8 +284,8 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     /**
      * 机构logo
      */
-    private void drawOrgLogo() {
-        ImageLoader.loadImage("", new IImageLoadListener() {
+    private void drawOrgLogo(NavigationData data) {
+        ImageLoader.loadImage(data.getBody().getOrgLogo(), new IImageLoadListener() {
             @Override
             public void onLoadingComplete(Drawable drawable) {
                 if (drawable != null) {

@@ -5,14 +5,14 @@
     android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="117dp"
-    android:paddingRight="117dp"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/view_video_detail_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="117dp"
+        android:layout_marginRight="117dp">
 
         <ImageView
             android:id="@+id/iv_video_detail_icon"
@@ -120,12 +120,15 @@
         android:textSize="12sp"
         android:layout_marginTop="20dp"
         android:text="剧情简介"
-        android:layout_below="@+id/view_video_detail_content"/>
+        android:layout_below="@+id/view_video_detail_content"
+        android:layout_alignLeft="@+id/view_video_detail_content"
+        android:layout_alignRight="@+id/view_video_detail_content"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/iv_video_detail_summary_title"
+        android:layout_alignRight="@+id/iv_video_detail_summary_title"
         android:layout_below="@+id/iv_video_detail_summary_title">
         <TextView
             android:id="@+id/iv_video_detail_summary"

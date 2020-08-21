@@ -46,7 +46,8 @@ public class LocalPictureGalleryAdapter extends RecyclerView.Adapter<LocalPictur
 
         final LocalPictureGalleryData.PictureItem entity = mGalleryData.get(position);
         holder.mTvLabel.setText(entity.getPictureDesc());
-        ImageLoader.displayImage(entity.getPictureFilePath(), holder.img);
+//        ImageLoader.displayImage(entity.getPictureFilePath(), holder.img);
+        ImageLoader.showReverseImage(entity.getPictureFilePath(), null, holder.img);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

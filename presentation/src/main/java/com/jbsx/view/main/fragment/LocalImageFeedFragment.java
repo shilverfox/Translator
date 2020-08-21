@@ -21,7 +21,6 @@ import com.jbsx.customview.listFragment.CommonListFragment;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
 import com.jbsx.data.AppConstData;
-import com.jbsx.utils.StatisticsReportUtil;
 import com.jbsx.utils.UiTools;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.data.PageChangeEvent;
@@ -199,18 +198,18 @@ public class LocalImageFeedFragment extends CommonListFragment {
 
         @Override
         public int getViewId() {
-            return R.layout.video_feed_item_view;
+            return R.layout.local_picture_feed_item_view;
         }
 
         @Override
         public CommonListFragmentViewHolder getViewHolder(View rootView) {
-            VideoFeedHolder holder =  new VideoFeedHolder(getContext(), rootView);
+            PictureFeedHolder holder =  new PictureFeedHolder(getContext(), rootView);
             holder.setAdapter(this);
             return holder;
         }
     }
 
-    public class VideoFeedHolder extends CommonListFragmentViewHolder<LocalPictureFeedData.FeedItem> {
+    public class PictureFeedHolder extends CommonListFragmentViewHolder<LocalPictureFeedData.FeedItem> {
         private Context mContext;
 
         private View mRootView;
@@ -222,7 +221,7 @@ public class LocalImageFeedFragment extends CommonListFragment {
 
         private CommonListFragmentAdapter mAdapter;
 
-        public VideoFeedHolder(Context context, View view) {
+        public PictureFeedHolder(Context context, View view) {
             super(view);
             mContext = context;
         }
