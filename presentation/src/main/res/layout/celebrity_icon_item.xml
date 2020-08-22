@@ -12,8 +12,8 @@
         android:layout_height="wrap_content">
 
         <FrameLayout
-            android:layout_width="180dp"
-            android:layout_height="140dp"
+            android:layout_width="@dimen/main_page_recommend_item_shadow_width"
+            android:layout_height="@dimen/main_page_recommend_item_shadow_height"
             android:layout_gravity="center">
 
             <ImageView
@@ -35,8 +35,8 @@
 
         <ImageView
             android:id="@+id/tv_celebrity_icon_item_head"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="@dimen/main_page_recommend_item_width"
+            android:layout_height="@dimen/main_page_recommend_item_width"
             android:scaleType="fitXY"
             android:src="@drawable/timg"
             android:padding="4dp"
@@ -47,12 +47,11 @@
     <TextView
         android:id="@+id/tv_celebrity_icon_item_name"
         android:layout_width="match_parent"
-        android:layout_height="17dp"
+        android:layout_height="wrap_content"
+        style="@style/main_page_recommend_item_text"
         android:gravity="center"
         android:text="name"
         android:textColor="#ffffff"
         android:maxLines="2"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:textSize="14sp"/>
+        android:layout_centerHorizontal="true"/>
 </LinearLayout>

@@ -254,7 +254,8 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
     private void initCelebrityView() {
         mTvRecommendTitle.setVisibility(View.INVISIBLE);
         mRvHostList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-        mRvHostList.addItemDecoration(new TabItemDecoration(UiTools.dip2px(20)));
+        float padding = mContext.getResources().getDimension(R.dimen.main_page_recommend_item_margin);
+        mRvHostList.addItemDecoration(new TabItemDecoration(Math.round(padding)));
 
         mAdapterCelebrity = new CelebrityIconItemAdapter(mContext, R.layout.celebrity_icon_item);
         mAdapterCelebrity.setDatas(mListCelebrity);

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="holo_dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
@@ -129,6 +129,79 @@
     <style name="actionBarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColorPrimary">#fff</item>
         <item name="actionBarSize">56dip</item>
+    </style>
+
+
+    <style name="main_tab_text">
+        <item name="tl_textsize">14sp</item>
+        <item name="tl_tab_padding">15dp</item>
+    </style>
+
+    <style name="main_bottom_base_info">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="common_button_style">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="main_page_banner">
+        <item name="indicator_height">10dp</item>
+        <item name="indicator_margin">6dp</item>
+        <item name="indicator_width">10dp</item>
+    </style>
+
+    <style name="main_page_recommend_label">
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:layout_marginLeft">60dp</item>
+        <item name="android:layout_marginRight">60dp</item>
+    </style>
+
+    <style name="main_page_recommend_item_text">
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
+    <style name="gallery_item_text">
+        <item name="android:paddingTop">26dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="album_disc_title">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="album_disc_play_item_text">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="album_disc_play_item_container">
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="album_disc_play_album_text">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="album_disc_play_album_info">
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+    </style>
+
+    <style name="album_detail_play_album_container">
+        <item name="android:paddingTop">25dp</item>
+        <item name="android:paddingBottom">25dp</item>
+        <item name="android:paddingLeft">30dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:layout_marginLeft">6dp</item>
     </style>
 
 </resources>

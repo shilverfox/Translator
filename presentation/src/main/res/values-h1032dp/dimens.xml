@@ -1,0 +1,25 @@
+<resources>
+    <!--  main activity  -->
+    <dimen name="main_activity_navi_height">80dp</dimen>
+    <dimen name="main_bottom_margin">80dp</dimen>
+    <dimen name="common_button_width">200dp</dimen>
+    <dimen name="common_button_height">60dp</dimen>
+
+    <dimen name="main_page_banner_height">400dp</dimen>
+    <dimen name="main_page_recommend_item_margin">80dp</dimen>
+    <dimen name="main_page_recommend_item_width">400dp</dimen>
+    <dimen name="main_page_recommend_item_shadow_width">440dp</dimen>
+    <dimen name="main_page_recommend_item_shadow_height">360dp</dimen>
+
+    <dimen name="gallery_item_width">716dp</dimen>
+    <dimen name="gallery_item_reflection_height">254dp</dimen>
+
+
+    <dimen name="album_detail_cover_width">720dp</dimen>
+    <dimen name="album_detail_cover_reflection_height">248dp</dimen>
+
+    <dimen name="album_detail_padding">360dp</dimen>
+    <dimen name="album_detail_play_item_icon">40dp</dimen>
+    <dimen name="album_detail_play_item_duration_width">200dp</dimen>
+
+</resources>

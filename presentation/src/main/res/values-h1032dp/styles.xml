@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="main_tab_text">
+        <item name="tl_textsize">28sp</item>
+        <item name="tl_tab_padding">30dp</item>
+    </style>
+
+    <style name="main_bottom_base_info">
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="common_button_style">
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="main_page_banner">
+        <item name="indicator_height">20dp</item>
+        <item name="indicator_margin">12dp</item>
+        <item name="indicator_width">20dp</item>
+    </style>
+
+    <style name="main_page_recommend_label">
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:layout_marginTop">40dp</item>
+        <item name="android:layout_marginBottom">120dp</item>
+        <item name="android:layout_marginLeft">220dp</item>
+        <item name="android:layout_marginRight">220dp</item>
+    </style>
+
+    <style name="main_page_recommend_item_text">
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:layout_marginTop">40dp</item>
+    </style>
+
+    <style name="gallery_item_text">
+        <item name="android:paddingTop">60dp</item>
+        <item name="android:paddingBottom">60dp</item>
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="album_disc_title">
+        <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="album_disc_play_item_text">
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="album_disc_play_item_container">
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">16dp</item>
+    </style>
+
+    <style name="album_disc_play_album_text">
+        <item name="android:textSize">48sp</item>
+    </style>
+
+    <style name="album_disc_play_album_info">
+        <item name="android:textSize">32sp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+    </style>
+
+    <style name="album_detail_play_album_container">
+        <item name="android:paddingTop">50dp</item>
+        <item name="android:paddingBottom">50dp</item>
+        <item name="android:paddingLeft">60dp</item>
+        <item name="android:paddingRight">40dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
+    </style>
+</resources>

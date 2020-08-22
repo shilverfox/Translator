@@ -34,7 +34,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="@dimen/main_activity_navi_height">
 
             <ImageView
                 android:id="@+id/iv_org_logo"
@@ -48,13 +48,13 @@
                 android:id="@+id/tab_main"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                style="@style/main_tab_text"
                 android:layout_toLeftOf="@+id/btn_main_search"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 tl:tl_textSelectColor="@color/title_bar_end"
                 tl:tl_textUnselectColor="#ffffff"
                 tl:tl_underline_color="#DDDDDD"
-                tl:tl_tab_padding="15dp"
                 tl:tl_textBold="SELECT"
                 tl:tl_show_tab_background="true"
                 tl:tl_tab_background_color="#ffffff"
@@ -114,6 +114,7 @@
                 android:textColor="#ffffff"
                 android:layout_centerVertical="true"
                 android:text="终端编号"
+                style="@style/main_bottom_base_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -132,6 +133,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#ffffff"
                 android:paddingRight="10dp"
+                style="@style/main_bottom_base_info"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/btn_main_back"
                 android:format12Hour="yyyy/MM/dd EEEE HH:mm"/>

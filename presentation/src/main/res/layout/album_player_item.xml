@@ -2,26 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingTop="5dp"
-    android:paddingBottom="8dp">
+    style="@style/album_disc_play_item_container"
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/tv_album_play_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/album_disc_play_item_text"
         android:layout_weight="1"
         android:text="ffffffffffffffff"/>
 
     <TextView
         android:id="@+id/tv_album_play_item_duration"
-        android:layout_width="100dp"
+        android:layout_width="@dimen/album_detail_play_item_duration_width"
         android:layout_height="wrap_content"
+        style="@style/album_disc_play_item_text"
         android:text="22"/>
 
     <FrameLayout
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/album_detail_play_item_icon"
+        android:layout_height="@dimen/album_detail_play_item_icon"
         android:layout_gravity="center_vertical">
         <ImageView
             android:id="@+id/iv_album_play_item_play"
@@ -40,8 +41,8 @@
 
     <ImageView
         android:id="@+id/iv_album_play_item_like"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/album_detail_play_item_icon"
+        android:layout_height="@dimen/album_detail_play_item_icon"
         android:layout_marginLeft="10dp"
         android:visibility="gone"
         android:src="@drawable/default_head"/>
