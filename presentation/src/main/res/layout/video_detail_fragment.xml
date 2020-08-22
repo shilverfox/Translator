@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/iv_video_detail_icon"
             android:layout_width="432dp"
-            android:layout_height="243dp"
+            android:layout_height="270dp"
             android:scaleType="fitXY"
             android:layout_marginTop="50dp"
             android:src="@drawable/default_image"
