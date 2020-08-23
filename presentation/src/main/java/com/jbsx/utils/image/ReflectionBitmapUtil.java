@@ -6,6 +6,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.graphics.Shader;
 
 import com.jbsx.utils.UiTools;
@@ -108,5 +109,20 @@ public class ReflectionBitmapUtil {
         }
 
         return null;
+    }
+
+    /**
+     * 复制图片
+     *
+     * @param width
+     * @param height
+     * @param sourceBitmap
+     * @return
+     */
+    private Bitmap copyBitmap(int width , int height, Bitmap sourceBitmap) {
+        Bitmap target = Bitmap.createBitmap(width, height, sourceBitmap.getConfig());
+        Canvas temp_canvas = new Canvas(target);
+        temp_canvas.drawBitmap(sourceBitmap, null, new Rect(0, 0, target.getWidth(), target.getHeight()), null);
+        return target;
     }
 }
