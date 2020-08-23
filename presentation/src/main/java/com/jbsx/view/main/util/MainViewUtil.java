@@ -18,14 +18,30 @@ import java.util.List;
 public class MainViewUtil {
     /**
      * 计算feed item的图片尺寸
+     *
+     * 高度 = 1.5*宽度
+     *
      * @param gridColumn
      * @param padding
      * @return
      */
     public static  int calculateFeedImageHeight(int gridColumn, int padding) {
+        return calculateFeedImageHeight(gridColumn, padding, 1.5f);
+    }
+
+    /**
+     * 计算feed item的图片尺寸
+     *
+     * 高度 = multi*宽度
+     *
+     * @param gridColumn
+     * @param padding
+     * @return
+     */
+    public static  int calculateFeedImageHeight(int gridColumn, int padding, float multi) {
         int itemPadding = (int) MainApplicationLike.getAppContext().getResources().getDimension(R.dimen.video_feed_item_padding);
-        float width = (StatisticsReportUtil.getScreenWidth() - (gridColumn - 1)* UiTools.dip2px(itemPadding) - 2*padding) / gridColumn;
-        return (int)width;
+        float width = (StatisticsReportUtil.getScreenWidth() - 2*gridColumn*UiTools.dip2px(itemPadding) - 2*padding) / gridColumn;
+        return (int)(width * multi);
     }
 
     public static float getDimen(int dimenId) {

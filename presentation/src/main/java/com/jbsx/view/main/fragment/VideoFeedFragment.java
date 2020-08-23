@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -193,7 +194,8 @@ public class VideoFeedFragment extends CommonListFragment {
         boolean isEmpty = TextUtils.isEmpty(titleName);
         TextView textView = new TextView(mContext);
         textView.setTextColor(0xffffffff);
-        textView.setTextSize(MainViewUtil.getDimen(R.dimen.common_list_head_text_size));
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                MainViewUtil.getDimen(R.dimen.common_list_head_text_size));
         int padding = UiTools.dip2px(MainViewUtil.getDimen(R.dimen.common_list_head_text_padding));
         textView.setPadding(padding, padding, padding, padding);
         headView.setVisibility(isEmpty ? View.GONE : View.VISIBLE);

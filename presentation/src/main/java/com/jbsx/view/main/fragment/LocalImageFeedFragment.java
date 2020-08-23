@@ -123,7 +123,7 @@ public class LocalImageFeedFragment extends CommonListFragment {
     private void calculateImageHeight(ImageView imageView) {
         if (imageView != null) {
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
-            float width = MainViewUtil.calculateFeedImageHeight(GRID_COLUM, PADDING_HORIZONTAL);
+            float width = MainViewUtil.calculateFeedImageHeight(GRID_COLUM, PADDING_HORIZONTAL, 1);
             params.height = (int) width;
             imageView.setLayoutParams(params);
         }
