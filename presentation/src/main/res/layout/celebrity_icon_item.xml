@@ -30,7 +30,8 @@
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_gravity="center"
-                android:background="#aaffffff"/>
+                android:background="#aaffffff"
+                android:visibility="invisible"/>
         </FrameLayout>
 
         <ImageView

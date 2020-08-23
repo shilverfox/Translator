@@ -52,7 +52,7 @@
     <dimen name="common_button_height">30dp</dimen>
     <dimen name="main_page_banner_height">200dp</dimen>
     <dimen name="main_page_recommend_item_width">160dp</dimen>
-    <dimen name="main_page_recommend_item_shadow_width">180dp</dimen>
+    <dimen name="main_page_recommend_item_shadow_width">200dp</dimen>
     <dimen name="main_page_recommend_item_shadow_height">140dp</dimen>
     <dimen name="main_page_recommend_item_margin">40dp</dimen>
 
@@ -71,7 +71,7 @@
 
     <dimen name="local_image_feed_fragment_padding">180dp</dimen>
 
-    <dimen name="common_list_head_text_size">20sp</dimen>
+    <dimen name="common_list_head_text_size">22sp</dimen>
     <dimen name="common_list_head_text_padding">10dp</dimen>
 
 

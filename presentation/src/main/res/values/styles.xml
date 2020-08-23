@@ -142,7 +142,7 @@
     </style>
 
     <style name="common_button_style">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="main_page_banner">
@@ -157,8 +157,8 @@
         <item name="android:textSize">16sp</item>
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:layout_marginBottom">20dp</item>
-        <item name="android:layout_marginLeft">60dp</item>
-        <item name="android:layout_marginRight">60dp</item>
+        <item name="android:layout_marginLeft">80dp</item>
+        <item name="android:layout_marginRight">80dp</item>
     </style>
 
     <style name="main_page_recommend_item_text">
@@ -206,10 +206,14 @@
 
     <style name="album_feed_item_desc">
         <item name="android:textSize">12sp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
     </style>
 
     <style name="album_feed_item_name">
         <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
     </style>
 
 </resources>

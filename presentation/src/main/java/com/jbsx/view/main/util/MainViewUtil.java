@@ -26,7 +26,7 @@ public class MainViewUtil {
      * @return
      */
     public static  int calculateFeedImageHeight(int gridColumn, int padding) {
-        return calculateFeedImageHeight(gridColumn, padding, 1.5f);
+        return calculateFeedImageHeight(gridColumn, padding, 1.2f);
     }
 
     /**
@@ -38,9 +38,9 @@ public class MainViewUtil {
      * @param padding
      * @return
      */
-    public static  int calculateFeedImageHeight(int gridColumn, int padding, float multi) {
-        int itemPadding = (int) MainApplicationLike.getAppContext().getResources().getDimension(R.dimen.video_feed_item_padding);
-        float width = (StatisticsReportUtil.getScreenWidth() - 2*gridColumn*UiTools.dip2px(itemPadding) - 2*padding) / gridColumn;
+    public static int calculateFeedImageHeight(int gridColumn, int padding, float multi) {
+        float itemPadding = getDimen(R.dimen.video_feed_item_padding);
+        float width = (StatisticsReportUtil.getScreenWidth() - 2*gridColumn*itemPadding - 2*padding) / gridColumn;
         return (int)(width * multi);
     }
 

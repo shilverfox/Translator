@@ -136,7 +136,7 @@
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
             android:layout_marginTop="14dp"
-            android:textSize="8sp"
+            android:textSize="10sp"
             android:text="剧情简介剧情简介剧情简介剧情简介剧情简介剧情简介剧情简介"/>
     </ScrollView>
 
