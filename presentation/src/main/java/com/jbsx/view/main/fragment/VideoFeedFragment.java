@@ -17,6 +17,7 @@ import com.app.domain.net.data.HttpRequestPool;
 import com.app.domain.net.model.BaseRequestEntity;
 import com.google.gson.Gson;
 import com.jbsx.R;
+import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.listFragment.CommonListFragment;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
@@ -44,7 +45,7 @@ import java.util.List;
  */
 public class VideoFeedFragment extends CommonListFragment {
     public static final int GRID_COLUM = 5;
-    public static final int PADDING_HORIZONTAL = UiTools.dip2px(117);
+    public static final int PADDING_HORIZONTAL = (int)MainViewUtil.getDimen(R.dimen.video_feed_fragment_padding);
 
     public static final String ARGUMENT = "argument";
 
@@ -192,8 +193,8 @@ public class VideoFeedFragment extends CommonListFragment {
         boolean isEmpty = TextUtils.isEmpty(titleName);
         TextView textView = new TextView(mContext);
         textView.setTextColor(0xffffffff);
-        textView.setTextSize(20);
-        int padding = UiTools.dip2px(10);
+        textView.setTextSize(MainViewUtil.getDimen(R.dimen.common_list_head_text_size));
+        int padding = UiTools.dip2px(MainViewUtil.getDimen(R.dimen.common_list_head_text_padding));
         textView.setPadding(padding, padding, padding, padding);
         headView.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
         if (!isEmpty) {

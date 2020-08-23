@@ -204,4 +204,12 @@
         <item name="android:layout_marginLeft">6dp</item>
     </style>
 
+    <style name="album_feed_item_desc">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="album_feed_item_name">
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>

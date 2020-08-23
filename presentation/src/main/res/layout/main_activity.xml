@@ -36,13 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_activity_navi_height">
 
-            <ImageView
-                android:id="@+id/iv_org_logo"
-                android:layout_width="93dp"
-                android:layout_height="33dp"
-                android:layout_marginLeft="40dp"
-                android:scaleType="fitXY"
-                android:layout_centerVertical="true"/>
+            <include layout="@layout/org_logo_view"/>
 
             <com.flyco.tablayout.SlidingCommonTabLayout
                 android:id="@+id/tab_main"
@@ -52,6 +46,7 @@
                 android:layout_toLeftOf="@+id/btn_main_search"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
+                android:paddingRight="@dimen/main_activity_navi_padding_right"
                 tl:tl_textSelectColor="@color/title_bar_end"
                 tl:tl_textUnselectColor="#ffffff"
                 tl:tl_underline_color="#DDDDDD"
@@ -67,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:paddingRight="10dp"
+                android:paddingRight="@dimen/main_activity_search_button_padding_right"
                 android:paddingTop="10dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true">
@@ -104,8 +99,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_bottom_margin"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+            android:paddingLeft="@dimen/main_activity_bottom_padding"
+            android:paddingRight="@dimen/main_activity_bottom_padding"
             android:background="@drawable/bottom_bg"
             android:layout_alignParentBottom="true">
 

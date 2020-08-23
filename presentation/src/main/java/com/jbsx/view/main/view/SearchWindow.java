@@ -19,6 +19,7 @@ import com.jbsx.data.AppConstData;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.utils.UiTools;
 import com.jbsx.view.data.PageChangeEvent;
+import com.jbsx.view.main.util.MainViewUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -46,7 +47,7 @@ public class SearchWindow {
     private void initPopWindow() {
         mRootView =  LayoutInflater.from(MainApplicationLike.getAppContext()).inflate(R.layout.search_window_view, null);
         mPopWindow = new PopupWindow(mRootView);
-        mPopWindow.setWidth(UiTools.dip2px(500));
+        mPopWindow.setWidth((int)MainViewUtil.getDimen(R.dimen.search_window_width));
         mPopWindow.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
         mPopWindow.setOutsideTouchable(true);
         mPopWindow.setFocusable(true);

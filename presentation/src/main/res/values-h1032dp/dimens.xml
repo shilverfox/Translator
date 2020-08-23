@@ -1,7 +1,10 @@
 <resources>
     <!--  main activity  -->
     <dimen name="main_activity_navi_height">80dp</dimen>
-    <dimen name="main_bottom_margin">80dp</dimen>
+    <dimen name="main_activity_navi_padding_right">180dp</dimen>
+    <dimen name="main_activity_search_button_padding_right">20dp</dimen>
+    <dimen name="main_activity_bottom_padding">40dp</dimen>
+    <dimen name="main_bottom_margin">100dp</dimen>
     <dimen name="common_button_width">200dp</dimen>
     <dimen name="common_button_height">60dp</dimen>
 
@@ -13,6 +16,7 @@
 
     <dimen name="gallery_item_width">716dp</dimen>
     <dimen name="gallery_item_reflection_height">254dp</dimen>
+    <dimen name="gallery_indicator_margin_bottom">80dp</dimen>
 
 
     <dimen name="album_detail_cover_width">720dp</dimen>
@@ -22,4 +26,25 @@
     <dimen name="album_detail_play_item_icon">40dp</dimen>
     <dimen name="album_detail_play_item_duration_width">200dp</dimen>
 
+    <dimen name="video_feed_item_padding">32dp</dimen>
+
+    <dimen name="video_feed_fragment_padding">280dp</dimen>
+    <dimen name="local_image_feed_fragment_padding">380dp</dimen>
+
+    <dimen name="common_list_head_text_size">76sp</dimen>
+    <dimen name="common_list_head_text_padding">80dp</dimen>
+
+    <dimen name="local_image_radio_head_text_size">36sp</dimen>
+    <dimen name="local_image_radio_head_text_padding_left">40dp</dimen>
+    <dimen name="local_image_radio_head_text_padding_top">16dp</dimen>
+    <dimen name="local_image_radio_head_text_padding_right">40dp</dimen>
+    <dimen name="local_image_radio_head_text_padding_bottom">28dp</dimen>
+    <dimen name="local_image_radio_head_text_container_margin_top">20dp</dimen>
+    <dimen name="local_image_radio_head_text_container_margin_bottom">14dp</dimen>
+    <dimen name="local_image_radio_head_text_container_margin_right">20dp</dimen>
+
+    <dimen name="search_window_width">1000dp</dimen>
+
+    <dimen name="splash_logo_width">600dp</dimen>
+    <dimen name="progress_bar_loading_size">100dp</dimen>
 </resources>

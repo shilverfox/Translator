@@ -8,6 +8,7 @@ import android.widget.RelativeLayout.LayoutParams;
 
 import com.jbsx.R;
 import com.jbsx.utils.UiTools;
+import com.jbsx.view.main.util.MainViewUtil;
 
 
 public class JDProgressBar extends ProgressBar {
@@ -28,7 +29,8 @@ public class JDProgressBar extends ProgressBar {
 	}
 	
 	private void init(){
-		final LayoutParams layoutParams = new LayoutParams(UiTools.dip2px(34), UiTools.dip2px(34));
+		int loadingSize = (int)MainViewUtil.getDimen(R.dimen.progress_bar_loading_size);
+		final LayoutParams layoutParams = new LayoutParams(loadingSize, loadingSize);
 		layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
 		this.setLayoutParams(layoutParams);
 //		this.setBackgroundResource(R.drawable.progress_load_logo);

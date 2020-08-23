@@ -19,7 +19,7 @@
             android:layout_width="864dp"
             android:layout_height="540dp"
             android:scaleType="fitXY"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="180dp"
             android:src="@drawable/default_image"
             android:background="@drawable/coupon_shadow"/>
 
@@ -136,7 +136,7 @@
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
             android:layout_marginTop="28dp"
-            android:textSize="16sp"
+            android:textSize="22sp"
             android:text="剧情简介剧情简介剧情简介剧情简介剧情简介剧情简介剧情简介"/>
     </ScrollView>
 

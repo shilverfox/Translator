@@ -72,4 +72,13 @@
         <item name="android:paddingRight">40dp</item>
         <item name="android:layout_marginLeft">12dp</item>
     </style>
+
+    <style name="album_feed_item_desc">
+        <item name="android:textSize">24sp</item>
+        <item name="android:paddingTop">10sp</item>
+    </style>
+
+    <style name="album_feed_item_name">
+        <item name="android:textSize">28sp</item>
+    </style>
 </resources>

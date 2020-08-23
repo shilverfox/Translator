@@ -28,6 +28,7 @@
             android:id="@+id/iv_album_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/album_feed_item_name"
             android:singleLine="true"/>
 
         <TextView
@@ -35,8 +36,8 @@
             android:layout_below="@+id/iv_album_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/album_feed_item_desc"
             android:textColor="#999999"
-            android:textSize="12sp"
             android:singleLine="true"/>
     </RelativeLayout>
 

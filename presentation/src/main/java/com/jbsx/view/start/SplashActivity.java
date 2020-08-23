@@ -10,6 +10,7 @@ import com.jbsx.R;
 import com.jbsx.app.BaseActivity;
 import com.jbsx.utils.UiTools;
 import com.jbsx.view.main.activity.MainActivity;
+import com.jbsx.view.main.util.MainViewUtil;
 
 import gr.net.maroulis.library.EasySplashScreen;
 
@@ -38,7 +39,8 @@ public class SplashActivity extends BaseActivity {
         ImageView image = new ImageView(mContext);
         image.setImageResource(R.drawable.hello);
 
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(UiTools.dip2px(200), UiTools.dip2px(200));
+        int logoSize = (int)MainViewUtil.getDimen(R.dimen.splash_logo_width);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(logoSize, logoSize);
         params.gravity = Gravity.CENTER;
         layout.addView(image, params);
 

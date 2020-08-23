@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:paddingTop="20dp"
-    android:paddingBottom="20dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
+    android:paddingTop="180dp"
+    android:paddingBottom="40dp"
+    android:paddingLeft="100dp"
+    android:paddingRight="100dp"
     android:background="@color/search_window_bg"
     android:focusable="true"
     android:focusableInTouchMode="true">
@@ -27,11 +27,12 @@
             android:text="专辑"
             android:checked="true"
             android:button="@null"
-            android:drawablePadding="10dp"
+            android:textSize="32sp"
+            android:drawablePadding="20dp"
             android:drawableLeft="@drawable/radio_button_green_grey"/>
 
         <Space
-            android:layout_width="80dp"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"/>
 
         <RadioButton
@@ -41,7 +42,8 @@
             android:textColor="#ffffff"
             android:text="视频"
             android:button="@null"
-            android:drawablePadding="10dp"
+            android:drawablePadding="20dp"
+            android:textSize="32sp"
             android:drawableLeft="@drawable/radio_button_green_grey"/>
     </RadioGroup>
 
@@ -51,8 +53,9 @@
         android:layout_height="wrap_content"
         android:text="关键词："
         android:layout_below="@+id/rv_search_radio_group"
-        android:paddingTop="40dp"
-        android:paddingBottom="40dp"
+        android:paddingTop="80dp"
+        android:paddingBottom="80dp"
+        android:textSize="32sp"
         android:textColor="#ffffff"/>
 
     <EditText
@@ -62,6 +65,11 @@
         android:imeOptions="flagNoExtractUi"
         android:textColor="#ffffff"
         android:text="白毛女"
+        android:textSize="32sp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:background="@drawable/shape_search_word_bg"
         android:layout_alignBaseline="@+id/tv_search_label"
         android:layout_toRightOf="@+id/tv_search_label"/>

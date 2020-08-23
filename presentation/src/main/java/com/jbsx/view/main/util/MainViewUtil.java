@@ -1,7 +1,7 @@
 package com.jbsx.view.main.util;
 
-import android.app.UiAutomation;
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +28,10 @@ public class MainViewUtil {
         return (int)width;
     }
 
+    public static float getDimen(int dimenId) {
+        return MainApplicationLike.getAppContext().getResources().getDimension(dimenId);
+    }
+
     /**
      * 本地资源页面用到的添加顶部按钮
      *
@@ -49,14 +53,20 @@ public class MainViewUtil {
                 button.setTextColor(0xffffffff);
                 button.setText(classifyList.get(i));
                 button.setButtonDrawable(null);
-                button.setPadding(UiTools.dip2px(20), 0, UiTools.dip2px(20), UiTools.dip2px(8));
+                button.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                        MainViewUtil.getDimen(R.dimen.local_image_radio_head_text_size));
+                button.setPadding((int)MainViewUtil.getDimen(R.dimen.local_image_radio_head_text_padding_left),
+                        (int)MainViewUtil.getDimen(R.dimen.local_image_radio_head_text_padding_top),
+                        (int)MainViewUtil.getDimen(R.dimen.local_image_radio_head_text_padding_right),
+                        (int)MainViewUtil.getDimen(R.dimen.local_image_radio_head_text_padding_bottom));
                 button.setBackgroundResource(R.drawable.radio_button_local_top_button);
                 button.setGravity(Gravity.CENTER);
 
                 RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                params.rightMargin = UiTools.dip2px(20);
-                params.topMargin = UiTools.dip2px(10);
+                params.rightMargin = (int)MainViewUtil.getDimen(R.dimen.local_image_radio_head_text_container_margin_right);
+                params.topMargin = (int)MainViewUtil.getDimen(R.dimen.local_image_radio_head_text_container_margin_top);
+                params.bottomMargin = (int)MainViewUtil.getDimen(R.dimen.local_image_radio_head_text_container_margin_bottom);
                 params.gravity = Gravity.CENTER;
                 group.addView(button, params);
             }

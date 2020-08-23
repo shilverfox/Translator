@@ -17,6 +17,7 @@ import com.app.domain.net.data.HttpRequestPool;
 import com.app.domain.net.model.BaseRequestEntity;
 import com.google.gson.Gson;
 import com.jbsx.R;
+import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.listFragment.CommonListFragment;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
@@ -40,7 +41,7 @@ public class LocalImageFeedFragment extends CommonListFragment {
     public static final int GRID_COLUM = 4;
 
     public static final String ARGUMENT = "argument";
-    public final static int PADDING_HORIZONTAL = UiTools.dip2px(180);
+    public final static int PADDING_HORIZONTAL = (int) MainViewUtil.getDimen(R.dimen.local_image_feed_fragment_padding);
 
     private VideoFeedAdapter mAdapter;
     private LocalVideoFeedData mLocalVideoData;

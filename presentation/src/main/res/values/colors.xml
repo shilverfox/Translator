@@ -40,4 +40,6 @@
     <color name="text_gray">#999999</color>
     <color name="text_orange">#fe8a0f</color>
     <color name="footer_color">#ffffff</color>
+
+    <color name="search_window_bg">#bbcb374e</color>
 </resources>
