@@ -12,6 +12,7 @@ import com.jbsx.R;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.main.entity.LocalPictureGalleryData;
 import com.jbsx.view.main.entity.NavigationData;
+import com.jbsx.view.main.util.MainViewUtil;
 
 import java.util.List;
 
@@ -47,7 +48,8 @@ public class LocalPictureGalleryAdapter extends RecyclerView.Adapter<LocalPictur
         final LocalPictureGalleryData.PictureItem entity = mGalleryData.get(position);
         holder.mTvLabel.setText(entity.getPictureDesc());
         ImageLoader.displayImage(entity.getPictureFilePath(), holder.img);
-        ImageLoader.showReverseImage(entity.getPictureFilePath(), null, holder.imgReflection);
+        ImageLoader.showReverseImage(entity.getPictureFilePath(), null, holder.imgReflection,
+                MainViewUtil.getMeasureHeight(holder.imgReflection));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

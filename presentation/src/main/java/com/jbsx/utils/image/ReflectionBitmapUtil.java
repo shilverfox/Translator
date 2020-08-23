@@ -64,4 +64,49 @@ public class ReflectionBitmapUtil {
         return null;
 
     }
+
+    /**
+     * 仅仅制作倒影图片，不带原图
+     *
+     * @param srcBitmap
+     * @return
+     */
+    public static Bitmap getReverseBitmapOnly(Bitmap srcBitmap, int height) {
+
+        if (null == srcBitmap) return null;
+
+        int W1 = srcBitmap.getWidth(), H1 = srcBitmap.getHeight();
+        if (W1 == 0 || H1 == 0) return null;
+
+        try {
+            // 创建图像倒影，倒影为原图的下半部分Y轴翻转
+            Matrix matrix = new Matrix();
+            matrix.preScale(1, -1);
+            Bitmap reflectionBitmap = Bitmap.createBitmap(srcBitmap, 0, H1 - height, W1, height, matrix, false);
+            if (null == reflectionBitmap) return null;
+
+            // 创建原图的倒影图
+            Bitmap bitmapWithReflection = Bitmap.createBitmap(W1, height, Bitmap.Config.ARGB_8888);
+            if (null == bitmapWithReflection) return null;
+
+            Canvas canvas = new Canvas(bitmapWithReflection);
+            canvas.drawBitmap(reflectionBitmap, 0, 0, null);
+
+            // 为倒影图添加颜色线性渐变
+            Paint paint = new Paint();
+            paint.setAntiAlias(true);
+            LinearGradient shader = new LinearGradient(0, 0, 0, bitmapWithReflection.getHeight(),
+                    0x70FFFFFF, 0x00FFFFFF, Shader.TileMode.MIRROR);
+            paint.setShader(shader);
+            paint.setXfermode(new PorterDuffXfermode(android.graphics.PorterDuff.Mode.DST_IN));
+
+            // 绘制线性渐变
+            canvas.drawRect(0, 0, W1, bitmapWithReflection.getHeight(), paint);
+            return bitmapWithReflection;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

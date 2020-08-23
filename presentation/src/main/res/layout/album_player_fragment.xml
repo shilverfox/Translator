@@ -7,16 +7,6 @@
     android:paddingRight="@dimen/album_detail_padding"
     android:background="@drawable/background">
 
-    <!-- 倒影图片 ，高度为原图*1.5，（整体图片高度/3 + 8dp的间隔高度），设置marginTop -->
-    <ImageView
-        android:id="@+id/iv_album_play_cover_refection"
-        android:layout_width="@dimen/album_detail_cover_width"
-        android:layout_height="@dimen/album_detail_cover_width"
-        android:scaleType="fitXY"
-        android:layout_marginTop="@dimen/album_detail_cover_reflection_height"
-        android:layout_alignLeft="@+id/iv_album_play_cover"
-        android:layout_alignRight="@+id/iv_album_play_cover"
-        android:layout_alignTop="@+id/iv_album_play_cover"/>
 
     <ImageView
         android:id="@+id/iv_album_play_cover"
@@ -25,6 +15,15 @@
         android:layout_gravity="center_vertical|right"
         android:scaleType="fitXY"
         android:layout_centerVertical="true"/>
+
+    <!-- 倒影图片 -->
+    <ImageView
+        android:id="@+id/iv_album_play_cover_refection"
+        android:layout_width="@dimen/album_detail_cover_width"
+        android:layout_height="@dimen/album_detail_cover_height"
+        android:scaleType="fitXY"
+        android:layout_marginTop="@dimen/common_reflection_gap"
+        android:layout_below="@+id/iv_album_play_cover"/>
 
     <LinearLayout
         android:id="@+id/iv_album_play_list"

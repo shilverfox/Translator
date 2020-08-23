@@ -163,20 +163,22 @@ public class ImageLoader {
      * @param url
      * @param imageView
      */
-    public static void showReverseImage(String url, final Integer defaultResId, final ImageView imageView) {
+    public static void showReverseImage(String url, final Integer defaultResId,
+                                        final ImageView imageView, final int reflectionRectHeight) {
         Glide.with(MainApplicationLike.getAppContext())
                 .load(url)
                 .asBitmap()
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                        Bitmap reverse = ReflectionBitmapUtil.getReverseBitmap(resource);
+                        Bitmap reverse = ReflectionBitmapUtil.getReverseBitmapOnly(resource, reflectionRectHeight);
                         imageView.setImageBitmap(resource == null ? createBitmap(defaultResId) : reverse);
                     }
 
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        imageView.setImageBitmap(ReflectionBitmapUtil.getReverseBitmap(createBitmap(defaultResId)));
+                        imageView.setImageBitmap(ReflectionBitmapUtil.getReverseBitmapOnly(
+                                createBitmap(defaultResId), reflectionRectHeight));
                     }
                 });
     }

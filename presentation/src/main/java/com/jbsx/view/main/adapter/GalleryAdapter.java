@@ -16,6 +16,7 @@ import com.jbsx.R;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.utils.image.ReflectionBitmapUtil;
 import com.jbsx.view.main.entity.NavigationData;
+import com.jbsx.view.main.util.MainViewUtil;
 
 import java.util.List;
 
@@ -48,7 +49,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryV
         final NavigationData.ClassifyEntity entity = mGalleryData.get(position);
         holder.mTvLabel.setText(entity.getClassifyName());
         ImageLoader.displayImage(entity.getClassifyPreview(), holder.img);
-        ImageLoader.showReverseImage(entity.getClassifyPreview(), null, holder.imgReflection);
+        ImageLoader.showReverseImage(entity.getClassifyPreview(), null, holder.imgReflection,
+                MainViewUtil.getMeasureHeight(holder.imgReflection));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

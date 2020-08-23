@@ -31,6 +31,7 @@ import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.main.entity.AlbumDetailData;
 import com.jbsx.view.main.entity.GalleryData;
 import com.jbsx.view.main.entity.RepertoryData;
+import com.jbsx.view.main.util.MainViewUtil;
 import com.jbsx.view.main.view.AlbumPlayDiscView;
 
 import java.util.List;
@@ -162,7 +163,8 @@ public class AlbumPlayerFragment extends BaseFragment {
         ViewUtils.drawText(mTvAlbumName, parseData.getBody().getAlbumName());
         RepertoryData.MetaData metaData = parseData.getBody().getMetadata();
         ImageLoader.displayImage(parseData.getBody().getPreview(), mIvAlbumCover);
-        ImageLoader.showReverseImage(parseData.getBody().getPreview(), null, mIvAlbumCoverReflection);
+        ImageLoader.showReverseImage(parseData.getBody().getPreview(), null, mIvAlbumCoverReflection,
+                MainViewUtil.getMeasureHeight(mIvAlbumCoverReflection));
         if (metaData != null) {
             ViewUtils.drawText(mTvAlbumCompany, metaData.getDirector());
             ViewUtils.drawText(mTvAlbumType, metaData.getAlbumType());
