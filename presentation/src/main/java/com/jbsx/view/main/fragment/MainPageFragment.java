@@ -165,7 +165,7 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
 //            title = (TextUtils.isEmpty(title) ? "详情" : title);
 //            WebHelper.openWeb(mContext, bannerInfo.getSource(), title);
             EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType,
-                    AppConstData.PAGE_TYPE_LOCAL_NEWS, PageUtils.getNewsUrl()));
+                    AppConstData.PAGE_TYPE_LOCAL_NEWS, PageUtils.getNewsUrl(bannerInfo.getNewsCode())));
         }
     }
 

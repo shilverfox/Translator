@@ -1,5 +1,7 @@
 package com.jbsx.view.main.util;
 
+import android.text.TextUtils;
+
 import com.app.domain.net.data.ConstData;
 import com.jbsx.data.AppConstData;
 
@@ -32,7 +34,10 @@ public class PageUtils {
         }
     }
 
-    public static String getNewsUrl() {
-        return ConstData.VIDEO_HOST + "/terminal/views/news.html";
+    public static String getNewsUrl(String newsCode) {
+        String params = TextUtils.isEmpty(newsCode)
+                ? ""
+                : ("?deviceId=" + ConstData.DEVICE_ID + "&orgCode=" + ConstData.ORG_CODE + "&newsCode=" + newsCode);
+        return ConstData.VIDEO_HOST + "/terminal/views/news.html" + params;
     }
 }

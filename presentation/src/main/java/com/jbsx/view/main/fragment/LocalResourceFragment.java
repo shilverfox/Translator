@@ -146,7 +146,7 @@ public class LocalResourceFragment extends BaseFragment {
         String params = "";
         Integer pageType = AppConstData.PAGE_TYPE_LOCAL_NEWS;
         if (KEY_SOURCE_TYPE_NEWS.equals(key)) {
-            params = PageUtils.getNewsUrl();
+            params = PageUtils.getNewsUrl("");
             pageType = AppConstData.PAGE_TYPE_LOCAL_NEWS;
         } else if (KEY_SOURCE_TYPE_VIDEO.equals(key)) {
             params = key;
