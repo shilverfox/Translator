@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
 import com.app.domain.net.data.ConstData;
+import com.app.domain.net.data.HttpHeaderManager;
 import com.app.domain.net.event.BadSessionEvent;
 import com.app.domain.net.interactor.MainViewUserCase;
 import com.app.domain.net.model.BaseDomainData;
@@ -57,7 +58,6 @@ import com.jbsx.view.main.entity.TabEntity;
 import com.jbsx.view.main.fragment.GalleryFragment;
 import com.jbsx.view.main.fragment.LocalResourceFragment;
 import com.jbsx.view.main.fragment.MainPageFragment;
-import com.jbsx.view.main.util.DeviceInfoManager;
 import com.jbsx.view.main.util.PageUtils;
 import com.jbsx.view.main.view.SearchWindow;
 import com.jbsx.view.myinfo.activity.MyViewHistoryActivity;
@@ -118,6 +118,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         mPageMager = new PageManager();
         mPageMager.setFragmentManager(getSupportFragmentManager());
         mSearchWindow = new SearchWindow();
+        HttpHeaderManager.getInstance().setDeviceId(DeviceUtil.getAndroidId());
     }
 
     private void showDeviceInfoDialog() {
@@ -199,7 +200,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         handleProgressBar(false);
         NavigationData navData = ParseUtil.parseData(data, NavigationData.class);
         drawOrgLogo(navData);
-        setDeviceInfo(navData);
+        setHttpHeaderInfo(navData);
         if (isNavigationNotEmpty(navData)) {
             initMainTab(navData.getBody().getClassifyList());
             registEvents();
@@ -208,12 +209,12 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         }
     }
 
-    private void setDeviceInfo(NavigationData navData) {
+    private void setHttpHeaderInfo(NavigationData navData) {
         if (navData != null && navData.getBody() != null) {
-            DeviceInfoManager.getInstance().setDeviceCode(navData.getBody().getDeviceCode());
-            DeviceInfoManager.getInstance().setOrgCode(navData.getBody().getOrgCode());
-            DeviceInfoManager.getInstance().setOrgLogo(navData.getBody().getOrgLogo());
-            DeviceInfoManager.getInstance().setOrgName(navData.getBody().getOrgName());
+            HttpHeaderManager.getInstance().setDeviceCode(navData.getBody().getDeviceCode());
+            HttpHeaderManager.getInstance().setOrgCode(navData.getBody().getOrgCode());
+            HttpHeaderManager.getInstance().setOrgLogo(navData.getBody().getOrgLogo());
+            HttpHeaderManager.getInstance().setOrgName(navData.getBody().getOrgName());
         }
     }
 
@@ -277,7 +278,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     }
 
     private void drawDeviceInfo() {
-        mTvDeviceId.setText("终端编号：" + ConstData.DEVICE_ID);
+        mTvDeviceId.setText("终端编号：" + HttpHeaderManager.getInstance().getDeviceCode());
     }
 
     /**

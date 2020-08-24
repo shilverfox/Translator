@@ -3,6 +3,7 @@ package com.jbsx.view.main.util;
 import android.text.TextUtils;
 
 import com.app.domain.net.data.ConstData;
+import com.app.domain.net.data.HttpHeaderManager;
 import com.jbsx.data.AppConstData;
 
 public class PageUtils {
@@ -37,9 +38,9 @@ public class PageUtils {
     public static String getNewsUrl(String newsCode) {
         String params = TextUtils.isEmpty(newsCode)
                 ? ""
-                : ("?deviceId=" + DeviceInfoManager.getInstance().getDeviceId()
+                : ("?deviceId=" + HttpHeaderManager.getInstance().getDeviceId()
                     + "&orgCode=" + ConstData.ORG_CODE + "&newsCode=" + newsCode
-                    + "&deviceCode=" + ConstData.DEVICE_ID);
+                    + "&deviceCode=" + HttpHeaderManager.getInstance().getDeviceCode());
         return ConstData.VIDEO_HOST + "/terminal/views/news.html" + params;
     }
 }

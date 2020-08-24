@@ -1,12 +1,7 @@
-package com.jbsx.view.main.util;
+package com.app.domain.net.data;
 
-import com.jbsx.utils.DeviceUtil;
-
-/**
- * 设备管理器
- */
-public class DeviceInfoManager {
-    private static DeviceInfoManager mInstance;
+public class HttpHeaderManager {
+    private static HttpHeaderManager mInstance;
 
     private String deviceCode;
     private String orgCode;
@@ -14,12 +9,12 @@ public class DeviceInfoManager {
     private String orgName;
     private String deviceId;
 
-    private DeviceInfoManager() {
+    private HttpHeaderManager() {
     }
 
-    public static DeviceInfoManager getInstance() {
+    public static HttpHeaderManager getInstance() {
         if (mInstance == null) {
-            mInstance = new DeviceInfoManager();
+            mInstance = new HttpHeaderManager();
         }
         return mInstance;
     }
@@ -57,6 +52,10 @@ public class DeviceInfoManager {
     }
 
     public String getDeviceId() {
-        return DeviceUtil.getAndroidId();
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 }
