@@ -1,10 +1,15 @@
 package com.jbsx.utils;
 
 import android.app.Activity;
-import android.content.Context;
+import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
+import com.jbsx.app.MainApplicationLike;
+
 public class DeviceUtil {
+    private static String mAndroidId;
+
     public static String getDeviceInfo(Activity context) {
         DisplayMetrics metric = new DisplayMetrics();
         context.getWindowManager().getDefaultDisplay().getMetrics(metric);
@@ -25,5 +30,18 @@ public class DeviceUtil {
                 + "\n屏幕密度:  " + density
                 +"\n屏幕密度DPI: "+ densityDpi;
         return info;
+    }
+
+    public static String getAndroidId() {
+        if (TextUtils.isEmpty(mAndroidId)) {
+            try {
+                mAndroidId = Settings.Secure.getString(MainApplicationLike.getInstance().getContentResolver(),
+                        Settings.Secure.ANDROID_ID);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return mAndroidId;
     }
 }

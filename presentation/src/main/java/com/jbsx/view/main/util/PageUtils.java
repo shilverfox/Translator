@@ -37,7 +37,9 @@ public class PageUtils {
     public static String getNewsUrl(String newsCode) {
         String params = TextUtils.isEmpty(newsCode)
                 ? ""
-                : ("?deviceId=" + ConstData.DEVICE_ID + "&orgCode=" + ConstData.ORG_CODE + "&newsCode=" + newsCode);
+                : ("?deviceId=" + DeviceInfoManager.getInstance().getDeviceId()
+                    + "&orgCode=" + ConstData.ORG_CODE + "&newsCode=" + newsCode
+                    + "&deviceCode=" + ConstData.DEVICE_ID);
         return ConstData.VIDEO_HOST + "/terminal/views/news.html" + params;
     }
 }

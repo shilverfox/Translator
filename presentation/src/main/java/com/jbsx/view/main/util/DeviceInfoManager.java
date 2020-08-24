@@ -1,4 +1,6 @@
-package com.jbsx.view.main;
+package com.jbsx.view.main.util;
+
+import com.jbsx.utils.DeviceUtil;
 
 /**
  * 设备管理器
@@ -10,6 +12,7 @@ public class DeviceInfoManager {
     private String orgCode;
     private String orgLogo;
     private String orgName;
+    private String deviceId;
 
     private DeviceInfoManager() {
     }
@@ -51,5 +54,9 @@ public class DeviceInfoManager {
 
     public void setOrgName(String orgName) {
         this.orgName = orgName;
+    }
+
+    public String getDeviceId() {
+        return DeviceUtil.getAndroidId();
     }
 }
