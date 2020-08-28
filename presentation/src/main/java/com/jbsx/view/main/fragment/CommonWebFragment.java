@@ -9,19 +9,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.app.data.net.repository.TaskManager;
-import com.app.domain.net.data.ConstData;
-import com.app.domain.net.event.BadSessionEvent;
 import com.app.domain.net.interactor.MyInfoUserCase;
 import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.data.AppConstData;
 import com.jbsx.utils.ProgressBarHelper;
-import com.jbsx.utils.ShowTools;
 import com.jbsx.view.data.BackKeyEvent;
-import com.jbsx.view.login.callback.IOnLoginListener;
-import com.jbsx.view.login.util.LoginHelper;
-import com.jbsx.view.main.activity.MainActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

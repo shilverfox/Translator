@@ -19,14 +19,12 @@ public class MainViewUtil {
     /**
      * 计算feed item的图片尺寸
      *
-     * 高度 = 1.5*宽度
-     *
      * @param gridColumn
      * @param padding
      * @return
      */
     public static  int calculateFeedImageHeight(int gridColumn, int padding) {
-        return calculateFeedImageHeight(gridColumn, padding, 1.2f);
+        return calculateFeedImageHeight(gridColumn, padding, 1f);
     }
 
     /**

@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.jbsx.R;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.main.entity.LocalPictureGalleryData;
-import com.jbsx.view.main.entity.NavigationData;
 import com.jbsx.view.main.util.MainViewUtil;
 
 import java.util.List;

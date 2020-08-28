@@ -22,14 +22,8 @@ import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
-import com.jbsx.view.data.PageChangeEvent;
-import com.jbsx.view.main.adapter.GalleryAdapter;
 import com.jbsx.view.main.adapter.LocalPictureGalleryAdapter;
-import com.jbsx.view.main.entity.GalleryData;
 import com.jbsx.view.main.entity.LocalPictureGalleryData;
-import com.jbsx.view.main.entity.NavigationData;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 

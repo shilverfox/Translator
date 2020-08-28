@@ -10,7 +10,6 @@ import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
 import com.app.domain.net.data.ConstData;
 import com.app.domain.net.interactor.MainPageUserCase;
-import com.app.domain.net.interactor.MyInfoUserCase;
 import com.app.domain.net.model.BaseDomainData;
 import com.app.domain.util.ParseUtil;
 import com.jbsx.R;

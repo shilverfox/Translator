@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.jbsx.R;
 import com.jbsx.adapter.UniversalAdapter2;
 import com.jbsx.adapter.UniversalViewHolder2;
-import com.jbsx.utils.ShowTools;
 import com.jbsx.utils.StatisticsReportUtil;
 import com.jbsx.utils.UiTools;
 import com.jbsx.utils.image.ImageLoader;

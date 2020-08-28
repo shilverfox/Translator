@@ -35,10 +35,11 @@
 
         <TextView
             android:id="@+id/iv_album_item_desc"
-            android:layout_below="@+id/iv_album_item_name"
+            android:layout_below="@+id/iv_video_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/album_feed_item_desc"
+            android:visibility="gone"
             android:textColor="#999999"
             android:singleLine="true"/>
     </RelativeLayout>

@@ -21,14 +21,10 @@ import com.jbsx.customview.listFragment.CommonListFragment;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
 import com.jbsx.data.AppConstData;
-import com.jbsx.utils.StatisticsReportUtil;
 import com.jbsx.utils.UiTools;
-import com.jbsx.utils.ViewUtils;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.data.PageChangeEvent;
-import com.jbsx.view.main.entity.AlbumFeedData;
 import com.jbsx.view.main.entity.LocalVideoFeedData;
-import com.jbsx.view.main.entity.RepertoryData;
 import com.jbsx.view.main.util.MainViewUtil;
 
 import org.greenrobot.eventbus.EventBus;

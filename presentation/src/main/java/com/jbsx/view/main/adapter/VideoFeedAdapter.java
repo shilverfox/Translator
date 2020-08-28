@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.jbsx.R;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
+import com.jbsx.utils.ViewUtils;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.main.callback.OnFeedItemClick;
 import com.jbsx.view.main.entity.RepertoryData;
@@ -49,6 +50,7 @@ public class VideoFeedAdapter extends CommonListFragmentAdapter {
 
         private View mRootView;
         private TextView mTvTitle;
+        private TextView mTvDes;
         private ImageView mIvImageUrl;
 
         private RepertoryData.FeedItem mData;
@@ -67,6 +69,8 @@ public class VideoFeedAdapter extends CommonListFragmentAdapter {
                 mRootView = rootView;
                 mIvImageUrl = mRootView.findViewById(R.id.iv_video_item_image);
                 mTvTitle = mRootView.findViewById(R.id.iv_video_item_name);
+                mTvDes = mRootView.findViewById(R.id.iv_album_item_desc);
+                mTvDes.setVisibility(View.VISIBLE);
             }
         }
 
@@ -90,7 +94,8 @@ public class VideoFeedAdapter extends CommonListFragmentAdapter {
                 calculateImageHeight(mIvImageUrl);
                 String imgUrl = data.getVideoPreview();
                 ImageLoader.displayImage(imgUrl, mIvImageUrl);
-                mTvTitle.setText(data.getVideoName());
+                ViewUtils.drawText(mTvTitle, data.getVideoName());
+                ViewUtils.drawText(mTvDes, data.getClassifyNames());
             }
         }
 

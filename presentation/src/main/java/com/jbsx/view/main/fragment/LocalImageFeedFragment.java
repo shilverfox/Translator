@@ -17,7 +17,6 @@ import com.app.domain.net.data.HttpRequestPool;
 import com.app.domain.net.model.BaseRequestEntity;
 import com.google.gson.Gson;
 import com.jbsx.R;
-import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.listFragment.CommonListFragment;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
 import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;

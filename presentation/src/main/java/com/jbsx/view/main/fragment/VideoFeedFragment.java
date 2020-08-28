@@ -1,7 +1,6 @@
 package com.jbsx.view.main.fragment;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,16 +17,11 @@ import com.app.domain.net.data.HttpRequestPool;
 import com.app.domain.net.model.BaseRequestEntity;
 import com.google.gson.Gson;
 import com.jbsx.R;
-import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.listFragment.CommonListFragment;
 import com.jbsx.customview.listFragment.CommonListFragmentAdapter;
-import com.jbsx.customview.listFragment.CommonListFragmentViewHolder;
 import com.jbsx.data.AppConstData;
-import com.jbsx.utils.ShowTools;
 import com.jbsx.utils.StatisticsReportUtil;
 import com.jbsx.utils.UiTools;
-import com.jbsx.utils.ViewUtils;
-import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.adapter.AlbumFeedAdapter;
 import com.jbsx.view.main.adapter.VideoFeedAdapter;

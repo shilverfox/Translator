@@ -13,7 +13,6 @@ import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
 import com.app.domain.net.data.ConstData;
 import com.app.domain.net.interactor.MainPageUserCase;
-import com.app.domain.net.interactor.MyInfoUserCase;
 import com.app.domain.net.model.BaseDomainData;
 import com.app.domain.util.ParseUtil;
 import com.jbsx.R;
@@ -23,15 +22,11 @@ import com.jbsx.data.AppConstData;
 import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ProgressBarHelper;
-import com.jbsx.utils.ReloadBarHelper;
-import com.jbsx.utils.UiTools;
 import com.jbsx.utils.ViewUtils;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.data.PageChangeEvent;
-import com.jbsx.view.main.entity.GalleryData;
 import com.jbsx.view.main.entity.RepertoryData;
 import com.jbsx.view.main.entity.VideoDetailData;
-import com.jbsx.view.main.util.PageUtils;
 
 import org.greenrobot.eventbus.EventBus;
 

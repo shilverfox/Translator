@@ -154,6 +154,7 @@ public class SearchResultAdapter extends CommonListFragmentAdapter {
 
         private View mRootView;
         private TextView mTvTitle;
+        private TextView mTvDes;
         private ImageView mIvImageUrl;
 
         private SearchResultData.SearchResultItem mData;
@@ -172,6 +173,8 @@ public class SearchResultAdapter extends CommonListFragmentAdapter {
                 mRootView = rootView;
                 mIvImageUrl = mRootView.findViewById(R.id.iv_video_item_image);
                 mTvTitle = mRootView.findViewById(R.id.iv_video_item_name);
+                mTvDes = mRootView.findViewById(R.id.iv_album_item_desc);
+                mTvDes.setVisibility(View.VISIBLE);
             }
         }
 
@@ -195,7 +198,10 @@ public class SearchResultAdapter extends CommonListFragmentAdapter {
                 calculateImageHeight(mIvImageUrl);
                 String imgUrl = data.getResourcePreview();
                 ImageLoader.displayImage(imgUrl, mIvImageUrl);
-                mTvTitle.setText(data.getResourceName());
+                ViewUtils.drawText(mTvTitle, data.getResourceName());
+                if (data.getMetadata() != null) {
+                    ViewUtils.drawText(mTvDes, data.getMetadata().getDirector());
+                }
             }
         }
 

@@ -84,7 +84,7 @@ public class SearchResultData {
         private String resourceCode;
         private int resourceType;
         private String resourcePreview;
-        private RepertoryData.MetaData metadata;
+        private RepertoryData.MetaData meta;
 
         public String getResourceName() {
             return resourceName;
@@ -119,11 +119,11 @@ public class SearchResultData {
         }
 
         public RepertoryData.MetaData getMetadata() {
-            return metadata;
+            return meta;
         }
 
         public void setMetadata(RepertoryData.MetaData metadata) {
-            this.metadata = metadata;
+            this.meta = metadata;
         }
     }
 }

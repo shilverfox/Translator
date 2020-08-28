@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/common_button_width"
     android:layout_height="@dimen/common_button_height"
-    android:background="@drawable/back_button">
+    android:background="@drawable/common_button_bg">
 
     <TextView
         android:id="@+id/btn_common_label"
