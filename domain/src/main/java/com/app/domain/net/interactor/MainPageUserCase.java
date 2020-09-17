@@ -97,4 +97,12 @@ public class MainPageUserCase extends UserCase {
         BaseRequestEntity entity = HttpRequestPool.getVideoDetailEntity(code);
         handleSendRequest(entity, callback);
     }
+
+    /**
+     * 播放视频和专辑的埋点
+     */
+    public void sendPlayAccord(String classicCode, String resourceCode, int resourceType) {
+        BaseRequestEntity entity = HttpRequestPool.getSendAccordEntity(classicCode, resourceCode, resourceType);
+        handleSendRequest(entity, null);
+    }
 }

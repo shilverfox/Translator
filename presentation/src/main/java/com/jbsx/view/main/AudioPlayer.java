@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.jbsx.R;
+import com.jbsx.view.main.datapoint.DataPointManager;
 
 import java.io.IOException;
 
@@ -62,6 +63,7 @@ public class AudioPlayer {
                         loadingView.setVisibility(View.GONE);
                     }
                 });
+                DataPointManager.getInstance().sendPlayRecord();
             } catch (IOException e) {
                 e.printStackTrace();
             }

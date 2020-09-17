@@ -24,6 +24,7 @@ import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.utils.ViewUtils;
 import com.jbsx.utils.image.ImageLoader;
+import com.jbsx.view.main.datapoint.DataPointManager;
 import com.jbsx.view.main.entity.AlbumDetailData;
 import com.jbsx.view.main.entity.RepertoryData;
 import com.jbsx.view.main.util.MainViewUtil;
@@ -147,7 +148,13 @@ public class AlbumPlayerFragment extends BaseFragment {
         if (parseData != null && parseData.getBody() != null) {
             handleAlbumInfo(parseData);
             handleAlbumDisc(parseData);
+            handleDataPoint();
         }
+    }
+
+    private void handleDataPoint() {
+        DataPointManager.getInstance().setResourceCode(mRequestParams);
+        DataPointManager.getInstance().setResourceType(AppConstData.TYPE_RESOURCE_ALBUM);
     }
 
     /**

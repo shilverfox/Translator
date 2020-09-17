@@ -508,6 +508,27 @@ public class HttpRequestPool {
     }
 
     /**
+     * 获取视频详情
+     */
+    public static BaseRequestEntity getSendAccordEntity(String classifyCode, String resourceId, int type) {
+        BaseRequestEntity baseRequest = new BaseRequestEntity();
+        baseRequest.setUrl(ConstData.HOST);
+
+        baseRequest.setFunctionId("/app/addAccessRecord");
+        baseRequest.setMethod(RequestConst.REQUEST_POST);
+        BaseBody body = new BaseBody();
+        body.add("classifyCode", classifyCode);
+        body.add("deviceId", HttpHeaderManager.getInstance().getDeviceId());
+        body.add("resourceCode", resourceId);
+        body.add("resourceType", type);
+
+        baseRequest.setBaseBody(body);
+        HttpRequestUtil.getHeader(baseRequest, "");
+
+        return baseRequest;
+    }
+
+    /**
      * 获取首页的名家列表
      *
      * @return
