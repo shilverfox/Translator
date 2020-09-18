@@ -18,9 +18,9 @@ public class ConstData {
 
     public final static String FUNCTION_ID_TEST = "address/getAddressList";
 
-    public final static String HOST = "http://121.40.218.200:9000";
+    public final static String HOST = "http://vod.china1901.com:9000";
 
-    public final static String VIDEO_HOST = "http://121.40.218.200:9003";
+    public final static String VIDEO_HOST = "http://vod.china1901.com:9000";
 
     public final static String DEVICE_ID = "aaaa-aaaa-111";
 
