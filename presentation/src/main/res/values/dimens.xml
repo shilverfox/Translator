@@ -51,9 +51,9 @@
     <dimen name="common_button_width">100dp</dimen>
     <dimen name="common_button_height">30dp</dimen>
     <dimen name="main_page_banner_height">200dp</dimen>
-    <dimen name="main_page_recommend_item_width">160dp</dimen>
-    <dimen name="main_page_recommend_item_shadow_width">200dp</dimen>
-    <dimen name="main_page_recommend_item_shadow_height">140dp</dimen>
+    <dimen name="main_page_recommend_item_width">140dp</dimen>
+    <dimen name="main_page_recommend_item_shadow_width">180dp</dimen>
+    <dimen name="main_page_recommend_item_shadow_height">120dp</dimen>
     <dimen name="main_page_recommend_item_margin">40dp</dimen>
 
     <dimen name="common_reflection_gap">8dp</dimen>
@@ -85,7 +85,7 @@
     <dimen name="local_image_radio_head_text_container_margin_right">20dp</dimen>
 
     <dimen name="search_window_width">500dp</dimen>
-    <dimen name="splash_logo_width">240dp</dimen>
+    <dimen name="splash_logo_width">200dp</dimen>
     <dimen name="progress_bar_loading_size">34dp</dimen>
 
 </resources>
