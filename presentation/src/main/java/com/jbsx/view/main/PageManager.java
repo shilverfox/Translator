@@ -164,6 +164,26 @@ public class PageManager {
                     }
                 }
             }
+            backToTheFirstPage(naviId);
+        }
+    }
+
+    /**
+     * tab切换后重置为最开始的fragment
+     *
+     * @param naviId
+     */
+    private void backToTheFirstPage(String naviId) {
+        if (!TextUtils.isEmpty(naviId)) {
+            LinkedHashMap<Integer, Fragment> pageList = (LinkedHashMap<Integer, Fragment>) mAllPages.get(naviId);
+            if (pageList != null) {
+                for (String key : mAllPages.keySet()) {
+                    Map<Integer, Fragment> pages = mAllPages.get(key);
+                    for (Integer innerKey : pages.keySet()) {
+                        handleBackEvent(naviId);
+                    }
+                }
+            }
         }
     }
 
