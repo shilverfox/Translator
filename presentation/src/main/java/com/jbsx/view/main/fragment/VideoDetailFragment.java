@@ -28,6 +28,7 @@ import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.datapoint.DataPointManager;
 import com.jbsx.view.main.entity.RepertoryData;
 import com.jbsx.view.main.entity.VideoDetailData;
+import com.jbsx.view.main.util.PageUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -118,7 +119,8 @@ public class VideoDetailFragment extends BaseFragment {
         mBtnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType, getVideoUrl()));
+                EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType,
+                        PageUtils.getVideoUrl(mRequestParams)));
                 handleDataPoint();
             }
         });
@@ -128,11 +130,6 @@ public class VideoDetailFragment extends BaseFragment {
         DataPointManager.getInstance().setResourceCode(mRequestParams);
         DataPointManager.getInstance().setResourceType(AppConstData.TYPE_RESOURCE_VIDEO);
         DataPointManager.getInstance().sendPlayRecord();
-    }
-
-    private String getVideoUrl() {
-        return ConstData.VIDEO_HOST + "/terminal/views/videos.html?" + "deviceId=" + ConstData.DEVICE_ID
-                + "&orgCode=" + ConstData.ORG_CODE + "&videoCode=" + mRequestParams;
     }
 
     private void loadData() {

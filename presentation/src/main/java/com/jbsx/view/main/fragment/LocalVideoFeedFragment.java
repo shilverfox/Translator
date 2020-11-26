@@ -26,6 +26,7 @@ import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.entity.LocalVideoFeedData;
 import com.jbsx.view.main.util.MainViewUtil;
+import com.jbsx.view.main.util.PageUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -188,7 +189,7 @@ public class LocalVideoFeedFragment extends CommonListFragment {
 
     private void handleItemClick(String requestParams) {
         EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType,
-                AppConstData.PAGE_TYPE_VIDEO_FEED, requestParams));
+                AppConstData.PAGE_TYPE_VIDEO_DETAIL, PageUtils.getVideoUrl(requestParams)));
     }
 
     public class VideoFeedAdapter extends CommonListFragmentAdapter {

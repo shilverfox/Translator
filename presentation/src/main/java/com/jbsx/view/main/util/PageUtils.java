@@ -43,4 +43,9 @@ public class PageUtils {
                     + "&deviceCode=" + HttpHeaderManager.getInstance().getDeviceCode());
         return ConstData.VIDEO_HOST + "/terminal/views/news.html" + params;
     }
+
+    public static String getVideoUrl(String videoCode) {
+        return ConstData.VIDEO_HOST + "/terminal/views/videos.html?" + "deviceId=" + ConstData.DEVICE_ID
+                + "&orgCode=" + ConstData.ORG_CODE + "&videoCode=" + videoCode;
+    }
 }
