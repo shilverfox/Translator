@@ -189,7 +189,7 @@ public class LocalVideoFeedFragment extends CommonListFragment {
 
     private void handleItemClick(String requestParams) {
         EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType,
-                AppConstData.PAGE_TYPE_VIDEO_DETAIL, PageUtils.getVideoUrl(requestParams)));
+                AppConstData.PAGE_TYPE_VIDEO_DETAIL, requestParams));
     }
 
     public class VideoFeedAdapter extends CommonListFragmentAdapter {
@@ -270,7 +270,7 @@ public class LocalVideoFeedFragment extends CommonListFragment {
         }
 
         private void handleRootViewClick(int position) {
-            handleItemClick(mData.getLocalVideoCode());
+            handleItemClick(mData.getFilePath());
         }
     }
 }
