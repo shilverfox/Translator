@@ -179,7 +179,7 @@ public class PageManager {
             if (pageList != null) {
                 for (String key : mAllPages.keySet()) {
                     Map<Integer, Fragment> pages = mAllPages.get(key);
-                    for (Integer innerKey : pages.keySet()) {
+                    for (int i = 0; i < pages.keySet().size(); i++) {
                         handleBackEvent(naviId);
                     }
                 }
