@@ -18,8 +18,11 @@ import com.jbsx.app.MainApplicationLike;
 import com.jbsx.data.AppConstData;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.utils.UiTools;
+import com.jbsx.view.data.BackKeyEvent;
 import com.jbsx.view.data.PageChangeEvent;
+import com.jbsx.view.main.AudioPlayer;
 import com.jbsx.view.main.util.MainViewUtil;
+import com.jbsx.view.main.util.PageUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -73,6 +76,7 @@ public class SearchWindow {
         mBtnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                PageUtils.closeAudioAndVideo();
                 closeSearchDialog();
                 handleSearch();
             }

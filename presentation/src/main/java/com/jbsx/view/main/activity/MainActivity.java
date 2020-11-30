@@ -460,7 +460,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
                 mViewPager.setCurrentItem(position);
                 mCurrentTabId = mTabEntities.get(position).getTabTitle();
                 mPageMager.handleTabChange(mCurrentTabId);
-                AudioPlayer.getInstance().stopPlayer();
+                PageUtils.closeAudioAndVideo();
             }
 
             @Override
@@ -490,8 +490,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
             @Override
             public void onClick(View view) {
                 mPageMager.handleBackEvent(mCurrentTabId);
-                AudioPlayer.getInstance().stopPlayer();
-                EventBus.getDefault().post(new BackKeyEvent());
+                PageUtils.closeAudioAndVideo();
             }
         });
     }
