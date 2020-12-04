@@ -39,17 +39,25 @@ public class PageUtils {
         }
     }
 
-    public static String getNewsUrl(String newsCode) {
+    private static String getNewsParams(String newsCode) {
         String params = TextUtils.isEmpty(newsCode)
                 ? ""
                 : ("?deviceId=" + HttpHeaderManager.getInstance().getDeviceId()
-                    + "&orgCode=" + ConstData.ORG_CODE + "&newsCode=" + newsCode
-                    + "&deviceCode=" + HttpHeaderManager.getInstance().getDeviceCode());
-        return ConstData.VIDEO_HOST + "/terminal/views/news.html" + params;
+                + "&orgCode=" + ConstData.ORG_CODE + "&newsCode=" + newsCode
+                + "&deviceCode=" + HttpHeaderManager.getInstance().getDeviceCode());
+        return params;
+    }
+
+    public static String getNewsUrl(String newsCode) {
+        return ConstData.VIDEO_HOST + "/terminal/views/news.html" + getNewsParams(newsCode);
+    }
+
+    public static String getNewsDetailUrl(String newsCode) {
+        return ConstData.VIDEO_HOST + "/terminal/views/newsDetail.html" + getNewsParams(newsCode);
     }
 
     public static String getVideoUrl(String videoCode) {
-        return ConstData.VIDEO_HOST + "/terminal/views/videos.html?" + "deviceId=" + ConstData.DEVICE_ID
+        return ConstData.VIDEO_HOST + "/views/videos.html?" + "deviceId=" + ConstData.DEVICE_ID
                 + "&orgCode=" + ConstData.ORG_CODE + "&videoCode=" + videoCode;
     }
 

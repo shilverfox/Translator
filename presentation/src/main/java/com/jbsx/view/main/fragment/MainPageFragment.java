@@ -159,11 +159,8 @@ public class MainPageFragment extends BaseFragment implements MainPageContact.Vi
      */
     private void handleBannerClick(MainPageData.HomeNewsEntity bannerInfo) {
         if (bannerInfo != null) {
-//            String title = bannerInfo.getNewsTitle();
-//            title = (TextUtils.isEmpty(title) ? "详情" : title);
-//            WebHelper.openWeb(mContext, bannerInfo.getSource(), title);
             EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType,
-                    AppConstData.PAGE_TYPE_LOCAL_NEWS, PageUtils.getNewsUrl(bannerInfo.getNewsCode())));
+                    AppConstData.PAGE_TYPE_LOCAL_NEWS, PageUtils.getNewsDetailUrl(bannerInfo.getNewsCode())));
         }
     }
 
