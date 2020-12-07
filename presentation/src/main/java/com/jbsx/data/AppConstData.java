@@ -128,5 +128,5 @@ public class AppConstData {
     public final static int SEARCH_TYPE_VIDEO = 2;
 
     /** gallery是否支持循环滑动 */
-    public final static boolean GALLERY_LOOP_SUPPORT = true;
+    public final static boolean GALLERY_LOOP_SUPPORT = false;
 }
