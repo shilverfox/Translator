@@ -33,4 +33,31 @@
         android:id="@+id/view_gallery_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <RelativeLayout
+        android:id="@+id/layout_gallery_big_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#aa333333"
+        android:clickable="true"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_gallery_big_image"
+            android:scaleType="fitCenter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="80dp"/>
+
+        <ImageView
+            android:id="@+id/iv_gallery_big_image_close"
+            android:src="@drawable/close"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
 </RelativeLayout>

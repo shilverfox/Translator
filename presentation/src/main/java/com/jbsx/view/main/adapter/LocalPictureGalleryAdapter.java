@@ -54,7 +54,7 @@ public class LocalPictureGalleryAdapter extends RecyclerView.Adapter<LocalPictur
             @Override
             public void onClick(View v) {
                 if (mItemClickListener != null) {
-                    mItemClickListener.onItemClick(entity.getAtlasCode(), false);
+                    mItemClickListener.onItemClick(entity.getPictureFilePath(), false);
                 }
             }
         });
@@ -78,6 +78,6 @@ public class LocalPictureGalleryAdapter extends RecyclerView.Adapter<LocalPictur
     }
 
     public interface OnGalleryItemClick {
-        void onItemClick(String classifyCode, boolean isHasChildren);
+        void onItemClick(String imagePath, boolean isHasChildren);
     }
 }

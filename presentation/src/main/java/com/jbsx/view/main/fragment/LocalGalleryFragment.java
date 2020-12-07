@@ -1,10 +1,12 @@
 package com.jbsx.view.main.fragment;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
@@ -22,6 +24,8 @@ import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
+import com.jbsx.utils.image.IImageLoadListener;
+import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.main.adapter.LocalPictureGalleryAdapter;
 import com.jbsx.view.main.entity.LocalPictureGalleryData;
 
@@ -35,6 +39,9 @@ public class LocalGalleryFragment extends BaseFragment {
     private ViewGroup mContainerView;
     private RecyclerCoverFlow mList;
     private DotImageIndicator mImageIndicator;
+    private ImageView mIvBigImage;
+    private ImageView mIvClosePreview;
+    private ViewGroup mViewBigPreview;
 
     private String mRequestParams;
     private String mNaviType;
@@ -168,6 +175,9 @@ public class LocalGalleryFragment extends BaseFragment {
     private void initViews() {
         mContainerView = mRootView.findViewById(R.id.view_gallery_root);
         mList = mRootView.findViewById(R.id.tv_gallery_info);
+        mIvBigImage = mRootView.findViewById(R.id.iv_gallery_big_image);
+        mIvClosePreview = mRootView.findViewById(R.id.iv_gallery_big_image_close);
+        mViewBigPreview = mRootView.findViewById(R.id.layout_gallery_big_image);
 //        mList.setFlatFlow(true); //平面滚动
 //        mList.setGreyItem(true); //设置灰度渐变
 //        mList.setAlphaItem(true); //设置半透渐变
@@ -177,9 +187,10 @@ public class LocalGalleryFragment extends BaseFragment {
         mImageIndicator = mRootView.findViewById(R.id.tv_gallery_indicator);
         mAdapter = new LocalPictureGalleryAdapter(mContext, new LocalPictureGalleryAdapter.OnGalleryItemClick() {
             @Override
-            public void onItemClick(String classifyCode, boolean isHasChildren) {
+            public void onItemClick(String imagePath, boolean isHasChildren) {
 //                EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType,
 //                        classifyCode, isHasChildren));
+                showBigImage(imagePath);
             }
         });
         mList.setAdapter(mAdapter);
@@ -192,7 +203,33 @@ public class LocalGalleryFragment extends BaseFragment {
     }
 
     private void initEvents() {
+        mIvClosePreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handlePreviewVisibility(false);
+            }
+        });
+    }
 
+    private void showBigImage(String imagePath) {
+        handlePreviewVisibility(true);
+        ProgressBarHelper.addProgressBar(mIvBigImage);
+        ImageLoader.loadImage(imagePath, new IImageLoadListener() {
+            @Override
+            public void onLoadingFailed(Drawable errorDrawable) {
+                ProgressBarHelper.removeProgressBar(mIvBigImage);
+            }
+
+            @Override
+            public void onLoadingComplete(Drawable drawable) {
+                ProgressBarHelper.removeProgressBar(mIvBigImage);
+                mIvBigImage.setImageDrawable(drawable);
+            }
+        });
+    }
+
+    private void handlePreviewVisibility(boolean show) {
+        mViewBigPreview.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
