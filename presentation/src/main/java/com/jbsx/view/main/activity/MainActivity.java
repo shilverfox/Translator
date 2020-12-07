@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.app.data.net.repository.TaskManager;
 import com.app.domain.net.BaseRequestCallback;
-import com.app.domain.net.data.ConstData;
 import com.app.domain.net.data.HttpHeaderManager;
 import com.app.domain.net.event.BadSessionEvent;
 import com.app.domain.net.interactor.MainViewUserCase;
@@ -45,13 +44,11 @@ import com.jbsx.utils.Router;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.utils.image.IImageLoadListener;
 import com.jbsx.utils.image.ImageLoader;
-import com.jbsx.view.data.BackKeyEvent;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.login.callback.ILoginResultListener;
 import com.jbsx.view.login.callback.IOnLoginListener;
 import com.jbsx.view.login.data.LoginResultEvent;
 import com.jbsx.view.login.util.LoginHelper;
-import com.jbsx.view.main.AudioPlayer;
 import com.jbsx.view.main.PageManager;
 import com.jbsx.view.main.entity.NavigationData;
 import com.jbsx.view.main.entity.TabEntity;
@@ -63,7 +60,6 @@ import com.jbsx.view.main.view.SearchWindow;
 import com.jbsx.view.myinfo.activity.MyViewHistoryActivity;
 import com.jbsx.view.search.SearchActivity;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 

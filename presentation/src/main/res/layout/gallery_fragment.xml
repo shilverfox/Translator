@@ -51,7 +51,7 @@
 
         <ImageView
             android:id="@+id/iv_gallery_big_image_close"
-            android:src="@drawable/close"
+            android:src="@drawable/close_round"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginBottom="20dp"
