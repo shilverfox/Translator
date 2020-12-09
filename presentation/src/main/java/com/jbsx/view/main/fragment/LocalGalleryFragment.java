@@ -17,6 +17,7 @@ import com.jbsx.R;
 import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.customview.DotImageIndicator;
+import com.jbsx.customview.RoundCornerImageView;
 import com.jbsx.customview.gallery.CoverFlowLayoutManger;
 import com.jbsx.customview.gallery.RecyclerCoverFlow;
 import com.jbsx.data.AppConstData;
@@ -24,6 +25,7 @@ import com.jbsx.utils.ErroBarHelper;
 import com.jbsx.utils.MessageTools;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.utils.ReloadBarHelper;
+import com.jbsx.utils.UiTools;
 import com.jbsx.utils.image.IImageLoadListener;
 import com.jbsx.utils.image.ImageLoader;
 import com.jbsx.view.main.adapter.LocalPictureGalleryAdapter;
@@ -39,7 +41,7 @@ public class LocalGalleryFragment extends BaseFragment {
     private ViewGroup mContainerView;
     private RecyclerCoverFlow mList;
     private DotImageIndicator mImageIndicator;
-    private ImageView mIvBigImage;
+    private RoundCornerImageView mIvBigImage;
     private ImageView mIvClosePreview;
     private ViewGroup mViewBigPreview;
 
@@ -176,6 +178,8 @@ public class LocalGalleryFragment extends BaseFragment {
         mContainerView = mRootView.findViewById(R.id.view_gallery_root);
         mList = mRootView.findViewById(R.id.tv_gallery_info);
         mIvBigImage = mRootView.findViewById(R.id.iv_gallery_big_image);
+        int radius = UiTools.dip2px(8);
+        mIvBigImage.setCornerRadii(radius, radius, radius, radius);
         mIvClosePreview = mRootView.findViewById(R.id.iv_gallery_big_image_close);
         mViewBigPreview = mRootView.findViewById(R.id.layout_gallery_big_image);
 //        mList.setFlatFlow(true); //平面滚动
