@@ -57,7 +57,7 @@ public class PageUtils {
     }
 
     public static String getVideoUrl(String videoCode) {
-        return ConstData.VIDEO_HOST + "/views/videos.html?" + "deviceId=" + ConstData.DEVICE_ID
+        return ConstData.VIDEO_HOST + "/terminal/views/videos.html?" + "deviceId=" + ConstData.DEVICE_ID
                 + "&orgCode=" + ConstData.ORG_CODE + "&videoCode=" + videoCode;
     }
 
