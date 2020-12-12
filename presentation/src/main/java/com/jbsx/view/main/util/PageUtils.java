@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.app.domain.net.data.ConstData;
 import com.app.domain.net.data.HttpHeaderManager;
 import com.jbsx.data.AppConstData;
-import com.jbsx.view.data.BackKeyEvent;
+import com.jbsx.view.data.CloseVideoEvent;
 import com.jbsx.view.main.AudioPlayer;
 
 import org.greenrobot.eventbus.EventBus;
@@ -63,6 +63,6 @@ public class PageUtils {
 
     public static void closeAudioAndVideo() {
         AudioPlayer.getInstance().stopPlayer();
-        EventBus.getDefault().post(new BackKeyEvent());
+        EventBus.getDefault().post(new CloseVideoEvent());
     }
 }

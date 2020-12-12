@@ -1,6 +1,5 @@
 package com.jbsx.view.main.view;
 
-import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -8,7 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -17,10 +15,7 @@ import com.jbsx.R;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.data.AppConstData;
 import com.jbsx.utils.ShowTools;
-import com.jbsx.utils.UiTools;
-import com.jbsx.view.data.BackKeyEvent;
 import com.jbsx.view.data.PageChangeEvent;
-import com.jbsx.view.main.AudioPlayer;
 import com.jbsx.view.main.util.MainViewUtil;
 import com.jbsx.view.main.util.PageUtils;
 

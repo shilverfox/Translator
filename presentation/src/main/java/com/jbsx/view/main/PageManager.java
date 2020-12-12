@@ -11,6 +11,7 @@ import com.jbsx.utils.LogTools;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.data.SearchEvent;
 import com.jbsx.view.main.fragment.AlbumPlayerFragment;
+import com.jbsx.view.main.fragment.BigImagePreviewFragment;
 import com.jbsx.view.main.fragment.CommonWebFragment;
 import com.jbsx.view.main.fragment.GalleryFragment;
 import com.jbsx.view.main.fragment.LocalGalleryFragment;
@@ -244,19 +245,28 @@ public class PageManager {
             return AppConstData.PAGE_TYPE_VIDEO_PLAYER;
 
         } else if (currentPage == AppConstData.PAGE_TYPE_LOCAL_VIDEO_FEED) {
+            // 自己跳自己是因为在事件触发页面已经处理了要跳转的目的地
             return AppConstData.PAGE_TYPE_LOCAL_VIDEO_FEED;
 
         } else if (currentPage == AppConstData.PAGE_TYPE_LOCAL_PICTURE_FEED) {
+            // 自己跳自己是因为在事件触发页面已经处理了要跳转的目的地
             return AppConstData.PAGE_TYPE_LOCAL_PICTURE_FEED;
 
         } else if (currentPage == AppConstData.PAGE_TYPE_LOCAL_NEWS) {
+            // 自己跳自己是因为在事件触发页面已经处理了要跳转的目的地
             return AppConstData.PAGE_TYPE_LOCAL_NEWS;
 
         } else if (currentPage == AppConstData.PAGE_TYPE_SEARCH_RESULT) {
+            // 自己跳自己是因为在事件触发页面已经处理了要跳转的目的地
             return AppConstData.PAGE_TYPE_SEARCH_RESULT;
 
         } else if (currentPage == AppConstData.PAGE_TYPE_LOCAL_PICTURE_GALLERY) {
+            // 自己跳自己是因为在事件触发页面已经处理了要跳转的目的地
             return AppConstData.PAGE_TYPE_LOCAL_PICTURE_GALLERY;
+
+        } else if (currentPage == AppConstData.PAGE_TYPE_BIG_IMAGE_PREVIEW) {
+            // 自己跳自己是因为在事件触发页面已经处理了要跳转的目的地
+            return AppConstData.PAGE_TYPE_BIG_IMAGE_PREVIEW;
         }
 
         return AppConstData.PAGE_TYPE_MAIN;
@@ -354,7 +364,11 @@ public class PageManager {
 
         } else if (pageChangeData.mCurrentPageType == AppConstData.PAGE_TYPE_LOCAL_PICTURE_GALLERY) {
             return LocalGalleryFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
-                    AppConstData.PAGE_TYPE_SEARCH_RESULT, pageChangeData.mRequestParam);
+                    AppConstData.PAGE_TYPE_LOCAL_PICTURE_GALLERY, pageChangeData.mRequestParam);
+
+        } else if (pageChangeData.mCurrentPageType == AppConstData.PAGE_TYPE_BIG_IMAGE_PREVIEW) {
+            return BigImagePreviewFragment.newInstance(pageChangeData.mNaviId, pageChangeData.mTabType,
+                    AppConstData.PAGE_TYPE_BIG_IMAGE_PREVIEW, pageChangeData.mRequestParam);
 
         } else {
             // 默认显示首页

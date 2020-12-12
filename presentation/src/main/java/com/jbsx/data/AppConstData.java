@@ -108,6 +108,9 @@ public class AppConstData {
     /** 页面类型 检索结果页 */
     public final static int PAGE_TYPE_SEARCH_RESULT = 1300;
 
+    /** 页面类型 查看大图 */
+    public final static int PAGE_TYPE_BIG_IMAGE_PREVIEW = 1400;
+
 
     /** intent key  */
     public final static String INTENT_KEY_NAVI_ID = "bundle_navi_id";

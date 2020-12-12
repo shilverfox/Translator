@@ -15,7 +15,7 @@ import com.jbsx.app.BaseFragment;
 import com.jbsx.app.MainApplicationLike;
 import com.jbsx.data.AppConstData;
 import com.jbsx.utils.ProgressBarHelper;
-import com.jbsx.view.data.BackKeyEvent;
+import com.jbsx.view.data.CloseVideoEvent;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -121,7 +121,7 @@ public class CommonWebFragment extends BaseFragment {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(BackKeyEvent event) {
+    public void onMessageEvent(CloseVideoEvent event) {
         if (event != null) {
             webView.destroy();
         }

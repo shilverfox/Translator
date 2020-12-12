@@ -28,8 +28,11 @@ import com.jbsx.utils.ReloadBarHelper;
 import com.jbsx.utils.UiTools;
 import com.jbsx.utils.image.IImageLoadListener;
 import com.jbsx.utils.image.ImageLoader;
+import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.main.adapter.LocalPictureGalleryAdapter;
 import com.jbsx.view.main.entity.LocalPictureGalleryData;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -41,9 +44,6 @@ public class LocalGalleryFragment extends BaseFragment {
     private ViewGroup mContainerView;
     private RecyclerCoverFlow mList;
     private DotImageIndicator mImageIndicator;
-    private RoundCornerImageView mIvBigImage;
-    private ImageView mIvClosePreview;
-    private ViewGroup mViewBigPreview;
 
     private String mRequestParams;
     private String mNaviType;
@@ -177,11 +177,6 @@ public class LocalGalleryFragment extends BaseFragment {
     private void initViews() {
         mContainerView = mRootView.findViewById(R.id.view_gallery_root);
         mList = mRootView.findViewById(R.id.tv_gallery_info);
-        mIvBigImage = mRootView.findViewById(R.id.iv_gallery_big_image);
-        int radius = UiTools.dip2px(8);
-        mIvBigImage.setCornerRadii(radius, radius, radius, radius);
-        mIvClosePreview = mRootView.findViewById(R.id.iv_gallery_big_image_close);
-        mViewBigPreview = mRootView.findViewById(R.id.layout_gallery_big_image);
 //        mList.setFlatFlow(true); //平面滚动
 //        mList.setGreyItem(true); //设置灰度渐变
 //        mList.setAlphaItem(true); //设置半透渐变
@@ -192,9 +187,8 @@ public class LocalGalleryFragment extends BaseFragment {
         mAdapter = new LocalPictureGalleryAdapter(mContext, new LocalPictureGalleryAdapter.OnGalleryItemClick() {
             @Override
             public void onItemClick(String imagePath, boolean isHasChildren) {
-//                EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType, mPageType,
-//                        classifyCode, isHasChildren));
-                showBigImage(imagePath);
+                EventBus.getDefault().post(new PageChangeEvent(mNaviId, mNaviType,
+                        AppConstData.PAGE_TYPE_BIG_IMAGE_PREVIEW, imagePath, isHasChildren));
             }
         });
         mList.setAdapter(mAdapter);
@@ -207,33 +201,6 @@ public class LocalGalleryFragment extends BaseFragment {
     }
 
     private void initEvents() {
-        mIvClosePreview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                handlePreviewVisibility(false);
-            }
-        });
-    }
-
-    private void showBigImage(String imagePath) {
-        handlePreviewVisibility(true);
-        ProgressBarHelper.addProgressBar(mIvBigImage);
-        ImageLoader.loadImage(imagePath, new IImageLoadListener() {
-            @Override
-            public void onLoadingFailed(Drawable errorDrawable) {
-                ProgressBarHelper.removeProgressBar(mIvBigImage);
-            }
-
-            @Override
-            public void onLoadingComplete(Drawable drawable) {
-                ProgressBarHelper.removeProgressBar(mIvBigImage);
-                mIvBigImage.setImageDrawable(drawable);
-            }
-        });
-    }
-
-    private void handlePreviewVisibility(boolean show) {
-        mViewBigPreview.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override

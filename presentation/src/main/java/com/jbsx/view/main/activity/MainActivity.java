@@ -44,6 +44,7 @@ import com.jbsx.utils.Router;
 import com.jbsx.utils.ShowTools;
 import com.jbsx.utils.image.IImageLoadListener;
 import com.jbsx.utils.image.ImageLoader;
+import com.jbsx.view.data.BackKeyEvent;
 import com.jbsx.view.data.PageChangeEvent;
 import com.jbsx.view.login.callback.ILoginResultListener;
 import com.jbsx.view.login.callback.IOnLoginListener;
@@ -582,6 +583,13 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     public void onMessageEvent(PageChangeEvent event) {
         if (mPageMager != null) {
             mPageMager.handlePageChange(event);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(BackKeyEvent event) {
+        if (mPageMager != null) {
+            mPageMager.handleBackEvent(mCurrentTabId);
         }
     }
 
