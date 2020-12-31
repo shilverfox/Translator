@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -26,6 +29,11 @@ import org.greenrobot.eventbus.ThreadMode;
 public class CommonWebFragment extends BaseFragment {
     private View mRootView;
     private WebView webView;
+
+    /** 视频全屏播放用到 */
+    private ViewGroup mViewFullScreen;
+    private View mVideoView;
+    private WebChromeClient.CustomViewCallback mCustomViewCallback;
 
     private String mRequestParams;
     private String mNaviType;
@@ -81,6 +89,7 @@ public class CommonWebFragment extends BaseFragment {
 
     private void initViews() {
         webView = mRootView.findViewById(R.id.web_video_player);
+        mViewFullScreen = mRootView.findViewById(R.id.web_video_full_screen_player);
     }
 
     private void initEvents() {
@@ -107,6 +116,38 @@ public class CommonWebFragment extends BaseFragment {
                 ProgressBarHelper.removeProgressBar(webView);
             }
         });
+
+        webView.setWebChromeClient(new WebChromeClient() {
+
+            @Override
+            public void onShowCustomView(View view, CustomViewCallback callback) {
+                super.onShowCustomView(view, callback);
+
+                mVideoView = view;
+                mCustomViewCallback = callback;
+                mViewFullScreen.addView(view);
+                mViewFullScreen.setVisibility(View.VISIBLE);
+                mVideoView.setVisibility(View.VISIBLE);
+                webView.setVisibility(View.GONE);
+                mViewFullScreen.bringToFront();
+            }
+
+            @Override
+            public void onHideCustomView() {
+                super.onHideCustomView();
+
+                mVideoView.setVisibility(View.GONE);
+                mViewFullScreen.removeView(mVideoView);
+                mViewFullScreen.setVisibility(View.GONE);
+                webView.setVisibility(View.VISIBLE);
+                mVideoView = null;
+                try {
+                    mCustomViewCallback.onCustomViewHidden();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -117,6 +158,14 @@ public class CommonWebFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        CookieSyncManager.createInstance(getContext());
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.removeAllCookie();
+        CookieSyncManager.getInstance().sync();
+        webView.setWebChromeClient(null);
+        webView.setWebViewClient(null);
+        webView.getSettings().setJavaScriptEnabled(false);
+        webView.clearCache(true);
         webView.destroy();
     }
 
