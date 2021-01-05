@@ -29,7 +29,7 @@ MobSDK {
 
 
 dependencies {
-    api fileTree(include: ['*.jar'], dir: 'libs')
+    api fileTree(include: ['*.jar',"*.aar"], dir: 'libs')
 
     api project.DEPENDENCY_SUPPORT_V7
     api project.DEPENDENCY_SUPPORT_DESIGN
@@ -45,7 +45,7 @@ dependencies {
 
     // 首页tabLayout
 //    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-    api project.DEPENDENCY_TABLIB
+//    api project.DEPENDENCY_TABLIB
 
     // 首页Banner
     api 'com.youth.banner:banner:1.4.10'
