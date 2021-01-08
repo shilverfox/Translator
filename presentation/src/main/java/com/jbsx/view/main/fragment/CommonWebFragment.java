@@ -19,6 +19,8 @@ import com.jbsx.app.MainApplicationLike;
 import com.jbsx.data.AppConstData;
 import com.jbsx.utils.ProgressBarHelper;
 import com.jbsx.view.data.CloseVideoEvent;
+import com.jbsx.view.main.activity.MainActivity;
+import com.jbsx.view.main.util.WebViewGestureHelper;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -33,12 +35,15 @@ public class CommonWebFragment extends BaseFragment {
     /** 视频全屏播放用到 */
     private ViewGroup mViewFullScreen;
     private View mVideoView;
+    private View mVideoControllerView;
     private WebChromeClient.CustomViewCallback mCustomViewCallback;
 
     private String mRequestParams;
     private String mNaviType;
     private Integer mPageType;
     private String mNaviId;
+
+    private WebViewGestureHelper mViewGestureHelper;
 
     public CommonWebFragment() {
         // Required empty public constructor
@@ -78,6 +83,8 @@ public class CommonWebFragment extends BaseFragment {
         initViews();
         initEvents();
         openUrl(mRequestParams);
+        mViewGestureHelper = new WebViewGestureHelper(getContext(), mVideoControllerView);
+        mViewGestureHelper.handleGesture(webView);
 
         return mRootView;
     }
@@ -89,7 +96,10 @@ public class CommonWebFragment extends BaseFragment {
 
     private void initViews() {
         webView = mRootView.findViewById(R.id.web_video_player);
-        mViewFullScreen = mRootView.findViewById(R.id.web_video_full_screen_player);
+        mVideoControllerView = mRootView.findViewById(R.id.digital_layout);
+        if (mContext instanceof MainActivity) {
+            mViewFullScreen = ((MainActivity)mContext).getViewFullScreen();
+        }
     }
 
     private void initEvents() {
@@ -119,6 +129,7 @@ public class CommonWebFragment extends BaseFragment {
 
         webView.setWebChromeClient(new WebChromeClient() {
 
+            // 视频进入全屏
             @Override
             public void onShowCustomView(View view, CustomViewCallback callback) {
                 super.onShowCustomView(view, callback);
@@ -130,8 +141,13 @@ public class CommonWebFragment extends BaseFragment {
                 mVideoView.setVisibility(View.VISIBLE);
                 webView.setVisibility(View.GONE);
                 mViewFullScreen.bringToFront();
+
+                if (mContext instanceof MainActivity) {
+                    ((MainActivity)mContext).setFullScreenMode();
+                }
             }
 
+            // 视频退出全屏
             @Override
             public void onHideCustomView() {
                 super.onHideCustomView();
@@ -145,6 +161,10 @@ public class CommonWebFragment extends BaseFragment {
                     mCustomViewCallback.onCustomViewHidden();
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+
+                if (mContext instanceof MainActivity) {
+                    ((MainActivity)mContext).exitFullScreenMode();
                 }
             }
         });

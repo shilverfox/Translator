@@ -13,6 +13,8 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,6 +59,7 @@ import com.jbsx.view.main.fragment.GalleryFragment;
 import com.jbsx.view.main.fragment.LocalResourceFragment;
 import com.jbsx.view.main.fragment.MainPageFragment;
 import com.jbsx.view.main.util.PageUtils;
+import com.jbsx.view.main.util.WebViewGestureHelper;
 import com.jbsx.view.main.view.SearchWindow;
 import com.jbsx.view.myinfo.activity.MyViewHistoryActivity;
 import com.jbsx.view.search.SearchActivity;
@@ -81,6 +84,7 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     private TextView mBtnLabel;
     private View mBtnSearch;
     private View mViewLoading;
+    private ViewGroup mViewFullScreen;
 
     private long mExitTime = 0;
 
@@ -92,6 +96,9 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     private Chronometer mTimerView;
 
     private SearchWindow mSearchWindow;
+
+    private View mVideoControllerView;
+    private WebViewGestureHelper mViewGestureHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +114,8 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         initTimer();
         drawDeviceInfo();
 //        showDeviceInfoDialog();
+        mViewGestureHelper = new WebViewGestureHelper(mContext, mVideoControllerView);
+        mViewGestureHelper.handleGesture(mViewFullScreen);
     }
 
     private void init() {
@@ -259,6 +268,8 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
         mBtnLabel.setText("检索");
         mBtnSearch = findViewById(R.id.btn_main_search);
         mViewLoading = findViewById(R.id.view_main_activity_loading);
+        mViewFullScreen = findViewById(R.id.view_main_video_full_screen);
+        mVideoControllerView = findViewById(R.id.digital_layout);
     }
 
     private void initEvent() {
@@ -572,6 +583,25 @@ public class MainActivity extends BaseFragmentActivity implements ILoginResultLi
     private void handleExit() {
         finish();
         System.exit(0);
+    }
+
+    /**
+     * 设置全屏模式
+     */
+    public void setFullScreenMode() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
+    public void exitFullScreenMode() {
+        final WindowManager.LayoutParams attrs = getWindow().getAttributes();
+        attrs.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setAttributes(attrs);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    }
+
+    public ViewGroup getViewFullScreen() {
+        return mViewFullScreen;
     }
 
     /**

@@ -11,9 +11,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <FrameLayout
-        android:id="@+id/web_video_full_screen_player"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"/>
+    <include layout="@layout/video_controller_view"/>
 </RelativeLayout>

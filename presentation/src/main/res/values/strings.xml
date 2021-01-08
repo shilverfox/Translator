@@ -21,4 +21,8 @@
         <item>zh</item>
         <item>en</item>
     </string-array>
+
+    <string name="ic_volume">&#xe608;</string>
+    <string name="ic_volume_no">&#xe60a;</string>
+    <string name="ic_sun">&#xe606;</string>
 </resources>
